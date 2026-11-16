@@ -17,7 +17,7 @@
 
 ## 代码和政策资料
 
-- 先阅读 [本地运行说明](#本地发布副本配置)，了解 Java、Node 和达梦的启动方式。
+- 先阅读 [本地运行说明](#启动指南)，了解 Java、Node 和达梦的启动方式。
 - 前端入口在 [pages](pages)，Node 网关在 [server.js](server.js)，Java 数据服务在 [JDBCService.java](JDBCService.java)，Python 服务在 [backend](backend)。
 - 全量政策正文和附件在 [仓库 Releases](../../releases)。下载同一版本下的全部 policy-files ZIP，并全部解压到仓库根目录。每个 ZIP 自带原有相对路径，保留 docs1、importantplus、target/docs1 和 exports 等目录层级。
 - 启动完整业务流程还需可分享的达梦数据库实例及配置。数据库连接密码从本机环境变量读取。企业信息、模型和远端服务依赖各自的运行配置。
@@ -58,7 +58,7 @@
                       ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │  达梦数据库 (Dameng DM8)                                            │
-│  主机: 127.0.0.1:5237                                          │
+│  主机: 127.0.0.1:5236                                          │
 │  用户: SYSDBA                                                       │
 │  模式: SYSDBA (用户即模式)                                           │
 └─────────────────────────────────────────────────────────────────────┘
@@ -70,7 +70,7 @@
 |------|----------|
 | **Java** | JDK 8+（推荐 11） |
 | **Node.js** | 18+（推荐 20） |
-| **达梦数据库** | DM8（运行在 127.0.0.1:5237） |
+| **达梦数据库** | DM8（运行在 127.0.0.1:5236） |
 
 ## 项目结构
 
@@ -152,74 +152,44 @@ kejiju-frontend/
 
 ## 启动指南
 
-### 第 1 步：编译 Java JDBC 中间层
+> **首次安装先准备数据库。** 本仓库提供原版源码、JDBC 驱动和若干建表或迁移脚本。完整达梦恢复包目前尚未发布。只下载仓库并运行下面的命令，可以编译 Java，但无法在空库里正常登录或查询原版政策。
 
-编译 Java 服务，将达梦 JDBC 驱动一同打包：
+### 第 1 步：准备达梦、原文与附件
 
-```bash
-# 方式一：使用编译脚本（推荐）
-compile.bat
+1. 在自己的电脑上安装并启动达梦 DM8。本发布版的 Java 默认连接 `127.0.0.1:5236`，使用 `SYSDBA` 用户和模式。
+2. 将可分享的项目恢复包恢复到这个实例。恢复包需要包含业务表结构、政策及关联数据、字典和可使用的演示网站账号。仓库里的零散 SQL 用于特定表或迁移，无法作为完整的空库初始化脚本。
+3. 从仓库 Releases 下载政策和附件分包（发布后可下载），全部解压到项目根目录，保留 `docs1/`、`importantplus/` 等路径。确认库表中的文件路径可以定位到解压后的文件。
 
-# 方式二：手动编译
-javac -encoding UTF-8 -d target -cp "lib/jdbc/DmJdbcDriver8.jar" JDBCService.java
-javac -encoding UTF-8 -d target -cp "lib/jdbc/DmJdbcDriver8.jar;lib/tika-app-2.9.2.jar" JDBCService.java
+### 第 2 步：编译并启动服务（Windows）
+
+安装 JDK 和 Node.js，并从仓库根目录打开 PowerShell。`javac` 应在 PATH 中，也可以设置 `KEJIJU_JAVA_HOME` 指向本机 JDK 根目录。以下命令提示输入本机达梦 `SYSDBA` 密码，然后编译并启动 Java（8080）和 Node（3000）。
+
+```powershell
+$dbCredential = [pscredential]::new('SYSDBA', (Read-Host '本机达梦 SYSDBA 密码' -AsSecureString))
+$env:KEJIJU_DB_PASSWORD = $dbCredential.GetNetworkCredential().Password
+try {
+    .\start.bat
+} finally {
+    Remove-Item Env:KEJIJU_DB_PASSWORD -ErrorAction SilentlyContinue
+    Remove-Variable dbCredential -ErrorAction SilentlyContinue
+}
 ```
 
-编译成功后会在 `target/` 目录生成 class 文件。
+`start.bat` 会使用 JDBC 驱动和 Apache Tika 编译 `JDBCService.java`。如只需验证源码能编译，也可以运行下面这条命令。编译无需数据库或密码，并保留 `target/docs1` 中的文件。
 
-### 第 2 步：启动服务
-
-**启动 Java JDBC 中间层（端口 8080）：**
-
-```bash
-java -cp "target;lib/jdbc/DmJdbcDriver8.jar" com.policy.jdbcservice.JDBCService
-java -cp "target;lib/jdbc/DmJdbcDriver8.jar;lib/tika-app-2.9.2.jar" com.policy.jdbcservice.JDBCService 
+```powershell
+javac -encoding UTF-8 -d target -cp 'lib/jdbc/DmJdbcDriver8.jar;lib/tika-app-2.9.2.jar' JDBCService.java
 ```
 
-看到以下输出表示启动成功：
-```
-[JDBC] 达梦驱动加载成功
-[JDBC] 数据库连接成功: 127.0.0.1:5237
-🚀 JDBC 中间层服务已启动
-📡 服务地址: http://localhost:8080
-```
+### 第 3 步：打开原版网页
 
-**启动 Node.js API 网关（端口 3000）：**
+访问 [本机网站](http://127.0.0.1:3000)，使用恢复包提供的网站账号登录。到 [健康检查](http://127.0.0.1:3000/api/health) 确认 Java 能连到达梦，再验证原版政策列表、融合详情和附件。网页账号由项目数据库提供，连接达梦的密码在第 2 步输入。
 
-```bash
-node server.js
-```
+## 本地发布副本配置
 
-看到以下输出表示启动成功：
-```
-🚀 政策解读系统后端服务
-📡 API 服务:    http://localhost:3000
-🔗 JDBC 服务:   http://localhost:8080
-```
-
-### 第 3 步：访问前端页面
-
-打开浏览器访问：
-
-```
-http://localhost:3000                         首页（Dashboard + 最新政策列表）
-http://localhost:3000/pages/crawler.html      政策数据获取（完整政策列表，对接 API）
-http://localhost:3000/pages/statistics.html   数据统计图表
-http://localhost:3000/pages/merge.html        政策及附件标注
-http://localhost:3000/pages/match.html        政策匹配企业
-http://localhost:3000/pages/structure.html    政策结构化标注
-http://localhost:3000/pages/setting.html      系统设置
-```
-
-> **数据说明**：首页 `/`、`/pages/crawler.html`、`/pages/merge.html` 已对接后端 API，
-> 政策数据实时从达梦数据库获取。其余页面暂无 API 后端，使用本地静态演示数据。
-
-### 一键启动
-
-```bash
-# Windows
-start.bat
-```
+- 已有 Java 8080 服务时，可在项目根目录运行 `node server.js`。`KEJIJU_NODE_PORT` 可以修改 Node 端口，`KEJIJU_JDBC_URL` 可以指定 Java 服务地址。
+- 运行 LLM 融合或企业信息接口时，还需给对应服务配置地址和凭据，如 `METADATA_API_URL`、`METADATA_API_KEY`、`ENTERPRISE_SERVICE_URL`。
+- 远程同步和定时增量采集默认关闭。需要接入时，在运行环境中配置目标服务及凭据。
 
 ## API 接口
 
@@ -302,7 +272,7 @@ javac -encoding UTF-8 -d target -cp "lib/jdbc/DmJdbcDriver8.jar" JDBCService.jav
 
 **解决**：
 1. 检查网络连通性：`ping 127.0.0.1`
-2. 检查端口：`telnet 127.0.0.1 5237`
+2. 检查端口：`telnet 127.0.0.1 5236`
 3. 确认达梦数据库服务正在运行
 
 ### Q: 端口 8080 被占用
@@ -491,12 +461,3 @@ curl -i http://127.0.0.1:3000/api/territory/industry-names
 echo
 echo '-- JDBC 行业领域接口 --'
 curl -i http://127.0.0.1:8080/api/territory/industry-names
-## 本地发布副本配置
-
-保留原版菜单和页面。Node 默认监听 3000，Java JDBC 默认使用本机 8080，Java 连接本地达梦 127.0.0.1:5236。启动前在终端设置 KEJIJU_DB_PASSWORD，然后从项目根目录运行 start.bat。JDK 未加入 PATH 时，可设置 KEJIJU_JAVA_HOME 为 JDK 根目录。
-
-- 已有 Java 8080 服务时，可在本目录单独运行 node server.js。通过 KEJIJU_NODE_PORT 选择其他端口，通过 KEJIJU_JDBC_URL 指向本机 Java 服务。
-- 本地数据库维护工具使用 KEJIJU_DB_PASSWORD。部分脚本还支持 DM_PASSWORD 或其原有命令行参数。
-- 模型能力通过对应服务的 METADATA_API_URL、METADATA_API_KEY 等配置接入，企业信息分页配置 ENTERPRISE_SERVICE_URL。模型和企业配置位于各服务自己的运行环境。
-- 公司远程同步默认关闭。需要使用时，设置 CRAWLER_REMOTE_ENABLED=1 及 CRAWLER_REMOTE_HOST、CRAWLER_REMOTE_USER、CRAWLER_REMOTE_ROOT、CRAWLER_REMOTE_PASSWORD。定时增量采集另设 XMSME_INCREMENTAL_ENABLED=1。
-- 政策目录保持 docs1 与 importantplus。此副本已在本机展开 importantplus，保留原 ZIP。数据库里的 FILE_PATH 仍应与发布环境的实际文件位置对应。
