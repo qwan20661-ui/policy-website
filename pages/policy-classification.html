@@ -1,0 +1,2595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>政策归类标注 - 政策解读系统</title>
+  <style>[v-cloak]{display:none!important}</style>
+  <link rel="stylesheet" href="../lib/cdn/element-plus.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/workbench.css">
+  <style>
+    * { box-sizing: border-box; }
+    .classification-page { min-height: calc(100vh - 64px); padding: 24px; background: var(--color-bg-alt); color: var(--color-text-primary); overflow-x: auto; }
+    .search-panel { margin-bottom: 16px; padding: 20px 24px; border: 2px solid var(--color-muted); border-radius: var(--radius-lg); background: #fff; }
+    .quick-filter-rows { display: flex; flex-direction: column; gap: 12px; }
+    .quick-filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .quick-filter-row-label { color: var(--color-text-secondary); font-size: 13px; font-weight: 600; white-space: nowrap; min-width: 84px; }
+    .quick-filter-btn { padding: 5px 14px; border: 0; border-radius: 999px; background: var(--color-muted); color: var(--color-text-regular); cursor: pointer; font-size: 13px; font-weight: 500; line-height: 1.6; white-space: nowrap; transition: all .2s; }
+    .quick-filter-btn:hover { color: #fff; background: var(--color-primary); }
+    .quick-filter-btn.active { color: #fff; background: var(--color-primary); font-weight: 600; }
+    .quick-filter-btn .cnt { margin-left: 4px; opacity: .72; font-size: 12px; }
+    .main-title-disabled { color: #9aa7b8; cursor: not-allowed; }
+    .main-title-disabled:hover { text-decoration: none; }
+    .search-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: end; margin-top: 12px; padding-top: 16px; border-top: 2px solid var(--color-muted); }
+    .field-label { display: block; margin-bottom: 8px; color: var(--color-text-regular); font-size: 13px; font-weight: 600; }
+    .search-actions { display: flex; gap: 9px; flex-wrap: wrap; }
+    .list-card { border: 2px solid var(--color-muted); border-radius: var(--radius-lg); background: #fff; overflow: hidden; }
+    .list-header { padding: 18px 20px; border-bottom: 2px solid var(--color-muted); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .list-title { color: var(--color-text-primary); font-size: 17px; font-weight: 700; }
+    .main-title { color: var(--color-primary); cursor: pointer; font-size: 15px; font-weight: 700; line-height: 1.7; }
+    .main-title:hover { text-decoration: underline; }
+    .policy-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 6px; color: var(--color-text-secondary); font-size: 12px; line-height: 1.7; }
+    .policy-meta strong { color: var(--color-text-regular); font-weight: 600; }
+    .audit-progress { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+    .audit-progress-text { color: var(--color-text-regular); font-size: 12px; line-height: 1.6; }
+    .pagination { padding: 16px 20px; border-top: 2px solid var(--color-muted); display: flex; justify-content: flex-end; overflow-x: auto; }
+    .detail-drawer .el-drawer__body { padding: 0; background: var(--color-bg-alt); }
+    .detail-shell { min-height: 100%; }
+    .detail-body { padding: 24px 28px 42px; }
+    .summary-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(156px, 188px) auto; gap: 14px; margin-bottom: 20px; align-items: start; }
+    .summary-card { padding: 18px 20px; border: 2px solid var(--color-muted); border-radius: 18px; background: #fff; min-width: 0; }
+    .summary-card-main { padding: 22px 24px; min-height: 112px; background: linear-gradient(135deg, #ffffff 0%, #f4f9ff 100%); box-shadow: 0 10px 24px rgba(29, 60, 110, .05); display: flex; flex-direction: column; justify-content: center; }
+    .summary-card-stat { min-width: 0; min-height: 112px; padding: 18px 20px; display: flex; flex-direction: column; justify-content: center; background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%); }
+    .summary-label { color: var(--color-text-secondary); font-size: 12px; font-weight: 600; margin-bottom: 8px; letter-spacing: .02em; }
+    .summary-value { color: var(--color-text-primary); font-size: 15px; font-weight: 700; line-height: 1.6; word-break: break-word; }
+    .summary-card-main .summary-value { font-size: clamp(18px, 2vw, 24px); font-weight: 800; line-height: 1.6; color: var(--color-primary-strong, var(--color-text-primary)); }
+    .summary-card-stat .summary-label { margin-bottom: 12px; }
+    .summary-card-stat .summary-value { display: flex; align-items: baseline; gap: 4px; font-size: clamp(24px, 2.6vw, 30px); font-weight: 800; line-height: 1; white-space: nowrap; }
+    .summary-card-stat .summary-unit { font-size: 14px; font-weight: 600; color: var(--color-text-secondary); }
+    .summary-card-close { display: flex; align-items: flex-start; justify-content: flex-end; padding-top: 8px; }
+    .summary-close-btn { width: 44px; height: 44px; color: #f56c6c; border-color: rgba(245,108,108,.35); background: #fff; box-shadow: 0 6px 16px rgba(245, 108, 108, .08); }
+    .summary-close-btn:hover { color: #e45656; border-color: rgba(245,108,108,.55); background: #fff5f5; }
+    .panel-card { border: 2px solid var(--color-muted); border-radius: var(--radius-lg); background: #fff; overflow: hidden; }
+    .panel-head { padding: 16px 20px; border-bottom: 2px solid var(--color-muted); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .panel-title { color: var(--color-text-primary); font-size: 17px; font-weight: 700; }
+    .panel-body { padding: 18px 20px; }
+    .hierarchy-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .hierarchy-block { padding: 16px 18px; border: 1px solid #e4ebf5; border-radius: 14px; background: linear-gradient(180deg, #fbfdff 0%, #ffffff 100%); min-width: 0; }
+    .hierarchy-block-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .hierarchy-block-title { color: var(--color-text-primary); font-size: 14px; font-weight: 700; }
+    .hierarchy-main-title { color: var(--color-primary); font-size: 15px; font-weight: 700; line-height: 1.6; cursor: pointer; word-break: break-word; }
+    .hierarchy-main-title:hover { text-decoration: underline; }
+    .hierarchy-empty { min-height: 88px; display: flex; align-items: center; color: var(--color-text-secondary); font-size: 13px; line-height: 1.7; }
+    .hierarchy-meta { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px; color: var(--color-text-secondary); font-size: 12px; line-height: 1.7; }
+    .hierarchy-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .hierarchy-child-list { display: flex; flex-direction: column; gap: 10px; }
+    .hierarchy-child-item { padding: 12px 14px; border: 1px solid #e7edf6; border-radius: 12px; background: #fff; }
+    .hierarchy-child-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .hierarchy-child-title { color: #1d3c6e; font-size: 14px; font-weight: 700; line-height: 1.6; cursor: pointer; word-break: break-word; }
+    .hierarchy-child-title:hover { text-decoration: underline; }
+    .panel-footer-actions { display: flex; justify-content: flex-end; gap: 10px; padding: 16px 20px 20px; border-top: 1px solid var(--color-border); background: linear-gradient(180deg, rgba(248, 251, 255, .6) 0%, #ffffff 100%); }
+    .panel-footer-actions .el-button { min-width: 124px; min-height: 40px; margin: 0; }
+    .doc-list { display: flex; flex-direction: column; gap: 14px; }
+    .doc-card { padding: 18px; border: 2px solid var(--color-muted); border-radius: var(--radius-lg); background: #fff; }
+    .doc-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .doc-title { color: var(--color-primary); cursor: pointer; font-size: 15px; font-weight: 700; line-height: 1.7; }
+    .doc-title:hover { text-decoration: underline; }
+    .doc-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 6px; color: var(--color-text-secondary); font-size: 12px; line-height: 1.7; }
+    .doc-meta strong { color: var(--color-text-regular); font-weight: 600; }
+    .doc-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--color-border); flex-wrap: wrap; }
+    .doc-attachments { margin-top: 12px; margin-left: 18px; padding: 12px 14px; border-left: 3px solid #dbe8ff; border-radius: 0 12px 12px 0; background: transparent; }
+    .doc-attachment-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+    .doc-attachment-item { padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,.88); border: 1px solid #e7eef8; }
+    .doc-attachment-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+    .doc-attachment-main { min-width: 0; flex: 1; }
+    .doc-attachment-name { color: #42536b; font-size: 12px; font-weight: 600; line-height: 1.6; word-break: break-word; }
+    .doc-attachment-actions { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:10px; padding-top:10px; border-top:1px dashed #d9e4f4; }
+    .doc-attachment-actions .el-button--small { min-height: 24px; padding: 4px 8px; font-size: 11px; border-radius: 8px; }
+    .doc-current-type { color: var(--color-text-secondary); font-size: 13px; }
+    .empty-documents { padding: 56px 20px; text-align: center; color: var(--color-text-secondary); font-size: 14px; }
+    .content-view { max-height: 68vh; overflow: auto; padding: 22px; border: 2px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-muted); color: var(--color-text-regular); white-space: pre-wrap; line-height: 1.9; font-size: 15px; }
+    .content-view-html { white-space: normal; }
+    .content-view-html p { margin: 0 0 12px; }
+    .content-view-html .doc-preview-text { white-space: pre-wrap; margin-bottom: 14px; }
+    .content-view-html .doc-preview-image-wrap { margin: 16px 0; text-align: center; }
+    .content-view-html .doc-preview-image-wrap img { max-width: 100%; height: auto; border: 1px solid #dce4ef; background: #fff; }
+    .content-view-html .doc-preview-table { width: 100%; border-collapse: collapse; margin: 12px 0; background: #fff; }
+    .content-view-html .doc-preview-table td { border: 1px solid #dce4ef; padding: 8px; vertical-align: top; }
+    .policy-option { display: flex; align-items: center; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid #edf1f5; transition: background .15s; }
+    .policy-option:hover { background: #f0f5ff; }
+    .policy-option.selected { background: #e8f0fe; }
+    .policy-option:last-child { border-bottom: none; }
+    .policy-option-title { color: #1d3c6e; font-size: 15px; font-weight: 600; line-height: 1.5; }
+    .policy-option-meta { margin-top: 4px; color: #7a8a9e; font-size: 13px; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+    .candidate-dialog .el-dialog { max-width: calc(100vw - 40px); }
+    .candidate-dialog-body { display: grid; grid-template-columns: minmax(360px, 440px) minmax(0, 1fr); gap: 18px; min-height: 62vh; }
+    .candidate-search-panel { min-width: 0; display: flex; flex-direction: column; }
+    .candidate-list-shell { flex: 1; min-height: 0; border: 1px solid #dfe7f1; border-radius: 12px; overflow: hidden; background: #fff; }
+    .candidate-list-head { padding: 10px 14px; background: #f8faff; border-bottom: 1px solid #e7ecf3; color: #5a6f8a; font-size: 13px; }
+    .candidate-list-body { max-height: calc(62vh - 68px); overflow-y: auto; }
+    .candidate-preview-panel { min-width: 0; border: 1px solid #dfe7f1; border-radius: 12px; background: linear-gradient(180deg, #fbfdff 0%, #ffffff 100%); display: flex; flex-direction: column; overflow: hidden; }
+    .candidate-preview-head { padding: 16px 18px; border-bottom: 1px solid #e7ecf3; }
+    .candidate-preview-title { color: #1d3c6e; font-size: 17px; font-weight: 700; line-height: 1.6; word-break: break-word; }
+    .candidate-preview-meta { margin-top: 8px; color: #7a8a9e; font-size: 13px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+    .candidate-preview-meta strong { color: #495a73; font-weight: 600; }
+    .candidate-preview-content { flex: 1; min-height: 0; padding: 18px; overflow: auto; white-space: pre-wrap; color: #32445d; line-height: 1.9; font-size: 14px; }
+    .candidate-preview-placeholder { display: flex; align-items: center; justify-content: center; text-align: center; color: #8a96a6; padding: 40px 24px; }
+    .no-header-dialog .el-dialog__header { display: none; }
+    @media (max-width: 1200px) {
+      .summary-grid { grid-template-columns: minmax(0, 1fr) 168px auto; }
+    }
+    @media (max-width: 860px) {
+      .classification-page { padding: 14px; }
+      .search-grid { grid-template-columns: 1fr; }
+      .search-actions { grid-column: 1 / -1; }
+      .detail-body { padding: 14px; }
+      .summary-grid { grid-template-columns: 1fr auto; gap: 12px; }
+      .doc-head, .doc-foot { flex-direction: column; align-items: flex-start; }
+      .hierarchy-grid { grid-template-columns: 1fr; }
+      .hierarchy-child-head { flex-direction: column; align-items: flex-start; }
+      .panel-footer-actions { flex-direction: column; align-items: stretch; }
+      .panel-footer-actions .el-button { width: 100%; min-width: 0; }
+      .candidate-dialog-body { grid-template-columns: 1fr; min-height: 0; }
+      .candidate-list-body { max-height: 320px; }
+      .candidate-preview-panel { min-height: 360px; }
+      .summary-card-main { grid-column: 1 / -1; min-height: 0; padding: 18px 20px; }
+      .summary-card-stat { min-height: 0; padding: 16px 18px; }
+      .summary-card-stat .summary-value { white-space: normal; }
+      .summary-card-close { justify-content: flex-end; padding-top: 0; }
+    }
+    @media (max-width: 560px) {
+      .summary-grid { grid-template-columns: 1fr; }
+      .summary-card-stat { order: 2; }
+      .summary-card-close { order: 3; justify-content: flex-end; }
+    }
+  </style>
+</head>
+<body data-page-tone="blue">
+  <div class="main-layout" id="app" v-cloak>
+    <aside class="sidebar"><div class="sidebar-logo"></div><nav class="sidebar-menu" id="sidebar-menu"></nav><div class="sidebar-footer" id="sidebar-footer"></div></aside>
+    <main class="main-content">
+      <header class="header">
+        <div class="header-left"><div class="header-toggle" onclick="toggleSidebar()"><i class="el-icon-s-unfold" style="font-size:20px"></i></div><nav class="header-breadcrumb"></nav></div>
+        <div class="header-right"></div>
+      </header>
+
+      <div class="classification-page" v-cloak>
+        <div v-loading="loading" element-loading-text="加载政策数据..." style="min-height:300px;">
+          <section class="search-panel">
+            <div class="quick-filter-rows">
+              <div class="quick-filter-row">
+                <span class="quick-filter-row-label">政策属性标注</span>
+                <button class="quick-filter-btn" :class="{ active: search.annotationStatus === 'all' }" @click="setAnnotationFilter('all')">全部<span class="cnt">{{ filterStats.all }}</span></button>
+                <button class="quick-filter-btn" :class="{ active: search.annotationStatus === 'tagged' }" @click="setAnnotationFilter('tagged')">已标注<span class="cnt">{{ filterStats.annotationTagged }}</span></button>
+                <button class="quick-filter-btn" :class="{ active: search.annotationStatus === 'inProgress' }" @click="setAnnotationFilter('inProgress')">标注中<span class="cnt">{{ filterStats.annotationInProgress }}</span></button>
+                <button class="quick-filter-btn" :class="{ active: search.annotationStatus === 'untagged' }" @click="setAnnotationFilter('untagged')">未标注<span class="cnt">{{ filterStats.annotationUntagged }}</span></button>
+                <button class="quick-filter-btn" :class="{ active: search.deleteStatus === 'deleted' }" @click="toggleDeletedView">{{ search.deleteStatus === 'deleted' ? '返回未弃用' : '查看已弃用' }}</button>
+              </div>
+              <div class="quick-filter-row">
+                <span class="quick-filter-row-label">主政策关联审核</span>
+                <button class="quick-filter-btn" :class="{ active: search.mainReviewStatus === 'all' }" @click="setMainReviewFilter('all')">全部<span class="cnt">{{ filterStats.all }}</span></button>
+                <button class="quick-filter-btn" :class="{ active: search.mainReviewStatus === 'approved' }" @click="setMainReviewFilter('approved')">已审核<span class="cnt">{{ filterStats.mainReviewApproved }}</span></button>
+                <button class="quick-filter-btn" :class="{ active: search.mainReviewStatus === 'pending' }" @click="setMainReviewFilter('pending')">未审核<span class="cnt">{{ filterStats.mainReviewPending }}</span></button>
+              </div>
+            </div>
+            <div class="search-grid">
+              <div>
+                <label class="field-label">政策查询</label>
+                <el-input v-model="search.keyword" clearable placeholder="搜索主政策或关联政策标题" @keyup.enter="runSearch" @clear="runSearch">
+                  <template #prefix><el-icon><Search /></el-icon></template>
+                </el-input>
+              </div>
+              <div class="search-actions">
+                <el-button type="primary" @click="runSearch">查询</el-button>
+                <el-button @click="resetSearch">重置</el-button>
+              </div>
+            </div>
+          </section>
+
+          <section class="list-card">
+            <div class="list-header">
+              <div class="list-title">分类列表{{ search.deleteStatus === 'deleted' ? '（已弃用）' : '' }}</div>
+              <div class="form-actions-inline">
+                <el-button type="primary" @click="openCreateDialog"><el-icon><Plus /></el-icon>添加主政策</el-button>
+                <el-button @click="fetchPolicies"><el-icon><Refresh /></el-icon>刷新</el-button>
+              </div>
+            </div>
+            <el-table :data="policies" stripe v-loading="loading" empty-text="暂无政策数据" row-key="id" @sort-change="handleTableSortChange" :default-sort="{ prop: 'documentCount', order: 'descending' }">
+              <el-table-column label="序号" width="70" align="center">
+                <template #default="{row, $index}">{{ pagination.page > 0 ? (pagination.page - 1) * pagination.size + $index + 1 : $index + 1 }}</template>
+              </el-table-column>
+              <el-table-column label="主政策" min-width="360">
+                <template #default="{row}">
+                  <div :class="['main-title', { 'main-title-disabled': isDeletedFusion(row) }]" @click="showDetail(row)">{{ row.mainFileTitle || row.directoryTitle || '-' }}</div>
+                  <div v-if="isDeletedFusion(row)" style="margin-top:8px;">
+                    <el-tag type="danger" size="small">已弃用</el-tag>
+                  </div>
+                  <div v-if="row.reviewedAt || row.parentPolicyTitle" class="policy-meta">
+                    <span v-if="row.reviewedAt">审核时间 <strong>{{ row.reviewedAt }}</strong></span>
+                    <span v-if="row.parentPolicyTitle">上级主政策 <strong>{{ row.parentPolicyTitle }}</strong></span>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column label="关联政策数量" width="160" align="center" prop="documentCount" sortable="custom" :sort-orders="['descending','ascending']">
+                <template #default="{row}">
+                  <span style="font-weight:600;color:var(--color-primary);">{{ row.documentCount || 0 }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="主政策层级" width="180">
+                <template #default="{row}">
+                  <div class="audit-progress">
+                    <span class="audit-progress-text">上级：{{ row.directParentPolicyCount || 0 }} 个</span>
+                    <span class="audit-progress-text">下级：{{ row.childPolicyCount || 0 }} 个</span>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column label="政策及附件标注" width="160">
+                <template #default="{row}">
+                  <div class="audit-progress">
+                    <el-tag
+                      v-if="policyAttachmentStatus(row) !== '未标注'"
+                      :type="annotationTagType(policyAttachmentStatus(row))"
+                      size="small"
+                      style="width:max-content;"
+                    >
+                      {{ policyAttachmentStatus(row) }}
+                    </el-tag>
+                    <span v-if="policyAttachmentStatus(row) !== '已标注'" class="audit-progress-text">
+                      已审核 {{ reviewedAuditItemCount(row) }} / {{ totalAuditItemCount(row) }}
+                    </span>
+                    <el-progress
+                      v-if="policyAttachmentStatus(row) !== '已标注'"
+                      :percentage="auditProgressPercent(row)"
+                      :show-text="false"
+                      :stroke-width="6"
+                    />
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column label="审核状态" width="160" align="center">
+                <template #default="{row}">
+                  <el-tag :type="mainReviewTagType(row.reviewStatus)" size="small">
+                    {{ mainReviewText(row.reviewStatus) }}
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column label="操作" width="150" align="center" fixed="right">
+                <template #default="{row}">
+                  <template v-if="isDeletedFusion(row)">
+                    <el-button type="text" size="small" @click="showDetail(row)">查看详情</el-button>
+                    <el-button type="text" size="small" :loading="restoringPolicyId===row.id" style="color:#67c23a;" @click="restoreMainPolicy(row)">取消弃用</el-button>
+                  </template>
+                  <template v-else>
+                    <el-button type="text" size="small" @click="showDetail(row)">查看详情</el-button>
+                    <el-button type="text" size="small" style="color:#f56c6c;" @click="deleteMainPolicy(row)">弃用</el-button>
+                  </template>
+                </template>
+              </el-table-column>
+            </el-table>
+            <div class="pagination">
+              <el-pagination
+                v-model:current-page="pagination.page"
+                v-model:page-size="pagination.size"
+                :page-sizes="[10,20,50]"
+                :total="pagination.total"
+                layout="total, sizes, prev, pager, next"
+                @current-change="handleCurrentChange"
+                @size-change="handleSizeChange"
+              />
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <el-drawer v-model="detailVisible" size="88%" :with-header="false" class="detail-drawer" @closed="clearDetailState">
+      <div class="detail-shell" v-loading="detailRefreshing" element-loading-text="正在刷新详情...">
+        <div class="detail-body">
+          <div class="summary-grid">
+            <div class="summary-card summary-card-main">
+              <div class="summary-label">主政策名称
+                <el-tooltip v-if="currentFusion.id && !editingTitle && !currentFusionReadOnly" content="点击编辑名称" placement="top">
+                  <el-button type="text" size="small" @click="startEditTitle" style="margin-left:8px;padding:0;font-size:13px;">
+                    <el-icon><Edit /></el-icon>
+                  </el-button>
+                </el-tooltip>
+                <el-tag v-if="currentFusionReadOnly" size="small" type="info" effect="plain" style="margin-left:8px;">只读</el-tag>
+              </div>
+              <template v-if="editingTitle">
+                <el-input v-model="editTitleValue" size="small" style="max-width:480px;" :maxlength="200" @keyup.enter="currentFusion.id ? saveTitle() : submitCreate()" @keyup.escape="currentFusion.id ? cancelEditTitle() : detailVisible=false" :placeholder="currentFusion.id ? '请输入主政策名称' : '请输入主政策名称后创建主政策'"></el-input>
+                <div style="margin-top:8px;display:flex;gap:8px;">
+                  <el-button type="primary" size="small" :loading="currentFusion.id ? savingTitle : creating" @click="currentFusion.id ? saveTitle() : submitCreate()">{{ currentFusion.id ? '保存' : '创建主政策' }}</el-button>
+                  <el-button size="small" @click="currentFusion.id ? cancelEditTitle() : detailVisible=false">取消</el-button>
+                </div>
+              </template>
+              <div v-else class="summary-value">{{ currentFusion.mainFileTitle || currentFusion.directoryTitle || '-' }}</div>
+            </div>
+            <div class="summary-card summary-card-stat">
+              <div class="summary-label">{{ currentFusion.id ? '关联政策数量' : '当前状态' }}</div>
+              <div class="summary-value">
+                <template v-if="!currentFusion.id">待创建</template>
+                <template v-else>{{ currentFusion.documentCount || 0 }}<span class="summary-unit">项</span></template>
+              </div>
+            </div>
+            <div class="summary-card-close">
+              <el-button circle class="summary-close-btn" @click="detailVisible=false">
+                <el-icon><Close /></el-icon>
+              </el-button>
+            </div>
+          </div>
+
+          <section class="panel-card" v-if="currentFusion.id">
+            <div class="panel-head">
+              <div class="panel-title">主政策层级关系</div>
+              <!-- <div class="form-actions-inline">
+                <el-button type="primary" plain @click="openParentSelectDialog">设置上级主政策</el-button>
+                <el-button type="primary" plain @click="openChildSelectDialog">设置下级主政策</el-button>
+              </div> -->
+            </div>
+            <div class="panel-body">
+              <div class="hierarchy-grid">
+                <div class="hierarchy-block">
+                  <div class="hierarchy-block-head">
+                    <div class="hierarchy-block-title">全部上级主政策</div>
+                    <el-tag size="small" :type="currentFusion.ancestorPolicyCount ? 'success' : 'info'" effect="plain">
+                      {{ currentFusion.ancestorPolicyCount || 0 }} 个
+                    </el-tag>
+                  </div>
+                  <div v-if="currentFusion.ancestorPolicies?.length" class="hierarchy-child-list">
+                    <div class="hierarchy-child-item" v-for="ancestor in currentFusion.ancestorPolicies" :key="`ancestor_${ancestor.id}_${ancestor.depth || 0}`">
+                      <div class="hierarchy-child-head">
+                        <div style="min-width:0;flex:1;">
+                          <div class="hierarchy-child-title" @click="openFusionDetailById(ancestor)">{{ ancestor.title || ancestor.mainFileTitle || ancestor.directoryTitle || '-' }}</div>
+                          <div class="hierarchy-meta">
+                            <span v-if="ancestorDepthLabel(ancestor.depth)">{{ ancestorDepthLabel(ancestor.depth) }}</span>
+                            <span>审核状态 <strong>{{ mainReviewText(ancestor.reviewStatus) }}</strong></span>
+                            <span>关联政策 <strong>{{ ancestor.documentCount || 0 }}</strong> 项</span>
+                            <span v-if="ancestor.reviewedAt">审核时间 <strong>{{ ancestor.reviewedAt }}</strong></span>
+                          </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                          <el-button type="text" size="small" @click="openFusionDetailById(ancestor)">查看详情</el-button>
+                          <el-button
+                            v-if="Number(ancestor.depth || 0) === 1"
+                            type="text"
+                            size="small"
+                            :disabled="currentFusionReadOnly"
+                            :loading="parentBindingSaving"
+                            @click="clearDirectParentPolicy(ancestor)"
+                          >解除直属关系</el-button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div v-else class="hierarchy-empty">当前主政策还没有任何上级主政策，可以从现有主政策中选择一个作为直接上级。</div>
+                  <div class="hierarchy-actions">
+                    <el-button type="text" size="small" :disabled="currentFusionReadOnly" @click="openParentSelectDialog">设置直接上级</el-button>
+                  </div>
+                </div>
+
+                <div class="hierarchy-block">
+                  <div class="hierarchy-block-head">
+                    <div class="hierarchy-block-title">全部下级主政策</div>
+                    <el-tag size="small" type="info" effect="plain">{{ currentFusion.descendantPolicyCount || 0 }} 个</el-tag>
+                  </div>
+                  <div v-if="currentFusion.descendantPolicies?.length" class="hierarchy-child-list">
+                    <div class="hierarchy-child-item" v-for="child in currentFusion.descendantPolicies" :key="`descendant_${child.id}_${child.depth || 0}`">
+                      <div class="hierarchy-child-head">
+                        <div style="min-width:0;flex:1;">
+                          <div class="hierarchy-child-title" @click="openFusionDetailById(child)">{{ child.title || child.mainFileTitle || child.directoryTitle || '-' }}</div>
+                          <div class="hierarchy-meta">
+                            <span>{{ descendantDepthLabel(child.depth) }}</span>
+                            <span>审核状态 <strong>{{ mainReviewText(child.reviewStatus) }}</strong></span>
+                            <span>关联政策 <strong>{{ child.documentCount || 0 }}</strong> 项</span>
+                            <span v-if="child.reviewedAt">审核时间 <strong>{{ child.reviewedAt }}</strong></span>
+                          </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                          <el-button type="text" size="small" @click="openFusionDetailById(child)">查看详情</el-button>
+                          <el-button
+                            v-if="Number(child.depth || 0) === 1"
+                            type="text"
+                            size="small"
+                            :disabled="currentFusionReadOnly"
+                            :loading="parentBindingSaving"
+                            @click="clearDirectChildPolicy(child)"
+                          >解除直属关系</el-button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div v-else class="hierarchy-empty">当前主政策还没有任何下级主政策，可以从现有主政策中选择一个作为直接下级。</div>
+                  <div class="hierarchy-actions">
+                    <el-button type="text" size="small" :disabled="currentFusionReadOnly" @click="openChildSelectDialog">设置直接下级</el-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel-card">
+            <div class="panel-head">
+              <div class="panel-title">关联政策标注</div>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <el-button
+                  v-if="currentFusion.id"
+                  :type="detailDocumentDeleteStatus === 'deleted' ? 'danger' : 'default'"
+                  @click="toggleDeletedDocumentsView"
+                >{{ detailDocumentDeleteStatus === 'deleted' ? '返回未弃用关联政策' : '查看已弃用关联政策' }}</el-button>
+                <el-button v-if="currentFusion.id" type="primary" :disabled="currentFusionReadOnly" @click="openDocumentCreate(currentFusion)"><el-icon><Plus /></el-icon>添加关联政策</el-button>
+              </div>
+            </div>
+            <div v-if="!currentFusion.id" class="empty-documents">请先点击上方保存主政策名称，创建成功后再添加关联政策。</div>
+            <div class="panel-body" v-else-if="currentFusion.documents?.length">
+              <div class="doc-list">
+                <article class="doc-card" v-for="doc in sortedCurrentDocuments" :key="doc.id">
+                  <div class="doc-head">
+                    <div style="min-width:0;flex:1;">
+                      <div class="doc-title" @click="viewContent(doc)">{{ doc.policyTitle || '-' }}</div>
+                      <div class="doc-meta">
+                        <span v-if="doc.issuingDepartment">发文部门 <strong>{{ doc.issuingDepartment }}</strong></span>
+                        <span v-if="doc.documentNo">文号 <strong>{{ doc.documentNo }}</strong></span>
+                        <span v-if="doc.publishDate">发布日期 <strong>{{ doc.publishDate }}</strong></span>
+                        <span v-if="doc.policyLevel">层级 <strong>{{ doc.policyLevel }}</strong></span>
+                      </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                      <el-button v-if="isDeletedDocument(doc) && !currentFusionReadOnly" type="text" size="small" :loading="restoringDocId===doc.id" style="color:#67c23a;" @click="restoreDocument(doc)">取消弃用</el-button>
+                      <template v-else>
+                        <el-button v-if="!currentFusionReadOnly" type="text" size="small" @click="openDocumentMove(doc)">迁移</el-button>
+                        <el-button v-if="!currentFusionReadOnly" type="text" size="small" :loading="deletingDocId===doc.id" style="color:#f56c6c;" @click="unlinkDocument(doc)">弃用</el-button>
+                      </template>
+                    </div>
+                  </div>
+
+                  <div class="doc-foot">
+                    <div class="doc-actions" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;width:100%;">
+                      <span style="color:var(--color-text-regular);font-size:13px;font-weight:600;margin-right:4px;">政策属性</span>
+                      <el-button
+                        v-for="t in typeOptions"
+                        :key="t"
+                        size="small"
+                        :type="doc.policyAttribute === t ? 'primary' : 'default'"
+                        :plain="doc.policyAttribute !== t"
+                        :disabled="currentFusionReadOnly || isDeletedDocument(doc) || savingDocTypeId === doc.id || reviewApproveSaving || reviewRevokeSaving"
+                        @click="saveDocumentType(doc, t)"
+                      ><el-icon v-if="doc.policyAttribute === t"><Check /></el-icon>{{ t }}</el-button>
+                      <el-tag
+                        size="small"
+                        :type="isApprovedReviewStatus(doc.reviewStatus) ? 'success' : 'warning'"
+                        effect="plain"
+                      >{{ isApprovedReviewStatus(doc.reviewStatus) ? '已标注' : '未标注' }}</el-tag>
+                      <span v-if="savingDocTypeId === doc.id" style="font-size:13px;color:#7c8797;margin-left:4px;">保存中...</span>
+                      <span style="margin-left:auto;display:flex;align-items:center;gap:10px;">
+                        <el-button v-if="doc.attachments?.length" type="text" size="small" @click="toggleAttachmentCollapsed(doc.id)">{{ isAttachmentCollapsed(doc.id) ? '展开附件' : '收起附件' }}</el-button>
+                        <el-button type="text" size="small" @click="viewContent(doc)">查看原文</el-button>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div v-if="doc.attachments?.length && !isAttachmentCollapsed(doc.id)" class="doc-attachments">
+                    <div class="doc-attachment-list">
+                      <div class="doc-attachment-item" v-for="attachment in doc.attachments" :key="attachment.id || attachment.attachmentName">
+                        <div class="doc-attachment-head">
+                          <div class="doc-attachment-main">
+                            <div class="doc-attachment-name">{{ attachment.attachmentShowName || attachment.attachmentName || '-' }}</div>
+                          </div>
+                          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end;">
+                            <el-button type="text" size="small" @click="viewAttachmentContent(doc, attachment)">查看附件</el-button>
+                          </div>
+                        </div>
+                        <div class="doc-attachment-actions">
+                          <el-button
+                            v-for="type in attachmentTypes"
+                            :key="type"
+                            size="small"
+                            :type="attachment.type === type ? 'primary' : 'default'"
+                            :plain="attachment.type !== type"
+                            :disabled="currentFusionReadOnly || isDeletedDocument(doc) || attachmentSaving === attachmentKey(attachment) || reviewApproveSaving || reviewRevokeSaving"
+                            @click="saveAttachmentType(doc, attachment, type)"
+                          ><el-icon v-if="attachment.type === type"><Check /></el-icon>{{ type }}</el-button>
+                          <el-tag size="small" :type="attachment.reviewed ? 'success' : 'warning'" effect="plain">{{ attachment.reviewed ? '已标注' : '未标注' }}</el-tag>
+                          <span v-if="attachmentSaving === attachmentKey(attachment)" style="font-size:12px;color:#7c8797;">正在保存...</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div v-else class="empty-documents">{{ detailDocumentDeleteStatus === 'deleted' ? '该主政策暂无已弃用关联政策' : '该主政策暂未关联政策' }}</div>
+            <div v-if="currentFusion.id" class="panel-footer-actions">
+              <el-button
+                type="success"
+                :loading="reviewApproveSaving"
+                :disabled="currentFusionReadOnly || approveDisabled"
+                @click="approveCurrentPolicy"
+              ><el-icon><Check /></el-icon>审核通过</el-button>
+              <el-button
+                type="warning"
+                plain
+                :loading="reviewRevokeSaving"
+                :disabled="currentFusionReadOnly || reviewStatusText(currentFusion.reviewStatus) !== '已通过' || reviewApproveSaving"
+                @click="revokeCurrentPolicy"
+              >撤销审核</el-button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </el-drawer>
+
+    <el-dialog v-model="documentCreateVisible" title="" width="1220px" top="4vh" :show-close="false" class="no-header-dialog candidate-dialog">
+      <div class="candidate-dialog-body">
+        <div class="candidate-search-panel">
+          <div style="margin-bottom:14px">
+            <el-input v-model="policyKeyword" placeholder="请输入政策名称搜索关联政策" clearable @keyup.enter="searchPolicies">
+              <template #append><el-button @click="searchPolicies" :loading="candidateLoading">搜索</el-button></template>
+            </el-input>
+          </div>
+          <div v-if="policyCandidates.length>0" class="candidate-list-shell">
+            <div class="candidate-list-head">共 {{ policyCandidates.length }} 条结果，点击列表项可在右侧查看原文</div>
+            <div class="candidate-list-body">
+              <div v-for="item in policyCandidates" :key="item.id" :class="['policy-option',{selected:selectedPolicyId===item.id}]" @click="viewCandidateContent(item)">
+                <el-radio v-model="selectedPolicyId" :label="item.id" style="margin-right:10px;flex-shrink:0" />
+                <div style="flex:1;min-width:0">
+                  <div class="policy-option-title" style="color:#165dff">{{ item.policyTitle }}</div>
+                  <div class="policy-option-meta">
+                    <span v-if="item.issuingDepartment">{{ item.issuingDepartment }}</span>
+                    <span v-if="item.publishDate">{{ item.publishDate }}</span>
+                    <span v-if="item.documentNo">{{ item.documentNo }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-else-if="searched&&!candidateLoading" style="padding:30px;text-align:center;color:#8a96a6;font-size:14px">未搜索到符合条件的政策，请尝试其他关键词</div>
+        </div>
+        <div class="candidate-preview-panel">
+          <template v-if="candidatePreview.policyTitle || candidatePreviewLoading">
+            <div class="candidate-preview-head">
+              <div class="candidate-preview-title">{{ candidatePreview.policyTitle || '政策原文' }}</div>
+              <div class="candidate-preview-meta">
+                <span v-if="candidatePreview.issuingDepartment">发文部门 <strong>{{ candidatePreview.issuingDepartment }}</strong></span>
+                <span v-if="candidatePreview.publishDate">发布日期 <strong>{{ candidatePreview.publishDate }}</strong></span>
+                <span v-if="candidatePreview.documentNo">文号 <strong>{{ candidatePreview.documentNo }}</strong></span>
+              </div>
+            </div>
+            <div v-loading="candidatePreviewLoading" class="candidate-preview-content">{{ candidatePreview.content || '暂无政策原文' }}</div>
+          </template>
+          <div v-else class="candidate-preview-placeholder">点击左侧政策列表项，在右侧查看原文</div>
+        </div>
+      </div>
+      <template #footer>
+        <el-button @click="documentCreateVisible=false">取消</el-button>
+        <el-button type="primary" :disabled="!selectedPolicyId" :loading="creating" @click="createDocument">确定添加</el-button>
+      </template>
+    </el-dialog>
+
+    <el-dialog v-model="documentMoveVisible" title="" width="1120px" top="5vh" :show-close="false" class="no-header-dialog candidate-dialog">
+      <div class="candidate-dialog-body">
+        <div class="candidate-search-panel">
+          <div style="margin-bottom:14px">
+            <el-input v-model="targetFusionKeyword" placeholder="请输入主政策名称搜索目标主政策" clearable @keyup.enter="runTargetFusionSearch">
+              <template #append><el-button @click="runTargetFusionSearch" :loading="targetFusionLoading">搜索</el-button></template>
+            </el-input>
+          </div>
+          <div v-if="targetFusionCandidates.length>0" class="candidate-list-shell">
+            <div class="candidate-list-head">共 {{ targetFusionPagination.total || targetFusionCandidates.length }} 条结果，选择目标主政策后即可迁移当前关联政策</div>
+            <div class="candidate-list-body">
+              <div
+                v-for="item in targetFusionCandidates"
+                :key="item.id"
+                :class="['policy-option',{selected:targetFusionId===item.id}]"
+                @click="selectTargetFusion(item)"
+              >
+                <el-radio v-model="targetFusionId" :label="item.id" style="margin-right:10px;flex-shrink:0" />
+                <div style="flex:1;min-width:0">
+                  <div class="policy-option-title">{{ item.mainFileTitle || item.directoryTitle || '-' }}</div>
+                  <div class="policy-option-meta">
+                    <span v-if="item.directoryTitle && item.directoryTitle !== item.mainFileTitle">{{ item.directoryTitle }}</span>
+                    <span>关联政策 {{ item.documentCount || 0 }} 项</span>
+                    <span>{{ mainReviewText(item.reviewStatus) }}</span>
+                    <span v-if="item.reviewedAt">审核于 {{ item.reviewedAt }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="targetFusionCandidates.length>0" style="display:flex;justify-content:flex-end;margin-top:12px;">
+            <el-pagination
+              v-model:current-page="targetFusionPagination.page"
+              v-model:page-size="targetFusionPagination.size"
+              :page-sizes="[10,20,50]"
+              :total="targetFusionPagination.total"
+              layout="total, sizes, prev, pager, next"
+              small
+              @current-change="handleTargetFusionCurrentChange"
+              @size-change="handleTargetFusionSizeChange"
+            />
+          </div>
+          <div v-else-if="targetFusionSearched&&!targetFusionLoading" style="padding:30px;text-align:center;color:#8a96a6;font-size:14px">未搜索到符合条件的主政策，请尝试其他关键词</div>
+        </div>
+        <div class="candidate-preview-panel">
+          <template v-if="targetFusionPreview.id || targetFusionLoading">
+            <div class="candidate-preview-head">
+              <div class="candidate-preview-title">{{ targetFusionPreview.mainFileTitle || targetFusionPreview.directoryTitle || '目标主政策' }}</div>
+              <div class="candidate-preview-meta">
+                <span v-if="targetFusionPreview.directoryTitle">目录标题 <strong>{{ targetFusionPreview.directoryTitle }}</strong></span>
+                <span>关联政策 <strong>{{ targetFusionPreview.documentCount || 0 }}</strong></span>
+                <span>审核状态 <strong>{{ mainReviewText(targetFusionPreview.reviewStatus) }}</strong></span>
+              </div>
+            </div>
+            <div v-loading="targetFusionLoading" class="candidate-preview-content">
+              <template v-if="targetFusionPreview.id">
+                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;">
+                  <div>
+                    <div class="summary-label">当前待迁移关联政策</div>
+                    <div class="summary-value">{{ moveDocument.policyTitle || '-' }}</div>
+                  </div>
+                  <div>
+                    <div class="summary-label">目标主政策</div>
+                    <div class="summary-value">{{ targetFusionPreview.mainFileTitle || targetFusionPreview.directoryTitle || '-' }}</div>
+                  </div>
+                  <div>
+                    <div class="summary-label">当前所属主政策</div>
+                    <div class="summary-value">{{ currentFusion.mainFileTitle || currentFusion.directoryTitle || '-' }}</div>
+                  </div>
+                  <div>
+                    <div class="summary-label">目标主政策当前关联数</div>
+                    <div class="summary-value">{{ targetFusionPreview.documentCount || 0 }} 项</div>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+          <div v-else class="candidate-preview-placeholder">输入关键词搜索主政策，或直接从左侧列表中选择迁移目标</div>
+        </div>
+      </div>
+      <template #footer>
+        <el-button @click="documentMoveVisible=false">取消</el-button>
+        <el-button type="primary" :disabled="!targetFusionId" :loading="moving" @click="moveDocumentToFusion">确定迁移</el-button>
+      </template>
+    </el-dialog>
+
+    <el-dialog v-model="parentSelectVisible" title="" width="1120px" top="5vh" :show-close="false" class="no-header-dialog candidate-dialog">
+      <div class="candidate-dialog-body">
+        <div class="candidate-search-panel">
+          <div style="margin-bottom:14px">
+            <el-input v-model="parentFusionKeyword" placeholder="请输入主政策名称搜索上级主政策" clearable @keyup.enter="runParentFusionSearch">
+              <template #append><el-button @click="runParentFusionSearch" :loading="parentFusionLoading">搜索</el-button></template>
+            </el-input>
+          </div>
+          <div v-if="parentFusionCandidates.length>0" class="candidate-list-shell">
+            <div class="candidate-list-head">共 {{ parentFusionPagination.total || parentFusionCandidates.length }} 条结果，选择后会把当前主政策挂到该主政策下面</div>
+            <div class="candidate-list-body">
+              <div
+                v-for="item in parentFusionCandidates"
+                :key="item.id"
+                :class="['policy-option',{selected:parentFusionId===item.id}]"
+                @click="selectParentFusion(item)"
+              >
+                <el-radio v-model="parentFusionId" :label="item.id" style="margin-right:10px;flex-shrink:0" />
+                <div style="flex:1;min-width:0">
+                  <div class="policy-option-title">{{ item.mainFileTitle || item.directoryTitle || '-' }}</div>
+                  <div class="policy-option-meta">
+                    <span v-if="item.parentPolicyTitle">上级：{{ item.parentPolicyTitle }}</span>
+                    <span>关联政策 {{ item.documentCount || 0 }} 项</span>
+                    <span>下级 {{ item.childPolicyCount || 0 }} 个</span>
+                    <span>{{ mainReviewText(item.reviewStatus) }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="parentFusionCandidates.length>0" style="display:flex;justify-content:flex-end;margin-top:12px;">
+            <el-pagination
+              v-model:current-page="parentFusionPagination.page"
+              v-model:page-size="parentFusionPagination.size"
+              :page-sizes="[10,20,50]"
+              :total="parentFusionPagination.total"
+              layout="total, sizes, prev, pager, next"
+              small
+              @current-change="handleParentFusionCurrentChange"
+              @size-change="handleParentFusionSizeChange"
+            />
+          </div>
+          <div v-else-if="parentFusionSearched&&!parentFusionLoading" style="padding:30px;text-align:center;color:#8a96a6;font-size:14px">未搜索到可用的上级主政策，请尝试其他关键词</div>
+        </div>
+        <div class="candidate-preview-panel">
+          <template v-if="parentFusionPreview.id || parentFusionLoading">
+            <div class="candidate-preview-head">
+              <div class="candidate-preview-title">{{ parentFusionPreview.mainFileTitle || parentFusionPreview.directoryTitle || '上级主政策' }}</div>
+              <div class="candidate-preview-meta">
+                <span v-if="parentFusionPreview.parentPolicyTitle">当前上级 <strong>{{ parentFusionPreview.parentPolicyTitle }}</strong></span>
+                <span>关联政策 <strong>{{ parentFusionPreview.documentCount || 0 }}</strong></span>
+                <span>下级主政策 <strong>{{ parentFusionPreview.childPolicyCount || 0 }}</strong></span>
+                <span>审核状态 <strong>{{ mainReviewText(parentFusionPreview.reviewStatus) }}</strong></span>
+              </div>
+            </div>
+            <div v-loading="parentFusionLoading" class="candidate-preview-content">
+              <template v-if="parentFusionPreview.id">
+                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;">
+                  <div>
+                    <div class="summary-label">当前主政策</div>
+                    <div class="summary-value">{{ currentFusion.mainFileTitle || currentFusion.directoryTitle || '-' }}</div>
+                  </div>
+                  <div>
+                    <div class="summary-label">拟设置上级主政策</div>
+                    <div class="summary-value">{{ parentFusionPreview.mainFileTitle || parentFusionPreview.directoryTitle || '-' }}</div>
+                  </div>
+                  <div>
+                    <div class="summary-label">当前已有关联上级</div>
+                    <div class="summary-value">{{ currentFusion.parentPolicyTitle || '无' }}</div>
+                  </div>
+                  <div>
+                    <div class="summary-label">目标主政策现有下级数</div>
+                    <div class="summary-value">{{ parentFusionPreview.childPolicyCount || 0 }} 个</div>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+          <div v-else class="candidate-preview-placeholder">输入关键词搜索主政策，选择一个作为当前主政策的直接上级。</div>
+        </div>
+      </div>
+      <template #footer>
+        <el-button @click="parentSelectVisible=false">取消</el-button>
+        <el-button type="primary" :disabled="!parentFusionId" :loading="parentBindingSaving" @click="saveParentPolicy">保存父子关系</el-button>
+      </template>
+    </el-dialog>
+
+    <el-dialog v-model="childSelectVisible" title="" width="1120px" top="5vh" :show-close="false" class="no-header-dialog candidate-dialog">
+      <div class="candidate-dialog-body">
+        <div class="candidate-search-panel">
+          <div style="margin-bottom:14px">
+            <el-input v-model="childFusionKeyword" placeholder="请输入主政策名称搜索下级主政策" clearable @keyup.enter="runChildFusionSearch">
+              <template #append><el-button @click="runChildFusionSearch" :loading="childFusionLoading">搜索</el-button></template>
+            </el-input>
+          </div>
+          <div v-if="childFusionCandidates.length>0" class="candidate-list-shell">
+            <div class="candidate-list-head">共 {{ childFusionPagination.total || childFusionCandidates.length }} 条结果，选择后会把所选主政策挂到当前主政策下面</div>
+            <div class="candidate-list-body">
+              <div
+                v-for="item in childFusionCandidates"
+                :key="item.id"
+                :class="['policy-option',{selected:childFusionId===item.id}]"
+                @click="selectChildFusion(item)"
+              >
+                <el-radio v-model="childFusionId" :label="item.id" style="margin-right:10px;flex-shrink:0" />
+                <div style="flex:1;min-width:0">
+                  <div class="policy-option-title">{{ item.mainFileTitle || item.directoryTitle || '-' }}</div>
+                  <div class="policy-option-meta">
+                    <span v-if="item.parentPolicyTitle">当前上级：{{ item.parentPolicyTitle }}</span>
+                    <span>关联政策 {{ item.documentCount || 0 }} 项</span>
+                    <span>直属下级 {{ item.childPolicyCount || 0 }} 个</span>
+                    <span>{{ mainReviewText(item.reviewStatus) }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="childFusionCandidates.length>0" style="display:flex;justify-content:flex-end;margin-top:12px;">
+            <el-pagination
+              v-model:current-page="childFusionPagination.page"
+              v-model:page-size="childFusionPagination.size"
+              :page-sizes="[10,20,50]"
+              :total="childFusionPagination.total"
+              layout="total, sizes, prev, pager, next"
+              small
+              @current-change="handleChildFusionCurrentChange"
+              @size-change="handleChildFusionSizeChange"
+            />
+          </div>
+          <div v-else-if="childFusionSearched&&!childFusionLoading" style="padding:30px;text-align:center;color:#8a96a6;font-size:14px">未搜索到可用的下级主政策，请尝试其他关键词</div>
+        </div>
+        <div class="candidate-preview-panel">
+          <template v-if="childFusionPreview.id || childFusionLoading">
+            <div class="candidate-preview-head">
+              <div class="candidate-preview-title">{{ childFusionPreview.mainFileTitle || childFusionPreview.directoryTitle || '下级主政策' }}</div>
+              <div class="candidate-preview-meta">
+                <span v-if="childFusionPreview.parentPolicyTitle">当前上级 <strong>{{ childFusionPreview.parentPolicyTitle }}</strong></span>
+                <span>关联政策 <strong>{{ childFusionPreview.documentCount || 0 }}</strong></span>
+                <span>直属下级 <strong>{{ childFusionPreview.childPolicyCount || 0 }}</strong></span>
+                <span>审核状态 <strong>{{ mainReviewText(childFusionPreview.reviewStatus) }}</strong></span>
+              </div>
+            </div>
+            <div v-loading="childFusionLoading" class="candidate-preview-content">
+              <template v-if="childFusionPreview.id">
+                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;">
+                  <div>
+                    <div class="summary-label">当前主政策</div>
+                    <div class="summary-value">{{ currentFusion.mainFileTitle || currentFusion.directoryTitle || '-' }}</div>
+                  </div>
+                  <div>
+                    <div class="summary-label">拟设置下级主政策</div>
+                    <div class="summary-value">{{ childFusionPreview.mainFileTitle || childFusionPreview.directoryTitle || '-' }}</div>
+                  </div>
+                  <div>
+                    <div class="summary-label">当前全部下级数</div>
+                    <div class="summary-value">{{ currentFusion.descendantPolicyCount || 0 }} 个</div>
+                  </div>
+                  <div>
+                    <div class="summary-label">目标主政策当前上级</div>
+                    <div class="summary-value">{{ childFusionPreview.parentPolicyTitle || '无' }}</div>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+          <div v-else class="candidate-preview-placeholder">输入关键词搜索主政策，选择一个作为当前主政策的直接下级。</div>
+        </div>
+      </div>
+      <template #footer>
+        <el-button @click="childSelectVisible=false">取消</el-button>
+        <el-button type="primary" :disabled="!childFusionId" :loading="parentBindingSaving" @click="saveChildPolicy">保存父子关系</el-button>
+      </template>
+    </el-dialog>
+
+    <el-dialog v-model="contentVisible" :title="contentDocument.dialogTitle || contentDocument.policyTitle || contentDocument.attachmentName || '内容预览'" width="88%" top="5vh">
+      <iframe v-if="contentDocument.previewUrl" :src="contentDocument.previewUrl" title="附件预览" style="width:100%;height:68vh;border:1px solid #e7ebf1;"></iframe>
+      <div v-else-if="contentDocument.contentHtml" v-loading="contentLoading" class="content-view content-view-html" v-html="contentDocument.contentHtml"></div>
+      <div v-else v-loading="contentLoading" class="content-view">{{ contentDocument.content || '暂无政策原文' }}</div>
+      <template #footer><el-button @click="contentVisible=false">关闭</el-button></template>
+    </el-dialog>
+
+  </div>
+
+  <script src="/lib/cdn/vue.global.js"></script>
+  <script src="/lib/cdn/element-plus.umd.js"></script>
+  <script src="/lib/cdn/element-plus-icons.min.js"></script>
+  <script src="../js/menu.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/page-init.js"></script>
+  <script>
+    const { createApp, ref, reactive, computed, onMounted } = Vue;
+    const { ElMessage, ElMessageBox } = ElementPlus;
+
+    const app = createApp({
+      setup() {
+        const API_BASE = window.location.origin;
+        const loading = ref(true);
+        const detailRefreshing = ref(false);
+        const creating = ref(false);
+        const moving = ref(false);
+        const candidateLoading = ref(false);
+        const targetFusionLoading = ref(false);
+        const parentFusionLoading = ref(false);
+        const childFusionLoading = ref(false);
+        const candidatePreviewLoading = ref(false);
+        const contentLoading = ref(false);
+        const detailVisible = ref(false);
+        const documentCreateVisible = ref(false);
+        const documentMoveVisible = ref(false);
+        const parentSelectVisible = ref(false);
+        const childSelectVisible = ref(false);
+        const contentVisible = ref(false);
+        const deletingDocId = ref('');
+        const restoringPolicyId = ref('');
+        const restoringDocId = ref('');
+        const savingDocTypeId = ref('');
+        const autoPersistingDocTypes = ref(false);
+        const attachmentSaving = ref('');
+        const attachmentReviewSaving = ref('');
+        const attachmentCollapsedMap = reactive({});
+        const reviewApproveSaving = ref(false);
+        const reviewRevokeSaving = ref(false);
+        const parentBindingSaving = ref(false);
+        const policies = ref([]);
+        const policyCandidates = ref([]);
+        const targetFusionCandidates = ref([]);
+        const parentFusionCandidates = ref([]);
+        const childFusionCandidates = ref([]);
+        const selectedPolicyId = ref('');
+        const targetFusionId = ref('');
+        const parentFusionId = ref('');
+        const childFusionId = ref('');
+        const policyKeyword = ref('');
+        const targetFusionKeyword = ref('');
+        const parentFusionKeyword = ref('');
+        const childFusionKeyword = ref('');
+        const searched = ref(false);
+        const targetFusionSearched = ref(false);
+        const parentFusionSearched = ref(false);
+        const childFusionSearched = ref(false);
+        const documentParent = ref({});
+        const moveDocument = ref({});
+        const moveSourceFusionId = ref('');
+        const currentFusion = ref(createEmptyFusion());
+        const candidatePreview = ref({});
+        const targetFusionPreview = ref({});
+        const parentFusionPreview = ref({});
+        const childFusionPreview = ref({});
+        const contentDocument = ref({});
+        const editingTitle = ref(false);
+        const editTitleValue = ref('');
+        const savingTitle = ref(false);
+        const detailDocumentDeleteStatus = ref('active');
+        const pagination = reactive({ page: 1, size: 20, total: 0 });
+        const targetFusionPagination = reactive({ page: 1, size: 20, total: 0 });
+        const parentFusionPagination = reactive({ page: 1, size: 20, total: 0 });
+        const childFusionPagination = reactive({ page: 1, size: 20, total: 0 });
+        const search = reactive({ keyword: '', annotationStatus: 'all', mainReviewStatus: 'all', deleteStatus: 'active' });
+        const tableSort = reactive({ prop: 'documentCount', order: 'descending' });
+        const filterStats = reactive({
+          all: 0,
+          annotationTagged: 0,
+          annotationInProgress: 0,
+          annotationUntagged: 0,
+          mainReviewApproved: 0,
+          mainReviewPending: 0
+        });
+
+        const typeOptions = ['实施细则', '指导政策', '申报通知', '结果公告'];
+        const attachmentTypes = ['实施细则类', '指导政策类', '申报材料类', '申报通知类', '结果公告类', '其它'];
+        const archiveSuffixes = new Set(['zip', 'rar', '7z', 'tar', 'gz', 'tgz', 'bz2', 'xz']);
+        const documentTypeSortOrder = new Map([
+          ['指导政策', 0],
+          ['实施细则', 1],
+          ['申报通知', 2],
+          ['结果公告', 3]
+        ]);
+        const REVIEW_STATUS_ALL = 'all';
+        const REVIEW_STATUS_PENDING = '0';
+        const REVIEW_STATUS_APPROVED = '1';
+        function normalizeAttachmentType(type) {
+          if (!type) return '';
+          if (['其它', '其他', '其它类', '其他类'].includes(type)) return '其它';
+          const normalized = String(type).trim();
+          const withSuffix = normalized.endsWith('类') ? normalized : `${normalized}类`;
+          return attachmentTypes.includes(withSuffix) ? withSuffix : '';
+        }
+
+        function mapAttachmentRow(attachment, index = 0) {
+          const savedType = normalizeAttachmentType(attachment.attachmentType || attachment.type || '');
+          const savedReviewed = isApprovedReviewStatus(attachment.reviewStatus) || Boolean(attachment.reviewed);
+          return {
+            ...attachment,
+            _idx: index,
+            type: savedType,
+            attachmentType: savedType,
+            reviewed: savedReviewed,
+            _savedType: savedType,
+            _savedReviewed: savedReviewed,
+            _savedReviewStatus: normalizeReviewStatusValue(attachment.reviewStatus, REVIEW_STATUS_PENDING),
+            _pendingTypeChange: false
+          };
+        }
+
+        function mapDocumentRow(doc) {
+          const policyAttribute = String(doc.policyAttribute || '').trim();
+          return {
+            ...doc,
+            policyTitle: String(doc.policyTitle || '').trim(),
+            policyAttribute,
+            policyAttributePersisted: Boolean(doc.policyAttributePersisted),
+            _savedPolicyAttribute: policyAttribute,
+            _pendingPolicyAttribute: false,
+            attachments: Array.isArray(doc.attachments)
+              ? doc.attachments.map((attachment, index) => mapAttachmentRow(attachment, index))
+              : []
+          };
+        }
+
+        function mapFusionHierarchyPolicy(policy) {
+          const id = String(policy?.id || '').trim();
+          return {
+            ...policy,
+            id,
+            title: String(policy?.title || policy?.mainFileTitle || policy?.directoryTitle || '').trim(),
+            mainFileTitle: String(policy?.mainFileTitle || '').trim(),
+            directoryTitle: String(policy?.directoryTitle || '').trim(),
+            reviewStatus: normalizeReviewStatusValue(policy?.reviewStatus, REVIEW_STATUS_PENDING),
+            reviewedAt: formatReviewTime(String(policy?.reviewedAt || '').trim()),
+            documentCount: Number(policy?.documentCount || 0),
+            childPolicyCount: Number(policy?.childPolicyCount || 0),
+            parentPolicyTitle: String(policy?.parentPolicyTitle || '').trim(),
+            depth: Number(policy?.depth || 0),
+            relationType: String(policy?.relationType || '').trim()
+          };
+        }
+
+        function ancestorDepthLabel(depth) {
+          const level = Number(depth || 0);
+          if (level <= 1) return '';
+          return `第 ${level} 级上级`;
+        }
+
+        function descendantDepthLabel(depth) {
+          const level = Number(depth || 0);
+          if (level <= 1) return '直接下级';
+          return `第 ${level} 级下级`;
+        }
+
+        function resolveDocumentTypeSortWeight(policyAttribute) {
+          const normalized = String(policyAttribute || '').trim();
+          return documentTypeSortOrder.has(normalized)
+            ? documentTypeSortOrder.get(normalized)
+            : Number.MAX_SAFE_INTEGER;
+        }
+
+        function resolvePublishDateSortValue(publishDate) {
+          const normalized = String(publishDate || '').trim();
+          if (!normalized) return Number.NEGATIVE_INFINITY;
+          const parsed = Date.parse(normalized.replace(/\./g, '-'));
+          return Number.isNaN(parsed) ? Number.NEGATIVE_INFINITY : parsed;
+        }
+
+        function sortDocumentsForDisplay(documents) {
+          if (!Array.isArray(documents) || !documents.length) return [];
+          return documents
+            .map((doc, index) => ({ doc, index }))
+            .sort((left, right) => {
+              const typeDiff =
+                resolveDocumentTypeSortWeight(left.doc.policyAttribute)
+                - resolveDocumentTypeSortWeight(right.doc.policyAttribute);
+              if (typeDiff !== 0) return typeDiff;
+
+              const publishDiff =
+                resolvePublishDateSortValue(right.doc.publishDate)
+                - resolvePublishDateSortValue(left.doc.publishDate);
+              if (publishDiff !== 0) return publishDiff;
+
+              return left.index - right.index;
+            })
+            .map(item => item.doc);
+        }
+
+        function attachmentKey(att) {
+          const id = String(att?.id || '').trim();
+          const name = String(att?.attachmentShowName || att?.attachmentName || '').trim();
+          const idx = att?._idx;
+          if (id) return id;
+          if (name) return name;
+          return `att_${idx !== undefined ? idx : Math.random().toString(36).slice(2, 9)}`;
+        }
+
+        function isArchiveAttachment(att) {
+          return archiveSuffixes.has(String(att?.fileSuffix || '').toLowerCase());
+        }
+
+        function downloadAttachment(att) {
+          if (!att?.filePath) {
+            ElMessage.error('附件路径为空，无法下载');
+            return;
+          }
+          const url = `${API_BASE}/api/attachment/file?filePath=${encodeURIComponent(att.filePath)}&download=1`;
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = att.attachmentName || att.attachmentShowName || '';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+
+        function createEmptyFusion() {
+          return {
+            id: '',
+            directoryTitle: '',
+            mainFileTitle: '',
+            documentCount: 0,
+            classifiedCount: 0,
+            reviewStatus: '',
+            reviewedAt: '',
+            reviewedBy: '',
+            reviewRemark: '',
+            documents: [],
+            parentPolicy: null,
+            parentPolicyId: '',
+            parentPolicyTitle: '',
+            parentPolicyReviewStatus: '',
+            parentPolicyReviewedAt: '',
+            directParentPolicyCount: 0,
+            directParentPolicies: [],
+            ancestorPolicyCount: 0,
+            ancestorPolicies: [],
+            childPolicyCount: 0,
+            childPolicies: [],
+            descendantPolicyCount: 0,
+            descendantPolicies: []
+          };
+        }
+
+        function isAttachmentCollapsed(docId) {
+          return Boolean(attachmentCollapsedMap[String(docId || '')]);
+        }
+
+        function toggleAttachmentCollapsed(docId) {
+          const key = String(docId || '');
+          if (!key) return;
+          attachmentCollapsedMap[key] = !attachmentCollapsedMap[key];
+        }
+
+        function joinHierarchyPolicyTitles(items) {
+          if (!Array.isArray(items) || !items.length) return '';
+          const titles = [];
+          items.forEach(item => {
+            const title = String(item?.title || item?.mainFileTitle || item?.directoryTitle || '').trim();
+            if (title && !titles.includes(title)) {
+              titles.push(title);
+            }
+          });
+          return titles.join('、');
+        }
+
+        function isApprovedReviewStatus(status) {
+          const normalized = String(status || '').trim();
+          return normalized === REVIEW_STATUS_APPROVED || normalized === '已通过' || normalized === '已标注';
+        }
+
+        function isPendingReviewStatus(status) {
+          const normalized = String(status || '').trim();
+          return normalized === REVIEW_STATUS_PENDING || normalized === '待审核' || normalized === '未通过' || normalized === '未标注';
+        }
+
+        function normalizeReviewStatusValue(status, fallback = '') {
+          const normalized = String(status || '').trim();
+          if (!normalized) return fallback;
+          if (isApprovedReviewStatus(normalized)) return REVIEW_STATUS_APPROVED;
+          if (isPendingReviewStatus(normalized)) return REVIEW_STATUS_PENDING;
+          return normalized;
+        }
+
+        function isDeletedFusion(row) {
+          const delFlag = String(row?.delFlag ?? row?.DEL_FLAG ?? '').trim();
+          const status = String(row?.status || '').trim().toUpperCase();
+          return delFlag === '1' || status === 'DELETED' || Boolean(row?.deleted);
+        }
+
+        function isDeletedDocument(doc) {
+          const delFlag = String(doc?.delFlag ?? doc?.DEL_FLAG ?? '').trim();
+          return delFlag === '1' || Boolean(doc?.deleted);
+        }
+
+        const currentFusionReadOnly = computed(() => isDeletedFusion(currentFusion.value));
+
+        function ensureCurrentFusionWritable(message = '已弃用主政策仅支持查看详情') {
+          if (!currentFusionReadOnly.value) return true;
+          ElMessage.warning(message);
+          return false;
+        }
+
+        function mapPolicyRow(row) {
+          const documents = Array.isArray(row.documents)
+            ? row.documents.map(mapDocumentRow)
+            : [];
+          const parentPolicy = row.parentPolicy ? mapFusionHierarchyPolicy(row.parentPolicy) : null;
+          const directParentPolicies = Array.isArray(row.directParentPolicies)
+            ? row.directParentPolicies.map(mapFusionHierarchyPolicy)
+            : (parentPolicy?.id ? [parentPolicy] : []);
+          const ancestorPolicies = Array.isArray(row.ancestorPolicies)
+            ? row.ancestorPolicies.map(mapFusionHierarchyPolicy)
+            : [];
+          const childPolicies = Array.isArray(row.childPolicies)
+            ? row.childPolicies.map(mapFusionHierarchyPolicy)
+            : [];
+          const descendantPolicies = Array.isArray(row.descendantPolicies)
+            ? row.descendantPolicies.map(mapFusionHierarchyPolicy)
+            : [];
+          const classifiedCount = documents.length
+            ? documents.filter(doc => String(doc.policyAttribute || '').trim()).length
+            : Number(row.classifiedCount || 0);
+          return {
+            ...row,
+            delFlag: String(row.delFlag ?? row.DEL_FLAG ?? '').trim(),
+            deleted: Boolean(row.deleted) || String(row.delFlag ?? row.DEL_FLAG ?? '').trim() === '1' || String(row.status || '').trim().toUpperCase() === 'DELETED',
+            reviewStatus: normalizeReviewStatusValue(row.reviewStatus, REVIEW_STATUS_PENDING),
+            reviewedAt: formatReviewTime(String(row.reviewedAt || '').trim()),
+            reviewedBy: String(row.reviewedBy || '').trim(),
+            reviewRemark: String(row.reviewRemark || '').trim(),
+            documentCount: Number(row.documentCount || documents.length || 0),
+            documentReviewedCount: Number(row.documentReviewedCount || 0),
+            attachmentCount: Number(row.attachmentCount || 0),
+            attachmentReviewedCount: Number(row.attachmentReviewedCount || 0),
+            classifiedCount,
+            documents,
+            parentPolicy,
+            directParentPolicyCount: Number(row.directParentPolicyCount || directParentPolicies.length || 0),
+            directParentPolicies,
+            parentPolicyId: String(row.parentPolicyId || parentPolicy?.id || '').trim(),
+            parentPolicyTitle: String(row.parentPolicyTitle || joinHierarchyPolicyTitles(directParentPolicies) || parentPolicy?.title || '').trim(),
+            parentPolicyReviewStatus: normalizeReviewStatusValue(row.parentPolicyReviewStatus || parentPolicy?.reviewStatus, REVIEW_STATUS_PENDING),
+            parentPolicyReviewedAt: formatReviewTime(String(row.parentPolicyReviewedAt || parentPolicy?.reviewedAt || '').trim()),
+            ancestorPolicyCount: Number(row.ancestorPolicyCount || ancestorPolicies.length || 0),
+            ancestorPolicies,
+            childPolicyCount: Number(row.childPolicyCount || childPolicies.length || 0),
+            childPolicies,
+            descendantPolicyCount: Number(row.descendantPolicyCount || descendantPolicies.length || 0),
+            descendantPolicies
+          };
+        }
+
+        function upsertPolicyRow(row) {
+          const mapped = mapPolicyRow(row);
+          const index = policies.value.findIndex(item => String(item.id) === String(mapped.id));
+          const annotationStatus = policyAttachmentStatus(mapped);
+          const mainReviewStatus = mainReviewText(mapped.reviewStatus);
+          const matchesAnnotationFilter =
+            search.annotationStatus === 'all'
+            || (search.annotationStatus === 'tagged' && annotationStatus === '已标注')
+            || (search.annotationStatus === 'inProgress' && annotationStatus === '标注中')
+            || (search.annotationStatus === 'untagged' && annotationStatus === '未标注');
+          const matchesMainReviewFilter =
+            search.mainReviewStatus === 'all'
+            || (search.mainReviewStatus === 'approved' && mainReviewStatus === '已审核')
+            || (search.mainReviewStatus === 'pending' && mainReviewStatus === '未审核');
+          const matchesDeleteFilter =
+            (search.deleteStatus === 'deleted' && isDeletedFusion(mapped))
+            || (search.deleteStatus !== 'deleted' && !isDeletedFusion(mapped));
+          const matchesFilters = matchesAnnotationFilter && matchesMainReviewFilter && matchesDeleteFilter;
+
+          if (index >= 0) {
+            if (matchesFilters) {
+              policies.value.splice(index, 1, mapped);
+            } else {
+              policies.value.splice(index, 1);
+              pagination.total = Math.max(0, Number(pagination.total || 0) - 1);
+            }
+          } else if (matchesFilters && policies.value.length < pagination.size) {
+            policies.value.push(mapped);
+          }
+
+          return mapped;
+        }
+
+        async function fetchFusionDetail(fusionId, options = {}) {
+          const documentDeleteStatus = String(options.documentDeleteStatus || detailDocumentDeleteStatus.value || 'active').trim();
+          const params = new URLSearchParams({ fusionPolicyId: String(fusionId) });
+          params.set('documentDeleteStatus', documentDeleteStatus);
+          const response = await fetch(
+            `${API_BASE}/api/fusion-classification/fusion-detail?${params.toString()}`,
+            { cache: 'no-store' }
+          );
+          const result = await response.json();
+          if (!result.success) throw new Error(result.message || '详情加载失败');
+          return result.data || {};
+        }
+
+        function mergeFusionDetail(baseRow, detail) {
+          const detailDocuments = detail && Array.isArray(detail.documents) ? detail.documents : [];
+          const baseDocuments = baseRow && Array.isArray(baseRow.documents) ? baseRow.documents : [];
+          return {
+            ...(baseRow || {}),
+            ...(detail || {}),
+            documents: detailDocuments.length
+              ? detailDocuments.map(mapDocumentRow)
+              : baseDocuments.map(mapDocumentRow)
+          };
+        }
+
+        function reviewStatusText(status) {
+          return isApprovedReviewStatus(status) ? '已通过' : '待审核';
+        }
+
+        function formatReviewTime(timeStr) {
+          if (!timeStr) return '';
+          const date = new Date(timeStr);
+          if (isNaN(date.getTime())) return timeStr; // 不是合法日期则原样返回
+          // 取 UTC 时区的时间分量，加 8 小时得到北京时间
+          const bjMs = Date.UTC(
+            date.getUTCFullYear(),
+            date.getUTCMonth(),
+            date.getUTCDate(),
+            date.getUTCHours() + 8,
+            date.getUTCMinutes(),
+            date.getUTCSeconds()
+          );
+          const bj = new Date(bjMs);
+          const y = bj.getFullYear();
+          const mo = String(bj.getMonth() + 1).padStart(2, '0');
+          const d = String(bj.getDate()).padStart(2, '0');
+          const h = String(bj.getHours()).padStart(2, '0');
+          const mi = String(bj.getMinutes()).padStart(2, '0');
+          const s = String(bj.getSeconds()).padStart(2, '0');
+          return `${y}-${mo}-${d} ${h}:${mi}:${s}`;
+        }
+
+        function reviewTagType(status) {
+          return reviewStatusText(status) === '已通过' ? 'success' : 'warning';
+        }
+
+        function policyAnnotationStatus(row) {
+          const total = Number(row?.documentCount || 0);
+          const classified = Number(row?.classifiedCount || 0);
+          if (total <= 0) return '未标注';
+          if (classified >= total) return '已标注';
+          return '标注中';
+        }
+
+        function annotationTagType(status) {
+          if (status === '已标注') return 'success';
+          if (status === '标注中') return 'warning';
+          return 'info';
+        }
+
+        function totalAuditItemCount(row) {
+          return Number(row?.documentCount || 0) + Number(row?.attachmentCount || 0);
+        }
+
+        function reviewedAuditItemCount(row) {
+          return Number(row?.documentReviewedCount || 0) + Number(row?.attachmentReviewedCount || 0);
+        }
+
+        function policyAttachmentStatus(row) {
+          const total = totalAuditItemCount(row);
+          const reviewed = reviewedAuditItemCount(row);
+          if (total <= 0) return '未标注';
+          if (reviewed >= total) return '已标注';
+          return '标注中';
+        }
+
+        function auditProgressPercent(row) {
+          const total = totalAuditItemCount(row);
+          if (total <= 0) return 0;
+          return Math.round((reviewedAuditItemCount(row) / total) * 100);
+        }
+
+        function mainReviewText(status) {
+          return isApprovedReviewStatus(status) ? '已审核' : '未审核';
+        }
+
+        function mainReviewTagType(status) {
+          return isApprovedReviewStatus(status) ? 'success' : 'info';
+        }
+
+        function syncCurrentFusionClassifiedCount() {
+          const docs = Array.isArray(currentFusion.value.documents) ? currentFusion.value.documents : [];
+          currentFusion.value.classifiedCount = docs.filter(doc => String(doc.policyAttribute || '').trim()).length;
+        }
+
+        function markCurrentFusionPendingAfterDocumentTypeSave() {
+          if (!currentFusion.value.id) return;
+          const mapped = upsertPolicyRow({
+            ...currentFusion.value,
+            reviewStatus: REVIEW_STATUS_PENDING,
+            reviewedAt: '',
+            reviewedBy: '',
+            reviewRemark: ''
+          });
+          if (detailVisible.value && String(currentFusion.value.id) === String(mapped.id)) {
+            currentFusion.value = { ...mapped };
+          }
+        }
+
+        async function persistDocumentType(doc, type, options = {}) {
+          const { silent = false } = options;
+          const normalizedType = String(type || '').trim();
+          if (!doc?.id || !typeOptions.includes(normalizedType)) {
+            throw new Error('政策属性无效，无法暂存');
+          }
+          if (savingDocTypeId.value === doc.id) return false;
+
+          const wasApproved = isApprovedReviewStatus(currentFusion.value.reviewStatus);
+          savingDocTypeId.value = doc.id;
+          try {
+            await post('/api/fusion-classification/documents/type', {
+              id: doc.id,
+              type: normalizedType
+            });
+            doc.policyAttribute = normalizedType;
+            doc.policyAttributePersisted = true;
+            doc._savedPolicyAttribute = normalizedType;
+            doc._pendingPolicyAttribute = false;
+            doc.reviewStatus = REVIEW_STATUS_PENDING;
+            syncCurrentFusionClassifiedCount();
+            markCurrentFusionPendingAfterDocumentTypeSave();
+            if (!silent) {
+              ElMessage.success(
+                wasApproved
+                  ? `政策属性已暂存为“${normalizedType}”，主政策已改为待审核，请重新审核通过`
+                  : `政策属性已暂存为“${normalizedType}”，请审核通过`
+              );
+            }
+            return true;
+          } finally {
+            savingDocTypeId.value = '';
+          }
+        }
+
+        async function syncDisplayedDocumentTypesIfNeeded(documents = currentFusion.value.documents) {
+          if (autoPersistingDocTypes.value) return 0;
+          const docs = Array.isArray(documents) ? documents : [];
+          const pendingDocs = docs.filter(doc =>
+            doc
+            && doc.id
+            && String(doc.sourcePolicyId || '').trim()
+            && typeOptions.includes(String(doc.policyAttribute || '').trim())
+            && !doc.policyAttributePersisted
+          );
+          if (!pendingDocs.length) return 0;
+
+          autoPersistingDocTypes.value = true;
+          let syncedCount = 0;
+          try {
+            for (const doc of pendingDocs) {
+              try {
+                await persistDocumentType(doc, doc.policyAttribute, { silent: true });
+                syncedCount += 1;
+              } catch (err) {
+                ElMessage.error(err.message || '默认政策属性自动暂存失败');
+                break;
+              }
+            }
+            if (syncedCount > 0) {
+              ElMessage.success(`已自动暂存 ${syncedCount} 条默认政策属性`);
+            }
+            return syncedCount;
+          } finally {
+            autoPersistingDocTypes.value = false;
+          }
+        }
+
+        const sortedCurrentDocuments = computed(() => sortDocumentsForDisplay(currentFusion.value.documents));
+
+        const approveDisabled = computed(() => {
+          if (reviewApproveSaving.value || reviewRevokeSaving.value) return true;
+          if (!currentFusion.value.id) return true;
+          if ((currentFusion.value.documentCount || 0) === 0) return true;
+          if ((currentFusion.value.classifiedCount || 0) < (currentFusion.value.documentCount || 0)) return true;
+          return reviewStatusText(currentFusion.value.reviewStatus) === '已通过';
+        });
+
+        function resolveReviewerName() {
+          const nameNode = document.querySelector('.header-user .name');
+          const text = nameNode ? String(nameNode.textContent || '').trim() : '';
+          return text || '管理员';
+        }
+
+        async function post(path, body) {
+          const response = await fetch(`${API_BASE}${path}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          });
+          const responseText = await response.text();
+          let result;
+          try {
+            result = responseText ? JSON.parse(responseText) : {};
+          } catch (_) {
+            throw new Error(`接口返回异常（HTTP ${response.status}）：${responseText.slice(0, 120) || '空响应'}`);
+          }
+          if (!result.success) throw new Error(result.message || '操作失败');
+          return result;
+        }
+
+        async function fetchPolicies(options = {}) {
+          const { skipFilterStats = false } = options || {};
+          loading.value = true;
+          try {
+            const params = new URLSearchParams({ page: pagination.page, size: pagination.size, compactList: '1' });
+            if (search.keyword.trim()) params.set('keyword', search.keyword.trim());
+            params.set('classificationStatus', search.annotationStatus || 'all');
+            params.set('mainReviewStatus', search.mainReviewStatus || 'all');
+            params.set('deleteStatus', search.deleteStatus || 'active');
+            if (skipFilterStats) params.set('skipFilterStats', '1');
+            if (tableSort.prop === 'documentCount' && tableSort.order) {
+              params.set('sortBy', 'documentCount');
+              params.set('sortOrder', tableSort.order);
+            }
+            const response = await fetch(`${API_BASE}/api/fusion-classification/policies/policy-classification?${params}`, { cache: 'no-store' });
+            const result = await response.json();
+            if (!result.success) throw new Error(result.message || '查询失败');
+            policies.value = (result.data || []).map(mapPolicyRow);
+            pagination.total = result.pagination?.total || 0;
+            if (result.filterStats) {
+              filterStats.all = Number(result.filterStats.all || 0);
+              filterStats.annotationTagged = Number(result.filterStats.annotationTagged || 0);
+              filterStats.annotationInProgress = Number(result.filterStats.annotationInProgress || 0);
+              filterStats.annotationUntagged = Number(result.filterStats.annotationUntagged || 0);
+              filterStats.mainReviewApproved = Number(result.filterStats.mainReviewApproved || 0);
+              filterStats.mainReviewPending = Number(result.filterStats.mainReviewPending || 0);
+            }
+            if (detailVisible.value && currentFusion.value.id) {
+              const fresh = policies.value.find(item => String(item.id) === String(currentFusion.value.id));
+              if (fresh) currentFusion.value = { ...fresh };
+            }
+          } catch (err) {
+            ElMessage.error(err.message || '查询失败');
+          } finally {
+            loading.value = false;
+          }
+        }
+
+        async function refreshCurrentFusion(fusionId = currentFusion.value.id, options = {}) {
+          if (!fusionId) return;
+          const { silent = false } = options;
+          detailRefreshing.value = true;
+          try {
+            const baseRow =
+              policies.value.find(item => String(item.id) === String(fusionId))
+              || (String(currentFusion.value.id) === String(fusionId) ? currentFusion.value : createEmptyFusion());
+            const detail = await fetchFusionDetail(fusionId);
+            const merged = upsertPolicyRow(mergeFusionDetail(baseRow, detail));
+            if (detailVisible.value && String(currentFusion.value.id) === String(fusionId)) {
+              currentFusion.value = { ...merged };
+              await syncDisplayedDocumentTypesIfNeeded(currentFusion.value.documents);
+            }
+            return merged;
+          } catch (err) {
+            if (!silent) ElMessage.error(err.message || '详情刷新失败');
+            return null;
+          } finally {
+            detailRefreshing.value = false;
+          }
+        }
+
+        function runSearch() {
+          pagination.page = 1;
+          fetchPolicies();
+        }
+
+        function setAnnotationFilter(status) {
+          if (search.annotationStatus === status) return;
+          search.annotationStatus = status;
+          runSearch();
+        }
+
+        function setMainReviewFilter(status) {
+          if (search.mainReviewStatus === status) return;
+          search.mainReviewStatus = status;
+          runSearch();
+        }
+
+        function toggleDeletedView() {
+          search.deleteStatus = search.deleteStatus === 'deleted' ? 'active' : 'deleted';
+          runSearch();
+        }
+
+        async function toggleDeletedDocumentsView() {
+          if (!currentFusion.value.id) return;
+          detailDocumentDeleteStatus.value = detailDocumentDeleteStatus.value === 'deleted' ? 'active' : 'deleted';
+          await refreshCurrentFusion(currentFusion.value.id, { silent: true });
+        }
+
+        function resetSearch() {
+          search.keyword = '';
+          search.annotationStatus = 'all';
+          search.mainReviewStatus = 'all';
+          search.deleteStatus = 'active';
+          runSearch();
+        }
+
+        function openCreateDialog() {
+          currentFusion.value = createEmptyFusion();
+          editTitleValue.value = '';
+          editingTitle.value = true;
+          detailVisible.value = true;
+        }
+
+        async function submitCreate() {
+          const title = editTitleValue.value.trim();
+          if (!title) { ElMessage.warning('请输入主政策名称'); return; }
+          creating.value = true;
+          try {
+            const result = await post('/api/fusion-classification/policies/create', { title });
+            ElMessage.success('主政策添加成功');
+            editingTitle.value = false;
+            currentFusion.value = {
+              ...createEmptyFusion(),
+              id: String(result.id || ''),
+              directoryTitle: title,
+              mainFileTitle: title,
+              reviewStatus: REVIEW_STATUS_PENDING
+            };
+            await fetchPolicies();
+            if (result.id) {
+              await refreshCurrentFusion(result.id, { silent: true });
+            }
+          } catch (err) {
+            ElMessage.error(err.message || '添加失败');
+          } finally {
+            creating.value = false;
+          }
+        }
+
+        function startEditTitle() {
+          if (!currentFusion.value.id) return;
+          if (!ensureCurrentFusionWritable()) return;
+          editTitleValue.value = currentFusion.value.mainFileTitle || currentFusion.value.directoryTitle || '';
+          editingTitle.value = true;
+        }
+
+        function cancelEditTitle() {
+          editingTitle.value = false;
+          editTitleValue.value = '';
+        }
+
+        async function saveTitle() {
+          if (!ensureCurrentFusionWritable()) return;
+          const newTitle = editTitleValue.value.trim();
+          if (!newTitle) { ElMessage.warning('主政策名称不能为空'); return; }
+          if (newTitle === (currentFusion.value.mainFileTitle || currentFusion.value.directoryTitle)) {
+            editingTitle.value = false;
+            return;
+          }
+          savingTitle.value = true;
+          try {
+            await post('/api/fusion-classification/policies/update', {
+              id: currentFusion.value.id,
+              mainFileTitle: newTitle
+            });
+            ElMessage.success('主政策名称已更新');
+            editingTitle.value = false;
+            currentFusion.value.mainFileTitle = newTitle;
+            if (!currentFusion.value.directoryTitle) currentFusion.value.directoryTitle = newTitle;
+            await fetchPolicies();
+            await refreshCurrentFusion(currentFusion.value.id, { silent: true });
+          } catch (err) {
+            ElMessage.error(err.message || '更新失败');
+          } finally {
+            savingTitle.value = false;
+          }
+        }
+
+        function handleSizeChange() {
+          pagination.page = 1;
+          fetchPolicies({ skipFilterStats: true });
+        }
+
+        function handleCurrentChange() {
+          fetchPolicies({ skipFilterStats: true });
+        }
+
+        function handleTableSortChange({ prop, order }) {
+          tableSort.prop = prop || '';
+          tableSort.order = order || '';
+          pagination.page = 1;
+          fetchPolicies({ skipFilterStats: true });
+        }
+
+        function clearDetailState() {
+          editingTitle.value = false;
+          editTitleValue.value = '';
+          detailDocumentDeleteStatus.value = 'active';
+          currentFusion.value = createEmptyFusion();
+        }
+
+        async function showDetail(row) {
+          detailDocumentDeleteStatus.value = isDeletedFusion(row) ? 'deleted' : 'active';
+          editingTitle.value = false;
+          editTitleValue.value = '';
+          currentFusion.value = { ...mapPolicyRow(row) };
+          detailVisible.value = true;
+          await refreshCurrentFusion(row.id, { silent: true });
+        }
+
+        async function openFusionDetailById(policy) {
+          const fusionId = String(policy?.id || '').trim();
+          if (!fusionId) return;
+          detailDocumentDeleteStatus.value = 'active';
+          const existing = policies.value.find(item => String(item.id) === fusionId);
+          const baseRow = existing || {
+            ...createEmptyFusion(),
+            id: fusionId,
+            directoryTitle: String(policy?.directoryTitle || '').trim(),
+            mainFileTitle: String(policy?.mainFileTitle || policy?.title || policy?.directoryTitle || '').trim(),
+            reviewStatus: normalizeReviewStatusValue(policy?.reviewStatus, REVIEW_STATUS_PENDING),
+            reviewedAt: String(policy?.reviewedAt || '').trim(),
+            documentCount: Number(policy?.documentCount || 0),
+            childPolicyCount: Number(policy?.childPolicyCount || 0),
+            parentPolicyTitle: String(policy?.parentPolicyTitle || '').trim()
+          };
+          await showDetail(baseRow);
+        }
+
+        function openDocumentCreate(row) {
+          if (!ensureCurrentFusionWritable()) return;
+          documentParent.value = row;
+          selectedPolicyId.value = '';
+          policyCandidates.value = [];
+          policyKeyword.value = '';
+          searched.value = false;
+          candidatePreview.value = {};
+          candidatePreviewLoading.value = false;
+          documentCreateVisible.value = true;
+        }
+
+        function openDocumentMove(doc) {
+          moveDocument.value = { ...doc };
+          moveSourceFusionId.value = String(currentFusion.value.id || '').trim();
+          targetFusionId.value = '';
+          targetFusionKeyword.value = '';
+          targetFusionPagination.page = 1;
+          targetFusionPagination.size = pagination.size || 20;
+          targetFusionPagination.total = Math.max(0, Number(pagination.total || 0) - 1);
+          targetFusionCandidates.value = (policies.value || [])
+            .filter(item => String(item.id || '').trim() && String(item.id) !== String(currentFusion.value.id))
+            .map(item => normalizeTargetFusionCandidate(item));
+          targetFusionSearched.value = targetFusionCandidates.value.length > 0;
+          targetFusionPreview.value = {};
+          documentMoveVisible.value = true;
+        }
+
+        function normalizeCandidatePolicy(item) {
+          const policyId = String(item.policyId || item.id || '').trim();
+          return {
+            id: policyId,
+            sourcePolicyId: policyId,
+            policyTitle: String(item.policyTitle || item.title || '').trim(),
+            fileName: String(item.fileName || '').trim(),
+            filePath: String(item.filePath || '').trim(),
+            publishDate: String(item.publishDate || '').trim(),
+            issuingDepartment: String(item.department || item.issuingDepartment || '').trim(),
+            documentNo: String(item.documentNo || '').trim(),
+            policyAttribute: String(item.policyAttribute || '').trim()
+          };
+        }
+
+        function isMergeVisibleCandidate(item) {
+          const hiddenPolicyAttributes = ['主政策', '主属性'];
+          return !hiddenPolicyAttributes.includes(String(item.policyAttribute || '').trim());
+        }
+
+        function filterSelectableCandidates(items) {
+          const currentSourcePolicyId = String(
+            documentParent.value.sourcePolicyId
+            || currentFusion.value.sourcePolicyId
+            || ''
+          ).trim();
+          const linkedSourcePolicyIds = new Set(
+            ((documentParent.value.documents || currentFusion.value.documents || []))
+              .map(doc => String(doc.sourcePolicyId || '').trim())
+              .filter(Boolean)
+          );
+          return items.filter(item => item.id
+            && item.id !== currentSourcePolicyId
+            && !linkedSourcePolicyIds.has(item.id));
+        }
+
+        function normalizeTargetFusionCandidate(item) {
+          return {
+            id: String(item.id || '').trim(),
+            directoryTitle: String(item.directoryTitle || '').trim(),
+            mainFileTitle: String(item.mainFileTitle || item.directoryTitle || '').trim(),
+            documentCount: Number(item.documentCount || 0),
+            childPolicyCount: Number(item.childPolicyCount || 0),
+            parentPolicyTitle: String(item.parentPolicyTitle || '').trim(),
+            reviewStatus: normalizeReviewStatusValue(item.reviewStatus, REVIEW_STATUS_PENDING),
+            reviewedAt: formatReviewTime(String(item.reviewedAt || '').trim())
+          };
+        }
+
+        function openParentSelectDialog() {
+          if (!currentFusion.value.id) return;
+          if (!ensureCurrentFusionWritable()) return;
+          parentFusionId.value = '';
+          parentFusionKeyword.value = '';
+          parentFusionPagination.page = 1;
+          parentFusionPagination.size = pagination.size || 20;
+          parentFusionCandidates.value = (policies.value || [])
+            .filter(item => String(item.id || '').trim())
+            .map(item => normalizeTargetFusionCandidate(item));
+          parentFusionPagination.total = parentFusionCandidates.value.length;
+          parentFusionPreview.value = {};
+          parentFusionSearched.value = parentFusionCandidates.value.length > 0;
+          parentSelectVisible.value = true;
+        }
+
+        function openChildSelectDialog() {
+          if (!currentFusion.value.id) return;
+          if (!ensureCurrentFusionWritable()) return;
+          childFusionId.value = '';
+          childFusionKeyword.value = '';
+          childFusionPagination.page = 1;
+          childFusionPagination.size = pagination.size || 20;
+          childFusionCandidates.value = (policies.value || [])
+            .filter(item => String(item.id || '').trim())
+            .map(item => normalizeTargetFusionCandidate(item));
+          childFusionPagination.total = childFusionCandidates.value.length;
+          childFusionPreview.value = {};
+          childFusionSearched.value = childFusionCandidates.value.length > 0;
+          childSelectVisible.value = true;
+        }
+
+        async function searchPolicies() {
+          if (!documentParent.value.id || !policyKeyword.value.trim()) return;
+          searched.value = true;
+          candidateLoading.value = true;
+          try {
+            const params = new URLSearchParams({
+              page: '1',
+              size: '20',
+              keyword: policyKeyword.value.trim(),
+              includeAttachments: 'false'
+            });
+            const response = await fetch(`${API_BASE}/api/classification/policies?${params}`, { cache: 'no-store' });
+            const result = await response.json();
+            if (!result.success) throw new Error(result.message || '查询失败');
+            policyCandidates.value = filterSelectableCandidates(
+              (result.data || [])
+                .filter(isMergeVisibleCandidate)
+                .map(normalizeCandidatePolicy)
+            );
+            selectedPolicyId.value = '';
+            candidatePreview.value = {};
+          } catch (err) {
+            ElMessage.error(err.message || '查询失败');
+          } finally {
+            candidateLoading.value = false;
+          }
+        }
+
+        async function createDocument() {
+          if (!ensureCurrentFusionWritable()) return;
+          if (!selectedPolicyId.value) {
+            ElMessage.warning('请选择需要关联的政策文件');
+            return;
+          }
+          creating.value = true;
+          try {
+            await post('/api/fusion-classification/policies/link-from-original', {
+              fusionPolicyId: documentParent.value.id,
+              policyId: selectedPolicyId.value
+            });
+            ElMessage.success('关联政策添加成功');
+            documentCreateVisible.value = false;
+            await fetchPolicies();
+            await refreshCurrentFusion(documentParent.value.id);
+          } catch (err) {
+            ElMessage.error(err.message || '关联政策添加失败');
+          } finally {
+            creating.value = false;
+          }
+        }
+
+        async function searchTargetFusions() {
+          if (!currentFusion.value.id) return;
+          targetFusionSearched.value = true;
+          targetFusionLoading.value = true;
+          try {
+            const params = new URLSearchParams({
+              page: String(targetFusionPagination.page),
+              size: String(targetFusionPagination.size),
+              compactList: '1',
+              classificationStatus: 'all',
+              mainReviewStatus: 'all'
+            });
+            if (targetFusionKeyword.value.trim()) {
+              params.set('keyword', targetFusionKeyword.value.trim());
+            }
+            const response = await fetch(`${API_BASE}/api/fusion-classification/policies/policy-classification?${params}`, { cache: 'no-store' });
+            const result = await response.json();
+            if (!result.success) throw new Error(result.message || '查询失败');
+            targetFusionCandidates.value = (result.data || [])
+              .map(normalizeTargetFusionCandidate)
+              .filter(item => item.id && item.id !== String(currentFusion.value.id));
+            targetFusionPagination.total = Math.max(0, Number(result.pagination?.total || 0) - 1);
+            targetFusionId.value = '';
+            targetFusionPreview.value = {};
+          } catch (err) {
+            ElMessage.error(err.message || '查询失败');
+          } finally {
+            targetFusionLoading.value = false;
+          }
+        }
+
+        async function searchParentFusions() {
+          if (!currentFusion.value.id) return;
+          parentFusionSearched.value = true;
+          parentFusionLoading.value = true;
+          try {
+            const params = new URLSearchParams({
+              page: String(parentFusionPagination.page),
+              size: String(parentFusionPagination.size),
+              compactList: '1',
+              classificationStatus: 'all',
+              mainReviewStatus: 'all'
+            });
+            if (parentFusionKeyword.value.trim()) {
+              params.set('keyword', parentFusionKeyword.value.trim());
+            }
+            const response = await fetch(`${API_BASE}/api/fusion-classification/policies/policy-classification?${params}`, { cache: 'no-store' });
+            const result = await response.json();
+            if (!result.success) throw new Error(result.message || '查询失败');
+            parentFusionCandidates.value = (result.data || [])
+              .map(normalizeTargetFusionCandidate)
+              .filter(item => item.id);
+            parentFusionPagination.total = Number(result.pagination?.total || parentFusionCandidates.value.length || 0);
+            const selectedParent = parentFusionCandidates.value.find(item => item.id === parentFusionId.value);
+            if (selectedParent) {
+              parentFusionPreview.value = { ...selectedParent };
+            } else {
+              parentFusionId.value = '';
+              parentFusionPreview.value = {};
+            }
+          } catch (err) {
+            ElMessage.error(err.message || '查询失败');
+          } finally {
+            parentFusionLoading.value = false;
+          }
+        }
+
+        async function searchChildFusions() {
+          if (!currentFusion.value.id) return;
+          childFusionSearched.value = true;
+          childFusionLoading.value = true;
+          try {
+            const params = new URLSearchParams({
+              page: String(childFusionPagination.page),
+              size: String(childFusionPagination.size),
+              compactList: '1',
+              classificationStatus: 'all',
+              mainReviewStatus: 'all'
+            });
+            if (childFusionKeyword.value.trim()) {
+              params.set('keyword', childFusionKeyword.value.trim());
+            }
+            const response = await fetch(`${API_BASE}/api/fusion-classification/policies/policy-classification?${params}`, { cache: 'no-store' });
+            const result = await response.json();
+            if (!result.success) throw new Error(result.message || '查询失败');
+            childFusionCandidates.value = (result.data || [])
+              .map(normalizeTargetFusionCandidate)
+              .filter(item => item.id);
+            childFusionPagination.total = Number(result.pagination?.total || childFusionCandidates.value.length || 0);
+            const selectedChild = childFusionCandidates.value.find(item => item.id === childFusionId.value);
+            if (selectedChild) {
+              childFusionPreview.value = { ...selectedChild };
+            } else {
+              childFusionId.value = '';
+              childFusionPreview.value = {};
+            }
+          } catch (err) {
+            ElMessage.error(err.message || '查询失败');
+          } finally {
+            childFusionLoading.value = false;
+          }
+        }
+
+        function runTargetFusionSearch() {
+          targetFusionPagination.page = 1;
+          searchTargetFusions();
+        }
+
+        function runParentFusionSearch() {
+          parentFusionPagination.page = 1;
+          searchParentFusions();
+        }
+
+        function runChildFusionSearch() {
+          childFusionPagination.page = 1;
+          searchChildFusions();
+        }
+
+        function handleTargetFusionCurrentChange() {
+          searchTargetFusions();
+        }
+
+        function handleTargetFusionSizeChange() {
+          targetFusionPagination.page = 1;
+          searchTargetFusions();
+        }
+
+        function handleParentFusionCurrentChange() {
+          searchParentFusions();
+        }
+
+        function handleParentFusionSizeChange() {
+          parentFusionPagination.page = 1;
+          searchParentFusions();
+        }
+
+        function handleChildFusionCurrentChange() {
+          searchChildFusions();
+        }
+
+        function handleChildFusionSizeChange() {
+          childFusionPagination.page = 1;
+          searchChildFusions();
+        }
+
+        function selectTargetFusion(item) {
+          targetFusionId.value = item.id;
+          targetFusionPreview.value = { ...item };
+        }
+
+        function selectParentFusion(item) {
+          parentFusionId.value = item.id;
+          parentFusionPreview.value = { ...item };
+        }
+
+        function selectChildFusion(item) {
+          childFusionId.value = item.id;
+          childFusionPreview.value = { ...item };
+        }
+
+        async function moveDocumentToFusion() {
+          if (!ensureCurrentFusionWritable()) return;
+          if (!moveDocument.value.id) {
+            ElMessage.warning('未找到待迁移的关联政策');
+            return;
+          }
+          if (!targetFusionId.value) {
+            ElMessage.warning('请选择目标主政策');
+            return;
+          }
+          moving.value = true;
+          try {
+            const sourceFusionId = moveSourceFusionId.value || String(currentFusion.value.id || '').trim();
+            await post('/api/fusion-classification/documents/move', {
+              id: moveDocument.value.id,
+              targetFusionPolicyId: targetFusionId.value
+            });
+            ElMessage.success('关联政策迁移成功');
+            documentMoveVisible.value = false;
+            await fetchPolicies();
+            if (sourceFusionId) {
+              await refreshCurrentFusion(sourceFusionId, { silent: true });
+            }
+            moveDocument.value = {};
+            moveSourceFusionId.value = '';
+          } catch (err) {
+            ElMessage.error(err.message || '关联政策迁移失败');
+          } finally {
+            moving.value = false;
+          }
+        }
+
+        async function saveParentPolicy() {
+          if (!currentFusion.value.id) return;
+          if (!ensureCurrentFusionWritable()) return;
+          if (!parentFusionId.value) {
+            ElMessage.warning('请选择上级主政策');
+            return;
+          }
+          parentBindingSaving.value = true;
+          try {
+            await post('/api/fusion-classification/policies/parent/update', {
+              id: currentFusion.value.id,
+              parentFusionPolicyId: parentFusionId.value,
+              operator: resolveReviewerName()
+            });
+            ElMessage.success('主政策父子关系已保存');
+            parentSelectVisible.value = false;
+            await fetchPolicies();
+            await refreshCurrentFusion(currentFusion.value.id);
+          } catch (err) {
+            ElMessage.error(err.message || '父子关系保存失败');
+          } finally {
+            parentBindingSaving.value = false;
+          }
+        }
+
+        async function clearDirectParentPolicy(parent) {
+          const parentId = String(parent?.id || '').trim();
+          const parentTitle = String(parent?.title || parent?.mainFileTitle || parent?.directoryTitle || '').trim();
+          if (!currentFusion.value.id || !parentId) return;
+          if (!ensureCurrentFusionWritable()) return;
+          try {
+            await ElMessageBox.confirm(
+              `确定解除当前主政策与上级主政策“${parentTitle || '-'}”的直属关系吗？`,
+              '解除主政策父子关系',
+              {
+                type: 'warning',
+                confirmButtonText: '确认解除',
+                cancelButtonText: '取消'
+              }
+            );
+          } catch (_) {
+            return;
+          }
+          parentBindingSaving.value = true;
+          try {
+            await post('/api/fusion-classification/policies/parent/update', {
+              id: currentFusion.value.id,
+              parentFusionPolicyId: parentId,
+              action: 'remove',
+              operator: resolveReviewerName()
+            });
+            ElMessage.success('上级主政策关联已解除');
+            await fetchPolicies();
+            await refreshCurrentFusion(currentFusion.value.id);
+          } catch (err) {
+            ElMessage.error(err.message || '解除失败');
+          } finally {
+            parentBindingSaving.value = false;
+          }
+        }
+
+        async function saveChildPolicy() {
+          if (!currentFusion.value.id) return;
+          if (!ensureCurrentFusionWritable()) return;
+          if (!childFusionId.value) {
+            ElMessage.warning('请选择下级主政策');
+            return;
+          }
+          parentBindingSaving.value = true;
+          try {
+            await post('/api/fusion-classification/policies/parent/update', {
+              id: childFusionId.value,
+              parentFusionPolicyId: currentFusion.value.id,
+              operator: resolveReviewerName()
+            });
+            ElMessage.success('下级主政策关联已保存');
+            childSelectVisible.value = false;
+            await fetchPolicies();
+            await refreshCurrentFusion(currentFusion.value.id);
+          } catch (err) {
+            ElMessage.error(err.message || '下级主政策保存失败');
+          } finally {
+            parentBindingSaving.value = false;
+          }
+        }
+
+        async function clearDirectChildPolicy(child) {
+          const childId = String(child?.id || '').trim();
+          if (!currentFusion.value.id || !childId) return;
+          if (!ensureCurrentFusionWritable()) return;
+          try {
+            await ElMessageBox.confirm(
+              `确定解除当前主政策与下级主政策“${child.title || child.mainFileTitle || child.directoryTitle || '-'}”的直属关系吗？`,
+              '解除直属下级关系',
+              {
+                type: 'warning',
+                confirmButtonText: '确认解除',
+                cancelButtonText: '取消'
+              }
+            );
+          } catch (_) {
+            return;
+          }
+          parentBindingSaving.value = true;
+          try {
+            await post('/api/fusion-classification/policies/parent/update', {
+              id: childId,
+              parentFusionPolicyId: String(currentFusion.value.id || '').trim(),
+              action: 'remove',
+              operator: resolveReviewerName()
+            });
+            ElMessage.success('直属下级关系已解除');
+            await fetchPolicies();
+            await refreshCurrentFusion(currentFusion.value.id);
+          } catch (err) {
+            ElMessage.error(err.message || '解除直属下级失败');
+          } finally {
+            parentBindingSaving.value = false;
+          }
+        }
+
+        async function unlinkDocument(doc) {
+          if (!ensureCurrentFusionWritable()) return;
+          try {
+            await ElMessageBox.confirm(`确定弃用关联政策“${doc.policyTitle}”吗？`, '弃用关联政策', {
+              type: 'warning',
+              confirmButtonText: '确认弃用',
+              cancelButtonText: '取消'
+            });
+          } catch (_) {
+            return;
+          }
+          deletingDocId.value = doc.id;
+          try {
+            await post('/api/fusion-classification/documents/delete', { id: doc.id });
+            ElMessage.success('关联政策已弃用');
+            await fetchPolicies();
+            await refreshCurrentFusion(currentFusion.value.id);
+          } catch (err) {
+            ElMessage.error(err.message || '弃用失败');
+          } finally {
+            deletingDocId.value = '';
+          }
+        }
+
+        async function restoreDocument(doc) {
+          if (!ensureCurrentFusionWritable()) return;
+          restoringDocId.value = doc.id;
+          try {
+            const res = await post('/api/fusion-classification/documents/restore', { id: doc.id });
+            ElMessage.success(res.message || '关联政策已取消弃用');
+            await fetchPolicies();
+            await refreshCurrentFusion(currentFusion.value.id);
+          } catch (err) {
+            ElMessage.error(err.message || '取消弃用失败');
+          } finally {
+            restoringDocId.value = '';
+          }
+        }
+
+        async function saveDocumentType(doc, type) {
+          if (!ensureCurrentFusionWritable()) return;
+          if (savingDocTypeId.value === doc.id || doc.policyAttribute === type) return;
+          try {
+            await persistDocumentType(doc, type);
+          } catch (err) {
+            ElMessage.error(err.message || '政策属性暂存失败');
+          }
+        }
+
+        async function saveAttachmentType(doc, attachment, type) {
+          if (!ensureCurrentFusionWritable()) return;
+          const key = attachmentKey(attachment);
+          const policyId = String(attachment.policyId || doc.sourcePolicyId || '').trim();
+          if (!key || !policyId || !attachment.id) {
+            ElMessage.error('附件信息不完整，无法保存文件类型');
+            return;
+          }
+          if (attachmentSaving.value || attachmentReviewSaving.value || attachment.type === type) return;
+          attachment.type = type;
+          attachment.attachmentType = type;
+          attachment._pendingTypeChange = attachment.type !== attachment._savedType;
+          ElMessage.success(
+            isApprovedReviewStatus(currentFusion.value.reviewStatus)
+              ? `附件类型已暂存为“${type}”，请先撤销主政策审核并重新审核通过后生效`
+              : `附件类型已暂存为“${type}”，主政策审核通过后生效`
+          );
+        }
+
+        async function persistPendingDetailChanges() {
+          const documents = Array.isArray(currentFusion.value.documents) ? currentFusion.value.documents : [];
+          for (const doc of documents) {
+            const attachments = Array.isArray(doc.attachments) ? doc.attachments : [];
+            for (const attachment of attachments) {
+              if (!attachment._pendingTypeChange) continue;
+              const policyId = String(attachment.policyId || doc.sourcePolicyId || '').trim();
+              if (!policyId || !attachment.id) {
+                throw new Error('附件信息不完整，无法提交文件类型');
+              }
+              await post('/api/attachment-types/update', {
+                policyId,
+                attachmentId: attachment.id,
+                attachmentType: attachment.type
+              });
+              attachment.attachmentType = attachment.type;
+              attachment._savedType = attachment.type;
+              attachment._pendingTypeChange = false;
+              attachment.reviewed = false;
+              attachment._savedReviewed = false;
+              attachment.reviewStatus = REVIEW_STATUS_PENDING;
+              attachment._savedReviewStatus = REVIEW_STATUS_PENDING;
+            }
+          }
+        }
+
+        async function approveAttachmentType(doc, attachment) {
+          const policyId = String(attachment.policyId || doc.sourcePolicyId || '').trim();
+          if (!policyId || !attachment.id || !attachment.type || attachment.reviewed || attachmentReviewSaving.value) return;
+          attachmentReviewSaving.value = attachment.id;
+          try {
+            await post('/api/attachment-types/approve', {
+              policyId,
+              attachmentId: attachment.id
+            });
+            attachment.reviewed = true;
+            attachment.reviewStatus = REVIEW_STATUS_APPROVED;
+            ElMessage.success('关联附件已复核通过');
+          } catch (err) {
+            ElMessage.error(err.message || '附件复核失败');
+          } finally {
+            attachmentReviewSaving.value = '';
+          }
+        }
+
+        async function revokeAttachmentType(doc, attachment) {
+          const policyId = String(attachment.policyId || doc.sourcePolicyId || '').trim();
+          if (!policyId || !attachment.id || !attachment.reviewed || attachmentReviewSaving.value) return;
+          attachmentReviewSaving.value = attachment.id;
+          try {
+            await post('/api/attachment-types/revoke', {
+              policyId,
+              attachmentId: attachment.id
+            });
+            attachment.reviewed = false;
+            attachment.reviewStatus = REVIEW_STATUS_PENDING;
+            ElMessage.success('关联附件复核已撤销');
+          } catch (err) {
+            ElMessage.error(err.message || '撤销失败');
+          } finally {
+            attachmentReviewSaving.value = '';
+          }
+        }
+
+        async function approveCurrentPolicy() {
+          if (!ensureCurrentFusionWritable()) return;
+          if (approveDisabled.value) return;
+          reviewApproveSaving.value = true;
+          try {
+            await persistPendingDetailChanges();
+            await post('/api/fusion-classification/policies/review/approve', {
+              id: currentFusion.value.id,
+              reviewedBy: resolveReviewerName()
+            });
+            ElMessage.success('主政策审核已通过');
+            await fetchPolicies();
+            await refreshCurrentFusion(currentFusion.value.id);
+          } catch (err) {
+            ElMessage.error(err.message || '审核失败');
+          } finally {
+            reviewApproveSaving.value = false;
+          }
+        }
+
+        async function revokeCurrentPolicy() {
+          if (!ensureCurrentFusionWritable()) return;
+          if (!currentFusion.value.id || reviewRevokeSaving.value) return;
+          reviewRevokeSaving.value = true;
+          try {
+            await post('/api/fusion-classification/policies/review/revoke', { id: currentFusion.value.id });
+            ElMessage.success('主政策审核已撤销');
+            await fetchPolicies();
+            await refreshCurrentFusion(currentFusion.value.id);
+          } catch (err) {
+            ElMessage.error(err.message || '撤销失败');
+          } finally {
+            reviewRevokeSaving.value = false;
+          }
+        }
+
+        async function deleteMainPolicy(row) {
+          if (isDeletedFusion(row)) {
+            ElMessage.warning('该主政策已弃用');
+            return;
+          }
+          try {
+            await ElMessageBox.confirm(`确定弃用主政策“${row.mainFileTitle || row.directoryTitle}”吗？弃用后会同时弃用该主政策下的全部关联政策。`, '弃用主政策', {
+              type: 'warning',
+              confirmButtonText: '确认弃用',
+              cancelButtonText: '取消'
+            });
+          } catch (_) {
+            return;
+          }
+          try {
+            await post('/api/fusion-classification/policies/delete', { id: row.id });
+            ElMessage.success('主政策已弃用');
+            if (policies.value.length === 1 && pagination.page > 1) pagination.page -= 1;
+            await fetchPolicies();
+          } catch (err) {
+            ElMessage.error(err.message || '弃用失败');
+          }
+        }
+
+        async function restoreMainPolicy(row) {
+          restoringPolicyId.value = row.id;
+          try {
+            const res = await post('/api/fusion-classification/policies/restore', { id: row.id });
+            ElMessage.success(res.message || '主政策已取消弃用');
+            await fetchPolicies();
+          } catch (err) {
+            ElMessage.error(err.message || '取消弃用失败');
+          } finally {
+            restoringPolicyId.value = '';
+          }
+        }
+
+        async function viewContent(doc) {
+          contentDocument.value = { ...doc, dialogTitle: doc.policyTitle || '政策原文', previewUrl: '', content: '' };
+          contentVisible.value = true;
+          contentLoading.value = true;
+          try {
+            const sourcePolicyId = String(doc.sourcePolicyId || '').trim();
+            if (!sourcePolicyId) {
+              throw new Error('该关联政策未绑定 SOURCE_POLICY_ID，不能回退读取快照内容');
+            }
+            const contentUrl = `${API_BASE}/api/policy/content?id=${encodeURIComponent(sourcePolicyId)}`;
+            const response = await fetch(contentUrl);
+            const result = await response.json();
+            if (!result.success) throw new Error(result.message || '原文读取失败');
+            contentDocument.value = {
+              ...doc,
+              ...result.data,
+              dialogTitle: doc.policyTitle || result.data?.policyTitle || result.data?.title || '政策原文',
+              previewUrl: '',
+              policyTitle: doc.policyTitle || result.data?.policyTitle || result.data?.title || ''
+            };
+          } catch (err) {
+            contentDocument.value = { ...doc, dialogTitle: doc.policyTitle || '政策原文', previewUrl: '', content: err.message || '原文读取失败' };
+          } finally {
+            contentLoading.value = false;
+          }
+        }
+
+        async function viewAttachmentContent(doc, attachment) {
+          const attachmentTitle = attachment.attachmentShowName || attachment.attachmentName || '附件原文';
+          if (isArchiveAttachment(attachment)) {
+            downloadAttachment(attachment);
+            return;
+          }
+          const isPdf = String(attachment.fileSuffix || '').toLowerCase() === 'pdf';
+          contentDocument.value = {
+            ...doc,
+            ...attachment,
+            dialogTitle: attachmentTitle,
+            previewUrl: isPdf ? `${API_BASE}/api/attachment/file?filePath=${encodeURIComponent(attachment.filePath || '')}` : '',
+            content: '',
+            contentHtml: ''
+          };
+          contentVisible.value = true;
+          contentLoading.value = !isPdf;
+          if (isPdf) {
+            return;
+          }
+          try {
+            const response = await fetch(`${API_BASE}/api/attachment/content?attachmentId=${encodeURIComponent(String(attachment.id || ''))}`);
+            const result = await response.json();
+            if (!result.success) throw new Error(result.message || '附件读取失败');
+            contentDocument.value = {
+              ...doc,
+              ...attachment,
+              ...result.data,
+              dialogTitle: result.data?.attachmentShowName || result.data?.attachmentName || attachmentTitle,
+              previewUrl: '',
+              attachmentName: result.data?.attachmentName || attachment.attachmentName || attachmentTitle,
+              content: result.data?.content || '',
+              contentHtml: result.data?.contentHtml || ''
+            };
+          } catch (err) {
+            contentDocument.value = { ...doc, ...attachment, dialogTitle: attachmentTitle, previewUrl: '', content: err.message || '附件读取失败', contentHtml: '' };
+          } finally {
+            contentLoading.value = false;
+          }
+        }
+
+        async function viewCandidateContent(item) {
+          selectedPolicyId.value = item.id;
+          candidatePreview.value = { ...item, content: '' };
+          candidatePreviewLoading.value = true;
+          try {
+            const response = await fetch(`${API_BASE}/api/policy/content?id=${encodeURIComponent(item.id)}`);
+            const result = await response.json();
+            if (!result.success) throw new Error(result.message || '原文读取失败');
+            candidatePreview.value = {
+              ...item,
+              ...result.data,
+              policyTitle: item.policyTitle || result.data?.policyTitle || result.data?.title || ''
+            };
+          } catch (err) {
+            candidatePreview.value = { ...item, content: err.message || '原文读取失败' };
+          } finally {
+            candidatePreviewLoading.value = false;
+          }
+        }
+
+        onMounted(fetchPolicies);
+
+        return {
+          loading,
+          detailRefreshing,
+          policies,
+          pagination,
+          search,
+          tableSort,
+          filterStats,
+          typeOptions,
+          detailVisible,
+          currentFusion,
+          currentFusionReadOnly,
+          documentCreateVisible,
+          documentMoveVisible,
+          parentSelectVisible,
+          childSelectVisible,
+          contentVisible,
+          contentLoading,
+          contentDocument,
+          creating,
+          moving,
+          candidateLoading,
+          targetFusionLoading,
+          parentFusionLoading,
+          childFusionLoading,
+          candidatePreviewLoading,
+          policyCandidates,
+          targetFusionCandidates,
+          parentFusionCandidates,
+          childFusionCandidates,
+          candidatePreview,
+          targetFusionPreview,
+          parentFusionPreview,
+          childFusionPreview,
+          selectedPolicyId,
+          targetFusionId,
+          parentFusionId,
+          childFusionId,
+          policyKeyword,
+          targetFusionKeyword,
+          parentFusionKeyword,
+          childFusionKeyword,
+          searched,
+          targetFusionSearched,
+          parentFusionSearched,
+          childFusionSearched,
+          documentParent,
+          moveDocument,
+          moveSourceFusionId,
+          targetFusionPagination,
+          parentFusionPagination,
+          childFusionPagination,
+          detailDocumentDeleteStatus,
+          sortedCurrentDocuments,
+          deletingDocId,
+          restoringPolicyId,
+          restoringDocId,
+          savingDocTypeId,
+          attachmentSaving,
+          parentBindingSaving,
+          saveDocumentType,
+          attachmentTypes,
+          isAttachmentCollapsed,
+          toggleAttachmentCollapsed,
+          attachmentKey,
+          saveAttachmentType,
+          reviewApproveSaving,
+          reviewRevokeSaving,
+          approveDisabled,
+          fetchPolicies,
+          runSearch,
+          setAnnotationFilter,
+          setMainReviewFilter,
+          toggleDeletedView,
+          toggleDeletedDocumentsView,
+          resetSearch,
+          openCreateDialog,
+          submitCreate,
+          startEditTitle,
+          cancelEditTitle,
+          saveTitle,
+          editingTitle,
+          editTitleValue,
+          savingTitle,
+          handleSizeChange,
+          handleCurrentChange,
+          handleTableSortChange,
+          showDetail,
+          openFusionDetailById,
+          ancestorDepthLabel,
+          descendantDepthLabel,
+          openParentSelectDialog,
+          openChildSelectDialog,
+          openDocumentCreate,
+          openDocumentMove,
+          searchPolicies,
+          searchTargetFusions,
+          searchParentFusions,
+          searchChildFusions,
+          runTargetFusionSearch,
+          runParentFusionSearch,
+          runChildFusionSearch,
+          handleTargetFusionCurrentChange,
+          handleTargetFusionSizeChange,
+          handleParentFusionCurrentChange,
+          handleParentFusionSizeChange,
+          handleChildFusionCurrentChange,
+          handleChildFusionSizeChange,
+          selectTargetFusion,
+          selectParentFusion,
+          selectChildFusion,
+          createDocument,
+          moveDocumentToFusion,
+          saveParentPolicy,
+          clearDirectParentPolicy,
+          saveChildPolicy,
+          clearDirectChildPolicy,
+          unlinkDocument,
+          restoreDocument,
+          restoreMainPolicy,
+          approveCurrentPolicy,
+          revokeCurrentPolicy,
+          deleteMainPolicy,
+          viewContent,
+          viewAttachmentContent,
+          viewCandidateContent,
+          isApprovedReviewStatus,
+          isDeletedDocument,
+          policyAnnotationStatus,
+          policyAttachmentStatus,
+          totalAuditItemCount,
+          reviewedAuditItemCount,
+          auditProgressPercent,
+          annotationTagType,
+          isDeletedFusion,
+          mainReviewText,
+          mainReviewTagType,
+          reviewStatusText,
+          reviewTagType,
+          clearDetailState
+        };
+      }
+    });
+
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component);
+    }
+    app.use(ElementPlus);
+    app.mount('#app');
+    PageInit.initStandalonePage();
+  </script>
+</body>
+</html>

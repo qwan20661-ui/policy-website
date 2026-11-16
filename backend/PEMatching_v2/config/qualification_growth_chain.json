@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "qualification-growth-chain-v1",
+  "description": "企业科技资质成长图。只描述当前状态的直接后继，不表示所有企业必须沿单一路径升级。",
+  "qualificationFields": [
+    "qualifications.isTechSme",
+    "qualifications.isInnovativeSme",
+    "qualifications.isHighTechEnterprise",
+    "qualifications.isSpecializedSme",
+    "qualifications.isSpecializedLittleGiant",
+    "eligibilityFacts.isListedReserveEnterprise"
+  ],
+  "policyTargets": [
+    {
+      "targetId": "innovative_sme",
+      "label": "创新型中小企业",
+      "matchTerms": ["创新型中小企业评价", "创新型中小企业认定"],
+      "excludeTerms": ["奖励", "兑现", "中介机构"]
+    },
+    {
+      "targetId": "tech_sme",
+      "label": "科技型中小企业",
+      "matchTerms": ["科技型中小企业入库", "科技型中小企业评价", "科技型中小企业认定", "科技中小企业入库"],
+      "excludeTerms": ["奖励", "兑现", "中介机构"]
+    },
+    {
+      "targetId": "specialized_sme",
+      "label": "专精特新中小企业",
+      "matchTerms": ["专精特新中小企业申报", "专精特新中小企业认定"],
+      "excludeTerms": ["奖励", "兑现", "小巨人"]
+    },
+    {
+      "targetId": "high_tech_enterprise",
+      "label": "国家级高新技术企业",
+      "matchTerms": ["国家高新技术企业认定", "高新技术企业认定"],
+      "excludeTerms": ["奖励", "兑现", "中介机构"]
+    },
+    {
+      "targetId": "new_research_institution",
+      "label": "新型研发机构",
+      "matchTerms": ["新型研发机构认定", "新型研发机构备案"],
+      "excludeTerms": ["补助", "奖励", "兑现", "购买科研仪器"]
+    },
+    {
+      "targetId": "future_industry_backbone",
+      "label": "未来产业骨干企业",
+      "matchTerms": ["未来产业骨干企业备案", "未来产业骨干企业认定"],
+      "excludeTerms": ["奖励", "兑现"]
+    },
+    {
+      "targetId": "innovation_consortium",
+      "label": "创新联合体",
+      "matchTerms": ["创新联合体备案", "创新联合体认定"],
+      "excludeTerms": ["奖励", "兑现"]
+    },
+    {
+      "targetId": "technology_little_giant",
+      "label": "科技小巨人",
+      "matchTerms": ["科技小巨人认定", "科技小巨人申报"],
+      "excludeTerms": ["奖励", "兑现", "专精特新小巨人"]
+    },
+    {
+      "targetId": "above_scale_industrial",
+      "label": "规模以上工业企业",
+      "matchTerms": ["规模以上工业企业纳统", "规上工业企业入库", "规上工业企业认定"],
+      "excludeTerms": ["奖励", "兑现"]
+    },
+    {
+      "targetId": "manufacturing_single_champion",
+      "label": "制造业单项冠军",
+      "matchTerms": ["制造业单项冠军认定", "制造业单项冠军申报"],
+      "excludeTerms": ["奖励", "兑现"]
+    },
+    {
+      "targetId": "unicorn",
+      "label": "独角兽企业",
+      "matchTerms": ["独角兽企业认定", "独角兽企业遴选"],
+      "excludeTerms": ["奖励", "兑现"]
+    },
+    {
+      "targetId": "gazelle",
+      "label": "瞪羚企业",
+      "matchTerms": ["瞪羚企业认定", "瞪羚企业遴选"],
+      "excludeTerms": ["奖励", "兑现"]
+    },
+    {
+      "targetId": "listed_enterprise",
+      "label": "上市企业",
+      "matchTerms": ["企业上市", "上市企业培育", "上市申报"],
+      "excludeTerms": ["上市后备", "奖励兑现"]
+    }
+  ],
+  "states": [
+    {
+      "stateId": "no_technology_qualification",
+      "label": "无科技资质",
+      "qualificationFields": [],
+      "fallbackWhenNoQualificationIsTrue": true,
+      "nextTargetIds": ["innovative_sme", "tech_sme"]
+    },
+    {
+      "stateId": "innovative_sme",
+      "label": "创新型中小企业",
+      "qualificationFields": ["qualifications.isInnovativeSme"],
+      "nextTargetIds": ["specialized_sme"]
+    },
+    {
+      "stateId": "tech_sme",
+      "label": "科技型中小企业",
+      "qualificationFields": ["qualifications.isTechSme"],
+      "nextTargetIds": ["high_tech_enterprise"]
+    },
+    {
+      "stateId": "high_tech_enterprise",
+      "label": "国家级高新技术企业",
+      "qualificationFields": ["qualifications.isHighTechEnterprise"],
+      "nextTargetIds": ["new_research_institution", "future_industry_backbone"]
+    },
+    {
+      "stateId": "specialized_sme",
+      "label": "专精特新中小企业",
+      "qualificationFields": ["qualifications.isSpecializedSme"],
+      "nextTargetIds": ["innovation_consortium", "technology_little_giant", "above_scale_industrial"]
+    },
+    {
+      "stateId": "specialized_little_giant",
+      "label": "专精特新小巨人",
+      "qualificationFields": ["qualifications.isSpecializedLittleGiant"],
+      "nextTargetIds": ["manufacturing_single_champion", "unicorn", "gazelle"]
+    },
+    {
+      "stateId": "listed_reserve_enterprise",
+      "label": "上市后备培育企业",
+      "qualificationFields": ["eligibilityFacts.isListedReserveEnterprise"],
+      "nextTargetIds": ["listed_enterprise"]
+    }
+  ]
+}

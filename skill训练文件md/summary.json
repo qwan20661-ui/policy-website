@@ -1,0 +1,30 @@
+{
+  "output_dir": "D:\\kjj\\kejiju-frontend\\skill训练文件md",
+  "input_match_csv": "D:\\kjj\\kejiju-frontend\\exports\\policy_md_match\\policy_md_ngram_match_all.csv",
+  "corpus_roots": [
+    "D:\\kjj\\kejiju-frontend\\importantplus",
+    "D:\\kjj\\kejiju-frontend\\docs1"
+  ],
+  "corpus_md_count": 5172,
+  "excel_rows": 487,
+  "copied_md_count": 487,
+  "missing_count": 0,
+  "needs_review_count": 21,
+  "label_counts": {
+    "指导政策": 32,
+    "实施细则": 70,
+    "申报通知": 248,
+    "结果公告": 135,
+    "实施细则、通知公告": 1,
+    "通知公告": 1
+  },
+  "match_status_counts": {
+    "matched_high": 466,
+    "matched_medium": 18,
+    "fallback_matched": 2,
+    "candidate_low": 1
+  },
+  "manifest_csv": "D:\\kjj\\kejiju-frontend\\skill训练文件md\\manifest.csv",
+  "manifest_json": "D:\\kjj\\kejiju-frontend\\skill训练文件md\\manifest.json",
+  "missing_csv": "D:\\kjj\\kejiju-frontend\\skill训练文件md\\missing_after_copy.csv"
+}

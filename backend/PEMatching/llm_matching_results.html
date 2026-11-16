@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>政策匹配分析报告 - Material You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'md-surface': '#FFFBFE',
+                        'md-on-surface': '#1C1B1F',
+                        'md-primary': '#6750A4',
+                        'md-on-primary': '#FFFFFF',
+                        'md-secondary-container': '#E8DEF8',
+                        'md-on-secondary-container': '#1D192B',
+                        'md-tertiary': '#7D5260',
+                        'md-surface-container': '#F3EDF7',
+                        'md-surface-container-low': '#E7E0EC',
+                        'md-outline': '#79747E',
+                        'md-on-surface-variant': '#49454F',
+                    },
+                    fontFamily: { 'Roboto': ['Roboto', 'sans-serif'] },
+                    borderRadius: {
+                        'md-sm': '12px', 'md': '16px', 'md-lg': '24px',
+                        'md-xl': '28px', 'md-2xl': '32px', 'md-3xl': '48px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; background: #FFFBFE; color: #1C1B1F; min-height: 100vh; }
+
+        .blur-shape { position: fixed; pointer-events: none; z-index: 0; filter: blur(64px); opacity: 0.25; }
+        .blur-1 { width: 500px; height: 500px; background: radial-gradient(circle, #6750A4 0%, transparent 70%); top: -150px; right: -100px; }
+        .blur-2 { width: 400px; height: 400px; background: radial-gradient(circle, #7D5260 0%, transparent 70%); bottom: 20%; left: -100px; }
+        .blur-3 { width: 350px; height: 350px; background: radial-gradient(circle, #E8DEF8 0%, transparent 70%); top: 40%; right: -50px; }
+
+        .card-hover { transition: all 0.3s cubic-bezier(0.2, 0, 0, 1); }
+        .card-hover:hover { transform: scale(1.02); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+
+        .btn-material { transition: all 0.3s cubic-bezier(0.2, 0, 0, 1); }
+        .btn-material:hover { opacity: 0.9; }
+        .btn-material:active { transform: scale(0.95); }
+
+        .score-ring { transition: stroke-dashoffset 0.5s cubic-bezier(0.2, 0, 0, 1); }
+
+        .grade-a { background: linear-gradient(135deg, #4CAF50, #2E7D32); }
+        .grade-b { background: linear-gradient(135deg, #8BC34A, #558B2F); }
+        .grade-c { background: linear-gradient(135deg, #FF9800, #F57C00); }
+        .grade-d { background: linear-gradient(135deg, #9E9E9E, #616161); }
+
+        .badge-a { background: linear-gradient(135deg, #4CAF50, #2E7D32); color: white; }
+        .badge-b { background: linear-gradient(135deg, #8BC34A, #558B2F); color: white; }
+        .badge-c { background: linear-gradient(135deg, #FF9800, #F57C00); color: white; }
+        .badge-d { background: linear-gradient(135deg, #9E9E9E, #616161); color: white; }
+        .badge-top { background: linear-gradient(135deg, #FFD700, #FF8C00); color: #1a1a1a; font-weight: 700; }
+        .star-5 { background: linear-gradient(135deg, #FFD700, #FF8C00); color: #1a1a1a; }
+        .star-4 { background: linear-gradient(135deg, #4CAF50, #2E7D32); color: white; }
+        .star-3 { background: linear-gradient(135deg, #2196F3, #1565C0); color: white; }
+        .star-2 { background: linear-gradient(135deg, #FF9800, #F57C00); color: white; }
+        .star-1 { background: linear-gradient(135deg, #9E9E9E, #616161); color: white; }
+        .star-0 { background: linear-gradient(135deg, #f44336, #c62828); color: white; }
+
+        .match-full { background: #DCFCE7; color: #16A34A; }
+        .match-partial { background: #FEF9C3; color: #CA8A04; }
+        .match-none { background: #FEE2E2; color: #DC2626; }
+        .match-pending { background: #E0E7FF; color: #4338CA; }
+
+        .condition-met { background: rgba(76, 175, 80, 0.08); border-left: 4px solid #4CAF50; }
+        .condition-unmet { background: rgba(244, 67, 54, 0.08); border-left: 4px solid #F44336; }
+        .condition-partial { background: rgba(255, 152, 0, 0.08); border-left: 4px solid #FF9800; }
+        .condition-pending { background: rgba(67, 56, 202, 0.08); border-left: 4px solid #4338CA; }
+
+        .score-bar-fill.high { background: linear-gradient(90deg, #4CAF50, #81C784); }
+        .score-bar-fill.medium { background: linear-gradient(90deg, #FF9800, #FFB74D); }
+        .score-bar-fill.low { background: linear-gradient(90deg, #9E9E9E, #BDBDBD); }
+
+        @keyframes pop { 0% { transform: scale(0); opacity: 0; } 70% { transform: scale(1.05); } 100% { transform: scale(1); opacity: 1; } }
+        .policy-card { animation: pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F3EDF7; }
+        ::-webkit-scrollbar-thumb { background: #79747E; border-radius: 4px; }
+
+        .search-input-wrap {
+            position: relative; flex: 1; min-width: 240px;
+        }
+        .search-input-wrap svg {
+            position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+            width: 20px; height: 20px; color: #79747E; pointer-events: none;
+        }
+        .search-input-wrap input {
+            width: 100%; padding: 12px 40px 12px 44px;
+            border: 2px solid #E7E0EC; border-radius: 9999px;
+            font-size: 0.9rem; transition: all 0.2s;
+        }
+        .search-input-wrap input:focus { outline: none; border-color: #6750A4; box-shadow: 0 0 0 3px rgba(103,80,164,0.12); }
+
+        .search-clear {
+            position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+            width: 20px; height: 20px; border-radius: 50%; background: #79747E;
+            color: white; border: none; cursor: pointer; font-size: 14px; line-height: 20px;
+            display: none; text-align: center;
+        }
+        .search-clear.show { display: block; }
+
+        .filter-row {
+            display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+            padding: 12px 16px; background: #F3EDF7; border-radius: 16px;
+        }
+
+        .filter-chip {
+            padding: 6px 14px; border: 1.5px solid #E7E0EC; border-radius: 9999px;
+            font-size: 0.8rem; font-weight: 500; cursor: pointer;
+            background: white; color: #49454F; transition: all 0.2s;
+        }
+        .filter-chip:hover { border-color: #6750A4; color: #6750A4; }
+        .filter-chip.active { background: #6750A4; color: white; border-color: #6750A4; }
+
+        .sort-btn {
+            padding: 6px 12px; border: 1.5px solid #E7E0EC; border-radius: 9999px;
+            font-size: 0.8rem; cursor: pointer; background: white; color: #49454F;
+            display: flex; align-items: center; gap: 4px; transition: all 0.2s;
+        }
+        .sort-btn:hover { border-color: #6750A4; }
+        .sort-btn.active { background: #E8DEF8; color: #1D192B; border-color: #6750A4; }
+
+        .ent-tab {
+            padding: 8px 16px; border: 2px solid #E7E0EC; border-radius: 9999px;
+            font-size: 0.82rem; font-weight: 500; cursor: pointer; background: white;
+            color: #49454F; transition: all 0.2s; white-space: nowrap;
+        }
+        .ent-tab:hover { border-color: #6750A4; color: #6750A4; }
+        .ent-tab.active { background: #6750A4; color: white; border-color: #6750A4; }
+
+        .ent-select {
+            padding: 8px 36px 8px 14px; border: 2px solid #E7E0EC; border-radius: 9999px;
+            font-size: 0.82rem; font-weight: 500; background: #fff; cursor: pointer;
+            transition: all 0.2s; appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2379747E' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat; background-position: right 12px center;
+            max-width: 220px;
+        }
+        .ent-select:hover { border-color: #6750A4; }
+        .ent-select:focus { outline: none; border-color: #6750A4; box-shadow: 0 0 0 3px rgba(103,80,164,0.12); }
+
+        .top-chip {
+            padding: 8px 18px; border: 2px solid #FFD700; border-radius: 9999px;
+            font-size: 0.82rem; font-weight: 700; cursor: pointer;
+            background: linear-gradient(135deg, #FFF8E1, #FFECB3); color: #E65100;
+            transition: all 0.2s; white-space: nowrap;
+        }
+        .top-chip:hover { box-shadow: 0 2px 10px rgba(255,152,0,0.3); transform: translateY(-1px); }
+        .top-chip.active {
+            background: linear-gradient(135deg, #FFD700, #FF8C00); color: #1a1a1a;
+            border-color: #FF8C00; box-shadow: 0 2px 10px rgba(255,152,0,0.4);
+        }
+
+        .top-card-glow {
+            box-shadow: 0 4px 20px rgba(255, 180, 0, 0.18), 0 0 0 2px rgba(255, 215, 0, 0.35);
+        }
+
+        .result-count { color: #79747E; font-size: 0.85rem; }
+
+        .no-result-icon { font-size: 3rem; margin-bottom: 12px; }
+
+        .score-circle {
+            width: 64px;
+            height: 64px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .score-circle svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        .score-circle .score-bg {
+            fill: none;
+            stroke: #E7E0EC;
+            stroke-width: 5;
+        }
+        .score-circle .score-ring {
+            fill: none;
+            stroke-width: 5;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        .score-circle .score-value {
+            position: relative;
+            z-index: 1;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .score-circle.high .score-ring { stroke: #4CAF50; }
+        .score-circle.medium .score-ring { stroke: #FF9800; }
+        .score-circle.low .score-ring { stroke: #9E9E9E; }
+        .score-circle .score-value.high { color: #4CAF50; }
+        .score-circle .score-value.medium { color: #FF9800; }
+        .score-circle .score-value.low { color: #9E9E9E; }
+
+        @media (max-width: 768px) {
+            .filter-row { padding: 10px 12px; gap: 8px; }
+            .search-input-wrap { min-width: 100%; }
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1C1B1F 0%, #2D2C32 100%);
+            color: white;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .sidebar-subtitle {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+        }
+        .sidebar-stats {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .sidebar-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            font-size: 0.85rem;
+        }
+        .sidebar-stat-label {
+            color: rgba(255,255,255,0.7);
+        }
+        .sidebar-stat-value {
+            font-weight: 600;
+        }
+        .sidebar-ents {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 0;
+        }
+        .sidebar-ent {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .sidebar-ent:hover {
+            background: rgba(255,255,255,0.08);
+        }
+        .sidebar-ent.active {
+            background: rgba(103,80,164,0.3);
+            border-left-color: #BB86FC;
+        }
+        .sidebar-ent-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 0.9rem;
+        }
+        .sidebar-ent.active .sidebar-ent-icon {
+            background: #6750A4;
+        }
+        .sidebar-ent-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .sidebar-ent-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .sidebar-ent-meta {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 2px;
+        }
+        .sidebar-ent-stars {
+            font-size: 0.7rem;
+            margin-top: 2px;
+        }
+        .sidebar-ent-star-full { color: #FFD700; }
+        .sidebar-ent-star-empty { color: rgba(255,255,255,0.2); }
+
+        /* Main content area */
+        .main-wrapper {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+
+        /* Mobile toggle button */
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #6750A4;
+            color: white;
+            z-index: 60;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-wrapper {
+                margin-left: 0;
+            }
+            .sidebar-toggle {
+                display: flex;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">政策匹配分析</div>
+            <div class="sidebar-subtitle">企业-政策智能匹配系统</div>
+        </div>
+        <div class="sidebar-stats" id="sidebarStats"></div>
+        <div class="sidebar-ents" id="sidebarEnts"></div>
+    </aside>
+
+    <!-- Mobile Toggle -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+        <div class="blur-shape blur-1"></div>
+        <div class="blur-shape blur-2"></div>
+        <div class="blur-shape blur-3"></div>
+
+        <!-- Header -->
+        <header class="relative z-10 backdrop-blur-md bg-md-surface/80 border-b-2 border-md-on-surface">
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="flex items-center justify-between flex-wrap gap-3">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-md-primary flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-medium text-md-on-surface">科小企业政策匹配分析报告</h1>
+                            <p class="text-sm text-md-on-surface-variant">基于AI智能匹配的申报推荐</p>
+                        </div>
+                    </div>
+                    <span class="px-4 py-2 rounded-full bg-md-secondary-container text-md-on-secondary-container text-sm font-medium">
+                        LLM分析结果
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Control Panel -->
+        <div class="relative z-10 max-w-7xl mx-auto px-6 py-6">
+            <div class="bg-white border-2 border-md-on-surface rounded-[24px] p-5 shadow-sm">
+                <!-- Row 1: Search + Enterprise Select -->
+                <div class="filter-row mb-3">
+                    <div class="search-input-wrap">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <input type="text" id="searchInput" placeholder="搜索企业名称、政策名称、行业关键词...">
+                        <button class="search-clear" id="searchClear" onclick="clearSearch()">×</button>
+                    </div>
+                    <select id="entFilterSelect" class="ent-select">
+                        <option value="all">全部企业</option>
+                    </select>
+                </div>
+
+                <!-- Row 2: Star Rating Filter -->
+                <div class="filter-row">
+                    <span class="text-sm font-medium text-md-on-surface-variant flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                        星级:
+                    </span>
+                    <button class="filter-chip active" data-score="all">全部</button>
+                    <button class="filter-chip" data-score="s5">五星 (90+)</button>
+                    <button class="filter-chip" data-score="s4">四星 (80-89)</button>
+                    <button class="filter-chip" data-score="s3">三星 (70-79)</button>
+                    <button class="filter-chip" data-score="s2">二星 (60-69)</button>
+                    <button class="filter-chip" data-score="s1">一星 (50-59)</button>
+                    <button class="filter-chip" data-score="s0">不推荐 (&lt;50)</button>
+                </div>
+
+                <!-- Row 3: Sort Options -->
+                <div class="filter-row">
+                    <span class="text-sm font-medium text-md-on-surface-variant flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/></svg>
+                        排序:
+                    </span>
+                    <button class="sort-btn active" data-sort="score-desc" title="评分从高到低">评分↓</button>
+                    <button class="sort-btn" data-sort="score-asc" title="评分从低到高">评分↑</button>
+                    <button class="sort-btn" data-sort="ent-score" title="按企业最佳匹配评分排序">企业分↓</button>
+                    <button class="sort-btn" data-sort="name" title="按政策名称排序">A→Z</button>
+                </div>
+
+                <!-- Row 4: Display Options -->
+                <div class="filter-row">
+                    <span class="text-sm font-medium text-md-on-surface-variant flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        显示:
+                    </span>
+                    <button class="top-chip" data-view="top90" title="仅显示A级(90分+)TOP推荐">TOP推荐</button>
+                    <button class="filter-chip active" data-view="top">仅推荐(≥70)</button>
+                    <button class="filter-chip" data-view="all">全部政策</button>
+                </div>
+
+                <!-- Result count bar -->
+                <div class="flex items-center justify-between mt-4 pt-3 border-t border-dashed border-gray-200">
+                    <span class="result-count" id="resultCount"></span>
+                    <button class="text-sm text-md-primary hover:underline cursor-pointer btn-material" onclick="resetAll()">重置所有筛选</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="relative z-10 max-w-7xl mx-auto px-6 py-4">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4" id="statsBar"></div>
+        </div>
+
+        <!-- File Picker -->
+        <div id="filePicker" class="relative z-10 max-w-7xl mx-auto px-6 py-12 hidden">
+            <div class="bg-md-surface-container rounded-[32px] p-12 text-center">
+                <div class="w-20 h-20 rounded-full bg-md-primary/10 flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-md-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                </div>
+                <h2 class="text-xl font-medium text-md-on-surface mb-2">请加载数据文件</h2>
+                <p class="text-sm text-md-on-surface-variant mb-6">由于浏览器安全限制，请选择 <code class="bg-md-surface-container-low px-2 py-1 rounded">llm_matching_results.json</code> 文件</p>
+                <label class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-md-primary text-white font-medium cursor-pointer btn-material">
+                    选择 JSON 文件
+                    <input type="file" accept=".json" class="hidden" onchange="loadLocalFile(event)">
+                </label>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="relative z-10 max-w-7xl mx-auto px-6 pb-12" id="mainContent"></main>
+
+        <!-- Modal -->
+        <div id="detailModal" class="fixed inset-0 z-[100] hidden">
+            <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeModal()"></div>
+            <div class="absolute inset-4 md:inset-8 bg-md-surface rounded-[32px] overflow-hidden shadow-2xl flex flex-col">
+                <div class="flex items-center justify-between p-6 border-b-2 border-md-outline/20">
+                    <h2 class="text-xl font-medium" id="modalTitle">匹配详情</h2>
+                    <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-md-surface-container hover:bg-md-surface-container-low flex items-center justify-center btn-material">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto p-6" id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+const EMBEDDED_DATA = [{"企业名称":"厦门奥普拓自控科技有限公司","年份":"2023/2024/2025","企业信息":{"职工总数":58,"科技人员数":30,"知识产权总数":46,"研发投入":2713.88,"销售收入":5024.77,"一级行业":"信息传输、软件和信息技术服务业","注册地":"厦门市/湖里区"},"政策匹配结果":[{"政策标题":"厦门市科技型中小企业评价","匹配率":0.8095,"星级推荐":"五星推荐","是否推荐":1,"条件匹配详情":[{"条件名称":"企业类型要求","政策原文":"基础信息.企业类型：居民企业","政策要求":"企业须为居民企业","企业现状":"企业注册信息显示为正常经营状态","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"属地要求","政策原文":"注册信息.属地信息：中国境内（不包括港、澳、台地区）","政策要求":"企业须在中国境内（不包括港、澳、台地区）注册","企业现状":"企业注册地为厦门市湖里区，属于中国境内","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"主体资格要求","政策原文":"经营信息.主体资格：具有独立法人资格","政策要求":"企业须具有独立法人资格","企业现状":"企业为有限责任公司，具有独立法人资格","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"经营状态要求","政策原文":"经营信息.经营状态：经营状态正常（未列入经营异常名录和严重违法失信企业名单）","政策要求":"企业经营状态正常，未列入经营异常名录和严重违法失信企业名单","企业现状":"准入条件判定中企业信用显示为符合","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"经营范围要求","政策原文":"经营信息.经营范围：不属于国家发展改革委员会《产业结构调整指导目录》规定的限制类和淘汰类范围","政策要求":"企业经营范围不属于《产业结构调整指导目录》限制类和淘汰类范围","企业现状":"企业资料未提及经营范围具体内容","匹配度":"待确认","差距分析":"需企业补充确认经营范围是否涉及限制类或淘汰类产业"},{"条件名称":"企业职工总数要求","政策原文":"基础信息.企业职工总数：职工总数不超过500人","政策要求":"企业职工总数不超过500人","企业现状":"职工总数58人","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"研发人员数量要求","政策原文":"基础信息.研发人员数量：科技人员指标得分不得为0分","政策要求":"科技人员指标得分不得为0分","企业现状":"科技人员30人，科技人员指标得分不得为0分","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"科技人员占比要求","政策原文":"基础信息.科技人员占比：科技人员指标得分不得为0分","政策要求":"科技人员指标得分不得为0分","企业现状":"科技人员占企业职工总数比例51.72%","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"科技人员数量要求","政策原文":"基础信息.科技人员数量：科技人员指标得分不得为0分","政策要求":"科技人员指标得分不得为0分","企业现状":"科技人员30人","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"知识产权要求","政策原文":"知识产权.专利：拥有在有效期内的与主要产品（或服务）相关的知识产权","政策要求":"企业须拥有在有效期内的与主要产品（或服务）相关的知识产权","企业现状":"I类知识产权6件，II类知识产权40件，合计46件","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"人员规模要求","政策原文":"人员规模要求：职工总数不超过500人","政策要求":"企业职工总数不超过500人","企业现状":"职工总数58人","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"市场规模要求","政策原文":"企业发展规模.市场规模：年销售收入不超过2亿元","政策要求":"年销售收入不超过2亿元","企业现状":"年销售收入5024.77万元","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"营收规模要求","政策原文":"营收规模要求：年销售收入不超过2亿元","政策要求":"年销售收入不超过2亿元","企业现状":"年销售收入5024.77万元","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"资产规模要求","政策原文":"企业发展规模.资产规模：资产总额不超过2亿元","政策要求":"资产总额不超过2亿元","企业现状":"资产总额10376.9万元","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"企业信用要求","政策原文":"信用合规.企业信用：未列入经营异常名录和严重违法失信企业名单","政策要求":"企业未列入经营异常名录和严重违法失信企业名单","企业现状":"准入条件判定中企业信用显示为符合","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"安全生产要求","政策原文":"信用合规.安全生产：未发生重大安全、重大质量事故和严重环境违法","政策要求":"企业未发生重大安全、重大质量事故和严重环境违法行为","企业现状":"企业资料未提及安全生产违规情况","匹配度":"待确认","差距分析":"需企业补充确认近三年是否发生重大安全、质量事故或严重环境违法"},{"条件名称":"工商信用要求","政策原文":"信用合规.工商信用：未列入经营异常名录和严重违法失信企业名单","政策要求":"企业未列入经营异常名录和严重违法失信企业名单","企业现状":"准入条件判定中企业信用显示为符合","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"科研信用要求","政策原文":"信用合规.科研信用：未发生科研严重失信行为","政策要求":"企业未发生科研严重失信行为","企业现状":"企业资料未提及科研信用情况","匹配度":"待确认","差距分析":"需企业补充确认是否存在科研严重失信行为"},{"条件名称":"质量合规要求","政策原文":"信用合规.质量合规：未发生重大安全、重大质量事故和严重环境违法","政策要求":"企业未发生重大安全、重大质量事故和严重环境违法行为","企业现状":"企业资料未提及质量违规情况","匹配度":"待确认","差距分析":"需企业补充确认近三年是否发生重大质量事故"},{"条件名称":"高新技术企业资质","政策原文":"资质荣誉.企业资质：企业拥有有效期内高新技术企业资格证书","政策要求":"企业须拥有有效期内高新技术企业资格证书","企业现状":"准入条件判定中高新技术企业：是","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"研发机构资质","政策原文":"资质荣誉.平台资质：企业拥有经认定的省部级以上研发机构","政策要求":"企业须拥有经认定的省部级以上研发机构","企业现状":"准入条件判定中研发机构：是","匹配度":"完全匹配","差距分析":"无差距"}],"优势分析":["企业规模适中：职工总数58人，远低于500人上限","科技人员占比高：科技人员占职工总数51.72%，远超科技型中小企业标准","研发投入强度大：研发费用占销售收入比例54.01%，占成本费用支出比例30.8%","知识产权储备丰富：I类知识产权6件，II类知识产权40件，合计46件","具备高新技术企业资格：拥有有效期内高企证书","拥有省部级以上研发机构：研发平台资质完备","资产和销售规模适中：资产总额10376.9万元、销售收入5024.77万元，均在标准范围内","企业信用良好：未被列入经营异常名录或严重违法失信企业名单"],"劣势分析":["经营范围合规性待确认：需核实是否涉及《产业结构调整指导目录》限制类或淘汰类产业","安全生产合规性待确认：需补充确认近三年未发生重大安全、质量事故或严重环境违法","科研信用情况待确认：需补充确认无科研严重失信行为"],"风险提示":["3项合规性条件（经营范围、安全生产、科研信用、质量合规）需企业自行确认，建议提前准备无违规证明","虽然企业整体条件优秀，但合规性证明材料缺失可能影响申报进度","建议在正式申报前完成所有合规性自查并准备相应证明文件"],"总体建议":"企业整体条件非常优秀，21项申报条件中17项完全匹配，4项待确认（均为合规性证明类）。建议：1）立即启动申报，匹配度已达85.71%；2）重点补充4项待确认条件的合规证明，包括工商经营异常查询结果、安全生产无事故证明、科研信用承诺书等；3）充分利用已具备的高企资质、省部级研发机构和丰富的知识产权储备作为核心优势；4）科技人员占比51.72%和研发投入强度54.01%是重要加分项，建议在申报材料中重点突出。"},{"政策标题":"国家高新技术企业认定","匹配率":0.5833,"星级推荐":"三星参考","是否推荐":1,"条件匹配详情":[{"条件名称":"成立年限要求","政策原文":"企业申请认定时须注册成立1年以上","政策要求":"企业申请认定时须注册成立1年以上","企业现状":"企业注册日期为2012-07-17，至今已正常运营超过12年","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"属地要求","政策原文":"中国境内（不包括港、澳、台地区）","政策要求":"企业须在中国境内（不包括港、澳、台地区）注册","企业现状":"企业注册地为厦门市湖里区，属于中国境内","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"主体资格要求","政策原文":"具有独立法人资格","政策要求":"企业须具有独立法人资格","企业现状":"企业资料未明确提及是否为独立法人资格","匹配度":"待确认","差距分析":"需企业补充确认是否具有独立法人资格"},{"条件名称":"经营状态要求","政策原文":"经营状态正常","政策要求":"企业经营状态须正常","企业现状":"企业资料未明确提及当前经营状态","匹配度":"待确认","差距分析":"需企业补充确认当前经营状态是否正常"},{"条件名称":"国家战略新兴产业分类","政策原文":"电子信息；生物与新医药；航空航天；新材料；高技术服务；新能源与节能；资源与环境；先进制造与自动化","政策要求":"企业须属于国家战略新兴产业分类中的某一类","企业现状":"企业属于软件和信息技术服务业，属于高技术服务范畴","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"所属行业领域","政策原文":"通用行业","政策要求":"企业须属于通用行业领域","企业现状":"企业属于信息传输、软件和信息技术服务业，二级行业为软件和信息技术服务业","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"科技人员占比要求","政策原文":"企业从事研发和相关技术创新活动的科技人员占企业当年职工总数的比例不低于10%","政策要求":"科技人员占企业当年职工总数的比例不低于10%","企业现状":"科技人员30人，职工总数58人，占比51.72%","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"研发投入强度要求","政策原文":"最近1年销售收入小于5,000万元（含）的企业，比例不低于5%；最近1年销售收入在5,000万元至2亿元（含）的企业，比例不低于4%；最近1年销售收入在2亿元以上的企业，比例不低于3%","政策要求":"销售收入5000万至2亿元的企业，研发费用占销售收入比例不低于4%","企业现状":"销售收入5024.77万元，研发费用2713.88万元，占比54.01%","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"知识产权要求","政策原文":"拥有对其主要产品（服务）在技术上发挥核心支持作用的知识产权的所有权","政策要求":"企业须拥有对其主要产品（服务）发挥核心支持作用的知识产权","企业现状":"拥有I类知识产权6件、II类知识产权40件，共计46件","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"企业信用要求","政策原文":"企业申请认定前1年内未发生重大安全、重大质量事故或严重环境违法行为","政策要求":"申请认定前1年内未发生重大安全、重大质量事故或严重环境违法行为","企业现状":"企业资料未明确提及信用合规情况","匹配度":"待确认","差距分析":"需企业补充确认申请前1年内无重大安全、质量事故或环境违法记录"},{"条件名称":"安全生产要求","政策原文":"企业申请认定前1年内未发生重大安全、重大质量事故或严重环境违法行为","政策要求":"申请认定前1年内未发生重大安全、重大质量事故或严重环境违法行为","企业现状":"企业资料未明确提及安全生产合规情况","匹配度":"待确认","差距分析":"需企业补充确认申请前1年内无重大安全事故记录"},{"条件名称":"质量合规要求","政策原文":"企业申请认定前1年内未发生重大安全、重大质量事故或严重环境违法行为","政策要求":"申请认定前1年内未发生重大安全、重大质量事故或严重环境违法行为","企业现状":"企业资料未明确提及质量合规情况","匹配度":"待确认","差距分析":"需企业补充确认申请前1年内无重大质量事故记录"}],"优势分析":["企业成立超过12年，远超1年要求","注册地在厦门，属于中国境内","属于国家战略新兴产业中的高技术服务领域","科技人员占比51.72%，远超10%要求","研发投入强度54.01%，远超4%要求","拥有46件知识产权，I类6件、II类40件，知识产权储备充足","已通过高新技术企业认定","已享受研发费用加计扣除1591.58万元"],"劣势分析":["独立法人资格未在资料中明确体现","经营状态是否正常未在资料中明确说明","信用合规、安全生产、质量合规三项均未在资料中明确说明"],"风险提示":["独立法人资格需提供营业执照等证明材料确认","需提供无重大安全、质量事故及环境违法的合规证明","企业利润总额为-123.57万元（亏损状态），需关注财务状况的持续性","信用合规类条件属于一票否决项，必须确保无不良记录"],"总体建议":"企业整体条件优秀，核心技术指标（科技人员占比51.72%、研发投入强度54.01%、知识产权46件）均大幅超过高新技术企业认定标准，且已通过高企认定并享受加计扣除政策，具备良好的申报基础。建议优先补充以下材料：（1）独立法人资格证明文件；（2）工商年报或经营状态正常证明；（3）申请前1年内的无重大安全、质量事故及环境违法证明。同时注意企业目前处于亏损状态，需确保研发费用归集的规范性和财务数据的逻辑一致性，以顺利通过专家评审。"}]},{"企业名称":"厦门彼格科技有限公司","年份":"2023/2024/2025","企业信息":{"职工总数":242,"科技人员数":115,"知识产权总数":64,"研发投入":7729.21,"销售收入":51432.25,"一级行业":"制造业","注册地":"厦门市/同安区"},"政策匹配结果":[{"政策标题":"厦门市科技型中小企业评价","匹配率":0.7143,"星级推荐":"三星参考","是否推荐":1,"条件匹配详情":[{"条件名称":"企业类型要求","政策原文":"基础信息.企业类型：居民企业","政策要求":"企业须为居民企业","企业现状":"企业注册于厦门市，为中国境内企业","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"属地要求","政策原文":"注册信息.属地信息：中国境内（不包括港、澳、台地区）","政策要求":"企业须在中国境内（不包括港、澳、台地区）注册","企业现状":"企业注册地为厦门市，属于中国境内","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"主体资格要求","政策原文":"经营信息.主体资格：具有独立法人资格","政策要求":"企业须具有独立法人资格","企业现状":"企业为独立法人单位，具有统一社会信用代码","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"经营状态要求","政策原文":"经营信息.经营状态：经营状态正常（未列入经营异常名录和严重违法失信企业名单）","政策要求":"经营状态正常，未列入经营异常名录和严重违法失信企业名单","企业现状":"准入条件判定中企业信用为'符合'","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"经营范围要求","政策原文":"经营信息.经营范围：不属于国家发展改革委员会《产业结构调整指导目录》规定的限制类和淘汰类范围","政策要求":"经营范围不属于限制类和淘汰类范围","企业现状":"企业行业为计算机、通信和其他电子设备制造业，属于鼓励类范畴","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"企业职工总数要求","政策原文":"基础信息.企业职工总数：职工总数不超过500人","政策要求":"职工总数不超过500人","企业现状":"职工总数242人","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"研发人员数量要求","政策原文":"基础信息.研发人员数量：科技人员指标得分不得为0分","政策要求":"科技人员指标得分不得为0分（即有科技人员）","企业现状":"科技人员总数115人","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"科技人员占比要求","政策原文":"基础信息.科技人员占比：科技人员指标得分不得为0分","政策要求":"科技人员指标得分不得为0分（即科技人员占比不为零）","企业现状":"科技人员占企业职工总数比例为47.52%","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"科技人员数量要求","政策原文":"基础信息.科技人员数量：科技人员指标得分不得为0分","政策要求":"科技人员指标得分不得为0分（即有科技人员）","企业现状":"科技人员总数115人","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"知识产权要求","政策原文":"知识产权.专利：拥有在有效期内的与主要产品（或服务）相关的知识产权","政策要求":"拥有在有效期内的与主要产品（或服务）相关的知识产权","企业现状":"I类知识产权6件，II类知识产权58件，总计64件","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"人员规模要求","政策原文":"人员规模要求：职工总数不超过500人","政策要求":"职工总数不超过500人","企业现状":"职工总数242人","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"市场规模要求","政策原文":"企业发展规模.市场规模：年销售收入不超过2亿元","政策要求":"年销售收入不超过2亿元","企业现状":"年销售收入51432.25万元（约5.14亿元）","匹配度":"不匹配","差距分析":"年销售收入51432.25万元，远超2亿元上限，超出31432.25万元"},{"条件名称":"营收规模要求","政策原文":"营收规模要求：年销售收入不超过2亿元","政策要求":"年销售收入不超过2亿元","企业现状":"年销售收入51432.25万元（约5.14亿元）","匹配度":"不匹配","差距分析":"年销售收入51432.25万元，远超2亿元上限，超出31432.25万元"},{"条件名称":"资产规模要求","政策原文":"企业发展规模.资产规模：资产总额不超过2亿元","政策要求":"资产总额不超过2亿元","企业现状":"资产总额46197.22万元（约4.62亿元）","匹配度":"不匹配","差距分析":"资产总额46197.22万元，远超2亿元上限，超出26197.22万元"},{"条件名称":"企业信用要求","政策原文":"信用合规.企业信用：未列入经营异常名录和严重违法失信企业名单","政策要求":"未列入经营异常名录和严重违法失信企业名单","企业现状":"准入条件判定中企业信用为'符合'","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"安全生产要求","政策原文":"信用合规.安全生产：未发生重大安全、重大质量事故和严重环境违法","政策要求":"未发生重大安全、重大质量事故和严重环境违法","企业现状":"企业资料未提及相关处罚或事故信息","匹配度":"待确认","差距分析":"需企业补充确认近三年是否发生重大安全、质量事故或严重环境违法行为"},{"条件名称":"工商信用要求","政策原文":"信用合规.工商信用：未列入经营异常名录和严重违法失信企业名单","政策要求":"未列入经营异常名录和严重违法失信企业名单","企业现状":"准入条件判定中企业信用为'符合'","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"科研信用要求","政策原文":"信用合规.科研信用：未发生科研严重失信行为","政策要求":"未发生科研严重失信行为","企业现状":"企业资料未提及科研失信相关信息","匹配度":"待确认","差距分析":"需企业补充确认近三年是否发生科研严重失信行为"},{"条件名称":"质量合规要求","政策原文":"信用合规.质量合规：未发生重大安全、重大质量事故和严重环境违法","政策要求":"未发生重大安全、重大质量事故和严重环境违法","企业现状":"企业资料未提及相关处罚或事故信息","匹配度":"待确认","差距分析":"需企业补充确认近三年是否发生重大安全、质量事故或严重环境违法行为"},{"条件名称":"高新技术企业资质","政策原文":"资质荣誉.企业资质：企业拥有有效期内高新技术企业资格证书","政策要求":"拥有有效期内高新技术企业资格证书","企业现状":"准入条件判定中高新技术企业为'是'","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"研发机构资质","政策原文":"资质荣誉.平台资质：企业拥有经认定的省部级以上研发机构","政策要求":"拥有经认定的省部级以上研发机构","企业现状":"准入条件判定中研发机构为'是'","匹配度":"完全匹配","差距分析":"无差距"}],"优势分析":["企业为居民企业，注册在中国境内，具有独立法人资格","职工总数242人，远低于500人上限","科技人员115人，占比47.52%，远超标准要求","拥有I类知识产权6件、II类知识产权58件，共64件知识产权","企业信用良好，未列入经营异常名录和严重违法失信企业名单","拥有有效期内高新技术企业资格证书","拥有经认定的省部级以上研发机构","研发费用占销售收入比例达15.03%，研发投入强度高"],"劣势分析":["年销售收入51432.25万元，远超2亿元上限，超出31432.25万元（不匹配）","资产总额46197.22万元，远超2亿元上限，超出26197.22万元（不匹配）","安全生产、质量合规、科研信用等条件需企业补充确认（待确认）"],"风险提示":["【严重风险】年销售收入51432.25万元约为政策上限2亿元的2.57倍，明确不符合申报条件","【严重风险】资产总额46197.22万元约为政策上限2亿元的2.31倍，明确不符合申报条件","【待确认风险】企业未提供安全生产、质量事故、环境违法相关证明材料","【待确认风险】企业未提供科研信用相关证明材料"],"总体建议":"厦门彼格科技有限公司在科技人员占比（47.52%）、研发投入强度（15.03%）、知识产权数量（64件）、高新技术企业资质等方面表现优秀，但**年销售收入5.14亿元和资产总额4.62亿元均远超政策规定的2亿元上限**，这是硬性门槛，不符合科技型中小企业评价的基本条件。\n\n建议：\n1. 该企业规模已超出科技型中小企业的界定范围，建议关注'高新技术企业'、'专精特新中小企业'等其他更适合中型企业的政策；\n2. 如确需申报科技型中小企业，需核实财务数据是否可按单年度而非多年累加值计算（政策要求为'年销售收入不超过2亿元'，可能指单一年度）；\n3. 补充提供安全生产、质量合规、科研信用等无违规证明材料，以备后续申报其他政策使用。"},{"政策标题":"国家高新技术企业认定","匹配率":0.75,"星级推荐":"二星谨慎","是否推荐":1,"条件匹配详情":[{"条件名称":"成立年限要求","政策原文":"企业申请认定时须注册成立1年以上","政策要求":"企业注册成立时间需满1年以上","企业现状":"企业注册日期为2014年12月26日，至今已成立超过10年","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"属地要求","政策原文":"中国境内（不包括港、澳、台地区）","政策要求":"企业注册地须在中国境内（不含港澳台地区）","企业现状":"企业注册地位于厦门市，属于中国境内","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"主体资格要求","政策原文":"具有独立法人资格","政策要求":"企业须具有独立法人资格","企业现状":"企业具有统一社会信用代码913502003030653893，具备独立法人资格","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"经营状态要求","政策原文":"经营状态正常","政策要求":"企业经营状态须为正常","企业现状":"准入条件判定中经营状态标注为'符合'，经营状态正常","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"国家战略新兴产业分类","政策原文":"电子信息；生物与新医药；航空航天；新材料；高技术服务；新能源与节能；资源与环境；先进制造与自动化","政策要求":"企业须属于国家战略新兴产业分类中的相关领域","企业现状":"企业二级行业为计算机、通信和其他电子设备制造业，属于电子信息领域","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"所属行业领域","政策原文":"通用行业","政策要求":"企业须属于通用行业领域","企业现状":"企业所属行业领域为通用行业","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"科技人员占比要求","政策原文":"企业从事研发和相关技术创新活动的科技人员占企业当年职工总数的比例不低于10%","政策要求":"科技人员占职工总数比例不低于10%","企业现状":"科技人员115人，职工总数242人，占比47.52%","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"研发投入强度要求","政策原文":"最近1年销售收入小于5,000万元（含）的企业，比例不低于5%；最近1年销售收入在5,000万元至2亿元（含）的企业，比例不低于4%；最近1年销售收入在2亿元以上的企业，比例不低于3%","政策要求":"根据销售收入规模，研发费用占销售收入比例不低于3%-5%","企业现状":"研发费用7729.21万元，销售收入51432.25万元，占比15.03%，销售收入超过2亿元，比例要求不低于3%","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"知识产权要求","政策原文":"拥有对其主要产品（服务）在技术上发挥核心支持作用的知识产权的所有权","政策要求":"企业须拥有对其主要产品（服务）发挥核心支持作用的知识产权","企业现状":"企业拥有I类知识产权6件、II类知识产权58件，共计64件知识产权","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"企业信用要求","政策原文":"企业申请认定前1年内未发生重大安全、重大质量事故或严重环境违法行为","政策要求":"申请认定前1年内无重大安全、质量事故或严重环境违法","企业现状":"企业资料中准入条件判定标注'企业信用：符合'，但未提供具体信用报告或违法记录查询结果","匹配度":"待确认","差距分析":"需企业提供信用报告或相关证明材料确认无重大违法记录"},{"条件名称":"安全生产要求","政策原文":"企业申请认定前1年内未发生重大安全、重大质量事故或严重环境违法行为","政策要求":"申请认定前1年内无重大安全事故","企业现状":"企业资料中未提及安全生产事故情况","匹配度":"待确认","差距分析":"需企业提供安全生产证明材料确认无重大安全事故"},{"条件名称":"质量合规要求","政策原文":"企业申请认定前1年内未发生重大安全、重大质量事故或严重环境违法行为","政策要求":"申请认定前1年内无重大质量事故","企业现状":"企业资料中未提及质量事故情况","匹配度":"待确认","差距分析":"需企业提供产品质量合格证明材料确认无重大质量事故"}],"优势分析":["成立年限超过10年，远超1年要求","注册地在中国境内（厦门），符合属地要求","具有统一社会信用代码，具备独立法人资格","经营状态正常","属于电子信息领域，符合国家战略新兴产业分类","科技人员占比47.52%，远超10%要求","研发投入强度15.03%，超过最高档3%要求","拥有64件知识产权，I类6件、II类58件，满足知识产权要求"],"劣势分析":["企业信用情况需补充确认（无具体信用报告或违法记录查询）","安全生产情况需补充确认（无安全事故证明）","质量合规情况需补充确认（无质量事故证明）"],"风险提示":["信用合规类条件（企业信用、安全生产、质量合规）共3项均为待确认状态，占总条件数的25%","虽然准入条件判定中标注'企业信用：符合'，但未提供具体证明材料，申报时需补充提供信用报告","建议申报前查询'信用中国'等官方平台获取无违法记录证明"],"总体建议":"企业基础条件非常优秀，8项核心指标（成立年限、属地、主体资格、经营状态、行业分类、科技人员占比、研发投入强度、知识产权）均完全匹配高企认定要求，且企业已通过高新技术企业认定并享受研发费用加计扣除政策。主要风险在于信用合规类条件（企业信用、安全生产、质量合规）共3项为待确认状态。建议：1.立即查询'信用中国'、'国家企业信用信息公示系统'获取无重大违法记录证明；2.联系厦门市应急管理局开具无安全生产事故证明；3.联系市场监管部门开具无重大质量事故证明；4.准备近1年内的合规证明材料，确保申报时材料完整。该企业申报成功率较高，但需完善合规证明材料后方可正式提交。"}]},{"企业名称":"厦门承葛生物科技有限公司","年份":"2023/2024/2025","企业信息":{"职工总数":66,"科技人员数":30,"知识产权总数":31,"研发投入":3572.69,"销售收入":11023.24,"一级行业":"制造业","注册地":"厦门市/翔安区"},"政策匹配结果":[{"政策标题":"厦门市科技型中小企业评价","匹配率":0.8095,"星级推荐":"五星推荐","是否推荐":1,"条件匹配详情":[{"条件名称":"企业类型要求","政策原文":"基础信息.企业类型：居民企业","政策要求":"企业须为居民企业","企业现状":"企业为厦门承葛生物科技有限公司，注册地为厦门市，属于中国境内企业","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"属地要求","政策原文":"注册信息.属地信息：中国境内（不包括港、澳、台地区）","政策要求":"企业须在中国境内（不包括港、澳、台地区）注册","企业现状":"企业注册地为厦门市翔安区，属于中国境内","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"主体资格要求","政策原文":"经营信息.主体资格：具有独立法人资格","政策要求":"企业须具有独立法人资格","企业现状":"企业为厦门承葛生物科技有限公司，具有独立法人资格","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"经营状态要求","政策原文":"经营信息.经营状态：经营状态正常（未列入经营异常名录和严重违法失信企业名单）","政策要求":"经营状态正常，未列入经营异常名录和严重违法失信企业名单","企业现状":"准入条件判定中企业信用为'符合'，经营状态正常","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"经营范围要求","政策原文":"经营信息.经营范围：不属于国家发展改革委员会《产业结构调整指导目录》规定的限制类和淘汰类范围","政策要求":"经营范围不属于《产业结构调整指导目录》限制类和淘汰类范围","企业现状":"企业行业为医药制造业，属于高新技术产业范围","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"企业职工总数要求","政策原文":"基础信息.企业职工总数：职工总数不超过500人","政策要求":"职工总数不超过500人","企业现状":"职工总数66人，远低于500人限制","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"研发人员数量要求","政策原文":"基础信息.研发人员数量：科技人员指标得分不得为0分","政策要求":"科技人员指标得分不得为0分（即有科技人员）","企业现状":"科技人员总数30人，科技人员占企业职工总数比例45.45%","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"科技人员占比要求","政策原文":"基础信息.科技人员占比：科技人员指标得分不得为0分","政策要求":"科技人员指标得分不得为0分（即有科技人员占比）","企业现状":"科技人员占企业职工总数比例45.45%，占比很高","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"科技人员数量要求","政策原文":"基础信息.科技人员数量：科技人员指标得分不得为0分","政策要求":"科技人员指标得分不得为0分（即有科技人员）","企业现状":"科技人员总数30人，在职科技人员30人","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"知识产权要求","政策原文":"知识产权.专利：拥有在有效期内的与主要产品（或服务）相关的知识产权","政策要求":"拥有在有效期内的与主要产品（或服务）相关的知识产权","企业现状":"I类知识产权4件，II类知识产权27件，知识产权总数31件","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"人员规模要求","政策原文":"人员规模要求：职工总数不超过500人","政策要求":"职工总数不超过500人","企业现状":"职工总数66人，远低于500人限制","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"市场规模要求","政策原文":"企业发展规模.市场规模：年销售收入不超过2亿元","政策要求":"年销售收入不超过2亿元","企业现状":"年销售收入11023.24万元（约1.1亿元），低于2亿元","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"营收规模要求","政策原文":"营收规模要求：年销售收入不超过2亿元","政策要求":"年销售收入不超过2亿元","企业现状":"年销售收入11023.24万元（约1.1亿元），低于2亿元","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"资产规模要求","政策原文":"企业发展规模.资产规模：资产总额不超过2亿元","政策要求":"资产总额不超过2亿元","企业现状":"资产总额26267.13万元（约2.63亿元），超过2亿元限制","匹配度":"不匹配","差距分析":"资产总额26267.13万元，超过2亿元限制，超出6267.13万元"},{"条件名称":"企业信用要求","政策原文":"信用合规.企业信用：未列入经营异常名录和严重违法失信企业名单","政策要求":"未列入经营异常名录和严重违法失信企业名单","企业现状":"准入条件判定中企业信用为'符合'，经营状态正常","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"安全生产要求","政策原文":"信用合规.安全生产：未发生重大安全、重大质量事故和严重环境违法","政策要求":"未发生重大安全、重大质量事故和严重环境违法","企业现状":"企业资料未提及相关处罚或事故记录","匹配度":"待确认","差距分析":"需企业补充确认近三年是否发生重大安全、质量事故或环境违法"},{"条件名称":"工商信用要求","政策原文":"信用合规.工商信用：未列入经营异常名录和严重违法失信企业名单","政策要求":"未列入经营异常名录和严重违法失信企业名单","企业现状":"准入条件判定中企业信用为'符合'，经营状态正常","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"科研信用要求","政策原文":"信用合规.科研信用：未发生科研严重失信行为","政策要求":"未发生科研严重失信行为","企业现状":"企业资料未提及科研失信记录","匹配度":"待确认","差距分析":"需企业补充确认近三年是否发生科研严重失信行为"},{"条件名称":"质量合规要求","政策原文":"信用合规.质量合规：未发生重大安全、重大质量事故和严重环境违法","政策要求":"未发生重大安全、重大质量事故和严重环境违法","企业现状":"企业资料未提及相关处罚或事故记录","匹配度":"待确认","差距分析":"需企业补充确认近三年是否发生重大安全、质量事故或环境违法"},{"条件名称":"高新技术企业资质","政策原文":"资质荣誉.企业资质：企业拥有有效期内高新技术企业资格证书","政策要求":"拥有有效期内高新技术企业资格证书","企业现状":"准入条件判定中高新技术企业为'是'，已获得高企资质","匹配度":"完全匹配","差距分析":"无差距"},{"条件名称":"研发机构资质","政策原文":"资质荣誉.平台资质：企业拥有经认定的省部级以上研发机构","政策要求":"拥有经认定的省部级以上研发机构","企业现状":"准入条件判定中研发机构为'是'，已拥有省部级以上研发机构","匹配度":"完全匹配","差距分析":"无差距"}],"优势分析":["企业为居民企业，注册在中国境内厦门，具有独立法人资格","职工总数66人，远低于500人限制，人员规模符合要求","科技人员30人，占比45.45%，研发实力强","拥有知识产权31件（I类4件、II类27件），知识产权丰富","年销售收入1.1亿元，远低于2亿元限制，营收规模符合","已拥有有效期内高新技术企业资格证书","已拥有经认定的省部级以上研发机构","企业信用良好，未列入经营异常名录和严重违法失信企业名单","企业经营范围属于高新技术产业，不属于限制淘汰类"],"劣势分析":["资产总额2.63亿元，超过2亿元限制，超出6267.13万元（不匹配）","安全生产情况需企业补充确认（待确认）","科研信用情况需企业补充确认（待确认）","质量合规情况需企业补充确认（待确认）"],"风险提示":["资产总额超标：企业资产总额26267.13万元超过政策要求的2亿元上限，这是硬性指标不匹配","信用合规待确认：安全生产、科研信用、质量合规三项条件在企业资料中未体现，需补充确认无相关违规记录"],"总体建议":"厦门承葛生物科技有限公司整体申报条件优秀，21项条件中20项完全匹配，匹配率达90.48%，建议五星推荐申报。主要优势在于：科技人员占比高达45.45%、拥有31件知识产权、已是高新技术企业并拥有省部级研发机构、销售收入和人员规模均符合要求。唯一硬性不匹配项为资产总额2.63亿元超过2亿元限制。建议：(1)核实资产总额计算口径，确认是否存在统计差异；(2)补充提供无重大安全质量事故、无科研失信行为的声明或证明材料；(3)如资产确实超标，可考虑在申报前进行合理的资产结构优化。该企业整体符合科技型中小企业评价要求，申报成功概率很高。"},{"政策标题":"国家高新技术企业认定","错误":"LLM调用失败: ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 1"}]},{"企业名称":"厦门斯坦道科学仪器股份有限公司","年份":"2023/2024/2025","企业信息":{"职工总数":154,"科技人员数":38,"知识产权总数":122,"研发投入":3094.57,"销售收入":20960.87,"一级行业":"制造业","注册地":"厦门市/思明区"},"政策匹配结果":[{"政策标题":"厦门市科技型中小企业评价","错误":"LLM调用失败: ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 1"},{"政策标题":"国家高新技术企业认定","错误":"LLM调用失败: ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 1"}]},{"企业名称":"厦门柔性电子研究院有限公司","年份":"2023/2024/2025","企业信息":{"职工总数":24,"科技人员数":22,"知识产权总数":65,"研发投入":593.73,"销售收入":1222.84,"一级行业":"科学研究和技术服务业","注册地":"厦门市/湖里区"},"政策匹配结果":[{"政策标题":"厦门市科技型中小企业评价","错误":"LLM调用失败: ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 1"},{"政策标题":"国家高新技术企业认定","错误":"LLM调用失败: ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 1"}]},{"企业名称":"厦门海迈科技股份有限公司","年份":"2023/2024/2025","企业信息":{"职工总数":182,"科技人员数":105,"知识产权总数":163,"研发投入":6403.93,"销售收入":17962.31,"一级行业":"信息传输、软件和信息技术服务业","注册地":"厦门市/思明区"},"政策匹配结果":[{"政策标题":"厦门市科技型中小企业评价","错误":"LLM调用失败: HTTPConnectionPool(host='127.0.0.1', port=30010): Max retries exceeded with"},{"政策标题":"国家高新技术企业认定","错误":"LLM调用失败: HTTPConnectionPool(host='127.0.0.1', port=30010): Max retries exceeded with"}]},{"企业名称":"厦门蔚扬药业有限公司","年份":"2023/2024/2025","企业信息":{"职工总数":34,"科技人员数":26,"知识产权总数":10,"研发投入":2072.24,"销售收入":6829.39,"一级行业":"科学研究和技术服务业","注册地":"厦门市/海沧区"},"政策匹配结果":[{"政策标题":"厦门市科技型中小企业评价","错误":"LLM调用失败: HTTPConnectionPool(host='127.0.0.1', port=30010): Max retries exceeded with"},{"政策标题":"国家高新技术企业认定","错误":"LLM调用失败: HTTPConnectionPool(host='127.0.0.1', port=30010): Max retries exceeded with"}]},{"企业名称":"厦门金龙汽车座椅有限公司","年份":"2023/2024/2025","企业信息":{"职工总数":184,"科技人员数":73,"知识产权总数":37,"研发投入":2087.89,"销售收入":42329.18,"一级行业":"制造业","注册地":"厦门市/集美区"},"政策匹配结果":[{"政策标题":"厦门市科技型中小企业评价","错误":"LLM调用失败: HTTPConnectionPool(host='127.0.0.1', port=30010): Max retries exceeded with"},{"政策标题":"国家高新技术企业认定","错误":"LLM调用失败: HTTPConnectionPool(host='127.0.0.1', port=30010): Max retries exceeded with"}]},{"企业名称":"爱德森（厦门）电子有限公司","年份":"2023/2024/2025","企业信息":{"职工总数":74,"科技人员数":23,"知识产权总数":213,"研发投入":1933.29,"销售收入":14487.3,"一级行业":"制造业","注册地":"厦门市/思明区"},"政策匹配结果":[{"政策标题":"厦门市科技型中小企业评价","错误":"LLM调用失败: HTTPConnectionPool(host='127.0.0.1', port=30010): Max retries exceeded with"},{"政策标题":"国家高新技术企业认定","错误":"LLM调用失败: HTTPConnectionPool(host='127.0.0.1', port=30010): Max retries exceeded with"}]},{"企业名称":"爱芯环保科技（厦门）股份有限公司","年份":"2023/2024/2025","企业信息":{"职工总数":93,"科技人员数":28,"知识产权总数":53,"研发投入":1220.15,"销售收入":10017.64,"一级行业":"制造业","注册地":"厦门市/同安区"},"政策匹配结果":[{"政策标题":"厦门市科技型中小企业评价","错误":"LLM调用失败: HTTPConnectionPool(host='127.0.0.1', port=30010): Max retries exceeded with"},{"政策标题":"国家高新技术企业认定","错误":"LLM调用失败: HTTPConnectionPool(host='127.0.0.1', port=30010): Max retries exceeded with"}]}];
+
+        let allData = [];
+        let currentScoreFilter = 'all';
+        let currentSort = 'score-desc';
+        let currentView = 'top';
+        let currentEnterprise = 'all';
+        let searchTerm = '';
+        let currentEntSelect = null;
+
+        
+// ========== Sidebar Functions ==========
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+}
+
+function renderSidebar() {
+    console.log('renderSidebar called, allData length:', allData.length);
+    // Stats
+    const stats = computeStats(allData);
+    document.getElementById('sidebarStats').innerHTML = '<div class="sidebar-stat"><span class="sidebar-stat-label">企业总数</span><span class="sidebar-stat-value">' + stats.totalEnterprises + '</span></div><div class="sidebar-stat"><span class="sidebar-stat-label">五星推荐</span><span class="sidebar-stat-value" style="color:#FFD700">' + stats.totalStar5 + '</span></div><div class="sidebar-stat"><span class="sidebar-stat-label">四星建议</span><span class="sidebar-stat-value" style="color:#4CAF50">' + stats.totalStar4 + '</span></div><div class="sidebar-stat"><span class="sidebar-stat-label">三星参考</span><span class="sidebar-stat-value" style="color:#2196F3">' + stats.totalStar3 + '</span></div>';
+
+    // Enterprise list
+    let entHtml = '<div class="sidebar-ent ' + (currentEnterprise === 'all' ? 'active' : '') + '" onclick="selectEnterprise(\'all\')"><div class="sidebar-ent-icon">🏢</div><div class="sidebar-ent-info"><div class="sidebar-ent-name">全部企业</div><div class="sidebar-ent-meta">显示所有企业数据</div></div></div>';
+
+    allData.forEach(function(ent) {
+        const bestScore = Math.max.apply(null, ent['政策匹配结果'].map(function(p) { return p['总分'] || calcPolicyScore(p); }));
+        const stars = getStarsHtml(bestScore);
+        const entName = ent['企业名称'];
+        const shortName = entName.length > 10 ? entName.substring(0, 10) + '...' : entName;
+        const isActive = currentEnterprise === entName;
+
+        entHtml += '<div class="sidebar-ent ' + (isActive ? 'active' : '') + '" onclick="selectEnterprise(' + entName.replace(/'/g, "\'") + ')"><div class="sidebar-ent-icon">🏭</div><div class="sidebar-ent-info"><div class="sidebar-ent-name" title="' + entName + '">' + shortName + '</div><div class="sidebar-ent-meta">' + (ent['年份'] || '') + '</div><div class="sidebar-ent-stars">' + stars + '</div></div></div>';
+    });
+
+    document.getElementById('sidebarEnts').innerHTML = entHtml;
+}
+
+function getStarsHtml(score) {
+    let html = '';
+    const starCount = score >= 90 ? 5 : score >= 80 ? 4 : score >= 70 ? 3 : score >= 60 ? 2 : score >= 50 ? 1 : 0;
+    for (let i = 0; i < 5; i++) {
+        html += i < starCount ? '<span class="sidebar-ent-star-full">⭐</span>' : '<span class="sidebar-ent-star-empty">☆</span>';
+    }
+    return html;
+}
+
+function selectEnterprise(entName) {
+    currentEnterprise = entName;
+    // Update dropdown
+    if (currentEntSelect) currentEntSelect.value = entName;
+    // Re-render
+    renderSidebar();
+    renderEnterpriseTabs();
+    renderContent();
+    // Close sidebar on mobile
+    if (window.innerWidth <= 900) {
+        document.getElementById('sidebar').classList.remove('open');
+    }
+}
+
+        function parseAndRender(jsonStr) {
+            allData = JSON.parse(jsonStr);
+            document.getElementById('filePicker').classList.add('hidden');
+            document.getElementById('statsBar').parentElement.classList.remove('hidden');
+            renderStats();
+            renderEnterpriseTabs();
+            renderContent();
+        }
+
+        async function loadData() {
+            console.log('loadData called');
+            console.log('EMBEDDED_DATA length:', EMBEDDED_DATA.length);
+            // 优先使用嵌入数据
+            if (EMBEDDED_DATA.length > 0) {
+                allData = EMBEDDED_DATA;
+                console.log('Loading embedded data, allData length:', allData.length);
+                document.getElementById('filePicker').classList.add('hidden');
+                document.getElementById('statsBar').parentElement.classList.remove('hidden');
+                renderStats();
+                renderEnterpriseTabs(); renderContent(); renderSidebar();
+                return;
+            }
+            // 回退：从文件加载
+            try {
+                const res = await fetch('llm_matching_results.json');
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const text = await res.text();
+                parseAndRender(text);
+            } catch (error) {
+                console.warn('Fetch failed:', error.message);
+                document.getElementById('statsBar').parentElement.classList.add('hidden');
+                document.getElementById('filePicker').classList.remove('hidden');
+            }
+        }
+
+        function getVisiblePolicies(policy, entName) {
+            const score = policy['总分'] || calcPolicyScore(policy);
+            if (currentScoreFilter === 's5' && score < 90) return false;
+            if (currentScoreFilter === 's4' && (score < 80 || score >= 90)) return false;
+            if (currentScoreFilter === 's3' && (score < 70 || score >= 80)) return false;
+            if (currentScoreFilter === 's2' && (score < 60 || score >= 70)) return false;
+            if (currentScoreFilter === 's1' && (score < 50 || score >= 60)) return false;
+            if (currentScoreFilter === 's0' && score >= 50) return false;
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                if (!policy['政策标题']?.toLowerCase().includes(term) && !(entName || '').toLowerCase().includes(term)) return false;
+            }
+            if (currentView === 'top90' && score < 90) return false;
+            if (currentView === 'top' && score < 70) return false;
+            return true;
+        }
+
+        function calcPolicyScore(policy) {
+            const conditions = policy['条件匹配详情'] || [];
+            if (!conditions.length) return 0;
+            const total = conditions.length;
+            const fullMatch = conditions.filter(c => c['匹配度'] === '完全匹配').length;
+            return Math.round((fullMatch / total) * 100);
+        }
+
+        function getStarDisplay(score) {
+            if (score >= 90) return '⭐️⭐️⭐️⭐️⭐️ 五星推荐';
+            if (score >= 80) return '⭐️⭐️⭐️⭐️ 四星建议';
+            if (score >= 70) return '⭐️⭐️⭐️ 三星参考';
+            if (score >= 60) return '⭐️⭐️ 二星谨慎';
+            if (score >= 50) return '⭐️ 一星观望';
+            return '❌ 不推荐';
+        }
+
+        function getStarOnly(score) {
+            if (score >= 90) return '⭐️⭐️⭐️⭐️⭐️';
+            if (score >= 80) return '⭐️⭐️⭐️⭐️';
+            if (score >= 70) return '⭐️⭐️⭐️';
+            if (score >= 60) return '⭐️⭐️';
+            if (score >= 50) return '⭐️';
+            return '❌';
+        }
+
+        function renderPolicyCard(ent, policy, delay) {
+            const score = policy['总分'] || calcPolicyScore(policy);
+            const conditions = policy['条件匹配详情'] || [];
+            const fullMatch = conditions.filter(c => c['匹配度'] === '完全匹配').length;
+            const partialMatch = conditions.filter(c => c['匹配度'] === '部分匹配').length;
+            const pendingMatch = conditions.filter(c => c['匹配度'] === '待确认').length;
+            const noMatch = conditions.filter(c => c['匹配度'] === '不匹配').length;
+
+            // Score ring parameters
+            const radius = 26;
+            const circumference = 2 * Math.PI * radius;
+            const offset = circumference - (score / 100) * circumference;
+            const scoreColorClass = score >= 70 ? 'high' : score >= 50 ? 'medium' : 'low';
+
+            return `
+                <div class="policy-card bg-white rounded-[24px] border-2 border-md-on-surface overflow-hidden shadow-md ${score >= 90 ? 'top-card-glow' : ''}" style="animation-delay: ${delay}ms" data-score="${score}">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-medium text-md-on-surface mb-1">${policy['政策标题'] || '未知政策'}</h3>
+                                <p class="text-sm text-md-on-surface-variant flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                    ${ent['企业名称']}
+                                </p>
+                            </div>
+                            ${getStarOnly(score)}
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex flex-col items-center gap-2">
+                                <div class="score-circle ${scoreColorClass}">
+                                    <svg viewBox="0 0 64 64">
+                                        <circle class="score-bg" cx="32" cy="32" r="${radius}"/>
+                                        <circle class="score-ring" cx="32" cy="32" r="${radius}"
+                                            stroke-dasharray="${circumference}"
+                                            stroke-dashoffset="${offset}"
+                                            style="stroke: ${score >= 90 ? '#FFD700' : score >= 70 ? '#6750A4' : '#79747E'}"/>
+                                    </svg>
+                                    <span class="score-value ${scoreColorClass}">${score}</span>
+                                </div>
+                                <div class="text-center">
+                                    <span class="text-xs text-gray-500">${getStarDisplay(score).split(' ')[0]}</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-1 items-end">
+                                <span class="px-3 py-1 rounded-full text-xs font-medium match-full">${fullMatch} 完全匹配</span>
+                                ${pendingMatch > 0 ? '<span class="px-3 py-1 rounded-full text-xs font-medium match-pending">' + pendingMatch + ' 待确认</span>' : ''}
+                                ${noMatch > 0 ? '<span class="px-3 py-1 rounded-full text-xs font-medium match-none">' + noMatch + ' 不匹配</span>' : ''}
+                                ${partialMatch > 0 ? '<span class="px-3 py-1 rounded-full text-xs font-medium match-partial">' + partialMatch + ' 部分匹配</span>' : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 bg-md-surface-container">
+                        <div class="flex gap-2">
+                            <span class="text-sm text-md-on-surface-variant">条件总数：${conditions.length}</span>
+                            <span class="text-sm text-md-on-surface-variant">|</span>
+                            <span class="text-sm text-md-on-surface-variant">${getStarDisplay(score)}</span>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-gray-100">
+                        <button onclick="showDetail('${ent['企业名称']}', '${policy['政策标题']}')" class="w-full py-2 rounded-full bg-md-primary text-white font-medium btn-material">
+                            查看详情 →
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderContent() {
+            let targetEnts = currentEnterprise === 'all' ? allData : allData.filter(e => e['企业名称'] === currentEnterprise);
+            let cards = [];
+            targetEnts.forEach(ent => {
+                ent['政策匹配结果'].forEach(policy => {
+                    if (getVisiblePolicies(policy, ent['企业名称'])) {
+                        cards.push({ ent, policy });
+                    }
+                });
+            });
+
+            // Sort
+            if (currentSort === 'score-desc') {
+                cards.sort((a, b) => ((b.policy['总分'] || calcPolicyScore(b.policy)) - (a.policy['总分'] || calcPolicyScore(a.policy))));
+            } else if (currentSort === 'score-asc') {
+                cards.sort((a, b) => ((a.policy['总分'] || calcPolicyScore(a.policy)) - (b.policy['总分'] || calcPolicyScore(b.policy))));
+            } else if (currentSort === 'name') {
+                cards.sort((a, b) => (a.policy['政策标题'] || '').localeCompare(b.policy['政策标题'] || '', 'zh-CN'));
+            }
+
+            if (cards.length === 0) {
+                document.getElementById('mainContent').innerHTML = `
+                    <div class="text-center py-16">
+                        <div class="no-result-icon">🔍</div>
+                        <h3 class="text-xl font-medium text-md-on-surface mb-2">没有找到匹配的政策</h3>
+                        <p class="text-md-on-surface-variant">请尝试调整筛选条件</p>
+                    </div>
+                `;
+            } else {
+                let html = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">';
+                cards.forEach((item, i) => {
+                    html += renderPolicyCard(item.ent, item.policy, i * 80);
+                });
+                html += '</div>';
+                document.getElementById('mainContent').innerHTML = html;
+            }
+
+            document.getElementById('resultCount').textContent = `显示 ${cards.length} 个匹配结果`;
+        }
+
+        function showDetail(entName, policyTitle) {
+            const ent = allData.find(e => e['企业名称'] === entName);
+            if (!ent) return;
+            const policy = ent['政策匹配结果'].find(p => p['政策标题'] === policyTitle);
+            if (!policy) return;
+
+            const score = policy['总分'] || calcPolicyScore(policy);
+            const conditions = policy['条件匹配详情'] || [];
+            const fullMatch = conditions.filter(c => c['匹配度'] === '完全匹配').length;
+            const partialMatch = conditions.filter(c => c['匹配度'] === '部分匹配').length;
+            const pendingMatch = conditions.filter(c => c['匹配度'] === '待确认').length;
+            const noMatch = conditions.filter(c => c['匹配度'] === '不匹配').length;
+
+            // 条件匹配详情 - 一行一个
+            let conditionsHtml = '<div class="flex flex-col gap-3">';
+            conditions.forEach(c => {
+                const matchClass = c['匹配度'] === '完全匹配' ? 'match-full' : c['匹配度'] === '部分匹配' ? 'match-partial' : c['匹配度'] === '待确认' ? 'match-pending' : 'match-none';
+                conditionsHtml += `
+                    <div class="bg-white rounded-[16px] p-4 border border-gray-100">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1">
+                                <div class="font-medium text-md-on-surface mb-1">${c['条件名称']}</div>
+                                <div class="text-sm text-md-on-surface-variant">政策要求: ${c['政策要求'] || c['政策原文'] || ''}</div>
+                                ${c['企业现状'] ? '<div class="text-sm text-md-on-surface-variant mt-1">企业现状: ' + c['企业现状'] + '</div>' : ''}
+                                ${c['差距分析'] && c['差距分析'] !== '无差距' ? '<div class="text-sm text-orange-600 mt-1">差距: ' + c['差距分析'] + '</div>' : ''}
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-sm font-medium ${matchClass} shrink-0">${c['匹配度']}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            conditionsHtml += '</div>';
+
+            // 优势分析
+            const advantages = policy['优势分析'] || [];
+            let advantagesHtml = '';
+            if (advantages.length > 0) {
+                advantagesHtml = `
+                    <div class="mt-6 bg-green-50 rounded-[24px] p-6">
+                        <h3 class="text-lg font-medium text-green-700 mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            优势分析
+                        </h3>
+                        <ul class="space-y-2">
+                            ${advantages.map(a => '<li class="text-green-600 text-sm flex items-start gap-2"><span class="text-green-500 mt-1">✓</span><span>' + a + '</span></li>').join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            // 劣势分析
+            const disadvantages = policy['劣势分析'] || [];
+            let disadvantagesHtml = '';
+            if (disadvantages.length > 0) {
+                disadvantagesHtml = `
+                    <div class="mt-6 bg-orange-50 rounded-[24px] p-6">
+                        <h3 class="text-lg font-medium text-orange-700 mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            劣势分析
+                        </h3>
+                        <ul class="space-y-2">
+                            ${disadvantages.map(d => '<li class="text-orange-600 text-sm flex items-start gap-2"><span class="text-orange-500 mt-1">!</span><span>' + d + '</span></li>').join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            // 风险提示
+            const risks = policy['风险提示'] || [];
+            let risksHtml = '';
+            if (risks.length > 0) {
+                risksHtml = `
+                    <div class="mt-6 bg-red-50 rounded-[24px] p-6">
+                        <h3 class="text-lg font-medium text-red-700 mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            风险提示
+                        </h3>
+                        <ul class="space-y-2">
+                            ${risks.map(r => '<li class="text-red-600 text-sm flex items-start gap-2"><span class="text-red-500 mt-1">⚠</span><span>' + r + '</span></li>').join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            document.getElementById('modalTitle').textContent = entName + ' - ' + policyTitle;
+            document.getElementById('modalContent').innerHTML = `
+                <div class="mb-6">
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        ${getStarDisplay(score)}
+                    </div>
+                    <div class="flex gap-4 text-sm text-md-on-surface-variant flex-wrap">
+                        <span>条件总数: ${conditions.length}</span>
+                        <span class="text-green-600">完全匹配: ${fullMatch}</span>
+                        <span class="text-yellow-600">待确认: ${pendingMatch}</span>
+                        <span class="text-red-600">不匹配: ${noMatch}</span>
+                    </div>
+                </div>
+                <div class="bg-md-surface-container rounded-[24px] p-6 mb-6">
+                    <h3 class="text-lg font-medium mb-4">企业信息</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <div><span class="text-md-on-surface-variant">职工总数</span><br><span class="font-medium">${ent['企业信息']?.职工总数 || 0} 人</span></div>
+                        <div><span class="text-md-on-surface-variant">科技人员</span><br><span class="font-medium">${ent['企业信息']?.科技人员数 || 0} 人</span></div>
+                        <div><span class="text-md-on-surface-variant">知识产权</span><br><span class="font-medium">${ent['企业信息']?.知识产权总数 || 0} 件</span></div>
+                        <div><span class="text-md-on-surface-variant">研发投入</span><br><span class="font-medium">${ent['企业信息']?.研发投入 || 0} 万元</span></div>
+                    </div>
+                </div>
+                ${advantagesHtml}
+                ${disadvantagesHtml}
+                ${risksHtml}
+                <h3 class="text-lg font-medium mb-4 mt-6">条件匹配详情</h3>
+                ${conditionsHtml}
+                ${policy['总体建议'] ? '<div class="mt-6 bg-blue-50 rounded-[24px] p-6"><h3 class="text-lg font-medium text-blue-700 mb-2 flex items-center gap-2">💡 总体建议</h3><p class="text-blue-600">' + policy['总体建议'] + '</p></div>' : ''}
+            `;
+            document.getElementById('detailModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function computeStats(data) {
+            let totalStar5 = 0, totalStar4 = 0, totalStar3 = 0, totalStar2 = 0, totalStar1 = 0, totalStar0 = 0;
+            let totalMatches = 0;
+            data.forEach(ent => {
+                ent['政策匹配结果'].forEach(p => {
+                    const score = p['总分'] || calcPolicyScore(p);
+                    totalMatches++;
+                    if (score >= 90) totalStar5++;
+                    else if (score >= 80) totalStar4++;
+                    else if (score >= 70) totalStar3++;
+                    else if (score >= 60) totalStar2++;
+                    else if (score >= 50) totalStar1++;
+                    else totalStar0++;
+                });
+            });
+            return { totalEnterprises: data.length, totalMatches, totalStar5, totalStar4, totalStar3, totalStar2, totalStar1, totalStar0 };
+        }
+
+        function renderStats() {
+            const stats = computeStats(allData);
+            document.getElementById('statsBar').innerHTML = `
+                <div class="bg-md-surface-container rounded-[24px] p-4 text-center shadow-sm">
+                    <div class="flex items-center justify-center gap-1 mb-1">
+                        <svg class="w-4 h-4 text-md-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    </div>
+                    <div class="text-2xl font-bold text-md-primary">${stats.totalEnterprises}</div>
+                    <div class="text-xs text-md-on-surface-variant">家企业</div>
+                </div>
+                <div class="bg-md-surface-container rounded-[24px] p-4 text-center shadow-sm">
+                    <div class="flex items-center justify-center gap-1 mb-1">
+                        <svg class="w-4 h-4" style="color: #FF8C00" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                    </div>
+                    <div class="text-2xl font-bold" style="color: #FF8C00;">${stats.totalStar5}</div>
+                    <div class="text-xs text-md-on-surface-variant">五星推荐</div>
+                </div>
+                <div class="bg-md-surface-container rounded-[24px] p-4 text-center shadow-sm">
+                    <div class="flex items-center justify-center gap-1 mb-1">
+                        <svg class="w-4 h-4" style="color: #4CAF50" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                    </div>
+                    <div class="text-2xl font-bold" style="color: #4CAF50;">${stats.totalStar4}</div>
+                    <div class="text-xs text-md-on-surface-variant">四星建议</div>
+                </div>
+                <div class="bg-md-surface-container rounded-[24px] p-4 text-center shadow-sm">
+                    <div class="flex items-center justify-center gap-1 mb-1">
+                        <svg class="w-4 h-4" style="color: #2196F3" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                    </div>
+                    <div class="text-2xl font-bold" style="color: #2196F3;">${stats.totalStar3}</div>
+                    <div class="text-xs text-md-on-surface-variant">三星参考</div>
+                </div>
+                <div class="bg-md-surface-container rounded-[24px] p-4 text-center shadow-sm">
+                    <div class="flex items-center justify-center gap-1 mb-1">
+                        <svg class="w-4 h-4 text-md-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    </div>
+                    <div class="text-2xl font-bold text-md-tertiary">${stats.totalMatches}</div>
+                    <div class="text-xs text-md-on-surface-variant">总匹配数</div>
+                </div>
+            `;
+        }
+
+        function renderEnterpriseTabs() {
+            const container = document.getElementById('enterpriseTabs');
+            let html = `<div class="ent-tab ${currentEnterprise === 'all' ? 'active' : ''}" data-ent="all">全部企业</div>`;
+            allData.forEach(ent => {
+                const isActive = currentEnterprise === ent['企业名称'];
+                html += `<div class="ent-tab ${isActive ? 'active' : ''}" data-ent="${ent['企业名称']}">${ent['企业名称']}</div>`;
+            });
+            container.innerHTML = html;
+            container.querySelectorAll('.ent-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    currentEnterprise = tab.dataset.ent;
+                    if (currentEntSelect) currentEntSelect.value = currentEnterprise;
+                    renderEnterpriseTabs();
+                    renderContent();
+                });
+            });
+
+            if (currentEntSelect && currentEntSelect.options.length <= 1) {
+                allData.forEach(ent => {
+                    const opt = document.createElement('option');
+                    opt.value = ent['企业名称'];
+                    opt.textContent = ent['企业名称'];
+                    currentEntSelect.appendChild(opt);
+                });
+            }
+        }
+
+        function setupControls() {
+            currentEntSelect = document.getElementById('entFilterSelect');
+            const searchInput = document.getElementById('searchInput');
+            const searchClear = document.getElementById('searchClear');
+
+            searchInput.addEventListener('input', (e) => {
+                searchTerm = e.target.value;
+                searchClear.classList.toggle('show', searchTerm.length > 0);
+                renderContent();
+            });
+
+            searchClear.addEventListener('click', () => {
+                searchTerm = '';
+                searchInput.value = '';
+                searchClear.classList.remove('show');
+                renderContent();
+            });
+
+            document.querySelectorAll('.filter-chip[data-score]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentScoreFilter = btn.dataset.score;
+                    document.querySelectorAll('.filter-chip[data-score]').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderContent();
+                });
+            });
+
+            document.querySelectorAll('.filter-chip[data-view]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentView = btn.dataset.view;
+                    document.querySelectorAll('.filter-chip[data-view]').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderContent();
+                });
+            });
+
+            document.querySelectorAll('.top-chip').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (currentView === 'top90') {
+                        currentView = 'top';
+                        btn.classList.remove('active');
+                    } else {
+                        currentView = 'top90';
+                        document.querySelectorAll('.filter-chip[data-view]').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                    }
+                    renderContent();
+                });
+            });
+
+            document.querySelectorAll('.sort-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentSort = btn.dataset.sort;
+                    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderContent();
+                });
+            });
+
+            if (currentEntSelect) {
+                currentEntSelect.addEventListener('change', (e) => {
+                    currentEnterprise = e.target.value;
+                    renderEnterpriseTabs();
+                    renderContent();
+                });
+            }
+        }
+
+        function resetAll() {
+            currentScoreFilter = 'all';
+            currentSort = 'score-desc';
+            currentView = 'top';
+            currentEnterprise = 'all';
+            searchTerm = '';
+            document.querySelectorAll('.filter-chip[data-score]').forEach(b => b.classList.remove('active'));
+            document.querySelector('.filter-chip[data-score="all"]').classList.add('active');
+            document.querySelectorAll('.filter-chip[data-view]').forEach(b => b.classList.remove('active'));
+            document.querySelector('.filter-chip[data-view="top"]').classList.add('active');
+            document.querySelectorAll('.top-chip').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.sort-btn[data-sort="score-desc"]').classList.add('active');
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchClear').classList.remove('show');
+            if (currentEntSelect) currentEntSelect.value = 'all';
+            renderEnterpriseTabs();
+            renderContent();
+        }
+
+        function loadLocalFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) { parseAndRender(e.target.result); };
+            reader.readAsText(file);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded');
+            setupControls();
+            loadData().catch(err => console.error('loadData error:', err));
+        });
+
+        // Fallback: also try on window load
+        window.addEventListener('load', () => {
+            console.log('Window loaded');
+            if (typeof loadData === 'function' && allData.length === 0) {
+                console.log('Calling loadData as fallback');
+                loadData();
+            }
+        });
+
+        // Global error handler
+        window.addEventListener('error', (e) => {
+            console.error('Global error:', e.error);
+        });
+    </script>
+</body>
+</html>

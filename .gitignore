@@ -1,0 +1,88 @@
+# ============================================
+# 政策解读智能管理系统 — Git 忽略规则
+# ============================================
+
+# ---------- Maven 构建产物 ----------
+target/
+dependency-reduced-pom.xml
+*.class
+
+# ---------- Node.js ----------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---------- 运行时日志 ----------
+*.log
+server.log
+
+# ---------- IDE / 编辑器 ----------
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ---------- 操作系统 ----------
+Thumbs.db
+Desktop.ini
+
+# ---------- 临时文件 ----------
+tmp/
+*.tmp
+*.temp
+*-w
+
+# ---------- 数据库相关 ----------
+*.db
+*.sqlite
+*.sqlite3
+
+# ---------- 敏感/环境配置 ----------
+.env
+.env.local
+.env.*.local
+*.local
+
+# ---------- Python 编译产物 ----------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---------- 项目特定 ----------
+# 大体积归档文件（不影响服务运行）
+*.zip
+# importantplus/
+
+# ---------- 文档目录 ----------
+fusiondata/
+docs1/
+exports/
+script/
+!backend/PEMatching/script/
+!backend/PEMatching/script/fetch_tech_sme_enterprises.py
+!backend/PEMatching/script/README.md
+# !backend/PEMatching_v2/script/
+# backend/PEMatching_v2/script/*
+# !backend/PEMatching_v2/script/build_calibration_dataset.py
+# !backend/PEMatching_v2/script/build_policy_gap_report.py
+# !backend/PEMatching_v2/script/evaluate_calibration.py
+# !backend/PEMatching_v2/script/measure_text_coverage.py
+
+# 会话和本机运行凭据
+.sessions.json
+.env.*
+!.env.example
+
+# 按 GitHub Release 提供的政策资料
+/importantplus/
+/重点政策融合数据/
+
+# 本机未审核的数据库快照和企业画像
+/docs/imp_exp_20260717154816.dmp
+/docs/E2.json

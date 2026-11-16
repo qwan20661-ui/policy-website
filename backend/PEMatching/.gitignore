@@ -1,0 +1,28 @@
+# Python 运行时产物
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 运行时输出
+output/
+logs/
+企业测试/
+企业测试目录/
+node_modules/
+!backend\PEMatching\config\enterprise_feature_defaults.json
+# 服务端运行日志（nohup、直接启动等）
+server.log
+nohup.out
+*.pid
+*.sock
+*.log
+
+# 本地环境配置（含 API 密钥，不予提交）
+.env
+
+# 服务端生成的配置数据（按天备份，不同服务器不一致）
+config/*.json
+!config/policy_recommendation_field_map.json

@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>政策及附件标注 - 政策解读系统</title>
+  <style>[v-cloak]{display:none!important}</style>
+  <link rel="stylesheet" href="../lib/cdn/element-plus.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/form.css">
+  <link rel="stylesheet" href="../css/policy.css">
+  <style>
+    .merge-shell { background: var(--color-bg-alt); min-height: calc(100vh - 64px); padding: 24px; }
+    .merge-search-panel { margin-bottom: 16px; padding: 20px 24px; background: #fff; border: 2px solid var(--color-muted); border-radius: var(--radius-lg); }
+    .merge-filter-rows { display: flex; flex-direction: column; gap: 12px; }
+    .merge-filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .merge-filter-row-label { color: var(--color-text-secondary); font-size: 13px; font-weight: 600; white-space: nowrap; min-width: 56px; }
+    .merge-filter-btn { padding: 5px 14px; border: 0; border-radius: 999px; background: var(--color-muted); color: var(--color-text-regular); cursor: pointer; font-size: 13px; font-weight: 500; line-height: 1.6; white-space: nowrap; transition: all .2s; }
+    .merge-filter-btn:hover { color: #fff; background: var(--color-primary); }
+    .merge-filter-btn.active { color: #fff; background: var(--color-primary); font-weight: 600; }
+    .merge-filter-btn .cnt { margin-left: 4px; opacity: 0.7; font-size: 12px; }
+    .merge-filter-divider { width: 2px; height: 18px; background: var(--color-border); flex-shrink: 0; border-radius: 1px; }
+    .merge-search-fields { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; align-items: end; margin-top: 12px; padding-top: 16px; border-top: 2px solid var(--color-muted); }
+    .merge-search-field { min-width: 0; }
+    .merge-search-label { display: block; margin-bottom: 6px; color: var(--color-text-regular); font-size: 13px; font-weight: 600; }
+    .merge-search-field .el-input, .merge-search-field .el-date-editor { width: 100% !important; }
+    .merge-search-actions { margin-top: 16px; display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+    .table-heading { display: flex; flex-direction: column; gap: 4px; }
+    .table-subtitle { color: var(--color-text-secondary); font-size: 12px; font-weight: normal; }
+    .policy-title-link { color: var(--color-primary); text-decoration: none; font-weight: 600; line-height: 1.5; }
+    .policy-title-link:hover { text-decoration: underline; }
+    .policy-list-title { margin-bottom: 4px; }
+    .policy-list-meta { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 12px; color: var(--color-text-secondary); }
+    .audit-progress { display: flex; flex-direction: column; gap: 6px; }
+    .audit-progress-text { color: var(--color-text-regular); font-size: 12px; }
+    .policy-detail-drawer .el-drawer__body { padding: 0; overflow: hidden; background: var(--color-bg-alt); }
+    .merge-drawer { height: 100vh; overflow-y: auto; color: var(--color-text-primary); font-size: 15px; }
+    .detail-topbar { position: sticky; top: 0; z-index: 20; min-height: 72px; padding: 18px 40px; background: var(--color-primary); color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .detail-topbar-main { min-width: 0; flex: 1; }
+    .detail-eyebrow { color: rgba(255,255,255,.9); font-size: 16px; font-weight: 700; letter-spacing: .08em; }
+    .detail-close { width: 38px; height: 38px; border: 2px solid rgba(255,255,255,.3); background: rgba(255,255,255,.1); color: #fff; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; }
+    .detail-close:hover { background: rgba(255,255,255,.25); }
+    .detail-workspace { width: min(1480px, calc(100% - 56px)); margin: 0 auto; padding: 28px 0 48px; }
+    .detail-layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(380px, .8fr); gap: 24px; align-items: start; }
+    .detail-card { background: #fff; border: 2px solid var(--color-muted); border-radius: var(--radius-lg); overflow: hidden; }
+    .detail-main-policy-heading { padding: 20px 24px; border-bottom: 2px solid var(--color-muted); background: var(--color-muted); }
+    .detail-main-policy-label { margin-bottom: 6px; color: var(--color-text-secondary); font-size: 14px; font-weight: 600; }
+    .detail-main-policy-title { width: 100%; padding: 0; border: 0; background: transparent; color: var(--color-primary); cursor: pointer; font-family: inherit; font-size: 22px; font-weight: 700; line-height: 1.6; text-align: left; transition: color .2s; }
+    .detail-main-policy-title:hover { color: var(--color-primary-dark); text-decoration: underline; }
+    .detail-card-header { min-height: 58px; padding: 16px 20px; border-bottom: 2px solid var(--color-muted); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .detail-section-title { display: flex; align-items: center; gap: 10px; color: var(--color-text-primary); font-size: 16px; font-weight: 700; }
+    .detail-section-title::before { content: ''; width: 4px; height: 20px; border-radius: 2px; background: var(--color-primary); }
+    .detail-section-note { color: var(--color-text-secondary); font-size: 14px; font-weight: 400; }
+    .detail-card-body { padding: 20px; }
+    .policy-info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 2px solid var(--color-muted); border-radius: var(--radius-md); overflow: hidden; }
+    .policy-info-item { min-height: 62px; display: grid; grid-template-columns: 118px minmax(0, 1fr); border-bottom: 2px solid var(--color-muted); }
+    .policy-info-item:nth-child(odd) { border-right: 2px solid var(--color-muted); }
+    .policy-info-item:nth-last-child(-n+2) { border-bottom: 0; }
+    .policy-info-label { padding: 18px 14px; background: var(--color-muted); color: var(--color-text-regular); font-size: 14px; font-weight: 600; }
+    .policy-info-value { min-width: 0; padding: 17px 16px; color: var(--color-text-primary); font-size: 15px; line-height: 1.7; word-break: break-word; }
+    .source-panel { margin-top: 18px; padding: 16px 20px; border: 2px solid rgba(59, 130, 246, 0.15); border-radius: var(--radius-md); background: rgba(59, 130, 246, 0.05); display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .source-info { min-width: 0; }
+    .source-label { margin-bottom: 5px; color: var(--color-primary); font-size: 14px; font-weight: 600; }
+    .source-path { overflow: hidden; color: var(--color-text-regular); font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+    .review-card { position: sticky; top: 118px; }
+    .review-status { margin-bottom: 18px; padding: 16px; border-radius: var(--radius-md); background: var(--color-muted); display: flex; align-items: center; justify-content: space-between; }
+    .review-status-label { color: var(--color-text-regular); font-size: 14px; font-weight: 500; }
+    .review-block + .review-block { margin-top: 22px; padding-top: 20px; border-top: 2px solid var(--color-muted); }
+    .review-block-title { margin-bottom: 12px; color: var(--color-text-primary); font-size: 15px; font-weight: 700; }
+    .policy-type-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .policy-type-options .el-button { width: 100%; min-height: 38px; margin: 0; font-size: 14px; border-radius: var(--radius-md) !important; }
+    .review-actions { display: flex; gap: 10px; }
+    .review-actions .el-button { flex: 1; min-height: 40px; margin: 0; font-size: 15px; }
+    .review-hint { margin-top: 12px; color: var(--color-text-secondary); font-size: 14px; line-height: 1.6; }
+    .attachments-card { margin-top: 22px; }
+    .detail-next-bar { margin-top: 18px; padding: 18px 24px; border: 2px solid var(--color-muted); border-radius: var(--radius-lg); background: #fff; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .detail-next-info { min-width: 0; }
+    .detail-next-title { color: var(--color-text-primary); font-size: 16px; font-weight: 700; }
+    .detail-next-note { margin-top: 5px; color: var(--color-text-secondary); font-size: 13px; }
+    .attachment-card { border: 2px solid var(--color-muted); border-radius: var(--radius-lg); padding: 18px 20px; margin-bottom: 14px; background: #fff; transition: border-color .2s ease; }
+    .attachment-card:last-child { margin-bottom: 0; }
+    .attachment-card:hover { border-color: var(--color-primary); }
+    .attachment-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+    .attachment-name { color: var(--color-primary); cursor: pointer; line-height: 1.55; font-size: 16px; font-weight: 500; }
+    .attachment-name:hover { text-decoration: underline; }
+    .attachment-open { width: 100%; border: 0; background: transparent; padding: 2px 0; text-align: left; cursor: pointer; color: var(--color-primary); font-family: inherit; line-height: 1.55; font-size: 16px; }
+    .attachment-open:hover { text-decoration: underline; }
+    .attachment-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; padding-top: 11px; border-top: 2px dashed var(--color-border); }
+    .attachment-actions-label { color: var(--color-text-regular); font-size: 14px; font-weight: 600; margin-right: 4px; }
+    .empty-attachments { border: 2px dashed var(--color-border); border-radius: var(--radius-lg); padding: 52px; color: var(--color-text-secondary); font-size: 15px; text-align: center; }
+    .policy-content-viewer { background: var(--color-muted); border: 2px solid var(--color-border); border-radius: var(--radius-lg); padding: 22px 24px; max-height: 68vh; overflow-y: auto; white-space: pre-wrap; line-height: 1.95; color: var(--color-text-regular); font-size: 16px; }
+    .attachment-content-viewer { background: #f7f9fc; border: 1px solid #e7ebf1; border-radius: 6px; padding: 16px; max-height: 560px; overflow-y: auto; line-height: 1.8; color: #505b6b; font-size: 13px; }
+    .attachment-content-text { white-space: pre-wrap; }
+    .attachment-content-html { white-space: normal; }
+    .attachment-content-html p { margin: 0 0 12px; }
+    .attachment-content-html .doc-preview-text { white-space: pre-wrap; margin-bottom: 14px; }
+    .attachment-content-html .doc-preview-image-wrap { margin: 14px 0; text-align: center; }
+    .attachment-content-html .doc-preview-image-wrap img { max-width: 100%; height: auto; border: 1px solid #dce4ef; background: #fff; }
+    .attachment-content-html .doc-preview-table { width: 100%; border-collapse: collapse; margin: 12px 0; background: #fff; }
+    .attachment-content-html .doc-preview-table td { border: 1px solid #dce4ef; padding: 8px; vertical-align: top; }
+    @media (max-width: 1200px) { .merge-search-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 1050px) { .detail-layout { grid-template-columns: 1fr; } .review-card { position: static; } }
+    @media (max-width: 720px) { .merge-search-fields { grid-template-columns: 1fr; } .merge-search-actions { align-items: stretch; flex-direction: column; } .detail-topbar { padding: 14px 20px; } .detail-workspace { width: calc(100% - 28px); padding-top: 16px; } .policy-info-grid { grid-template-columns: 1fr; } .policy-info-item:nth-child(odd) { border-right: 0; } .policy-info-item:nth-last-child(2) { border-bottom: 2px solid var(--color-muted); } .detail-next-bar { align-items: stretch; flex-direction: column; } }
+  </style>
+</head>
+<body data-page-tone="blue">
+  <div class="main-layout" id="app">
+    <!-- 侧边栏 -->
+    <aside class="sidebar">
+      <div class="sidebar-logo"></div>
+      <nav class="sidebar-menu" id="sidebar-menu"></nav>
+      <div class="sidebar-footer" id="sidebar-footer"></div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <header class="header">
+        <div class="header-left">
+          <div class="header-toggle" onclick="toggleSidebar()"><i class="el-icon-s-unfold" style="font-size:20px;"></i></div>
+          <nav class="header-breadcrumb"></nav>
+        </div>
+        <div class="header-right">
+          <div class="header-icon"><i class="el-icon-bell" style="font-size:20px;"></i></div>
+          <div class="header-user"><div class="avatar">管</div><div class="info"><span class="name">管理员</span><span class="role">系统管理员</span></div></div>
+        </div>
+      </header>
+
+      <div class="content-wrapper merge-shell" v-cloak>
+
+        <div v-loading="loading" element-loading-text="加载政策数据..." style="min-height:300px;">
+
+        <!-- 搜索 + 筛选合并区域 -->
+        <div class="merge-search-panel">
+          <div class="merge-filter-rows">
+            <div class="merge-filter-row">
+              <span class="merge-filter-row-label">按类型</span>
+              <button class="merge-filter-btn" :class="{ active: quickFilter === 'all' }" @click="setQuickFilter('all')">全部<span class="cnt">{{ filterStats.all }}</span></button>
+              <button v-for="item in quickPolicyTypes" :key="item" class="merge-filter-btn" :class="{ active: quickFilter === `type:${item}` }" @click="setQuickFilter(`type:${item}`)">{{ item }}<span class="cnt">{{ filterStats.byType[item] || 0 }}</span></button>
+            </div>
+            <div class="merge-filter-row">
+              <span class="merge-filter-row-label">按状态</span>
+              <button class="merge-filter-btn" :class="{ active: quickFilter === 'status:已标注' }" @click="setQuickFilter('status:已标注')">已标注<span class="cnt">{{ filterStats.tagged }}</span></button>
+              <button class="merge-filter-btn" :class="{ active: quickFilter === 'status:标注中' }" @click="setQuickFilter('status:标注中')">标注中<span class="cnt">{{ filterStats.inProgress }}</span></button>
+              <button class="merge-filter-btn" :class="{ active: quickFilter === 'status:未标注' }" @click="setQuickFilter('status:未标注')">未标注<span class="cnt">{{ filterStats.untagged }}</span></button>
+            </div>
+          </div>
+          <div class="merge-search-fields">
+            <div class="merge-search-field">
+              <label class="merge-search-label">政策标题</label>
+              <el-input v-model="searchKeyword" placeholder="请输入主政策标题" clearable @keyup.enter="searchPolicy" @clear="searchPolicy">
+                <template #prefix><i class="el-icon-search" style="line-height: 32px;"></i></template>
+              </el-input>
+            </div>
+            <div class="merge-search-field">
+              <label class="merge-search-label">发文部门</label>
+              <el-input v-model="searchDepartment" placeholder="请输入发文部门" clearable @keyup.enter="searchPolicy" @clear="searchPolicy">
+                <template #prefix><i class="el-icon-office-building" style="line-height: 32px;"></i></template>
+              </el-input>
+            </div>
+            <div class="merge-search-field">
+              <label class="merge-search-label">适用范围</label>
+              <el-input v-model="searchScope" placeholder="请输入适用范围" clearable @keyup.enter="searchPolicy" @clear="searchPolicy">
+                <template #prefix><i class="el-icon-location-outline" style="line-height: 32px;"></i></template>
+              </el-input>
+            </div>
+            <div class="merge-search-field">
+              <label class="merge-search-label">发布日期</label>
+              <el-date-picker v-model="publishDateRange" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" value-format="YYYY-MM-DD" unlink-panels @change="searchPolicy" />
+            </div>
+          </div>
+          <div class="merge-search-actions">
+            <el-button type="primary" icon="el-icon-search" @click="searchPolicy">搜索</el-button>
+            <el-button @click="resetPolicySearch">重置条件</el-button>
+            <el-button icon="el-icon-refresh" @click="fetchWithRetryMergedPolicies">刷新列表</el-button>
+          </div>
+        </div>
+          <div class="table-container merge-table-card">
+          <div class="table-header">
+            <div class="table-heading"><span class="table-title">分类列表</span></div>
+          </div>
+          <el-table :data="mergedPolicies" stripe style="width:100%" v-loading="loading" empty-text="POLICY 表中暂无政策数据">
+            <el-table-column prop="id" label="序号" width="70"></el-table-column>
+            <el-table-column prop="mainPolicy" label="政策标题" min-width="430">
+              <template #default="{ row }">
+                <div class="policy-list-title"><a href="javascript:void(0);" @click="showDetail(row)" class="policy-title-link" v-html="highlightText(row.mainPolicy || '-')"></a></div>
+                <div class="policy-list-meta">
+                  <span>发文部门：{{ row.issuingDepartment || '-' }}</span>
+                  <span>范围：{{ row.applicableScope || '-' }}</span>
+                  <span>发布日期：{{ row.publishDate || '-' }}</span>
+                  <span>政策属性：<el-tag size="small" effect="plain">{{ row.policyType || '未设置' }}</el-tag></span>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column label="审核进度" width="190">
+              <template #default="{ row }">
+                <div class="audit-progress">
+                  <span class="audit-progress-text">
+                    已审核 {{ (row.markStatus === '已标注' ? 1 : 0) + row.reviewedCount }} / {{ row.attachments.length + 1 }}
+                    · 主政策{{ row.markStatus === '已标注' ? '已审核' : '待审核' }}
+                  </span>
+                  <el-progress
+                    :percentage="Math.round(((row.markStatus === '已标注' ? 1 : 0) + row.reviewedCount) / (row.attachments.length + 1) * 100)"
+                    :status="row.status === '已标注' ? 'success' : ''"
+                    :show-text="false"
+                    :stroke-width="6"
+                  />
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="status" label="状态" width="100" align="center">
+              <template #default="{ row }">
+                <el-tag :type="row.status === '已标注' ? 'success' : (row.status === '标注中' ? 'warning' : 'info')" size="small">{{ row.status }}</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" width="80" fixed="right">
+              <template #default="{ row }">
+                <el-button type="text" size="small" style="color:#f56c6c;" :loading="deleteSaving === row.uuid" :disabled="Boolean(deleteSaving)" @click="deleteMerge(row)">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div class="pagination-wrapper">
+            <el-pagination
+              v-model:current-page="pagination.page"
+              v-model:page-size="pagination.size"
+              :page-sizes="[10, 20, 50]"
+              :total="pagination.total"
+              layout="total, sizes, prev, pager, next"
+              @current-change="fetchWithRetryMergedPolicies"
+              @size-change="handleSizeChange"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    </main>
+
+    <!-- 编辑关联对话框 -->
+    <el-dialog v-model="editDialog" title="编辑关联政策" width="600px">
+      <div class="drawer-form">
+        <div class="form-item">
+          <label>主政策</label>
+          <el-input v-model="currentPolicy.mainPolicy" disabled />
+        </div>
+        <div class="form-item">
+          <label>关联的政策名称</label>
+          <el-select v-model="currentPolicy.relatedPolicy" placeholder="请输入关键词搜索关联政策" filterable remote :remote-method="searchPolicies" :loading="searching" clearable style="width:100%;">
+            <el-option v-for="p in relatedPolicyOptions" :key="p.uuid" :label="`${p.title}（${p.type}）`" :value="p.title" />
+          </el-select>
+        </div>
+        <div class="form-item">
+          <label>关联文件</label>
+          <el-select v-model="currentPolicy.attachment" placeholder="请选择关联文件" clearable style="width:100%;">
+            <el-option v-for="a in currentAttachments" :key="a.id || a.attachmentName" :label="a.attachmentName || a.attachmentShowName" :value="a.attachmentName || a.attachmentShowName" />
+          </el-select>
+        </div>
+      </div>
+      <template #footer>
+        <el-button @click="editDialog = false">取消</el-button>
+        <el-button type="primary" @click="saveRelated">保存</el-button>
+      </template>
+    </el-dialog>
+
+    <!-- 全屏政策分类详情 -->
+    <el-drawer v-model="detailDrawer" size="100%" direction="rtl" :with-header="false" class="policy-detail-drawer">
+      <div class="merge-drawer" v-loading="detailLoading">
+        <header class="detail-topbar">
+          <div class="detail-topbar-main">
+            <div class="detail-eyebrow">政策及附件标注 · 详情工作台</div>
+          </div>
+          <el-button circle class="detail-close" aria-label="关闭详情" @click="detailDrawer = false"><el-icon><Close /></el-icon></el-button>
+        </header>
+
+        <div class="detail-workspace">
+          <div class="detail-layout">
+            <section class="detail-card">
+              <div class="detail-main-policy-heading">
+                <div class="detail-main-policy-label">政策名称</div>
+                <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                  <button type="button" class="detail-main-policy-title" @click="showMainPolicyContent" style="flex: 1;">{{ detailPolicyTitle }}</button>
+                  <el-button type="warning" size="small" plain @click="showRemarkDialog">
+                    <el-icon><Edit /></el-icon>标记
+                  </el-button>
+                </div>
+              </div>
+              <div class="detail-card-header">
+                <div class="detail-section-title">政策基本信息</div>
+                <el-button type="primary" @click="showMainPolicyContent"><el-icon><Document /></el-icon>查看政策原文</el-button>
+              </div>
+              <div class="detail-card-body">
+                <div class="policy-info-grid">
+                  <div class="policy-info-item"><div class="policy-info-label">政策编号</div><div class="policy-info-value">{{ currentPolicy.policyNumber || currentPolicy.uuid || '-' }}</div></div>
+                  <div class="policy-info-item"><div class="policy-info-label">文号</div><div class="policy-info-value">{{ currentPolicy.documentNo || '-' }}</div></div>
+                  <div class="policy-info-item"><div class="policy-info-label">发布部门</div><div class="policy-info-value">{{ currentPolicy.department || '-' }}</div></div>
+                  <div class="policy-info-item"><div class="policy-info-label">发布日期</div><div class="policy-info-value">{{ currentPolicy.publishDate || '-' }}</div></div>
+                  <div class="policy-info-item"><div class="policy-info-label">文件类型</div><div class="policy-info-value">{{ currentPolicy.fileType || '-' }}</div></div>
+                  <div class="policy-info-item"><div class="policy-info-label">附件数量</div><div class="policy-info-value">{{ currentPolicy.attachmentCount ?? currentAttachments.length }} 个</div></div>
+                </div>
+                <div v-if="currentPolicy.remark" class="policy-info-item" style="margin-top: 12px;">
+                  <div class="policy-info-label">标记内容</div>
+                  <div class="policy-info-value" style="white-space: pre-wrap; background: #fff8e6; padding: 8px; border-radius: 4px; border: 1px solid #ffe58f;">{{ currentPolicy.remark }}</div>
+                </div>
+                <div class="source-panel">
+                  <div class="source-info">
+                    <div class="source-label">政策原文数据库路径</div>
+                    <div class="source-path" :title="currentPolicy.filePath">{{ currentPolicy.filePath || '数据库暂未配置原文路径' }}</div>
+                  </div>
+                  <el-button type="primary" plain :disabled="!currentPolicy.uuid" @click="showMainPolicyContent">打开原文</el-button>
+                </div>
+              </div>
+            </section>
+
+            <aside class="detail-card review-card">
+              <div class="detail-card-header"><div class="detail-section-title">分类与审核</div></div>
+              <div class="detail-card-body">
+                <div class="review-status">
+                  <span class="review-status-label">当前标注状态</span>
+                  <el-tag :type="currentPolicy.markStatus === '已标注' ? 'success' : 'warning'">{{ currentPolicy.markStatus || '未标注' }}</el-tag>
+                </div>
+                <div class="review-block">
+                  <div class="review-block-title">政策属性</div>
+                  <div class="policy-type-options">
+                    <el-button v-for="type in mainPolicyTypes" :key="type" :type="currentPolicy.policyType === type ? 'primary' : 'default'" :plain="currentPolicy.policyType !== type" :disabled="policyAttributeSaving || policyApproveSaving || policyRevokeSaving" @click="saveMainPolicyAttribute(type)">{{ type }}</el-button>
+                  </div>
+                  <div v-if="policyAttributeSaving" class="review-hint">正在同步保存到数据库...</div>
+                </div>
+                <div class="review-block">
+                  <div class="review-block-title">审核操作</div>
+                  <div class="review-actions">
+                    <el-button type="success" :loading="policyApproveSaving" :disabled="!currentPolicy.policyType || currentPolicy.markStatus === '已标注' || policyAttributeSaving || policyRevokeSaving" @click="approveMainPolicy"><el-icon><Check /></el-icon>审核通过</el-button>
+                    <el-button type="warning" plain :loading="policyRevokeSaving" :disabled="currentPolicy.markStatus !== '已标注' || policyApproveSaving || policyAttributeSaving" @click="revokeMainPolicy">撤销审核</el-button>
+                  </div>
+                  <div class="review-hint">{{ !currentPolicy.policyType ? '请先选择政策属性，再执行审核。' : (currentPolicy.markStatus === '已标注' ? '当前政策已通过审核。' : '政策属性已设置，等待审核。') }}</div>
+                </div>
+              </div>
+            </aside>
+          </div>
+
+          <section class="detail-card attachments-card">
+            <div class="detail-card-header">
+              <div>
+                <div class="detail-section-title">附件分类</div>
+                <div class="detail-section-note">共 {{ currentAttachments.length }} 个文件，请完成类型判断并逐项复核</div>
+              </div>
+              <el-tag type="info">已复核 {{ currentPolicy.reviewedCount || 0 }} / {{ currentAttachments.length }}</el-tag>
+            </div>
+            <div class="detail-card-body">
+              <div v-if="!detailLoading && currentAttachments.length === 0" class="empty-attachments">该政策暂无关联附件</div>
+              <div v-for="att in currentAttachments" :key="att.filePath || att.attachmentName" class="attachment-card">
+                <div class="attachment-card-head">
+                  <div style="flex:1;min-width:0;">
+                    <button type="button" class="attachment-open attachment-name" @click="showAttachmentContent(att)">{{ att.attachmentName || att.attachmentShowName }}</button>
+                    <div style="margin-top:7px;color:#778499;font-size:14px;">文件格式：{{ (att.fileSuffix || '未知').toUpperCase() }}</div>
+                  </div>
+                  <div style="display:flex;gap:8px;align-items:center;">
+                    <el-tag :type="att.type ? 'primary' : 'info'">{{ att.type || '待判断' }}</el-tag>
+                    <el-tag :type="att.reviewed ? 'success' : 'warning'">{{ att.reviewed ? '已复核' : '待复核' }}</el-tag>
+                    <el-button v-if="!isArchiveAttachment(att)" type="primary" link @click="showAttachmentContent(att)">查看内容</el-button>
+                    <el-button type="success" link @click="downloadAttachment(att)">下载附件</el-button>
+                  </div>
+                </div>
+                <div class="attachment-actions">
+                  <span class="attachment-actions-label">文件类型</span>
+                  <el-button v-for="type in attachmentTypes" :key="type" :type="att.type === type ? 'primary' : 'default'" :plain="att.type !== type" :disabled="attachmentSaving === attachmentKey(att) || attachmentReviewSaving === att.id" @click="saveAttachmentType(att, type)"><el-icon v-if="att.type === type"><Check /></el-icon>{{ type }}</el-button>
+                  <el-button type="success" :loading="attachmentReviewSaving === att.id" :disabled="!att.type || att.reviewed || attachmentSaving === attachmentKey(att) || attachmentReviewSaving === att.id" @click="approveAttachmentType(att)"><el-icon><Check /></el-icon>复核通过</el-button>
+                  <el-button v-if="att.reviewed" type="warning" plain :loading="attachmentReviewSaving === att.id" :disabled="attachmentSaving === attachmentKey(att) || attachmentReviewSaving === att.id" @click="revokeAttachmentType(att)"><el-icon><Refresh /></el-icon>撤销</el-button>
+                  <span v-if="attachmentSaving === attachmentKey(att)" style="font-size:14px;color:#7c8797;">正在保存...</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="detail-next-bar" aria-label="政策切换">
+            <div class="detail-next-info">
+              <div class="detail-next-title">继续标注下一条政策</div>
+              <div class="detail-next-note">当前为筛选结果中的第 {{ currentPolicyPosition }} 条，共 {{ pagination.total }} 条</div>
+            </div>
+            <el-button type="primary" :loading="nextPolicyLoading" :disabled="!hasNextPolicy || detailLoading" @click="openNextPolicy">
+              下一条政策<el-icon class="el-icon--right"><Right /></el-icon>
+            </el-button>
+          </section>
+        </div>
+      </div>
+    </el-drawer>
+
+    <el-dialog v-model="policyContentDialog" :title="detailPolicyTitle || '政策原文'" width="92%" top="5vh">
+      <div v-loading="mainPolicyContentLoading" class="policy-content-viewer">{{ currentPolicy.fileContent || '暂无政策原文' }}</div>
+      <template #footer><el-button @click="policyContentDialog = false">关闭</el-button></template>
+    </el-dialog>
+
+    <el-dialog v-model="attachmentDialog" :title="currentAttachment.attachmentName || currentAttachment.attachmentShowName || '附件内容'" width="760px">
+      <iframe v-if="currentAttachment.previewUrl" :src="currentAttachment.previewUrl" title="附件预览" style="width:100%;height:560px;border:1px solid #e7ebf1;"></iframe>
+      <div v-else-if="currentAttachment.contentHtml" v-loading="attachmentContentLoading" class="attachment-content-viewer attachment-content-html" v-html="currentAttachment.contentHtml"></div>
+      <div v-else v-loading="attachmentContentLoading" class="attachment-content-viewer attachment-content-text">{{ currentAttachment.content || '暂无内容' }}</div>
+      <template #footer>
+        <el-button type="primary" plain @click="downloadAttachment(currentAttachment)">下载附件</el-button>
+        <el-button @click="attachmentDialog = false">关闭</el-button>
+      </template>
+    </el-dialog>
+
+    <el-dialog v-model="remarkDialog" title="标记问题" width="600px">
+      <el-form label-width="80px">
+        <el-form-item label="标记内容">
+          <el-input v-model="remarkContent" type="textarea" :rows="5" placeholder="请记录发现的问题或备注信息..." maxlength="1000" show-word-limit />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="remarkDialog = false">取消</el-button>
+        <el-button type="primary" @click="saveRemark" :loading="remarkSaving">保存</el-button>
+      </template>
+    </el-dialog>
+  </div>
+
+  <script src="/lib/cdn/vue.global.js"></script>
+  <script src="/lib/cdn/element-plus.umd.js"></script>
+  <script src="/lib/cdn/element-plus-icons.min.js"></script>
+  <script src="../js/menu.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/page-init.js"></script>
+  <script>
+    const { createApp, ref, reactive, computed, onMounted } = Vue;
+    const { ElMessage, ElMessageBox } = ElementPlus;
+    const app = createApp({
+      setup() {
+        const mergedPolicies = ref([]);
+        const relatedPolicyOptions = ref([]);
+        const searching = ref(false);
+        const currentAttachments = ref([]);
+        const pagination = reactive({ page: 1, size: 10, total: 0 });
+        const editDialog = ref(false);
+        const detailDrawer = ref(false);
+        const attachmentDialog = ref(false);
+        const policyContentDialog = ref(false);
+        const remarkDialog = ref(false);
+        const remarkContent = ref('');
+        const remarkSaving = ref(false);
+        const currentPolicy = ref({});
+        const currentAttachment = ref({});
+        const loading = ref(true);
+        const detailLoading = ref(false);
+        const attachmentContentLoading = ref(false);
+        const attachmentSaving = ref('');
+        const attachmentReviewSaving = ref('');
+        const mainPolicyContentLoading = ref(false);
+        const policyAttributeSaving = ref(false);
+        const policyApproveSaving = ref(false);
+        const policyRevokeSaving = ref(false);
+        const nextPolicyLoading = ref(false);
+        const deleteSaving = ref('');
+        const API_BASE = window.location.origin;
+        const mainPolicyTypes = ['实施细则', '指导政策', '申报通知', '结果公告'];
+        const quickPolicyTypes = ['指导政策', '实施细则', '申报通知', '结果公告'];
+        const hiddenPolicyAttributes = ['主政策', '主属性'];
+        const isVisiblePolicy = (policy) => !hiddenPolicyAttributes.includes((policy.policyAttribute || '').trim());
+        const REVIEW_STATUS_APPROVED = '1';
+        const normalizePolicyType = (type) => {
+          const normalized = String(type || '').trim();
+          return normalized === '通知公告' ? '申报通知' : normalized;
+        };
+        const quickFilter = ref('all');
+        const searchDepartment = ref('');
+        const searchScope = ref('');
+        const publishDateRange = ref([]);
+        const filterStats = reactive({
+          all: 0,
+          tagged: 0,
+          inProgress: 0,
+          untagged: 0,
+          remarked: 0,
+          byType: { '指导政策': 0, '实施细则': 0, '申报通知': 0, '结果公告': 0 }
+        });
+        const attachmentTypes = ['实施细则类', '指导政策类', '申报材料类', '申报通知类', '结果公告类', '其它'];
+        const isApprovedReviewStatus = (status) => {
+          const normalized = String(status || '').trim();
+          return normalized === REVIEW_STATUS_APPROVED || normalized === '已通过' || normalized === '已标注';
+        };
+        const normalizeAttachmentType = (type) => {
+          if (!type) return '';
+          if (['其它', '其他', '其它类', '其他类'].includes(type)) return '其它';
+          const normalized = type.endsWith('类') ? type : `${type}类`;
+          return attachmentTypes.includes(normalized) ? normalized : '';
+        };
+        const calculatePolicyStatus = (mainReviewStatus, attachments = []) => {
+          const mainPolicyApproved = isApprovedReviewStatus(mainReviewStatus);
+          const allAttachmentsApproved = attachments.length === 0 || attachments.every(item => item.reviewed);
+          const anyAttachmentApproved = attachments.some(item => item.reviewed);
+
+          if (mainPolicyApproved && allAttachmentsApproved) {
+            return '已标注';
+          } else if (!mainPolicyApproved && !anyAttachmentApproved) {
+            return '未标注';
+          } else {
+            return '标注中';
+          }
+        };
+        const policyDisplayTitle = (policy) => policy?.mainPolicy || '-';
+        const detailPolicyTitle = computed(() => policyDisplayTitle(currentPolicy.value));
+        const currentPolicyPosition = computed(() => {
+          const index = mergedPolicies.value.findIndex(item => item.uuid === currentPolicy.value.uuid);
+          return index >= 0 ? (pagination.page - 1) * pagination.size + index + 1 : 0;
+        });
+        const hasNextPolicy = computed(() => {
+          const index = mergedPolicies.value.findIndex(item => item.uuid === currentPolicy.value.uuid);
+          return (index >= 0 && index < mergedPolicies.value.length - 1) || pagination.page * pagination.size < pagination.total;
+        });
+
+        // 远程搜索关联政策
+        const searchPolicies = async (query) => {
+          if (!query) { relatedPolicyOptions.value = []; return; }
+          searching.value = true;
+          try {
+            const params = new URLSearchParams({ page: 1, size: 20, keyword: query, includeAttachments: false, excludeFusionSource: true });
+            const res = await fetchWithRetry(`${API_BASE}/api/classification/policies?${params}`);
+            const result = await res.json();
+            relatedPolicyOptions.value = (result.data || []).filter(p => p.uuid !== currentPolicy.value.uuid && isVisiblePolicy(p)).map(p => ({
+              ...p,
+              uuid: p.policyId,
+              type: normalizePolicyType(p.policyAttribute) || '未设置'
+            }));
+          } catch (err) {
+            console.error('搜索政策失败:', err);
+            relatedPolicyOptions.value = [];
+          } finally {
+            searching.value = false;
+          }
+        };
+
+        // 搜索功能
+        const searchKeyword = ref('');
+        // 高亮搜索关键字
+        const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, char => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[char]));
+        const highlightText = (text) => {
+          const safeText = escapeHtml(text);
+          if (!safeText || !searchKeyword.value.trim()) return safeText;
+          const keyword = searchKeyword.value.trim();
+          const regex = new RegExp(`(${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+          return safeText.replace(regex, '<span style="background: #FEF0C7; color: #D4380D;">$1</span>');
+        };
+
+        // 搜索方法
+        const searchPolicy = () => {
+          pagination.page = 1;
+          fetchWithRetryMergedPolicies();
+        };
+        const resetPolicySearch = () => {
+          searchKeyword.value = '';
+          searchDepartment.value = '';
+          searchScope.value = '';
+          publishDateRange.value = [];
+          quickFilter.value = 'all';
+          pagination.page = 1;
+          fetchWithRetryMergedPolicies();
+        };
+        const setQuickFilter = (value) => {
+          quickFilter.value = value;
+          pagination.page = 1;
+          fetchWithRetryMergedPolicies();
+        };
+
+        const attachmentKey = (att) => {
+          // 优先使用 id，其次用名称，最后用索引（保证永不返回空字符串）
+          const id = att.id;
+          const name = att.attachmentShowName || att.attachmentName;
+          const idx = att._idx;
+          if (id) return id;
+          if (name) return name;
+          return 'att_' + (idx !== undefined ? idx : Math.random().toString(36).substr(2, 9));
+        };
+
+        const loadCurrentPolicyContent = async (policyId = currentPolicy.value.uuid) => {
+          if (!policyId) return '';
+          const res = await fetch(`${API_BASE}/api/policy/content?id=${encodeURIComponent(policyId)}`);
+          const result = await res.json();
+          if (!result.success || !result.data) throw new Error(result.message || '政策原文加载失败');
+          if (currentPolicy.value.uuid !== policyId) return '';
+
+          const content = result.data.content || '';
+          currentPolicy.value.filePath = result.data.filePath || currentPolicy.value.filePath || '';
+          currentPolicy.value.fileType = result.data.fileType || currentPolicy.value.fileType || '';
+          currentPolicy.value.fileContent = content;
+          return content;
+        };
+
+        const fetchWithRetryAttachments = async (policyId, policyTitle) => {
+          if (!policyId || !policyTitle) return [];
+          try {
+            const attachmentsRes = await fetchWithRetry(`${API_BASE}/api/attachment/list?policyId=${encodeURIComponent(policyId)}`);
+            const attachmentsResult = await attachmentsRes.json();
+            return (attachmentsResult.data || []).map((att, idx) => ({
+              ...att,
+              _idx: idx,
+              type: normalizeAttachmentType(att.attachmentType),
+              reviewed: isApprovedReviewStatus(att.reviewStatus)
+            }));
+          } catch (err) {
+            console.error('获取政策附件失败:', err);
+            return [];
+          }
+        };
+
+
+
+
+        const fetchWithRetryMergedPolicies = async () => {
+          loading.value = true;
+          try {
+            const params = new URLSearchParams({
+              page: pagination.page,
+              size: pagination.size,
+              excludeFusionSource: true
+            });
+            if (searchKeyword.value.trim()) params.set('keyword', searchKeyword.value.trim());
+            if (searchDepartment.value.trim()) params.set('department', searchDepartment.value.trim());
+            if (searchScope.value.trim()) params.set('scope', searchScope.value.trim());
+            if (publishDateRange.value?.length === 2) {
+              params.set('publishStart', publishDateRange.value[0]);
+              params.set('publishEnd', publishDateRange.value[1]);
+            }
+            if (quickFilter.value.startsWith('type:')) params.set('type', quickFilter.value.slice(5));
+            if (quickFilter.value.startsWith('status:')) params.set('status', quickFilter.value.slice(7));
+            if (quickFilter.value.startsWith('remark:')) params.set('remark', quickFilter.value.slice(7));
+            const res = await fetchWithRetry(`${API_BASE}/api/classification/policies?${params}`);
+            const result = await res.json();
+            if (!result.success) throw new Error(result.message || '读取 POLICY 和 POLICY_ATTACHMENT 失败');
+
+            pagination.total = result.pagination?.total || 0;
+            if (result.filterStats) {
+              filterStats.all = result.filterStats.all || 0;
+              filterStats.tagged = result.filterStats.tagged || 0;
+              filterStats.inProgress = result.filterStats.inProgress || 0;
+              filterStats.untagged = result.filterStats.untagged || 0;
+              filterStats.remarked = result.filterStats.remarked || 0;
+              Object.keys(filterStats.byType).forEach(key => {
+                filterStats.byType[key] = 0;
+              });
+              Object.entries(result.filterStats.byType || {}).forEach(([rawType, count]) => {
+                const normalizedType = normalizePolicyType(rawType);
+                if (normalizedType && Object.prototype.hasOwnProperty.call(filterStats.byType, normalizedType)) {
+                  filterStats.byType[normalizedType] += Number(count) || 0;
+                }
+              });
+            }
+            const policies = (result.data || []).filter(isVisiblePolicy);
+            mergedPolicies.value = policies.map((policy, index) => {
+              const attachments = (policy.attachments || []).map((att, idx) => ({
+                ...att,
+                _idx: idx,
+                type: normalizeAttachmentType(att.attachmentType),
+                reviewed: isApprovedReviewStatus(att.reviewStatus)
+              }));
+              return {
+                id: (pagination.page - 1) * pagination.size + index + 1,
+                uuid: policy.policyId,
+                mainPolicy: policy.title,
+                policyNumber: policy.policyId,
+                department: policy.department || '',
+                issuingDepartment: policy.issuingDepartment || policy.department || '',
+                applicableScope: policy.applicableScope || '',
+                publishDate: policy.publishDate || '',
+                documentNo: policy.documentNo || '',
+                fileType: policy.fileType || '',
+                filePath: policy.filePath || '',
+                policyType: normalizePolicyType(policy.policyAttribute),
+                remark: policy.remark || '',
+                markStatus: isApprovedReviewStatus(policy.reviewStatus) ? '已标注' : '未标注',
+                attachmentCount: policy.attachmentCount ?? attachments.length,
+                relatedPolicy: '',
+                attachment: attachments[0]?.attachmentName || attachments[0]?.attachmentShowName || '',
+                attachments,
+                classifiedCount: attachments.filter(att => att.type).length,
+                reviewedCount: attachments.filter(att => att.reviewed).length,
+                status: calculatePolicyStatus(policy.reviewStatus, attachments)
+              };
+            });
+            return true;
+          } catch (err) {
+            console.error('获取融合列表失败:', err);
+            ElMessage.error(err.message || '获取融合列表失败');
+            return false;
+          } finally {
+            loading.value = false;
+          }
+        };
+
+        const handleSizeChange = () => {
+          pagination.page = 1;
+          fetchWithRetryMergedPolicies();
+        };
+        const showAddDialog = () => { ElMessage.info('新增融合功能'); };
+        const showRemarkDialog = () => {
+          remarkContent.value = currentPolicy.value.remark || '';
+          remarkDialog.value = true;
+        };
+        const saveRemark = async () => {
+          if (!currentPolicy.value.uuid || remarkSaving.value) return;
+          remarkSaving.value = true;
+          try {
+            const res = await fetch(`${API_BASE}/api/policies/remark`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id: currentPolicy.value.uuid, remark: remarkContent.value })
+            });
+            const result = await res.json();
+            if (!result.success) throw new Error(result.message || '标记保存失败');
+            currentPolicy.value.remark = remarkContent.value;
+            const target = mergedPolicies.value.find(p => p.uuid === currentPolicy.value.uuid);
+            if (target) target.remark = remarkContent.value;
+            ElMessage.success('标记已保存');
+            remarkDialog.value = false;
+          } catch (err) {
+            ElMessage.error(err.message || '标记保存失败');
+          } finally {
+            remarkSaving.value = false;
+          }
+        };
+        const showMainPolicyContent = async () => {
+          if (!currentPolicy.value.uuid || mainPolicyContentLoading.value) return;
+          policyContentDialog.value = true;
+          mainPolicyContentLoading.value = true;
+          currentPolicy.value.fileContent = '';
+          const policyId = currentPolicy.value.uuid;
+          try {
+            await loadCurrentPolicyContent(policyId);
+          } catch (err) {
+            if (currentPolicy.value.uuid === policyId) {
+              currentPolicy.value.fileContent = err.message || '政策原文加载失败';
+            }
+          } finally {
+            mainPolicyContentLoading.value = false;
+          }
+        };
+        const saveMainPolicyAttribute = async (type) => {
+          if (!currentPolicy.value.uuid || policyAttributeSaving.value || currentPolicy.value.policyType === type) return;
+          const previousType = currentPolicy.value.policyType || '';
+          policyAttributeSaving.value = true;
+          try {
+            const res = await fetch(`${API_BASE}/api/policies/update`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id: currentPolicy.value.uuid, type })
+            });
+            const result = await res.json();
+            if (!result.success) throw new Error(result.message || '政策属性保存失败');
+            currentPolicy.value.policyType = type;
+            currentPolicy.value.markStatus = '未标注';
+            const target = mergedPolicies.value.find(item => item.uuid === currentPolicy.value.uuid);
+            if (target) {
+              target.policyType = type;
+              target.markStatus = '未标注';
+              target.status = calculatePolicyStatus('未标注', target.attachments);
+            }
+            currentPolicy.value.status = '未标注';
+            ElMessage.success(`政策属性已保存为“${type}”，请审核通过`);
+          } catch (err) {
+            currentPolicy.value.policyType = previousType;
+            ElMessage.error(err.message || '政策属性保存失败');
+          } finally {
+            policyAttributeSaving.value = false;
+          }
+        };
+        const approveMainPolicy = async () => {
+          if (!currentPolicy.value.uuid || !currentPolicy.value.policyType || policyApproveSaving.value) return;
+          policyApproveSaving.value = true;
+          try {
+            const res = await fetch(`${API_BASE}/api/policies/approve`, {
+              method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id: currentPolicy.value.uuid })
+            });
+            const result = await res.json();
+            if (!result.success) throw new Error(result.message || '审核失败');
+            currentPolicy.value.markStatus = '已标注';
+            const target = mergedPolicies.value.find(item => item.uuid === currentPolicy.value.uuid);
+            if (target) {
+              target.markStatus = '已标注';
+              target.status = calculatePolicyStatus('已标注', target.attachments);
+              currentPolicy.value.status = target.status;
+            } else {
+              currentPolicy.value.status = calculatePolicyStatus('已标注', currentAttachments.value);
+            }
+            ElMessage.success('主政策审核已通过');
+          } catch (err) {
+            ElMessage.error(err.message || '审核失败');
+          } finally {
+            policyApproveSaving.value = false;
+          }
+        };
+        const revokeMainPolicy = async () => {
+          if (!currentPolicy.value.uuid || policyRevokeSaving.value) return;
+          policyRevokeSaving.value = true;
+          try {
+            const res = await fetch(`${API_BASE}/api/policies/revoke`, {
+              method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id: currentPolicy.value.uuid })
+            });
+            const result = await res.json();
+            if (!result.success) throw new Error(result.message || '撤销失败');
+            currentPolicy.value.markStatus = '未标注';
+            const target = mergedPolicies.value.find(item => item.uuid === currentPolicy.value.uuid);
+            if (target) {
+              target.markStatus = '未标注';
+              target.status = '未标注';
+            }
+            currentPolicy.value.status = '未标注';
+            ElMessage.success('主政策审核已撤销');
+          } catch (err) {
+            ElMessage.error(err.message || '撤销失败');
+          } finally {
+            policyRevokeSaving.value = false;
+          }
+        };
+        const showDetail = async (row) => {
+          currentPolicy.value = { ...row };
+          detailDrawer.value = true;
+          detailLoading.value = true;
+          try {
+            const [attachments] = await Promise.all([
+              row.attachments?.length ? Promise.resolve(row.attachments) : fetchWithRetryAttachments(row.uuid, row.mainPolicy),
+              loadCurrentPolicyContent(row.uuid).catch(err => {
+                console.error('政策原文标题加载失败:', err);
+                return '';
+              })
+            ]);
+            currentAttachments.value = attachments;
+            currentPolicy.value.attachments = currentAttachments.value;
+          } finally {
+            detailLoading.value = false;
+          }
+        };
+        const openNextPolicy = async () => {
+          if (nextPolicyLoading.value || !hasNextPolicy.value) {
+            if (!hasNextPolicy.value) ElMessage.info('已经是当前筛选结果的最后一条政策');
+            return;
+          }
+          nextPolicyLoading.value = true;
+          try {
+            const currentIndex = mergedPolicies.value.findIndex(item => item.uuid === currentPolicy.value.uuid);
+            let nextPolicy = currentIndex >= 0 ? mergedPolicies.value[currentIndex + 1] : null;
+            if (!nextPolicy && pagination.page * pagination.size < pagination.total) {
+              const previousPage = pagination.page;
+              pagination.page += 1;
+              const loaded = await fetchWithRetryMergedPolicies();
+              if (!loaded) {
+                pagination.page = previousPage;
+                return;
+              }
+              nextPolicy = mergedPolicies.value[0];
+              if (!nextPolicy) pagination.page = previousPage;
+            }
+            if (!nextPolicy) {
+              ElMessage.info('已经是当前筛选结果的最后一条政策');
+              return;
+            }
+            await showDetail(nextPolicy);
+            requestAnimationFrame(() => {
+              document.querySelector('.merge-drawer')?.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+          } finally {
+            nextPolicyLoading.value = false;
+          }
+        };
+        const editRelated = async (row) => {
+          currentPolicy.value = { ...row };
+          currentAttachments.value = row.attachments || await fetchWithRetryAttachments(row.uuid, row.mainPolicy);
+          editDialog.value = true;
+        };
+        const saveRelated = () => {
+          const target = mergedPolicies.value.find(p => p.uuid === currentPolicy.value.uuid);
+          if (target) {
+            target.relatedPolicy = currentPolicy.value.relatedPolicy || '';
+            target.attachment = currentPolicy.value.attachment || '';
+          }
+          ElMessage.success('保存成功');
+          editDialog.value = false;
+        };
+        const saveAttachmentType = async (att, type) => {
+          const key = attachmentKey(att);
+          if (!key) {
+            ElMessage.error('附件信息不完整，无法保存');
+            return;
+          }
+          if (attachmentSaving.value || attachmentReviewSaving.value || att.type === type) return;
+          const previousType = att.type || '';
+          const previousReviewed = att.reviewed;
+          attachmentSaving.value = key;
+          try {
+            const res = await fetchWithRetry(`${API_BASE}/api/attachment-types/update`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                policyId: currentPolicy.value.uuid,
+                attachmentId: att.id,
+                attachmentType: type
+              })
+            });
+            const result = await res.json();
+            if (!result.success) throw new Error(result.message || '保存失败');
+
+            att.type = type;
+            att.reviewed = false;
+            const target = mergedPolicies.value.find(p => p.uuid === currentPolicy.value.uuid);
+            if (target) {
+              const targetAttachment = target.attachments.find(item => attachmentKey(item) === key);
+              if (targetAttachment) {
+                targetAttachment.type = type;
+                targetAttachment.reviewed = false;
+              }
+              target.classifiedCount = target.attachments.filter(item => item.type).length;
+              target.reviewedCount = target.attachments.filter(item => item.reviewed).length;
+              target.status = '未标注';
+            }
+            currentPolicy.value.status = '未标注';
+            ElMessage.success(`文件类型已实时保存为“${type}”，请复核通过`);
+          } catch (err) {
+            att.type = previousType;
+            att.reviewed = previousReviewed;
+            ElMessage.error(err.message || '附件类型保存失败');
+          } finally {
+            attachmentSaving.value = '';
+          }
+        };
+        const approveAttachmentType = async (att) => {
+          if (!att.id || !att.type || att.reviewed || attachmentReviewSaving.value) return;
+          attachmentReviewSaving.value = att.id;
+          try {
+            const res = await fetchWithRetry(`${API_BASE}/api/attachment-types/approve`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                policyId: currentPolicy.value.uuid,
+                attachmentId: att.id
+              })
+            });
+            const result = await res.json();
+            if (!result.success) throw new Error(result.message || '复核失败');
+
+            att.reviewed = true;
+            const target = mergedPolicies.value.find(p => p.uuid === currentPolicy.value.uuid);
+            if (target) {
+              const targetAttachment = target.attachments.find(item => item.id === att.id);
+              if (targetAttachment) targetAttachment.reviewed = true;
+              target.reviewedCount = target.attachments.filter(item => item.reviewed).length;
+              target.status = calculatePolicyStatus(target.markStatus, target.attachments);
+              currentPolicy.value.status = target.status;
+            }
+            ElMessage.success('关联文件已复核通过');
+          } catch (err) {
+            ElMessage.error(err.message || '复核失败');
+          } finally {
+            attachmentReviewSaving.value = '';
+          }
+        };
+        const revokeAttachmentType = async (att) => {
+          if (!att.id || !att.reviewed || attachmentReviewSaving.value) return;
+          attachmentReviewSaving.value = att.id;
+          try {
+            const res = await fetchWithRetry(`${API_BASE}/api/attachment-types/revoke`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                policyId: currentPolicy.value.uuid,
+                attachmentId: att.id
+              })
+            });
+            const result = await res.json();
+            if (!result.success) throw new Error(result.message || '撤销失败');
+
+            att.reviewed = false;
+            const target = mergedPolicies.value.find(p => p.uuid === currentPolicy.value.uuid);
+            if (target) {
+              const targetAttachment = target.attachments.find(item => item.id === att.id);
+              if (targetAttachment) targetAttachment.reviewed = false;
+              target.reviewedCount = target.attachments.filter(item => item.reviewed).length;
+              target.status = calculatePolicyStatus(target.markStatus, target.attachments);
+              currentPolicy.value.status = target.status;
+            }
+            ElMessage.success('复核已撤销');
+          } catch (err) {
+            ElMessage.error(err.message || '撤销失败');
+          } finally {
+            attachmentReviewSaving.value = '';
+          }
+        };
+        const archiveSuffixes = new Set(['zip', 'rar', '7z', 'tar', 'gz', 'tgz', 'bz2', 'xz']);
+        const isArchiveAttachment = (att) => archiveSuffixes.has(String(att.fileSuffix || '').toLowerCase());
+        const buildAttachmentFileUrl = (att, download = false) => {
+          const params = new URLSearchParams();
+          const attachmentId = String(att?.id || '').trim();
+          const filePath = String(att?.filePath || '').trim();
+          if (attachmentId) {
+            params.set('attachmentId', attachmentId);
+          } else if (filePath) {
+            params.set('filePath', filePath);
+          } else {
+            return '';
+          }
+          if (download) {
+            params.set('download', '1');
+          }
+          return `${API_BASE}/api/attachment/file?${params.toString()}`;
+        };
+        const downloadAttachment = (att) => {
+          const url = buildAttachmentFileUrl(att, true);
+          if (!url) {
+            ElMessage.error('附件信息不完整，无法下载');
+            return;
+          }
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = att.attachmentName || att.attachmentShowName || '';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        };
+        const showAttachmentContent = async (att) => {
+          if (isArchiveAttachment(att)) {
+            downloadAttachment(att);
+            return;
+          }
+          const isPdf = String(att.fileSuffix || '').toLowerCase() === 'pdf';
+          currentAttachment.value = {
+            ...att,
+            content: '',
+            contentHtml: '',
+            previewUrl: isPdf ? buildAttachmentFileUrl(att) : ''
+          };
+          attachmentDialog.value = true;
+          if (isPdf) {
+            attachmentContentLoading.value = false;
+            return;
+          }
+          attachmentContentLoading.value = true;
+          try {
+            const res = await fetchWithRetry(`${API_BASE}/api/attachment/content?attachmentId=${encodeURIComponent(att.id)}`);
+            const result = await res.json();
+            if (!result.success) throw new Error(result.message || '附件内容加载失败');
+            currentAttachment.value = {
+              ...currentAttachment.value,
+              ...result.data,
+              content: result.data?.content || '',
+              contentHtml: result.data?.contentHtml || ''
+            };
+          } catch (err) {
+            currentAttachment.value.contentHtml = '';
+            currentAttachment.value.content = err.message || '附件内容加载失败';
+          } finally {
+            attachmentContentLoading.value = false;
+          }
+        };
+        const changeStatus = (row) => {
+          if (row.status !== '已标注' && (row.attachments.length === 0 || !row.attachments.every(att => att.reviewed))) {
+            ElMessage.warning('请先完成全部关联文件的类型判断和复核');
+            return;
+          }
+          row.status = row.status === '已标注' ? '未标注' : '已标注';
+          ElMessage.success('状态已更新');
+        };
+        const deleteMerge = async (row) => {
+          try {
+            await ElMessageBox.confirm(
+              `确定永久删除政策“${row.mainPolicy}”吗？该政策在 POLICY、POLICY_ATTACHMENT、POLICY_METADATA、POLICY_ORIGINAL_V2 中的关联记录都会删除，且无法恢复。`,
+              '永久删除政策',
+              { type: 'warning', confirmButtonText: '确认删除', cancelButtonText: '取消', distinguishCancelAndClose: true }
+            );
+          } catch (_) {
+            return;
+          }
+
+          deleteSaving.value = row.uuid;
+          try {
+            const res = await fetch(`${API_BASE}/api/classification/policies/delete`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id: row.uuid })
+            });
+            const result = await res.json();
+            if (!res.ok || !result.success) throw new Error(result.message || '数据库删除失败');
+
+            if (currentPolicy.value.uuid === row.uuid) detailDrawer.value = false;
+            if (mergedPolicies.value.length === 1 && pagination.page > 1) pagination.page -= 1;
+            await fetchWithRetryMergedPolicies();
+            const deleted = result.deleted || {};
+            ElMessage.success(`删除成功：主政策 ${deleted.policy || 0} 条，附件 ${deleted.attachments || 0} 条`);
+          } catch (err) {
+            ElMessage.error(err.message || '数据库删除失败');
+          } finally {
+            deleteSaving.value = '';
+          }
+        };
+        onMounted(() => { fetchWithRetryMergedPolicies(); });
+        return { mergedPolicies, relatedPolicyOptions, searching, currentAttachments, currentAttachment, pagination, editDialog, detailDrawer, attachmentDialog, policyContentDialog, remarkDialog, remarkContent, remarkSaving, currentPolicy, loading, detailLoading, attachmentContentLoading, mainPolicyContentLoading, attachmentSaving, attachmentReviewSaving, policyAttributeSaving, policyApproveSaving, policyRevokeSaving, nextPolicyLoading, deleteSaving, mainPolicyTypes, attachmentTypes, detailPolicyTitle, currentPolicyPosition, hasNextPolicy, attachmentKey, policyDisplayTitle, searchKeyword, searchDepartment, searchScope, publishDateRange, quickPolicyTypes, quickFilter, filterStats, setQuickFilter, highlightText, searchPolicy, resetPolicySearch, searchPolicies, fetchWithRetryMergedPolicies, handleSizeChange, showAddDialog, showDetail, openNextPolicy, showMainPolicyContent, showRemarkDialog, saveRemark, saveMainPolicyAttribute, approveMainPolicy, revokeMainPolicy, editRelated, saveRelated, saveAttachmentType, approveAttachmentType, revokeAttachmentType, isArchiveAttachment, showAttachmentContent, changeStatus, deleteMerge };
+      }
+    });
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) { app.component(key, component); }
+    app.use(ElementPlus);
+    app.mount('#app');
+    PageInit.initStandalonePage();
+  </script>
+</body>
+</html>
+

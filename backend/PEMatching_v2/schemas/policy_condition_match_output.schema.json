@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "policy_condition_match_output.schema.json",
+  "title": "单政策条件匹配模型输出",
+  "description": "模型只返回语义判断、证据路径和原文遗漏条件，正式证据与分数由服务端生成。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "sourceConflicts", "conditionResults", "discoveredConditions"],
+  "properties": {
+    "schemaVersion": {"const": "policy-condition-match-output-v2"},
+    "sourceConflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["applicationRequirementText", "ruleTableText", "description"],
+        "properties": {
+          "applicationRequirementText": {"type": "string", "minLength": 1},
+          "ruleTableText": {"type": "string"},
+          "description": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "conditionResults": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/ruleConditionResult"}
+    },
+    "discoveredConditions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/discoveredConditionResult"}
+    }
+  },
+  "$defs": {
+    "ruleConditionResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conditionKey", "status", "failureEffect", "score", "evidencePaths", "reason", "confidence"],
+      "properties": {
+        "conditionKey": {"type": "string", "minLength": 1},
+        "status": {"enum": ["satisfied", "partially_satisfied", "not_satisfied", "missing"]},
+        "failureEffect": {"enum": ["none", "out_of_scope", "irreversible", "growable", "ordinary_gap", "missing_data"]},
+        "score": {"type": "number", "minimum": 0, "maximum": 100},
+        "evidencePaths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^\\$"}
+        },
+        "reason": {"type": "string", "minLength": 1},
+        "confidence": {"enum": ["high", "medium", "low"]}
+      }
+    },
+    "discoveredConditionResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conditionKey", "sourceText", "groupKey", "groupType", "groupOperator",
+        "status", "failureEffect", "score", "evidencePaths", "reason", "confidence"
+      ],
+      "properties": {
+        "conditionKey": {"type": "string", "minLength": 1},
+        "sourceText": {"type": "string", "minLength": 1},
+        "groupKey": {"type": "string", "minLength": 1},
+        "groupType": {"enum": ["hard", "soft", "special_pass"]},
+        "groupOperator": {"enum": ["AND", "OR"]},
+        "status": {"enum": ["satisfied", "partially_satisfied", "not_satisfied", "missing"]},
+        "failureEffect": {"enum": ["none", "out_of_scope", "irreversible", "growable", "ordinary_gap", "missing_data"]},
+        "score": {"type": "number", "minimum": 0, "maximum": 100},
+        "evidencePaths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^\\$"}
+        },
+        "reason": {"type": "string", "minLength": 1},
+        "confidence": {"enum": ["high", "medium", "low"]}
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+# 政策融合 LLM 服务依赖
+# 安装: pip install -r requirements.txt
+
+# FastAPI 服务框架
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# HTTP 请求（调用 LLM API）
+requests>=2.31.0
+
+# .env 文件读取（可选）
+python-dotenv>=1.0.0
+
+# 数据校验
+pydantic>=2.0.0

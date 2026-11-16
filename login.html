@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 - 政策解读系统</title>
+  <link rel="stylesheet" href="lib/cdn/element-plus.css">
+  <style>
+    * { box-sizing: border-box; }
+    [v-cloak] { display: none; }
+    html, body, #app { width: 100%; min-height: 100%; margin: 0; }
+    body { color: var(--color-text-primary, #111827); background: var(--color-bg-page, #fff); font-family: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif; -webkit-font-smoothing: antialiased; }
+    .login-page { min-height: 100dvh; display: grid; grid-template-columns: minmax(380px, 1.08fr) minmax(420px, .92fr); }
+    .brand-panel { position: relative; overflow: hidden; padding: 54px 7vw; display: flex; flex-direction: column; justify-content: space-between; color: #fff; background: #3B82F6; }
+    .brand-panel::before { content: ""; position: absolute; width: 520px; height: 520px; border-radius: 50%; right: -210px; top: -170px; background: rgba(255,255,255,.05); }
+    .brand-panel::after { content: ""; position: absolute; width: 360px; height: 360px; border-radius: 50%; left: -190px; bottom: -180px; background: rgba(255,255,255,.03); }
+    .brand { position: relative; z-index: 1; display: flex; align-items: center; gap: 13px; }
+    .brand-mark { width: 44px; height: 44px; border-radius: 8px; display: grid; place-items: center; background: rgba(255,255,255,.15); }
+    .brand-name { font-size: 19px; font-weight: 700; letter-spacing: -.02em; }
+    .brand-en { margin-top: 3px; font-size: 11px; opacity: .68; letter-spacing: 1.1px; font-weight: 500; }
+    .brand-content { position: relative; z-index: 1; max-width: 570px; margin: auto 0; }
+    .eyebrow { display: inline-flex; padding: 6px 12px; border-radius: 6px; background: rgba(255,255,255,.1); font-size: 12px; font-weight: 500; letter-spacing: .5px; }
+    .brand-content h1 { margin: 22px 0 17px; font-size: clamp(34px, 4vw, 54px); line-height: 1.18; font-weight: 800; letter-spacing: -.03em; }
+    .brand-content p { margin: 0; max-width: 520px; color: rgba(255,255,255,.8); font-size: 15px; line-height: 1.9; }
+    .feature-row { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 11px; }
+    .feature { padding: 10px 14px; border-radius: 6px; background: rgba(255,255,255,.1); font-size: 12px; font-weight: 500; }
+    .brand-foot { position: relative; z-index: 1; color: rgba(255,255,255,.58); font-size: 12px; font-weight: 500; }
+    .form-panel { padding: 40px 8vw; display: flex; align-items: center; justify-content: center; background: #fff; }
+    .login-card { width: 100%; max-width: 430px; }
+    .mobile-brand { display: none; margin-bottom: 30px; color: #3B82F6; font-size: 18px; font-weight: 700; }
+    .login-card h2 { margin: 0; color: #111827; font-size: 30px; font-weight: 800; letter-spacing: -.02em; }
+    .login-subtitle { margin: 10px 0 31px; color: #6B7280; font-size: 14px; font-weight: 500; }
+    .field-label { display: block; margin: 0 0 9px; color: #374151; font-size: 13px; font-weight: 600; }
+    .field { margin-bottom: 21px; }
+    .login-card .el-input__wrapper { min-height: 46px; border-radius: 6px !important; background: #F3F4F6 !important; border: 2px solid transparent !important; box-shadow: none !important; transition: all .2s !important; }
+    .login-card .el-input__wrapper:hover { background: #fff !important; border-color: #3B82F6 !important; }
+    .login-card .el-input__wrapper.is-focus { background: #fff !important; border-color: #3B82F6 !important; }
+    .form-options { margin: -3px 0 23px; display: flex; align-items: center; justify-content: space-between; color: #6B7280; font-size: 12px; }
+    .security-note { display: inline-flex; align-items: center; gap: 5px; }
+    .login-button { width: 100%; min-height: 46px; border-radius: 6px !important; font-size: 15px; font-weight: 600 !important; transition: all .2s ease !important; }
+    .login-button:hover { transform: scale(1.02); }
+    .login-error { margin-bottom: 18px; }
+    .support { margin-top: 25px; padding-top: 20px; border-top: 2px solid #F3F4F6; color: #9CA3AF; text-align: center; font-size: 12px; font-weight: 500; }
+    @media (max-width: 860px) {
+      .login-page { grid-template-columns: 1fr; }
+      .brand-panel { display: none; }
+      .form-panel { min-height: 100dvh; padding: 30px 22px; }
+      .mobile-brand { display: block; }
+    }
+  </style>
+</head>
+<body data-page-tone="blue">
+  <div id="app" v-cloak>
+    <div class="login-page">
+      <section class="brand-panel">
+        <div class="brand">
+          <div class="brand-mark">
+            <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M7 9h18M7 16h14M7 23h10" stroke="white" stroke-width="2.8" stroke-linecap="round"/></svg>
+          </div>
+          <div><div class="brand-name">政策解读系统</div><div class="brand-en">POLICY INTELLIGENCE PLATFORM</div></div>
+        </div>
+        <div class="brand-content">
+          <span class="eyebrow">政策数据智能管理平台</span>
+          <h1>让政策数据更清晰，<br>让业务决策更高效</h1>
+          <p>统一完成政策采集、属性标注、关联融合、结构化分析与企业匹配，建立可追溯的政策数据资产。</p>
+          <div class="feature-row"><span class="feature">政策统一管理</span><span class="feature">智能分类标注</span><span class="feature">数据融合分析</span></div>
+        </div>
+        <div class="brand-foot">政策解读系统 · 内部业务平台</div>
+      </section>
+
+      <main class="form-panel">
+        <div class="login-card">
+          <div class="mobile-brand">政策解读系统</div>
+          <h2>欢迎登录</h2>
+          <p class="login-subtitle">请输入系统账号，进入政策管理工作台</p>
+          <el-alert v-if="errorMessage" class="login-error" :title="errorMessage" type="error" :closable="false" show-icon></el-alert>
+          <form @submit.prevent="submitLogin" novalidate>
+            <div class="field">
+              <label class="field-label" for="username">用户名</label>
+              <el-input id="username" v-model.trim="form.username" placeholder="请输入用户名" autocomplete="username" maxlength="50" clearable :disabled="loading" @input="clearError">
+                <template #prefix><el-icon><User /></el-icon></template>
+              </el-input>
+            </div>
+            <div class="field">
+              <label class="field-label" for="password">密码</label>
+              <el-input id="password" v-model="form.password" type="password" placeholder="请输入密码" autocomplete="current-password" maxlength="100" show-password :disabled="loading" @input="clearError">
+                <template #prefix><el-icon><Lock /></el-icon></template>
+              </el-input>
+            </div>
+            <div class="form-options">
+              <el-checkbox v-model="form.remember" :disabled="loading">7天内保持登录</el-checkbox>
+              <span class="security-note"><el-icon><Lock /></el-icon>安全连接</span>
+            </div>
+            <el-button native-type="submit" type="primary" class="login-button" :loading="loading" :disabled="loading">{{ loading ? '正在验证...' : '登录系统' }}</el-button>
+          </form>
+          <div class="support">如账号无法登录，请联系系统管理员处理</div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="lib/cdn/vue.global.js"></script>
+  <script src="lib/cdn/element-plus.umd.js"></script>
+  <script src="lib/cdn/element-plus-icons.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script>
+    const { createApp, reactive, ref, onMounted } = Vue;
+    const app = createApp({
+      setup() {
+        const form = reactive({ username: '', password: '', remember: false });
+        const loading = ref(false);
+        const errorMessage = ref('');
+        const clearError = () => { errorMessage.value = ''; };
+        const getRedirect = () => {
+          const value = new URLSearchParams(window.location.search).get('redirect') || '';
+          return value.startsWith('/pages/') || value === '/index.html' ? value : '/index.html';
+        };
+        const submitLogin = async () => {
+          if (loading.value) return;
+          if (!form.username) { errorMessage.value = '请输入用户名'; return; }
+          if (!form.password) { errorMessage.value = '请输入密码'; return; }
+          loading.value = true;
+          errorMessage.value = '';
+          try {
+            const response = await fetchWithRetry('/api/auth/login', {
+              method: 'POST',
+              credentials: 'same-origin',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(form)
+            });
+            const result = await response.json();
+            if (!result.success) throw new Error(result.message || '登录失败');
+            window.location.replace(getRedirect());
+          } catch (err) {
+            errorMessage.value = (err.name === 'TypeError' || err.message?.includes('fetch') || err.message?.includes('network'))
+              ? '无法连接登录服务，请检查后端是否启动'
+              : (err.message || '登录失败，请重试');
+          } finally {
+            loading.value = false;
+          }
+        };
+        onMounted(async () => {
+          try {
+            const response = await fetchWithRetry('/api/auth/session', { credentials: 'same-origin' });
+            const result = await response.json();
+            if (result.success) window.location.replace(getRedirect());
+          } catch (err) {}
+        });
+        return { form, loading, errorMessage, clearError, submitLogin };
+      }
+    });
+    Object.entries(ElementPlusIconsVue).forEach(([name, component]) => app.component(name, component));
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

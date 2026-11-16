@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "condition-match-rules-v1",
+  "version": "t6-v1",
+  "missingScore": 10,
+  "conditionWeight": 0.9,
+  "timelinessWeight": 0.1,
+  "timelinessScores": {
+    "open": 100,
+    "upcoming": 85,
+    "closed": 70,
+    "last_year": 50,
+    "unknown": 50
+  },
+  "modelScoreTolerance": 2,
+  "maximumCacheEntries": 2000
+}

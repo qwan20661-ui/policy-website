@@ -1,0 +1,329 @@
+/* ========================================
+   Dashboard 首页样式
+   ======================================== */
+
+.welcome-section {
+  position: relative;
+  overflow: hidden;
+  padding: 34px 36px;
+  margin-bottom: 20px;
+  border-radius: var(--radius-xl);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.welcome-section::before,
+.welcome-section::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+
+.welcome-section::before {
+  width: 360px;
+  height: 360px;
+  top: -160px;
+  right: -70px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.welcome-section::after {
+  width: 130px;
+  height: 130px;
+  left: -22px;
+  bottom: -38px;
+  background: rgba(255, 255, 255, 0.14);
+  transform: rotate(16deg);
+}
+
+.welcome-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-section h2 {
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.welcome-section p {
+  margin-top: 12px;
+  max-width: 720px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14px;
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+.welcome-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.welcome-stat {
+  min-width: 164px;
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.welcome-stat:nth-child(2) .welcome-stat-value {
+  color: #bfdbfe;
+}
+
+.welcome-stat:nth-child(3) .welcome-stat-value {
+  color: #fde68a;
+}
+
+.welcome-stat-value {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.welcome-stat-label {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.stat-card {
+  background: #fff;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: scale(1.02);
+  border-color: var(--page-accent);
+}
+
+.quick-access {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.quick-access-item {
+  min-height: 160px;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-alt);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.quick-access-item:nth-child(1) {
+  background: var(--color-surface-blue);
+}
+
+.quick-access-item:nth-child(2) {
+  background: var(--color-surface-green);
+}
+
+.quick-access-item:nth-child(3) {
+  background: var(--color-surface-amber);
+}
+
+.quick-access-item:hover {
+  transform: scale(1.03);
+}
+
+.quick-access-item .el-icon,
+.quick-access-item i {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 14px;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  color: var(--page-accent);
+  font-size: 26px;
+}
+
+.quick-access-item span {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.quick-access-item small {
+  margin-top: 6px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.chart-container {
+  height: 320px;
+  width: 100%;
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.activity-list,
+.todo-list {
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.activity-item,
+.todo-item {
+  padding: 16px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  border-top: 2px solid var(--color-border);
+}
+
+.activity-item:first-child,
+.todo-item:first-child {
+  border-top: 0;
+}
+
+.activity-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-lg);
+  flex-shrink: 0;
+}
+
+.activity-icon.crawl {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.activity-icon.classify {
+  background: var(--color-secondary-soft);
+  color: var(--color-secondary);
+}
+
+.activity-icon.merge {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.activity-icon.structure {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.activity-content,
+.todo-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.activity-title,
+.todo-title {
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.activity-time,
+.todo-meta {
+  margin-top: 4px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.todo-checkbox {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.todo-checkbox:hover {
+  transform: scale(1.05);
+  border-color: var(--page-accent);
+}
+
+.todo-checkbox.checked {
+  background: var(--page-accent);
+  border-color: var(--page-accent);
+  color: #fff;
+}
+
+.todo-item.completed .todo-title {
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+}
+
+.table-container {
+  background: #fff;
+}
+
+.progress-bar {
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--color-bg-alt);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.progress-bar-fill.blue { background: var(--color-primary); }
+.progress-bar-fill.green { background: var(--color-secondary); }
+.progress-bar-fill.orange { background: var(--color-accent); }
+.progress-bar-fill.red { background: var(--color-danger); }
+
+@media (max-width: 1180px) {
+  .quick-access {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chart-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-section {
+    padding: 24px 22px;
+  }
+
+  .quick-access {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+}

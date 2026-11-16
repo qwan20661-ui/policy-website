@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "pematching-v2-policy-eligibility-v1",
+  "source": "policy_snapshot.json structuredConditions；规则仅在可由企业接口字段直接验证时启用",
+  "policies": {
+    "6548": {
+      "sourceUpdatedAt": "2026-07-28 17:20:00.665183",
+      "coverage": "partial",
+      "action": "apply",
+      "notApplicableWhen": [
+        {
+          "ruleId": "already_tech_sme",
+          "label": "企业已获科技型中小企业资质",
+          "field": "qualifications.isTechSme",
+          "operator": "is_true",
+          "source": "科技型中小企业评价不应对已入库企业重复推荐"
+        }
+      ],
+      "notApplicableAction": "maintain",
+      "notApplicableReason": "企业已获科技型中小企业资质，应进入维护/复核流程，不重复推荐评价申报",
+      "hardConditions": [
+        {
+          "ruleId": "employee_max_500",
+          "label": "职工总数不超过500人",
+          "field": "metrics.employeeCount",
+          "operator": "lte",
+          "value": 500,
+          "source": "原文条件第2项"
+        },
+        {
+          "ruleId": "revenue_max_200m",
+          "label": "年销售收入不超过2亿元",
+          "field": "metrics.revenueWan",
+          "operator": "lte",
+          "value": 20000,
+          "source": "原文条件第2项，内部单位为万元"
+        },
+        {
+          "ruleId": "assets_max_200m",
+          "label": "资产总额不超过2亿元",
+          "field": "metrics.totalAssetsWan",
+          "operator": "lte",
+          "value": 20000,
+          "source": "原文条件第2项，内部单位为万元"
+        }
+      ]
+    },
+    "6458": {
+      "sourceUpdatedAt": "2026-07-28 09:30:10.084796",
+      "coverage": "complete",
+      "action": "report",
+      "hardConditions": [
+        {
+          "ruleId": "provincial_new_rnd_institution",
+          "label": "属于指定批次的省级新型研发机构",
+          "field": "eligibilityFacts.isProvincialNewResearchInstitution",
+          "operator": "is_true",
+          "source": "原文条件第1、2项"
+        }
+      ]
+    },
+    "6466": {
+      "sourceUpdatedAt": "2026-08-03 10:46:09.368924",
+      "coverage": "complete",
+      "action": "apply",
+      "hardConditions": [
+        {
+          "ruleId": "positive_evaluation_conclusion",
+          "label": "已持有肯定性评价结论",
+          "field": "eligibilityFacts.positiveEvaluationConclusion",
+          "operator": "is_true",
+          "source": "原文条件第2项"
+        },
+        {
+          "ruleId": "xiamen_first_completion_unit",
+          "label": "第一完成单位为在厦设立机构",
+          "field": "eligibilityFacts.xiamenFirstCompletionUnit",
+          "operator": "is_true",
+          "source": "原文条件第5项"
+        }
+      ]
+    },
+    "6590": {
+      "sourceUpdatedAt": "2026-07-31 17:36:25.426255",
+      "coverage": "none",
+      "sourceStatus": "conflict",
+      "sourceConflict": "政策标签声称要求国家级专精特新小巨人，但权威快照原文限定科研院所、学校及公立机构人员赴日交流；冲突消除前禁止资格判定和直推"
+    },
+    "6605": {
+      "sourceUpdatedAt": "2026-07-28 17:08:43.836922",
+      "coverage": "partial",
+      "action": "apply",
+      "hardConditions": [
+        {
+          "ruleId": "fujian_legal_person",
+          "label": "牵头单位在福建具有法人资格",
+          "field": "eligibilityFacts.fujianLegalPerson",
+          "operator": "is_true",
+          "source": "原文条件第（一）项"
+        },
+        {
+          "ruleId": "research_capability",
+          "label": "具备科研开发能力和条件",
+          "field": "eligibilityFacts.researchCapability",
+          "operator": "is_true",
+          "source": "原文条件第（一）项"
+        }
+      ]
+    }
+  }
+}

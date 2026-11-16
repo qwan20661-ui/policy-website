@@ -1,0 +1,443 @@
+{
+  "schemaVersion": "pematching-v2-rules-v1",
+  "source": "基于工商数据的科技政策标签体系与匹配规则.docx 第「匹配规则库详解」章",
+  "note": "34 条规则。docx 无 R01-R04。规则命中产出的是 signals（标签+关键词），供检索与加分使用；policyPackDesc 只进「可关注方向」文案，不构成推荐项。库内无对应政策时记入 unmatchedSignals。",
+  "threeStateNote": "requiredFields 里任一字段在企业画像里为 unknown → 该规则判 skipped（附 skipReason），既不算命中也不算未命中。不静默截断，响应里单列 skippedRules。",
+  "fieldAvailabilityNote": "实测样本 3251 份的字段可用性：enterpriseCredit / techContractAmount / industryUniversityCoop / hasRndInstitution / isInnovativeSme / isSpecializedSme / isSpecializedLittleGiant / isTechLeaderEnterprise / isInnovativeLeader 全部 0%，依赖它们的 R00/R19/R20/R23/R26/R37 当前必然 skipped，新接口补齐字段后自动生效，无需改配置。",
+  "operators": {
+    "contains": "列表字段包含指定值",
+    "containsAny": "列表字段与给定列表有交集",
+    "notContainsAny": "列表字段与给定列表无交集",
+    "isTrue": "布尔字段为 true（None 视为 unknown 触发 skip）",
+    "isFalse": "布尔字段为 false",
+    "gte": "数值 >= 阈值",
+    "lte": "数值 <= 阈值",
+    "gt": "数值 > 阈值",
+    "lt": "数值 < 阈值",
+    "textContainsAny": "文本包含任一关键词",
+    "isEmpty": "列表为空或数值为 0"
+  },
+  "rules": [
+    {
+      "ruleId": "R00",
+      "channel": "G0",
+      "priority": "P0",
+      "name": "信用负面清单前置拦截",
+      "description": "存在经营异常/严重失信 → 拦截全部推荐，推送信用修复指引",
+      "conditions": [{"field": "credit.negative", "op": "isTrue"}],
+      "requiredFields": ["enterpriseCredit"],
+      "blocking": true,
+      "signals": {},
+      "policyPackDesc": "信用修复指引",
+      "guidance": "企业存在信用负面记录，需先完成信用修复方可申报各类科技政策"
+    },
+
+    {
+      "ruleId": "R05",
+      "channel": "G2",
+      "priority": "P1",
+      "name": "初创期梯度培育双入口",
+      "description": "满足 B1 任一信号 → 推送科技型中小企业入库 + 创新型中小企业评价",
+      "conditions": [{"field": "tags.B", "op": "contains", "value": "B1"}],
+      "requiredFields": ["bTags"],
+      "signals": {"aTags": ["A1"], "dLevels": ["D1"], "keywords": ["科技型中小企业", "创新型中小企业", "入库", "评价"]},
+      "policyPackDesc": "科技型中小企业入库 + 创新型中小企业评价（梯度培育双入口）"
+    },
+    {
+      "ruleId": "R06",
+      "channel": "G2",
+      "priority": "P1",
+      "name": "成长期高企培育链路",
+      "description": "满足 B2 任一信号 → 推送市高企培育库→国家级高企认定链路",
+      "conditions": [{"field": "tags.B", "op": "contains", "value": "B2"}],
+      "requiredFields": ["bTags"],
+      "signals": {"aTags": ["A1"], "keywords": ["高新技术企业", "高企", "培育库", "认定"]},
+      "policyPackDesc": "市高企培育库 → 国家级高企认定链路"
+    },
+    {
+      "ruleId": "R07",
+      "channel": "G2",
+      "priority": "P1",
+      "name": "高企领域且知产达标",
+      "description": "行业属高企八大领域且专利/软著≥5 件 → 推送高企培育提示，附知产/研发短板清单",
+      "conditions": [
+        {"field": "tags.C", "op": "containsAny",
+         "value": ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8"]},
+        {"field": "metrics.ipTotal", "op": "gte", "value": 5}
+      ],
+      "requiredFields": ["cTags", "ipTotal"],
+      "signals": {"aTags": ["A1"], "keywords": ["高新技术企业", "知识产权", "研发费用"]},
+      "policyPackDesc": "高企培育提示 + 知产/研发短板清单"
+    },
+
+    {
+      "ruleId": "R08",
+      "channel": "G2",
+      "priority": "P1",
+      "name": "集成电路全链条专项",
+      "description": "行业/经营范围含集成电路、半导体 → 推送集成电路全链条专项",
+      "conditions": [{"field": "tags.cSub", "op": "contains", "value": "C1.2"}],
+      "requiredFields": ["cTags"],
+      "signals": {"cTags": ["C1.2"], "keywords": ["集成电路", "半导体", "芯片", "流片", "EDA", "封测"]},
+      "policyPackDesc": "集成电路全链条专项（流片、EDA、IP 核、人才安家）"
+    },
+    {
+      "ruleId": "R09",
+      "channel": "G2",
+      "priority": "P1",
+      "name": "软件专项包",
+      "description": "行业属软件和信息技术服务业 → 推送软件专项包",
+      "conditions": [{"field": "tags.cSub", "op": "contains", "value": "C1.3"}],
+      "requiredFields": ["cTags"],
+      "signals": {"cTags": ["C1.3"], "aTags": ["A2"], "keywords": ["软件", "两免三减半", "即征即退", "CMMI", "CSMM"]},
+      "policyPackDesc": "软件专项包（两免三减半、即征即退、CMMI/CSMM 认证补贴）"
+    },
+    {
+      "ruleId": "R10",
+      "channel": "G2",
+      "priority": "P1",
+      "name": "人工智能专项",
+      "description": "经营范围含 AI/大模型/算力 → 推送 AI 专项",
+      "conditions": [{"field": "tags.cSub", "op": "contains", "value": "C10.1"}],
+      "requiredFields": ["cTags"],
+      "signals": {"cTags": ["C10.1"], "keywords": ["人工智能", "大模型", "算力", "算力券", "模型券", "揭榜挂帅"]},
+      "policyPackDesc": "AI 专项（算力券、模型券、揭榜挂帅）"
+    },
+    {
+      "ruleId": "R11",
+      "channel": "G2",
+      "priority": "P2",
+      "name": "数据产业专项",
+      "description": "经营范围含数据服务/数据要素 → 推送数据产业专项",
+      "conditions": [
+        {"field": "_businessText", "op": "textContainsAny",
+         "value": ["数据服务", "数据要素", "数据交易", "数据资产", "大数据"]}
+      ],
+      "requiredFields": ["cSubTagTextSource"],
+      "signals": {"cTags": ["C11"], "keywords": ["数据要素", "数据集", "数据交易", "标杆企业"]},
+      "policyPackDesc": "数据产业专项（数据集奖励、标杆企业奖励）"
+    },
+    {
+      "ruleId": "R12",
+      "channel": "G2",
+      "priority": "P2",
+      "name": "新型显示专项",
+      "description": "经营范围含显示/光电 → 推送新型显示专项",
+      "conditions": [{"field": "tags.cSub", "op": "contains", "value": "C1.1"}],
+      "requiredFields": ["cTags"],
+      "signals": {"cTags": ["C1.1"], "keywords": ["新型显示", "光电", "面板", "白名单", "紧缺人才"]},
+      "policyPackDesc": "新型显示专项（白名单、紧缺人才计划）"
+    },
+
+    {
+      "ruleId": "R13",
+      "channel": "G2",
+      "priority": "P1",
+      "name": "火炬高新区政策包",
+      "description": "注册地址属火炬高新区 → 推送火炬政策包，叠加市区两级政策",
+      "conditions": [{"field": "tags.regions", "op": "contains", "value": "火炬高新区"}],
+      "requiredFields": ["regions"],
+      "signals": {"regionTags": ["火炬高新区"], "keywords": ["火炬", "研发费增长补助", "国高贷", "厦研保"]},
+      "policyPackDesc": "火炬政策包（研发费增长补助、国高贷、厦研保），叠加市区两级政策"
+    },
+    {
+      "ruleId": "R14",
+      "channel": "G2",
+      "priority": "P2",
+      "name": "行政区配套政策",
+      "description": "注册地址属其他行政区/园区 → 推送对应区级配套政策",
+      "conditions": [
+        {"field": "tags.regions", "op": "containsAny",
+         "value": ["思明区", "湖里区", "集美区", "海沧区", "同安区", "翔安区"]}
+      ],
+      "requiredFields": ["regions"],
+      "signals": {"keywords": ["区级配套", "属地扶持"]},
+      "policyPackDesc": "对应区级配套政策"
+    },
+    {
+      "ruleId": "R35",
+      "channel": "G2",
+      "priority": "P1",
+      "name": "厦门科学城政策",
+      "description": "注册地址属厦门科学城 → 推送科学城 12 条政策",
+      "conditions": [{"field": "tags.regions", "op": "contains", "value": "厦门科学城"}],
+      "requiredFields": ["regions"],
+      "signals": {"regionTags": ["厦门科学城"], "keywords": ["科学城", "租金补助", "营收奖励", "平台补贴"]},
+      "policyPackDesc": "科学城 12 条政策（租金补助、营收奖励、平台补贴）"
+    },
+    {
+      "ruleId": "R36",
+      "channel": "G2",
+      "priority": "P1",
+      "name": "自贸片区专项",
+      "description": "注册地址属自贸片区 → 推送自贸区专项",
+      "conditions": [{"field": "tags.regions", "op": "contains", "value": "自贸片区"}],
+      "requiredFields": ["regions"],
+      "signals": {"regionTags": ["自贸片区"], "keywords": ["自贸", "数字化改造", "供应链贴息", "上市奖励"]},
+      "policyPackDesc": "自贸区专项（数字化改造补助、供应链贴息、上市奖励）"
+    },
+
+    {
+      "ruleId": "R30",
+      "channel": "G2",
+      "priority": "P1",
+      "name": "小型微利企业所得税减免",
+      "description": "符合小型微利企业标准 → 推送小微企业所得税减免",
+      "conditions": [
+        {"field": "metrics.employeeCount", "op": "lte", "value": 300},
+        {"field": "metrics.revenueWan", "op": "lte", "value": 30000}
+      ],
+      "requiredFields": ["employeeCount", "revenueWan"],
+      "signals": {"aTags": ["A2"], "dLevels": ["D1"], "keywords": ["小微企业", "所得税减免", "小型微利"]},
+      "policyPackDesc": "小微企业所得税减免"
+    },
+    {
+      "ruleId": "R31",
+      "channel": "G2",
+      "priority": "P1",
+      "name": "中小微政府采购与创新券",
+      "description": "符合中小微企业划型标准 → 推送政府采购支持 + 科技创新券",
+      "conditions": [{"field": "metrics.employeeCount", "op": "lte", "value": 1000}],
+      "requiredFields": ["employeeCount"],
+      "signals": {"aTags": ["A3"], "dLevels": ["D1"], "keywords": ["政府采购", "科技创新券", "创新券", "中小微"]},
+      "policyPackDesc": "政府采购支持 + 科技创新券"
+    },
+    {
+      "ruleId": "R32",
+      "channel": "G2",
+      "priority": "P1",
+      "name": "科小科技信用贷",
+      "description": "已入库科小 → 推送科技信用/担保贷款 + 免增信服务费 + 1% 贴息",
+      "conditions": [{"field": "qualifications.isTechSme", "op": "isTrue"}],
+      "requiredFields": ["isTechSme"],
+      "signals": {"aTags": ["A5"], "keywords": ["科技信用贷", "担保贷款", "增信", "贴息"]},
+      "policyPackDesc": "科技信用/担保贷款 + 免增信服务费 + 1% 贴息"
+    },
+    {
+      "ruleId": "R15",
+      "channel": "G2",
+      "priority": "P2",
+      "name": "小规模增信基金与创新券",
+      "description": "参保人数≤300 人 → 推送增信基金 + 创新券",
+      "conditions": [{"field": "metrics.employeeCount", "op": "lte", "value": 300}],
+      "requiredFields": ["employeeCount"],
+      "signals": {"aTags": ["A5", "A3"], "keywords": ["增信基金", "创新券"]},
+      "policyPackDesc": "增信基金 + 创新券",
+      "note": "docx 用参保人数，接口无该字段，用 employeeCount（企业总人数）近似"
+    },
+    {
+      "ruleId": "R33",
+      "channel": "G2",
+      "priority": "P2",
+      "name": "自主招工与高校毕业生补贴",
+      "description": "有新增参保记录 → 推送企业自主招工奖励 + 高校毕业生社保补贴",
+      "conditions": [{"field": "metrics.newRecruitCount", "op": "gt", "value": 0}],
+      "requiredFields": ["newRecruitCount"],
+      "signals": {"aTags": ["A4"], "keywords": ["招工奖励", "高校毕业生", "社保补贴"]},
+      "policyPackDesc": "企业自主招工奖励 + 高校毕业生社保补贴"
+    },
+    {
+      "ruleId": "R34",
+      "channel": "G2",
+      "priority": "P2",
+      "name": "技能培训与学徒制补贴",
+      "description": "有参保职工 → 推送技能培训补贴 + 新型学徒制补贴",
+      "conditions": [{"field": "metrics.employeeCount", "op": "gt", "value": 0}],
+      "requiredFields": ["employeeCount"],
+      "signals": {"aTags": ["A4"], "keywords": ["技能培训", "新型学徒制", "职工培训"]},
+      "policyPackDesc": "技能培训补贴 + 新型学徒制补贴"
+    },
+
+    {
+      "ruleId": "R16",
+      "channel": "G2",
+      "priority": "P2",
+      "name": "股份公司上市支持",
+      "description": "企业类型为股份有限公司 → 推送上市支持政策",
+      "conditions": [
+        {"field": "registerInfo.registerType", "op": "textContainsAny", "value": ["股份有限公司"]}
+      ],
+      "requiredFields": ["registerType"],
+      "signals": {"aTags": ["A5"], "bTags": ["B3"], "keywords": ["上市", "科创板", "北交所", "股改"]},
+      "policyPackDesc": "上市支持政策（科创板/北交所后备、股改奖励）"
+    },
+    {
+      "ruleId": "R17",
+      "channel": "G2",
+      "priority": "P3",
+      "name": "总部经济与重大项目",
+      "description": "对外投资≥3 家或跨省分支机构 → 推送总部经济、重大项目政策",
+      "conditions": [{"field": "metrics.outboundInvestmentCount", "op": "gte", "value": 3}],
+      "requiredFields": ["outboundInvestmentCount"],
+      "permanentlySkipped": true,
+      "skipReason": "企业接口契约中不存在对外投资、分支机构字段",
+      "signals": {"keywords": ["总部经济", "重大项目"]},
+      "policyPackDesc": "总部经济、重大项目政策"
+    },
+    {
+      "ruleId": "R18",
+      "channel": "G2",
+      "priority": "P3",
+      "name": "知产布局与研发归集辅导",
+      "description": "无专利且成立≥3 年且属科技类行业 → 推送知识产权布局、研发费用归集辅导",
+      "conditions": [
+        {"field": "metrics.ipTotal", "op": "isEmpty"},
+        {"field": "metrics.companyAgeYears", "op": "gte", "value": 3},
+        {"field": "tags.C", "op": "containsAny",
+         "value": ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C10", "C11"]}
+      ],
+      "requiredFields": ["ipTotal", "companyAgeYears", "cTags"],
+      "signals": {"keywords": ["知识产权布局", "研发费用归集", "辅导服务"]},
+      "policyPackDesc": "知识产权布局、研发费用归集辅导服务"
+    },
+
+    {
+      "ruleId": "R19",
+      "channel": "G3",
+      "priority": "P1",
+      "name": "创新型中小企业→专精特新",
+      "description": "已是创新型中小企业 → 推送专精特新中小企业申报",
+      "conditions": [{"field": "qualifications.isInnovativeSme", "op": "isTrue"}],
+      "requiredFields": ["isInnovativeSme"],
+      "signals": {"aTags": ["A1"], "keywords": ["专精特新", "中小企业"]},
+      "policyPackDesc": "专精特新中小企业申报",
+      "chainBonus": true,
+      "chainStage": "创新型中小企业→专精特新"
+    },
+    {
+      "ruleId": "R20",
+      "channel": "G3",
+      "priority": "P1",
+      "name": "专精特新→小巨人",
+      "description": "已是专精特新中小企业 → 推送小巨人申报 + 技术创新基金贴息",
+      "conditions": [{"field": "qualifications.isSpecializedSme", "op": "isTrue"}],
+      "requiredFields": ["isSpecializedSme"],
+      "signals": {"aTags": ["A1", "A5"], "keywords": ["小巨人", "技术创新基金", "贴息"]},
+      "policyPackDesc": "小巨人申报 + 技术创新基金贴息",
+      "chainBonus": true,
+      "chainStage": "专精特新→小巨人"
+    },
+    {
+      "ruleId": "R21",
+      "channel": "G3",
+      "priority": "P1",
+      "name": "市高企培育库→国家级高企",
+      "description": "已是市高企培育库在库企业 → 推送国家级高企认定辅导",
+      "conditions": [{"field": "qualifications.isTechSme", "op": "isTrue"},
+                     {"field": "qualifications.isHighTechEnterprise", "op": "isFalse"}],
+      "requiredFields": ["isTechSme", "isHighTechEnterprise"],
+      "signals": {"aTags": ["A1"], "keywords": ["高新技术企业", "认定", "辅导"]},
+      "policyPackDesc": "国家级高企认定辅导",
+      "chainBonus": true,
+      "chainStage": "科小→市高→国高"
+    },
+    {
+      "ruleId": "R22",
+      "channel": "G3",
+      "priority": "P1",
+      "name": "国家级高企权益包",
+      "description": "已是国家级高新技术企业 → 打包推送研发费用补助 + 科技保险补贴 + 先进制造业加计抵减",
+      "conditions": [{"field": "qualifications.isHighTechEnterprise", "op": "isTrue"}],
+      "requiredFields": ["isHighTechEnterprise"],
+      "signals": {"aTags": ["A2", "A3"], "keywords": ["研发费用补助", "科技保险", "加计抵减", "加计扣除"]},
+      "policyPackDesc": "研发费用补助 + 科技保险补贴 + 先进制造业加计抵减",
+      "chainBonus": true,
+      "chainStage": "国高→专精特新"
+    },
+    {
+      "ruleId": "R23",
+      "channel": "G3",
+      "priority": "P2",
+      "name": "瞪羚企业认定与培育",
+      "description": "人员/分支持续扩张的高成长信号 → 推送瞪羚企业认定与培育",
+      "conditions": [{"field": "qualifications.isTechLeaderEnterprise", "op": "isTrue"}],
+      "requiredFields": ["isTechLeaderEnterprise"],
+      "signals": {"aTags": ["A1"], "bTags": ["B3"], "keywords": ["瞪羚", "高成长", "科技领军"]},
+      "policyPackDesc": "瞪羚企业认定与培育",
+      "chainBonus": true,
+      "chainStage": "小巨人→瞪羚"
+    },
+
+    {
+      "ruleId": "R24",
+      "channel": "G4",
+      "priority": "P1",
+      "name": "研发费用补助",
+      "description": "补充研发费≥200 万且同比增长 → 推送研发费用补助",
+      "conditions": [{"field": "metrics.rdExpenseWan", "op": "gte", "value": 200}],
+      "requiredFields": ["rdExpenseWan"],
+      "signals": {"aTags": ["A3"], "keywords": ["研发费用补助", "研发投入", "研发经费"]},
+      "policyPackDesc": "研发费用补助"
+    },
+    {
+      "ruleId": "R25",
+      "channel": "G4",
+      "priority": "P2",
+      "name": "联合实验室与揭榜挂帅",
+      "description": "补充研发费≥1000 万 + 高校合作经历 → 推送联合实验室 + 揭榜挂帅项目",
+      "conditions": [
+        {"field": "metrics.rdExpenseWan", "op": "gte", "value": 1000},
+        {"field": "rndConditions.industryUniversityCoop", "op": "isTrue"}
+      ],
+      "requiredFields": ["rdExpenseWan", "industryUniversityCoop"],
+      "signals": {"aTags": ["A8", "A6"], "keywords": ["联合实验室", "揭榜挂帅", "产学研"]},
+      "policyPackDesc": "联合实验室 + 揭榜挂帅项目"
+    },
+    {
+      "ruleId": "R26",
+      "channel": "G4",
+      "priority": "P2",
+      "name": "技术交易奖励",
+      "description": "补充技术合同登记额 > 0 → 推送技术交易奖励金 + 免税办理",
+      "conditions": [{"field": "metrics.techContractWan", "op": "gt", "value": 0}],
+      "requiredFields": ["techContractWan"],
+      "signals": {"aTags": ["A7"], "keywords": ["技术合同", "技术交易", "技术转让", "免税"]},
+      "policyPackDesc": "技术交易奖励金 + 免税办理"
+    },
+    {
+      "ruleId": "R27",
+      "channel": "G4",
+      "priority": "P2",
+      "name": "高层次人才专项",
+      "description": "补充高层次/留学/博士后人才 → 推送双百计划 + 留学创业扶持 + 博士后工作站",
+      "conditions": [{"field": "metrics.doctorCount", "op": "gt", "value": 0}],
+      "requiredFields": ["doctorCount"],
+      "signals": {"aTags": ["A4"], "keywords": ["双百计划", "高层次人才", "留学", "博士后"]},
+      "policyPackDesc": "双百计划 + 留学创业扶持 + 博士后工作站"
+    },
+    {
+      "ruleId": "R28",
+      "channel": "G4",
+      "priority": "P3",
+      "name": "专利转化专项奖补",
+      "description": "补充购买高校院所专利并实施 → 推送福建省专利转化专项奖补",
+      "conditions": [{"field": "metrics.techContractWan", "op": "gt", "value": 0},
+                     {"field": "rndConditions.industryUniversityCoop", "op": "isTrue"}],
+      "requiredFields": ["techContractWan", "industryUniversityCoop"],
+      "signals": {"aTags": ["A7"], "keywords": ["专利转化", "专利实施", "成果转化"]},
+      "policyPackDesc": "福建省专利转化专项奖补"
+    },
+    {
+      "ruleId": "R29",
+      "channel": "G4",
+      "priority": "P2",
+      "name": "技改与数字化改造补助",
+      "description": "补充技改/固投项目信息 → 推送智能化设备采购补助 + 数字化改造补助",
+      "conditions": [{"field": "metrics.totalAssetsWan", "op": "gte", "value": 1000}],
+      "requiredFields": ["totalAssetsWan"],
+      "signals": {"aTags": ["A3"], "keywords": ["技改", "智能化设备", "数字化改造", "固定资产投资"]},
+      "policyPackDesc": "智能化设备采购补助 + 数字化改造补助"
+    },
+    {
+      "ruleId": "R37",
+      "channel": "G4",
+      "priority": "P2",
+      "name": "科技副总与产学研对接",
+      "description": "补充有技术需求但缺研发资源 → 推送科技副总 + 产学研合作补助 + 技术转移机构对接",
+      "conditions": [{"field": "rndConditions.hasRndInstitution", "op": "isFalse"}],
+      "requiredFields": ["hasRndInstitution"],
+      "signals": {"aTags": ["A8"], "keywords": ["科技副总", "产学研合作", "技术转移"]},
+      "policyPackDesc": "科技副总 + 产学研合作补助 + 技术转移机构对接"
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "policy_condition_package.schema.json",
+  "title": "政策条件包",
+  "description": "由审核政策快照确定性组装的单政策模型输入主体。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "fusionPolicyId",
+    "sourcePolicyId",
+    "title",
+    "policyInfo",
+    "conditions",
+    "ruleTableJson",
+    "supportMethods",
+    "keywords",
+    "documents",
+    "relatedPolicies",
+    "policyContentHash",
+    "qualityFlags",
+    "builderVersion",
+    "conditionPackageHash"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "policy-condition-package-v1"},
+    "fusionPolicyId": {"type": "string", "minLength": 1},
+    "sourcePolicyId": {"type": "string"},
+    "title": {"type": "string", "minLength": 1},
+    "policyInfo": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "policyTitle": {"type": "string"},
+        "summary": {"type": "string"},
+        "policyAttribute": {"type": "string"},
+        "policyOriginalTitle": {"type": "string"},
+        "sceneUsage": {"type": "string"},
+        "sceneUsagePath": {"type": "string"},
+        "applicableScope": {"type": "string"},
+        "applicableScopePath": {"type": "string"},
+        "industryField": {"type": "string"},
+        "industryFieldPath": {"type": "string"},
+        "effectiveStartDate": {"type": "string"},
+        "effectiveEndDate": {"type": "string"},
+        "issuingDepartment": {"type": "string"},
+        "policyCode": {"type": "string"}
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/condition"}
+    },
+    "ruleTableJson": {"type": ["object", "null"]},
+    "supportMethods": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/supportMethod"}
+    },
+    "keywords": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/keyword"}
+    },
+    "documents": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/document"}
+    },
+    "relatedPolicies": {"type": "object"},
+    "policyContentHash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "qualityFlags": {"$ref": "#/$defs/qualityFlags"},
+    "builderVersion": {"const": "t2-v1"},
+    "conditionPackageHash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "$defs": {
+    "condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "applicableTarget",
+        "applicableTargetPath",
+        "applicationInstruction",
+        "applicationRequirement",
+        "applicationStartTime",
+        "applicationEndTime",
+        "announcementDate"
+      ],
+      "properties": {
+        "id": {"type": ["string", "number"]},
+        "applicableTarget": {"type": "string"},
+        "applicableTargetPath": {"type": "string"},
+        "applicationInstruction": {"type": "string"},
+        "applicationRequirement": {"type": "string"},
+        "applicationStartTime": {"type": "string"},
+        "applicationEndTime": {"type": "string"},
+        "announcementDate": {"type": "string"}
+      }
+    },
+    "supportMethod": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "supportType", "supportTypePath", "contentDesc", "amount", "maxAmount"],
+      "properties": {
+        "id": {"type": ["string", "number"]},
+        "supportType": {"type": "string"},
+        "supportTypePath": {"type": "string"},
+        "contentDesc": {"type": "string"},
+        "amount": {"type": "string"},
+        "maxAmount": {"type": "string"}
+      }
+    },
+    "keyword": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "pathText"],
+      "properties": {
+        "id": {"type": ["string", "number"]},
+        "text": {"type": "string"},
+        "pathText": {"type": "string"}
+      }
+    },
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["publishDate", "policyLevel", "issuingDepartment", "policyAttribute", "policyTitle", "reviewStatus"],
+      "properties": {
+        "publishDate": {"type": "string"},
+        "policyLevel": {"type": "string"},
+        "issuingDepartment": {"type": "string"},
+        "policyAttribute": {"type": "string"},
+        "policyTitle": {"type": "string"},
+        "reviewStatus": {"type": "string"}
+      }
+    },
+    "qualityIssue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "severity", "message", "locations"],
+      "properties": {
+        "code": {"type": "string", "minLength": 1},
+        "severity": {"enum": ["info", "warning"]},
+        "message": {"type": "string", "minLength": 1},
+        "locations": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "qualityFlags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ruleTableEmpty",
+        "hasUnresolvedItems",
+        "hasLlmJudgeItems",
+        "originalContainsOrExpression",
+        "ruleTableAllAnd",
+        "suspectedOrOperatorMismatch",
+        "hasEmptyTargetValues",
+        "hasMissingRequiredTargetValues",
+        "hasApplicationRequirement",
+        "sourcePolicyHashMissing",
+        "applicationRequirementCount",
+        "ruleGroupCount",
+        "ruleItemCount",
+        "unresolvedItemCount",
+        "llmJudgeItemCount",
+        "emptyTargetValueCount",
+        "missingRequiredTargetValueCount",
+        "ruleTableOperators",
+        "issues"
+      ],
+      "properties": {
+        "ruleTableEmpty": {"type": "boolean"},
+        "hasUnresolvedItems": {"type": "boolean"},
+        "hasLlmJudgeItems": {"type": "boolean"},
+        "originalContainsOrExpression": {"type": "boolean"},
+        "ruleTableAllAnd": {"type": "boolean"},
+        "suspectedOrOperatorMismatch": {"type": "boolean"},
+        "hasEmptyTargetValues": {"type": "boolean"},
+        "hasMissingRequiredTargetValues": {"type": "boolean"},
+        "hasApplicationRequirement": {"type": "boolean"},
+        "sourcePolicyHashMissing": {"type": "boolean"},
+        "applicationRequirementCount": {"type": "integer", "minimum": 0},
+        "ruleGroupCount": {"type": "integer", "minimum": 0},
+        "ruleItemCount": {"type": "integer", "minimum": 0},
+        "unresolvedItemCount": {"type": "integer", "minimum": 0},
+        "llmJudgeItemCount": {"type": "integer", "minimum": 0},
+        "emptyTargetValueCount": {"type": "integer", "minimum": 0},
+        "missingRequiredTargetValueCount": {"type": "integer", "minimum": 0},
+        "ruleTableOperators": {"type": "array", "items": {"type": "string"}},
+        "issues": {"type": "array", "items": {"$ref": "#/$defs/qualityIssue"}}
+      }
+    }
+  }
+}

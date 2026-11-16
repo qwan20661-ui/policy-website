@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>政策解读系统</title>
+  <style>[v-cloak]{display:none!important}</style>
+  <!-- Element Plus 图标库（标签栏使用） -->
+  <link rel="stylesheet" href="/lib/cdn/element-plus.css">
+  <!-- 自定义样式 -->
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/tab.css">
+</head>
+<body data-page-tone="blue">
+  <div class="main-layout" id="app">
+    <!-- 侧边栏 -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+            <rect x="2" y="2" width="28" height="28" rx="4" fill="white" fill-opacity="0.2"/>
+            <path d="M8 12h16M8 17h12M8 22h8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <div class="logo-title">政策解读系统</div>
+          <div class="logo-subtitle">智能管理平台</div>
+        </div>
+      </div>
+      <nav class="sidebar-menu" id="sidebar-menu">
+        <!-- 菜单由 JS 渲染 -->
+      </nav>
+      <div class="sidebar-footer" id="sidebar-footer">
+        <!-- 底部由 JS 渲染 -->
+      </div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <!-- 顶部导航 -->
+      <header class="header">
+        <div class="header-left">
+          <div class="header-toggle" onclick="toggleSidebar()" title="收起/展开菜单">
+            <i class="el-icon-s-unfold" style="font-size: 20px;"></i>
+          </div>
+          <nav class="header-breadcrumb">
+            <!-- 面包屑由 JS 渲染 -->
+          </nav>
+        </div>
+        <div class="header-right">
+          <div class="header-icon" title="消息">
+            <i class="el-icon-bell" style="font-size: 20px;"></i>
+          </div>
+          <div class="header-icon" title="全屏">
+            <i class="el-icon-full-screen" style="font-size: 20px;"></i>
+          </div>
+          <div class="header-user">
+            <div class="avatar">管</div>
+            <div class="info">
+              <span class="name">管理员</span>
+              <span class="role">系统管理员</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- 标签栏 -->
+      <div class="tab-bar">
+        <div class="tab-list" id="tab-list"></div>
+      </div>
+
+      <!-- 标签内容区（iframe 容器） -->
+      <div class="tab-content" id="tab-content"></div>
+    </main>
+  </div>
+
+  <!-- 引入 JS -->
+  <script src="js/menu.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/tab-manager.js"></script>
+  <script src="js/shell-init.js"></script>
+</body>
+</html>

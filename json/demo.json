@@ -1,0 +1,43 @@
+{
+  "code": 200,
+  "message": "success",
+  "data": {
+    "statistics": {
+      "totalPolicies": 12580,
+      "todayCrawled": 156,
+      "taggedCount": 8920,
+      "mergedCount": 3456,
+      "structuredCount": 2108,
+      "matchedCount": 4567
+    },
+    "policies": [
+      {
+        "id": 1,
+        "title": "关于支持中小企业发展的若干措施",
+        "department": "工业和信息化部",
+        "publishDate": "2024-06-15",
+        "type": "指导政策",
+        "status": "已标注",
+        "attachmentType": "申报材料类"
+      },
+      {
+        "id": 2,
+        "title": "关于促进新能源汽车消费的实施方案",
+        "department": "商务部",
+        "publishDate": "2024-06-10",
+        "type": "实施细则",
+        "status": "已标注",
+        "attachmentType": "实施细则类"
+      },
+      {
+        "id": 3,
+        "title": "关于开展2024年度科技人才计划的通知",
+        "department": "科技部",
+        "publishDate": "2024-06-08",
+        "type": "通知公告",
+        "status": "未标注",
+        "attachmentType": ""
+      }
+    ]
+  }
+}

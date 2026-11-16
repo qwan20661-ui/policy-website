@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "pematching-v2-eligibility-manifest-v1",
+  "generatedAt": "2026-08-07T02:59:01+08:00",
+  "sourcePaginationTotal": 76,
+  "fetchedPolicyCount": 76,
+  "profileCount": 76,
+  "executableProfileCount": 39,
+  "emptyProfileCount": 37,
+  "partialProfileCount": 38,
+  "hardGroupCount": 0,
+  "softGroupCount": 203,
+  "specialPassGroupCount": 0,
+  "invalidProfileCount": 0,
+  "contentSha256": "400b7264be75d61aa9a181bfd814814b48ed2e2b6ea3602462a6f531e52f1666",
+  "generatorVersion": "v2-sync",
+  "sourceType": "policy_snapshot_rule_table_json",
+  "sourceSnapshotVersion": "d7deeb0e4f0196ec79e4fc33571a0bea328aea59f9f5ec969c251fe84bc5aa8e",
+  "sourceReviewStatus": "1",
+  "sourceStructureReviewStatus": "1"
+}

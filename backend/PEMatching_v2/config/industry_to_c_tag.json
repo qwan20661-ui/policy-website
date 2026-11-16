@@ -1,0 +1,355 @@
+{
+  "schemaVersion": "pematching-v2-industry-map-v1",
+  "note": "国标行业分类（统计口径）→ C1-C11 高企领域口径。两套编码不通用，必须过表转换，省掉则领域匹配度 30 分无法计算。",
+  "generatedBy": "llm:minimax2.7",
+  "reviewStatus": "待业务复核",
+  "sampleSize": 3251,
+  "byLevel1": {
+    "I 信息传输、软件和信息技术服务业": {
+      "cTags": [
+        "C1",
+        "C5",
+        "C11"
+      ],
+      "confidence": "high",
+      "reason": "该行业以软件开发和信息技术服务为核心，直接对应电子信息和高技术服务领域"
+    },
+    "C 制造业": {
+      "cTags": [],
+      "confidence": "low",
+      "reason": "制造业口径过宽，需按具体二级行业细分才能确定领域归属"
+    },
+    "M 科学研究和技术服务业": {
+      "cTags": [
+        "C5",
+        "C2"
+      ],
+      "confidence": "medium",
+      "reason": "该行业包含研发和技术服务活动，多数属于高技术服务领域，部分涉及生物医药研发"
+    },
+    "E 建筑业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统建筑行业不属于高企八大重点支持领域"
+    },
+    "N 水利、环境和公共设施管理业": {
+      "cTags": [
+        "C7"
+      ],
+      "confidence": "high",
+      "reason": "该行业涉及水资源管理和环境保护，直接对应资源与环境领域"
+    },
+    "D 电力、热力、燃气及水的生产和供应业": {
+      "cTags": [
+        "C6"
+      ],
+      "confidence": "high",
+      "reason": "该行业属于能源供应领域，对应新能源与节能领域"
+    },
+    "G 交通运输、仓储和邮政业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统交通运输仓储业不属于高企重点支持领域"
+    },
+    "R 文化、体育和娱乐业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统文体娱乐业不属于高企重点支持领域"
+    },
+    "A 农、林、牧、渔业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统农业不属于高企重点支持领域"
+    },
+    "P 教育": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "普通教育不属于高企重点支持领域"
+    }
+  },
+  "byLevel2": {
+    "软件和信息技术服务业": {
+      "cTags": [
+        "C1",
+        "C5",
+        "C11"
+      ],
+      "confidence": "high",
+      "reason": "软件开发与信息技术服务是电子信息的核心组成，同时属于高技术服务范畴"
+    },
+    "其他制造业": {
+      "cTags": [],
+      "confidence": "low",
+      "reason": "口径过宽无法归类，需结合企业实际产品判断"
+    },
+    "专业技术服务业": {
+      "cTags": [],
+      "confidence": "low",
+      "reason": "口径过宽包括设计、检测、技术咨询等各类服务，无法统一归类"
+    },
+    "计算机、通信和其他电子设备制造业": {
+      "cTags": [
+        "C1"
+      ],
+      "confidence": "high",
+      "reason": "电子设备制造直接对应电子信息领域"
+    },
+    "专用设备制造业": {
+      "cTags": [
+        "C8"
+      ],
+      "confidence": "high",
+      "reason": "专用设备制造属于先进制造与自动化领域"
+    },
+    "科技推广和应用服务业": {
+      "cTags": [
+        "C5"
+      ],
+      "confidence": "high",
+      "reason": "科技推广服务直接属于高技术服务领域"
+    },
+    "研究和试验发展": {
+      "cTags": [
+        "C5"
+      ],
+      "confidence": "high",
+      "reason": "研发活动属于高技术服务核心内容"
+    },
+    "通用设备制造业": {
+      "cTags": [
+        "C8"
+      ],
+      "confidence": "high",
+      "reason": "通用机械设备制造属于先进制造与自动化领域"
+    },
+    "电气机械和器材制造业": {
+      "cTags": [
+        "C8",
+        "C6"
+      ],
+      "confidence": "high",
+      "reason": "电气机械器材制造属于先进制造，部分涉及新能源设备"
+    },
+    "仪器仪表制造业": {
+      "cTags": [
+        "C8"
+      ],
+      "confidence": "high",
+      "reason": "仪器仪表制造属于先进制造与自动化领域"
+    },
+    "M 科学研究和技术服务业": {
+      "cTags": [
+        "C5",
+        "C2"
+      ],
+      "confidence": "medium",
+      "reason": "一级行业误填进二级，按一级口径映射"
+    },
+    "电信、广播电视和卫星传输服务": {
+      "cTags": [
+        "C1",
+        "C5"
+      ],
+      "confidence": "high",
+      "reason": "电信和广播电视服务属于电子信息和高技术服务领域"
+    },
+    "互联网和相关服务": {
+      "cTags": [
+        "C1",
+        "C5",
+        "C11"
+      ],
+      "confidence": "high",
+      "reason": "互联网服务属于电子信息、高技术服务及数字经济领域"
+    },
+    "医药制造业": {
+      "cTags": [
+        "C2"
+      ],
+      "confidence": "high",
+      "reason": "医药制造直接对应生物与新医药领域"
+    },
+    "化学原料和化学制品制造业": {
+      "cTags": [
+        "C4",
+        "C7"
+      ],
+      "confidence": "medium",
+      "reason": "化工行业部分涉及新材料和环保技术，需结合具体产品判断"
+    },
+    "橡胶和塑料制品业": {
+      "cTags": [
+        "C4",
+        "C8"
+      ],
+      "confidence": "medium",
+      "reason": "橡塑制品涉及新材料和先进制造两方面"
+    },
+    "I 信息传输、软件和信息技术服务业": {
+      "cTags": [
+        "C1",
+        "C5",
+        "C11"
+      ],
+      "confidence": "high",
+      "reason": "一级行业误填进二级，按一级口径映射"
+    },
+    "金属制品业": {
+      "cTags": [
+        "C8"
+      ],
+      "confidence": "high",
+      "reason": "金属制品制造属于先进制造与自动化领域"
+    },
+    "生态保护和环境治理业": {
+      "cTags": [
+        "C7"
+      ],
+      "confidence": "high",
+      "reason": "环境保护治理直接对应资源与环境领域"
+    },
+    "非金属矿物制品业": {
+      "cTags": [
+        "C4"
+      ],
+      "confidence": "high",
+      "reason": "非金属矿物制品多涉及新材料技术"
+    },
+    "C 制造业": {
+      "cTags": [],
+      "confidence": "low",
+      "reason": "一级行业误填进二级，口径过宽无法归类"
+    },
+    "食品制造业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统食品制造业不属于高企重点支持领域"
+    },
+    "废弃资源综合利用业": {
+      "cTags": [
+        "C7"
+      ],
+      "confidence": "high",
+      "reason": "资源综合利用直接对应资源与环境领域"
+    },
+    "土木工程建筑业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统建筑业不属于高企重点支持领域"
+    },
+    "化学纤维制造业": {
+      "cTags": [
+        "C4"
+      ],
+      "confidence": "high",
+      "reason": "化学纤维属于新材料领域"
+    },
+    "印刷和记录媒介复制业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统印刷业不属于高企重点支持领域"
+    },
+    "文化艺术业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统文化艺术业不属于高企重点支持领域"
+    },
+    "电力、热力生产和供应业": {
+      "cTags": [
+        "C6"
+      ],
+      "confidence": "high",
+      "reason": "电力热力供应属于新能源与节能领域"
+    },
+    "纺织业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统纺织业不属于高企重点支持领域"
+    },
+    "建筑安装业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统建筑安装业不属于高企重点支持领域"
+    },
+    "农业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统农业不属于高企重点支持领域"
+    },
+    "汽车制造业": {
+      "cTags": [
+        "C8"
+      ],
+      "confidence": "high",
+      "reason": "汽车制造属于先进制造与自动化领域"
+    },
+    "道路运输业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统道路运输业不属于高企重点支持领域"
+    },
+    "多式联运和运输代理业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统运输代理业不属于高企重点支持领域"
+    },
+    "有色金属冶炼和压延加工业": {
+      "cTags": [
+        "C8",
+        "C4"
+      ],
+      "confidence": "medium",
+      "reason": "有色金属加工涉及先进制造和新材料两方面"
+    },
+    "纺织服装、服饰业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统纺织服装业不属于高企重点支持领域"
+    },
+    "文教、工美、体育和娱乐用品制造业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统制造业不属于高企重点支持领域"
+    },
+    "教育": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "普通教育不属于高企重点支持领域"
+    },
+    "装卸搬运和仓储业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统仓储业不属于高企重点支持领域"
+    },
+    "铁路、船舶、航空航天和其他运输设备制造业": {
+      "cTags": [
+        "C3",
+        "C8"
+      ],
+      "confidence": "high",
+      "reason": "运输设备制造涉及航空航天和先进制造领域"
+    },
+    "D 电力、热力、燃气及水的生产和供应业": {
+      "cTags": [
+        "C6"
+      ],
+      "confidence": "high",
+      "reason": "一级行业误填进二级，按一级口径映射"
+    },
+    "家具制造业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统家具制造业不属于高企重点支持领域"
+    },
+    "建筑装饰和其他建筑业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "传统建筑装饰业不属于高企重点支持领域"
+    },
+    "E 建筑业": {
+      "cTags": [],
+      "confidence": "high",
+      "reason": "一级行业误填进二级，传统建筑业不属于高企重点支持领域"
+    }
+  }
+}

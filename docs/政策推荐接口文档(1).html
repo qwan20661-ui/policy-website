@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>政策推荐接口文档</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 40px 60px; background: #fff; color: #333; line-height: 1.8; }
+        h1 { font-size: 32px; border-bottom: 3px solid #4A90D9; padding-bottom: 10px; }
+        h2 { font-size: 24px; border-bottom: 2px solid #e8edf3; padding-bottom: 8px; margin-top: 40px; }
+        h3 { font-size: 20px; margin-top: 30px; }
+        h4 { font-size: 18px; margin-top: 20px; }
+        table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+        th { background: #4A90D9; color: #fff; padding: 10px 12px; text-align: left; }
+        td { border: 1px solid #ddd; padding: 8px 12px; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        code { background: #f4f4f4; padding: 2px 8px; border-radius: 4px; font-size: 13px; }
+        pre { background: #2d2d2d; color: #f8f8f2; padding: 16px 20px; border-radius: 6px; overflow-x: auto; font-size: 13px; }
+        .block { background: #f8f9fa; border-left: 4px solid #4A90D9; padding: 12px 20px; margin: 12px 0; }
+        .toc { background: #f0f4f8; padding: 16px 24px; border-radius: 6px; margin: 20px 0; }
+        .toc a { color: #4A90D9; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid #e8edf3; margin: 30px 0; }
+        .footer { text-align: center; color: #999; font-size: 13px; border-top: 1px solid #e8edf3; padding-top: 20px; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+<h1>📄 政策推荐接口文档</h1>
+
+<p><strong>版本</strong>：V1.0 &nbsp;|&nbsp; <strong>更新日期</strong>：2026-07-27 &nbsp;|&nbsp; <strong>状态</strong>：正式版</p>
+
+<hr>
+
+<div class="toc">
+<h3>📑 目录</h3>
+<ol>
+<li><a href="#sec1">文档说明</a></li>
+<li><a href="#sec2">接口概述</a></li>
+<li><a href="#sec3">请求说明</a></li>
+<li><a href="#sec4">响应说明</a></li>
+<li><a href="#sec5">数据模型 - 企业基本信息</a></li>
+<li><a href="#sec6">子表数据模型</a></li>
+<li><a href="#sec7">请求示例</a></li>
+<li><a href="#sec8">响应示例</a></li>
+<li><a href="#sec9">数据库表映射</a></li>
+<li><a href="#sec10">错误码说明</a></li>
+</ol>
+</div>
+
+<hr>
+
+<h2 id="sec1">1. 文档说明</h2>
+
+<h3>1.1 文档目的</h3>
+<p>本文档用于描述政策推荐的 RESTful API 接口规范，供前端开发人员、测试人员及第三方系统集成使用。</p>
+
+<h3>1.2 适用范围</h3>
+<p>本接口文档适用于政策推荐中 <strong>企业信息分页查询</strong> 场景。</p>
+
+<h3>1.3 阅读对象</h3>
+<ul>
+<li>前端开发工程师</li>
+<li>后端开发工程师</li>
+<li>测试工程师</li>
+<li>系统集成人员</li>
+</ul>
+
+<hr>
+
+<h2 id="sec2">2. 接口概述</h2>
+
+<h3>2.1 接口基本信息</h3>
+<table>
+<thead><tr><th>项目</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td>接口名称</td><td>企业信息分页查询接口</td></tr>
+<tr><td>接口URL</td><td><code>/cms/tb-base-business-info/web/page</code></td></tr>
+<tr><td>请求方式</td><td>GET</td></tr>
+<tr><td>协议</td><td>HTTP</td></tr>
+<tr><td>数据格式</td><td>JSON</td></tr>
+<tr><td>字符编码</td><td>UTF-8</td></tr>
+</tbody>
+</table>
+
+<h3>2.2 服务地址</h3>
+<table>
+<thead><tr><th>环境</th><th>地址</th></tr></thead>
+<tbody>
+<tr><td>测试环境</td><td><code>http://112.48.19.225:8500</code></td></tr>
+</tbody>
+</table>
+
+<h3>2.3 接口功能</h3>
+<p>分页查询企业完整信息，包含：</p>
+<ul>
+<li>企业基本工商信息</li>
+<li>经营信息（历年）</li>
+<li>主要技术（专利）</li>
+<li>主要产品</li>
+<li>荣誉资质</li>
+<li>投融资信息</li>
+<li>国际/国家/省级榜单排名</li>
+<li>知识产权统计信息</li>
+</ul>
+
+<hr>
+
+<h2 id="sec3">3. 请求说明</h2>
+
+<h3>3.1 请求URL</h3>
+<pre>GET http://112.48.19.225:8500/cms/tb-base-business-info/web/page</pre>
+
+<h3>3.2 请求参数</h3>
+<table>
+<thead><tr><th>参数名</th><th>类型</th><th>必填</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>pageNum</td><td>int</td><td>否</td><td>1</td><td>当前页码，从1开始</td></tr>
+<tr><td>pageSize</td><td>int</td><td>否</td><td>10</td><td>每页显示条数，最大不超过100</td></tr>
+</tbody>
+</table>
+
+<h3>3.3 请求示例</h3>
+<pre>GET /cms/tb-base-business-info/web/page?pageNum=1&amp;pageSize=10 HTTP/1.1
+Host: 112.48.19.225:8500
+Accept: application/json</pre>
+
+<hr>
+
+<h2 id="sec4">4. 响应说明</h2>
+
+<h3>4.1 响应数据结构</h3>
+<pre>{
+  "code": 0,
+  "msg": null,
+  "data": {
+    "totalCount": 101,
+    "pageSize": 10,
+    "totalPage": 11,
+    "currPage": 1,
+    "list": [
+      {
+        "id": "123",
+        "enterpriseName": "A公司",
+        "creditCode": "91310107MA7JKL8X9Y",
+        "registerDate": "2010-03-23 00:00:00",
+        "registerAddress": "\tC 制造业\t\t\t\t\t\t\t\t\t\t26\r\n厦门市同安区美禾二路666号二号厂房",
+        "registerCapital": "2000000",
+        "industryField": "C 制造业",
+        "highTechField": "新一代信息技术",
+        "enterpriseScale": "大型",
+        "brief": "成立于2020年，注册资本5000万元，位于深圳市南山区科技园。公司专注于新一代信息技术领域的AI边缘计算芯片设计，核心产品为低功耗、高算力的边缘端AI推理芯片，主要应用于智能安防、工业物联网及自动驾驶辅助场景。公司现为国家级高新技术企业，拥有自主研发的芯片架构和编译工具链，已获得15项发明专利授权，员工规模约120人，其中研发人员占比超70%。\r\n\r\n成立于2020年，注册资本5000万元，位于深圳市南山区科技园。公司专注于新一代信息技术领域的AI边缘计算芯片设计，核心产品为低功耗、高算力的边缘端AI推理芯片，主要应用于智能安防、工业物联网及自动驾驶辅助场景。公司现为国家级高新技术企业，拥有自主研发的芯片架构和编译工具链，已获得15项发明专利授权，员工规模约120人，其中研发人员占比超70%。\r\n\r\n",
+        "telephone": "15356566661",
+        "email": "125455@qq.com",
+        "website": "www.baidu.com",
+        "legalPerson": "张三",
+        "legalPersonPhone": "15335662332",
+        "inventionPatentCount": 20,
+        "ipCount": 20,
+        "tenantId": null,
+        "createTime": null,
+        "updateTime": "2026-07-24 17:07:58",
+        "honorQualificationList": [
+          {
+            "id": "1",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "cityTechProjectCount": 12,
+            "provTechProjectCount": 12,
+            "cityTechAwardCount": 12,
+            "provTechAwardCount": 12,
+            "provAboveTechAwardCount": 12,
+            "standardFormulationCount": 12,
+            "isTechSme": "1",
+            "isInnovativeSme": "1",
+            "isHighTechEnterprise": "1",
+            "isSpecializedLittleGiant": "0",
+            "isSpecializedSme": "0",
+            "isTechLeaderEnterprise": "0",
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:22:50",
+            "updateTime": "2026-07-24 17:22:50"
+          }
+        ],
+        "internationalRankingList": [
+          {
+            "id": "1",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "rankingName": "国际榜单1",
+            "rankingPos": "2",
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:22:47",
+            "updateTime": "2026-07-24 17:25:45"
+          },
+          {
+            "id": "2",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "rankingName": "国际榜单2",
+            "rankingPos": "3",
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:22:47",
+            "updateTime": "2026-07-24 17:25:45"
+          }
+        ],
+        "investmentFinancingList": [
+          {
+            "id": "1",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "angelInvestment": 123,
+            "ventureInvestment": 123,
+            "loanAmount": 123,
+            "totalInvestment": 349,
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:26:37",
+            "updateTime": "2026-07-24 17:26:37"
+          }
+        ],
+        "ipStatisticsList": [
+          {
+            "id": "1",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "ipPerHundredRd": "30",
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:27:06",
+            "updateTime": "2026-07-24 17:27:06"
+          }
+        ],
+        "mainProductList": [
+          {
+            "id": "1",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "productName": "产品1",
+            "productDescription": "简介1",
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:28:11",
+            "updateTime": "2026-07-24 17:28:11"
+          },
+          {
+            "id": "2",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "productName": "产品2",
+            "productDescription": "简介2",
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:28:29",
+            "updateTime": "2026-07-24 17:28:29"
+          }
+        ],
+        "mainTechnologyList": [
+          {
+            "id": "1",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "pctPublishNum": "12333",
+            "patentType": "Ⅰ类",
+            "patentName": "某专利技术",
+            "brief": "专利介绍",
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:24:17",
+            "updateTime": "2026-07-24 17:25:06"
+          },
+          {
+            "id": "2",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "pctPublishNum": "12333",
+            "patentType": "Ⅰ类",
+            "patentName": "某专利技术2",
+            "brief": "专利介绍2",
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:24:17",
+            "updateTime": "2026-07-24 17:25:06"
+          }
+        ],
+        "nationalRankingList": [
+          {
+            "id": "1",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "rankingName": "国家榜单名称1",
+            "rankingPos": "2",
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:36:34",
+            "updateTime": "2026-07-24 17:38:22"
+          },
+          {
+            "id": "2",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "rankingName": "国家榜单名称2",
+            "rankingPos": "3",
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:38:12",
+            "updateTime": "2026-07-24 17:38:29"
+          }
+        ],
+        "operationInfoList": [
+          {
+            "id": "1",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "year": "2024",
+            "rdExpense": 20247000,
+            "rdExpenseRatio": "0.67",
+            "techContractAmount": 1000000,
+            "operatingIncome": 30000000,
+            "mainBusinessIncome": 22111500,
+            "incomeGrowthRate": "0.6",
+            "netProfit": 6000000,
+            "beginOwnerEquity": 1200000,
+            "endOwnerEquity": 1200000,
+            "roe": "0.76",
+            "employeeCount": 54,
+            "rdPersonnelCount": 8,
+            "rdPersonnelRatio": "0.1481",
+            "tenantId": "1",
+            "createTime": "2026-07-24 16:36:04",
+            "updateTime": "2026-07-24 17:32:58"
+          },
+          {
+            "id": "2",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "year": "2025",
+            "rdExpense": 30247000,
+            "rdExpenseRatio": "0.75",
+            "techContractAmount": 1000000,
+            "operatingIncome": 40000000,
+            "mainBusinessIncome": 32111500,
+            "incomeGrowthRate": "0.7",
+            "netProfit": 5600000,
+            "beginOwnerEquity": 2000000,
+            "endOwnerEquity": 1200000,
+            "roe": "0.79",
+            "employeeCount": 54,
+            "rdPersonnelCount": 8,
+            "rdPersonnelRatio": "0.1481",
+            "tenantId": "1",
+            "createTime": "2026-07-24 16:36:04",
+            "updateTime": "2026-07-24 17:33:07"
+          }
+        ],
+        "provincialRankingList": [
+          {
+            "id": "1",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "rankingName": "省级榜单1",
+            "rankingPos": "2",
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:34:08",
+            "updateTime": "2026-07-24 17:34:08"
+          },
+          {
+            "id": "2",
+            "enterpriseId": "123",
+            "enterpriseName": "A公司",
+            "rankingName": "省级榜单2",
+            "rankingPos": "3",
+            "tenantId": "1",
+            "createTime": "2026-07-24 17:34:08",
+            "updateTime": "2026-07-24 17:34:08"
+          }
+        ]
+      }
+    ]
+  }
+}</pre>
+
+<h3>4.2 响应字段说明</h3>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>code</td><td>int</td><td>响应状态码：0=成功，非0=失败</td></tr>
+<tr><td>msg</td><td>string</td><td>响应消息，成功时为null</td></tr>
+<tr><td>data</td><td>object</td><td>分页数据对象</td></tr>
+<tr><td>data.totalCount</td><td>int</td><td>总记录数</td></tr>
+<tr><td>data.pageSize</td><td>int</td><td>每页大小</td></tr>
+<tr><td>data.totalPage</td><td>int</td><td>总页数</td></tr>
+<tr><td>data.currPage</td><td>int</td><td>当前页码</td></tr>
+<tr><td>data.list</td><td>array</td><td>企业信息列表</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2 id="sec5">5. 数据模型 - 企业基本信息</h2>
+
+<h3>5.1 BaseBusinessInfo</h3>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>企业唯一标识ID</td></tr>
+<tr><td>enterpriseId</td><td>string</td><td>企业ID（冗余字段）</td></tr>
+<tr><td>enterpriseName</td><td>string</td><td>企业全称</td></tr>
+<tr><td>creditCode</td><td>string</td><td>统一社会信用代码（18位）</td></tr>
+<tr><td>registerDate</td><td>string</td><td>注册日期，格式：yyyy-MM-dd HH:mm:ss</td></tr>
+<tr><td>registerAddress</td><td>string</td><td>注册地址</td></tr>
+<tr><td>registerCapital</td><td>string</td><td>注册资本（万元）</td></tr>
+<tr><td>industryField</td><td>string</td><td>行业领域</td></tr>
+<tr><td>highTechField</td><td>string</td><td>高新技术领域</td></tr>
+<tr><td>enterpriseScale</td><td>string</td><td>企业规模（大型/中型/小型/微型）</td></tr>
+<tr><td>brief</td><td>text</td><td>企业简介</td></tr>
+<tr><td>telephone</td><td>string</td><td>企业联系电话</td></tr>
+<tr><td>email</td><td>string</td><td>企业邮箱</td></tr>
+<tr><td>website</td><td>string</td><td>企业官网地址</td></tr>
+<tr><td>legalPerson</td><td>string</td><td>法定代表人姓名</td></tr>
+<tr><td>legalPersonPhone</td><td>string</td><td>法定代表人联系电话</td></tr>
+<tr><td>inventionPatentCount</td><td>int</td><td>发明专利授权总量</td></tr>
+<tr><td>ipCount</td><td>int</td><td>知识产权总数</td></tr>
+<tr><td>tenantId</td><td>string</td><td>租户ID</td></tr>
+<tr><td>createTime</td><td>string</td><td>创建时间</td></tr>
+<tr><td>updateTime</td><td>string</td><td>最后更新时间</td></tr>
+</tbody>
+</table>
+
+<h3>5.2 关联子表列表</h3>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>operationInfoList</td><td>array</td><td>经营信息列表</td></tr>
+<tr><td>mainTechnologyList</td><td>array</td><td>主要技术（专利）列表</td></tr>
+<tr><td>mainProductList</td><td>array</td><td>主要产品列表</td></tr>
+<tr><td>honorQualificationList</td><td>array</td><td>荣誉资质列表</td></tr>
+<tr><td>investmentFinancingList</td><td>array</td><td>投融资列表</td></tr>
+<tr><td>internationalRankingList</td><td>array</td><td>国际榜单列表</td></tr>
+<tr><td>nationalRankingList</td><td>array</td><td>国家榜单列表</td></tr>
+<tr><td>provincialRankingList</td><td>array</td><td>省级榜单列表</td></tr>
+<tr><td>ipStatisticsList</td><td>array</td><td>知识产权统计列表</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2 id="sec6">6. 子表数据模型</h2>
+
+<h3>6.1 OperationInfo（经营信息）</h3>
+<p>对应数据库表：<code>tb_operation_info</code></p>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>记录ID</td></tr>
+<tr><td>enterpriseId</td><td>string</td><td>所属企业ID</td></tr>
+<tr><td>enterpriseName</td><td>string</td><td>企业名称（冗余）</td></tr>
+<tr><td>year</td><td>string</td><td>统计年份（如：2024）</td></tr>
+<tr><td>rdExpense</td><td>decimal(20,2)</td><td>研发费用（元）</td></tr>
+<tr><td>rdExpenseRatio</td><td>string</td><td>研发费用占营业收入比例</td></tr>
+<tr><td>techContractAmount</td><td>decimal(20,2)</td><td>技术合同成交额（元）</td></tr>
+<tr><td>operatingIncome</td><td>decimal(20,2)</td><td>营业收入（元）</td></tr>
+<tr><td>mainBusinessIncome</td><td>decimal(20,2)</td><td>主营业务收入（元）</td></tr>
+<tr><td>incomeGrowthRate</td><td>string</td><td>营业收入增长率</td></tr>
+<tr><td>netProfit</td><td>decimal(20,2)</td><td>净利润（元）</td></tr>
+<tr><td>beginOwnerEquity</td><td>decimal(20,2)</td><td>年度期初所有者权益（元）</td></tr>
+<tr><td>endOwnerEquity</td><td>decimal(20,2)</td><td>年度期末所有者权益（元）</td></tr>
+<tr><td>roe</td><td>string</td><td>净资产利润率</td></tr>
+<tr><td>employeeCount</td><td>int</td><td>员工总人数</td></tr>
+<tr><td>rdPersonnelCount</td><td>int</td><td>研发人员数量</td></tr>
+<tr><td>rdPersonnelRatio</td><td>string</td><td>研发人员占比</td></tr>
+<tr><td>tenantId</td><td>string</td><td>租户ID</td></tr>
+<tr><td>createTime</td><td>string</td><td>创建时间</td></tr>
+<tr><td>updateTime</td><td>string</td><td>更新时间</td></tr>
+</tbody>
+</table>
+
+<h3>6.2 MainTechnology（主要技术）</h3>
+<p>对应数据库表：<code>tb_main_technology</code></p>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>记录ID</td></tr>
+<tr><td>enterpriseId</td><td>string</td><td>所属企业ID</td></tr>
+<tr><td>enterpriseName</td><td>string</td><td>企业名称（冗余）</td></tr>
+<tr><td>pctPublishNum</td><td>string</td><td>PCT国际公布号</td></tr>
+<tr><td>patentType</td><td>string</td><td>专利类型（Ⅰ类/Ⅱ类等）</td></tr>
+<tr><td>patentName</td><td>string</td><td>专利名称</td></tr>
+<tr><td>brief</td><td>text</td><td>专利摘要/技术简介</td></tr>
+<tr><td>tenantId</td><td>string</td><td>租户ID</td></tr>
+<tr><td>createTime</td><td>string</td><td>创建时间</td></tr>
+<tr><td>updateTime</td><td>string</td><td>更新时间</td></tr>
+</tbody>
+</table>
+
+<h3>6.3 MainProduct（主要产品）</h3>
+<p>对应数据库表：<code>tb_main_product</code></p>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>记录ID</td></tr>
+<tr><td>enterpriseId</td><td>string</td><td>所属企业ID</td></tr>
+<tr><td>enterpriseName</td><td>string</td><td>企业名称（冗余）</td></tr>
+<tr><td>productName</td><td>string</td><td>产品名称</td></tr>
+<tr><td>productDescription</td><td>text</td><td>产品描述/功能介绍</td></tr>
+<tr><td>tenantId</td><td>string</td><td>租户ID</td></tr>
+<tr><td>createTime</td><td>string</td><td>创建时间</td></tr>
+<tr><td>updateTime</td><td>string</td><td>更新时间</td></tr>
+</tbody>
+</table>
+
+<h3>6.4 HonorQualification（荣誉资质）</h3>
+<p>对应数据库表：<code>tb_honor_qualification</code></p>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>记录ID</td></tr>
+<tr><td>enterpriseId</td><td>string</td><td>所属企业ID</td></tr>
+<tr><td>enterpriseName</td><td>string</td><td>企业名称（冗余）</td></tr>
+<tr><td>cityTechProjectCount</td><td>int</td><td>地市级科技计划项目/课题累计总数</td></tr>
+<tr><td>provTechProjectCount</td><td>int</td><td>省级科技计划项目/课题累计总数</td></tr>
+<tr><td>cityTechAwardCount</td><td>int</td><td>地市级科技奖励总数</td></tr>
+<tr><td>provTechAwardCount</td><td>int</td><td>省级科技奖励总数</td></tr>
+<tr><td>provAboveTechAwardCount</td><td>int</td><td>省级及以上科技奖励总数</td></tr>
+<tr><td>standardFormulationCount</td><td>int</td><td>参与制定国家或行业标准累计总数</td></tr>
+<tr><td>isTechSme</td><td>string</td><td>科技型中小企业（1=是，0=否）</td></tr>
+<tr><td>isInnovativeSme</td><td>string</td><td>创新型中小企业（1=是，0=否）</td></tr>
+<tr><td>isHighTechEnterprise</td><td>string</td><td>高新技术企业（1=是，0=否）</td></tr>
+<tr><td>isSpecializedLittleGiant</td><td>string</td><td>专精特新小巨人企业（1=是，0=否）</td></tr>
+<tr><td>isSpecializedSme</td><td>string</td><td>专精特新中小企业（1=是，0=否）</td></tr>
+<tr><td>isTechLeaderEnterprise</td><td>string</td><td>科技领军企业（1=是，0=否）</td></tr>
+<tr><td>tenantId</td><td>string</td><td>租户ID</td></tr>
+<tr><td>createTime</td><td>string</td><td>创建时间</td></tr>
+<tr><td>updateTime</td><td>string</td><td>更新时间</td></tr>
+</tbody>
+</table>
+
+<h3>6.5 InvestmentFinancing（投融资）</h3>
+<p>对应数据库表：<code>tb_investment_financing</code></p>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>记录ID</td></tr>
+<tr><td>enterpriseId</td><td>string</td><td>所属企业ID</td></tr>
+<tr><td>enterpriseName</td><td>string</td><td>企业名称（冗余）</td></tr>
+<tr><td>angelInvestment</td><td>decimal(20,2)</td><td>天使投资金额（万元）</td></tr>
+<tr><td>ventureInvestment</td><td>decimal(20,2)</td><td>风险投资金额（万元）</td></tr>
+<tr><td>loanAmount</td><td>decimal(20,2)</td><td>贷款金额（万元）</td></tr>
+<tr><td>totalInvestment</td><td>decimal(20,2)</td><td>投融资总额（万元）</td></tr>
+<tr><td>tenantId</td><td>string</td><td>租户ID</td></tr>
+<tr><td>createTime</td><td>string</td><td>创建时间</td></tr>
+<tr><td>updateTime</td><td>string</td><td>更新时间</td></tr>
+</tbody>
+</table>
+
+<h3>6.6 InternationalRanking（国际榜单）</h3>
+<p>对应数据库表：<code>tb_international_ranking</code></p>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>记录ID</td></tr>
+<tr><td>enterpriseId</td><td>string</td><td>所属企业ID</td></tr>
+<tr><td>enterpriseName</td><td>string</td><td>企业名称（冗余）</td></tr>
+<tr><td>rankingName</td><td>string</td><td>产品上榜国际榜单名称</td></tr>
+<tr><td>rankingPos</td><td>string</td><td>产品上榜国际榜单排名</td></tr>
+<tr><td>tenantId</td><td>string</td><td>租户ID</td></tr>
+<tr><td>createTime</td><td>string</td><td>创建时间</td></tr>
+<tr><td>updateTime</td><td>string</td><td>更新时间</td></tr>
+</tbody>
+</table>
+
+<h3>6.7 NationalRanking（国家榜单）</h3>
+<p>对应数据库表：<code>tb_national_ranking</code></p>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>记录ID</td></tr>
+<tr><td>enterpriseId</td><td>string</td><td>所属企业ID</td></tr>
+<tr><td>enterpriseName</td><td>string</td><td>企业名称（冗余）</td></tr>
+<tr><td>rankingName</td><td>string</td><td>产品上榜国家榜单名称</td></tr>
+<tr><td>rankingPos</td><td>string</td><td>产品上榜国家榜单排名</td></tr>
+<tr><td>tenantId</td><td>string</td><td>租户ID</td></tr>
+<tr><td>createTime</td><td>string</td><td>创建时间</td></tr>
+<tr><td>updateTime</td><td>string</td><td>更新时间</td></tr>
+</tbody>
+</table>
+
+<h3>6.8 ProvincialRanking（省级榜单）</h3>
+<p>对应数据库表：<code>tb_provincial_ranking</code></p>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>记录ID</td></tr>
+<tr><td>enterpriseId</td><td>string</td><td>所属企业ID</td></tr>
+<tr><td>enterpriseName</td><td>string</td><td>企业名称（冗余）</td></tr>
+<tr><td>rankingName</td><td>string</td><td>产品上榜省级榜单名称</td></tr>
+<tr><td>rankingPos</td><td>string</td><td>产品上榜省级榜单排名</td></tr>
+<tr><td>tenantId</td><td>string</td><td>租户ID</td></tr>
+<tr><td>createTime</td><td>string</td><td>创建时间</td></tr>
+<tr><td>updateTime</td><td>string</td><td>更新时间</td></tr>
+</tbody>
+</table>
+
+<h3>6.9 IpStatistics（知识产权统计）</h3>
+<p>对应数据库表：<code>tb_ip_statistics</code></p>
+<table>
+<thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>id</td><td>string</td><td>记录ID</td></tr>
+<tr><td>enterpriseId</td><td>string</td><td>所属企业ID</td></tr>
+<tr><td>enterpriseName</td><td>string</td><td>企业名称（冗余）</td></tr>
+<tr><td>ipPerHundredRd</td><td>string</td><td>每百人研发人员的知识产权数</td></tr>
+<tr><td>tenantId</td><td>string</td><td>租户ID</td></tr>
+<tr><td>createTime</td><td>string</td><td>创建时间</td></tr>
+<tr><td>updateTime</td><td>string</td><td>更新时间</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2 id="sec7">7. 请求示例</h2>
+
+<h3>7.1 请求第一页（默认10条）</h3>
+<pre>GET http://112.48.19.225:8500/cms/tb-base-business-info/web/page?pageNum=1&amp;pageSize=10</pre>
+
+<h3>7.2 cURL 命令</h3>
+<pre>curl -X GET "http://112.48.19.225:8500/cms/tb-base-business-info/web/page?pageNum=1&amp;pageSize=10" \
+  -H "Accept: application/json"</pre>
+
+<hr>
+
+<h2 id="sec8">8. 响应示例</h2>
+
+<h3>8.1 成功响应</h3>
+<pre>{
+    "code": 0,
+    "msg": null,
+    "data": {
+        "totalCount": 1,
+        "pageSize": 10,
+        "totalPage": 1,
+        "currPage": 1,
+        "list": [
+            {
+                "id": "123",
+                "enterpriseName": "A公司",
+                "creditCode": "91310107MA7JKL8X9Y",
+                "registerDate": "2010-03-23 00:00:00",
+                "industryField": "C 制造业",
+                "highTechField": "新一代信息技术",
+                "enterpriseScale": "大型",
+                "legalPerson": "张三",
+                "inventionPatentCount": 20,
+                "ipCount": 20,
+                "operationInfoList": [
+                    {
+                        "year": "2024",
+                        "operatingIncome": 30000000.00,
+                        "netProfit": 6000000.00,
+                        "employeeCount": 54,
+                        "rdPersonnelCount": 8
+                    },
+                    {
+                        "year": "2025",
+                        "operatingIncome": 40000000.00,
+                        "netProfit": 5600000.00,
+                        "employeeCount": 54,
+                        "rdPersonnelCount": 8
+                    }
+                ],
+                "mainTechnologyList": [
+                    {
+                        "patentType": "Ⅰ类",
+                        "patentName": "某专利技术"
+                    }
+                ],
+                "mainProductList": [
+                    {
+                        "productName": "产品1",
+                        "productDescription": "简介1"
+                    }
+                ],
+                "honorQualificationList": [
+                    {
+                        "isHighTechEnterprise": "1",
+                        "isTechSme": "1"
+                    }
+                ],
+                "investmentFinancingList": [
+                    {
+                        "totalInvestment": 349.00
+                    }
+                ],
+                "internationalRankingList": [
+                    {
+                        "rankingName": "国际榜单1",
+                        "rankingPos": "2"
+                    }
+                ]
+            }
+        ]
+    }
+}</pre>
+
+<hr>
+
+<h2 id="sec9">9. 数据库表映射</h2>
+
+<table>
+<thead><tr><th>业务实体</th><th>JSON字段名</th><th>数据库表名</th><th>关系</th></tr></thead>
+<tbody>
+<tr><td>基本信息</td><td>(根对象)</td><td>tb_base_business_info</td><td>主表</td></tr>
+<tr><td>经营信息</td><td>operationInfoList</td><td>tb_operation_info</td><td>一对多</td></tr>
+<tr><td>主要技术</td><td>mainTechnologyList</td><td>tb_main_technology</td><td>一对多</td></tr>
+<tr><td>主要产品</td><td>mainProductList</td><td>tb_main_product</td><td>一对多</td></tr>
+<tr><td>荣誉资质</td><td>honorQualificationList</td><td>tb_honor_qualification</td><td>一对一</td></tr>
+<tr><td>投融资</td><td>investmentFinancingList</td><td>tb_investment_financing</td><td>一对一</td></tr>
+<tr><td>国际榜单</td><td>internationalRankingList</td><td>tb_international_ranking</td><td>一对多</td></tr>
+<tr><td>国家榜单</td><td>nationalRankingList</td><td>tb_national_ranking</td><td>一对多</td></tr>
+<tr><td>省级榜单</td><td>provincialRankingList</td><td>tb_provincial_ranking</td><td>一对多</td></tr>
+<tr><td>知识产权统计</td><td>ipStatisticsList</td><td>tb_ip_statistics</td><td>一对一</td></tr>
+</tbody>
+</table>
+
+<p><strong>关联关系说明</strong>：所有子表通过 <code>enterprise_id</code> 字段与主表 <code>id</code> 关联</p>
+
+<hr>
+
+<h2 id="sec10">10. 错误码说明</h2>
+
+<table>
+<thead><tr><th>错误码</th><th>说明</th><th>处理建议</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>请求成功</td><td>正常处理数据</td></tr>
+<tr><td>1001</td><td>参数错误</td><td>检查请求参数是否合法</td></tr>
+<tr><td>1002</td><td>分页参数超出范围</td><td>调整pageNum或pageSize</td></tr>
+<tr><td>2001</td><td>数据不存在</td><td>确认查询条件是否正确</td></tr>
+<tr><td>5000</td><td>系统内部错误</td><td>联系技术支持</td></tr>
+<tr><td>5001</td><td>数据库连接失败</td><td>稍后重试</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>附录A：字段值域说明</h2>
+
+<h3>企业规模 (enterpriseScale)</h3>
+<table>
+<thead><tr><th>值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>大型</td><td>大型企业</td></tr>
+<tr><td>中型</td><td>中型企业</td></tr>
+<tr><td>小型</td><td>小型企业</td></tr>
+<tr><td>微型</td><td>微型企业</td></tr>
+</tbody>
+</table>
+
+<h3>是否字段 (is_* 系列)</h3>
+<table>
+<thead><tr><th>值</th><th>说明</th

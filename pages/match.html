@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>企业政策推荐 - 政策解读系统</title>
+  <style>[v-cloak]{display:none!important}</style>
+  <link rel="stylesheet" href="/lib/cdn/element-plus.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/form.css">
+  <link rel="stylesheet" href="../css/policy.css">
+  <style>
+    .content-wrapper.recommend-page{width:100%;max-width:none;box-sizing:border-box;overflow-y:auto!important;scroll-behavior:smooth}
+    .recommend-page{width:100%!important;max-width:none!important;min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:16px;padding:22px 28px 86px!important;background:var(--color-bg-alt)!important}
+    .recommend-page>section,.recommend-page>.card{width:100%!important;max-width:none!important;min-width:0;box-sizing:border-box}
+    .metric-grid{display:grid;width:100%;gap:12px}
+    .metric-grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .stat-card{display:flex;align-items:center;gap:14px;min-width:0;box-sizing:border-box;padding:16px;background:#fff;border:1px solid rgba(59,130,246,.14);border-radius:8px}
+    .stat-card-icon{width:42px;height:42px;display:grid;place-items:center;flex:0 0 auto;border-radius:8px;background:var(--color-primary-soft);color:var(--color-primary);font-size:20px}
+    .stat-card-icon.green{background:var(--color-secondary-soft);color:var(--color-secondary)}
+    .stat-card-icon.amber{background:var(--color-surface-amber);color:var(--color-accent)}
+    .stat-card-icon.red{background:#fff1f2;color:var(--color-danger)}
+    .stat-card-content{min-width:0}
+    .stat-card-value{color:var(--color-text-primary);font-size:26px;font-weight:800;line-height:1.1}
+    .stat-card-label{margin-top:4px;color:var(--color-text-primary);font-size:13px;font-weight:800}
+    .stat-card-trend{margin-top:3px;color:var(--color-text-secondary);font-size:12px;font-weight:700;line-height:1.45;word-break:break-word}
+    .recommend-alert{display:grid;grid-template-columns:minmax(360px,.62fr) minmax(620px,1.38fr);align-items:stretch;gap:18px;padding:18px;border:2px solid rgba(59,130,246,.18);border-radius:8px;background:#eff6ff}
+    .recommend-alert-summary{display:grid;grid-template-columns:auto minmax(0,1fr);align-content:start;gap:14px;min-width:0}
+    .recommend-alert-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:8px;background:var(--color-primary-soft);color:var(--color-primary);font-size:20px}
+    .recommend-alert-title{color:var(--color-text-primary);font-size:15px;font-weight:800;line-height:1.5;word-break:break-word}
+    .recommend-alert-desc{margin-top:4px;color:var(--color-text-secondary);font-size:12px;font-weight:700;line-height:1.7;word-break:break-word}
+    .enterprise-inline-meta{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:6px;color:var(--color-text-secondary);font-size:12px;font-weight:700;line-height:1.7}
+    .recommend-alert-action{margin-top:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .recommend-alert-metrics .stat-card{min-height:92px;background:rgba(255,255,255,.94)}
+    .toolbar-card{display:grid;grid-template-columns:minmax(360px,1fr) auto;gap:12px;align-items:center;width:100%;padding:18px;background:#fff;border:2px solid var(--color-border);border-radius:8px}
+    .toolbar-card .form-item{min-width:0}
+    .quick-filter-row{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+    .quick-filter-label{color:var(--color-text-secondary);font-size:13px;font-weight:800;margin-right:2px}
+    .quick-filter-btn{min-height:32px;padding:0 13px;border:2px solid var(--color-border);border-radius:6px;background:#fff;color:var(--color-text-regular);cursor:pointer;font-size:13px;font-weight:800;transition:transform .2s,border-color .2s,background-color .2s,color .2s}
+    .quick-filter-btn:hover{transform:scale(1.03);border-color:var(--page-accent);color:var(--page-accent)}
+    .quick-filter-btn.active{border-color:var(--page-accent);background:var(--page-accent);color:#fff}
+    .quick-filter-btn .cnt{margin-left:6px;opacity:.78;font-size:12px}
+    .enterprise-info-card{width:100%;background:#fff;border:2px solid var(--color-border);border-radius:8px;overflow:hidden}
+    .enterprise-dialog .el-dialog{max-width:1180px}
+    .enterprise-dialog .el-dialog__header{padding:14px 20px;border-bottom:2px solid var(--color-border);margin-right:0}
+    .enterprise-dialog .el-dialog__body{padding:0;max-height:82vh;overflow-y:auto}
+    .enterprise-dialog .enterprise-info-card{border:0;border-radius:0 0 8px 8px}
+    .enterprise-info-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:2px solid var(--color-border);background:var(--page-accent-surface)}
+    .enterprise-info-title{color:var(--color-text-primary);font-size:18px;font-weight:800;line-height:1.5;word-break:break-word}
+    .enterprise-info-subtitle{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:6px;color:var(--color-text-secondary);font-size:12px;font-weight:700;line-height:1.7}
+    .enterprise-info-body{padding:18px 20px 20px}
+    .enterprise-block{padding-top:16px;margin-top:16px;border-top:1px solid var(--color-border)}
+    .enterprise-block:first-child{padding-top:0;margin-top:0;border-top:0}
+    .enterprise-block-title{display:flex;align-items:center;gap:8px;margin-bottom:10px;color:var(--color-text-primary);font-size:14px;font-weight:800}
+    .enterprise-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .enterprise-list-item{min-width:0;padding:12px;border-radius:8px;background:var(--color-bg-alt)}
+    .enterprise-list-title{color:var(--color-text-primary);font-size:13px;font-weight:800;line-height:1.5;word-break:break-word}
+    .enterprise-list-meta{margin-top:5px;color:var(--color-text-secondary);font-size:12px;font-weight:700;line-height:1.7;word-break:break-word;white-space:pre-wrap}
+    .enterprise-match-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;padding-top:18px;border-top:2px solid var(--color-border)}
+    .star-rating{color:#f59e0b;font-size:16px;font-weight:800;line-height:1;white-space:nowrap}
+    .doc-split{display:grid;grid-template-columns:150px minmax(0,1fr);min-height:120px;border-top:1px solid var(--color-border);background:#fff}
+    .doc-sidebar{background:var(--color-bg-alt);border-right:2px solid var(--color-border)}
+    .doc-sidebar-item{padding:12px 16px;cursor:pointer;font-size:14px;font-weight:700;border-bottom:2px solid var(--color-border);transition:background .15s,color .15s;color:var(--color-text-secondary)}
+    .doc-sidebar-item:hover{color:var(--color-primary);background:rgba(59,130,246,.06)}
+    .doc-sidebar-item.is-active{background:#fff;color:var(--color-primary)}
+    .doc-sidebar-count{margin-left:6px;font-size:12px;color:var(--color-text-muted)}
+    .doc-content{padding:14px 20px;overflow-y:auto;max-height:64vh}
+    .doc-row{padding:10px 0;cursor:pointer;border-bottom:1px solid var(--color-border)}
+    .doc-row:last-child{border-bottom:0}
+    .doc-row:hover .clickable-link{text-decoration:underline;color:var(--color-primary)}
+    .doc-item-title{display:flex;gap:8px;align-items:flex-start;font-size:13px;font-weight:800;line-height:1.6}
+    .doc-item-meta{margin-top:4px;color:var(--color-text-secondary);font-size:12px;font-weight:700;line-height:1.6;padding-left:24px}
+    .doc-file-icon{width:12px;height:12px;margin-top:4px;border-radius:2px;background:#e9ddf5;box-shadow:inset 0 0 0 2px #d8c7eb;flex:0 0 auto}
+    .content-dialog-meta{margin-bottom:16px;padding:14px 18px;border:1px solid #dfe7f1;border-radius:8px;background:#f8fafc;display:flex;gap:18px;flex-wrap:wrap}
+    .content-dialog-meta span{color:#7b8798;font-size:13px}
+    .content-dialog-meta strong{color:#1d3554}
+    .content-panel{border:1px solid #dfe7f1;border-radius:8px;background:#fff;overflow:hidden}
+    .content-panel-head{padding:12px 18px;background:#f0f5fe;border-bottom:1px solid #dfe7f1;font-weight:800;color:#1f4775;font-size:15px}
+    .content-panel-body{padding:0;max-height:65vh;overflow-y:auto}
+    .content-panel-body pre{margin:0;padding:18px 22px;font-size:14px;line-height:1.8;white-space:pre-wrap;word-break:break-word;font-family:"Courier New",Consolas,monospace;background:#fafcfe}
+    .content-panel-html{padding:18px 22px;font-size:14px;line-height:1.8;color:#1d3554;background:#fafcfe;word-break:break-word}
+    .content-panel-html table,.content-panel-html .doc-preview-table{width:100%;border-collapse:collapse;background:#fff}
+    .content-panel-html th,.content-panel-html td,.content-panel-html .doc-preview-table td{border:1px solid #dfe7f1;padding:8px 10px;vertical-align:top}
+    .content-panel-html img{max-width:100%;height:auto;display:block}
+    .mini-stat{min-width:0;padding:9px 10px;border-radius:8px;background:var(--color-bg-alt)}
+    .mini-label{color:var(--color-text-secondary);font-size:11px;font-weight:700;line-height:1.4}
+    .mini-value{margin-top:3px;color:var(--color-text-primary);font-size:13px;font-weight:800;line-height:1.45;word-break:break-word}
+    .policy-table-title{color:var(--color-text-primary);font-size:14px;font-weight:800;line-height:1.55;word-break:break-word}
+    .policy-table-title.clickable-link{color:var(--page-accent)}
+    .policy-list-title{margin-bottom:4px}
+    .policy-list-meta{display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--color-text-secondary);font-size:12px;line-height:1.8}
+    .policy-list-meta .meta-label{color:var(--color-text-tertiary,#9baec4)}
+    .policy-list-meta .meta-value{color:var(--color-text-regular);font-weight:500}
+    .policy-star-label{margin-left:6px;color:var(--color-text-secondary);font-size:12px;font-weight:800}
+    .policy-search-card{display:grid;grid-template-columns:minmax(260px,1fr) auto;gap:12px;align-items:center;width:100%;padding:16px 18px;background:#fff;border:2px solid var(--color-border);border-radius:8px}
+    .policy-search-card .el-input{width:100%}
+    .policy-search-card .search-actions{justify-content:flex-end}
+    .recommend-page .list-title{color:var(--page-accent)}
+    .recommend-page>.list-card{min-height:690px;overflow:visible}
+    .recommend-page>.list-card .el-table{min-height:535px}
+    .recommend-page>.list-card .pagination{min-height:76px;align-items:center;padding:20px 24px 24px;box-sizing:border-box;overflow:visible}
+    .tag-line{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+    .empty-inline{padding:28px 16px;text-align:center;color:var(--color-text-secondary);font-size:13px;font-weight:700}
+    .empty-state{min-height:116px;display:grid;place-items:center;text-align:center;color:var(--color-text-secondary);font-size:14px;font-weight:800}
+    .drawer-head{padding:24px 28px;background:var(--page-accent);color:#fff}
+    .drawer-title{font-size:22px;font-weight:800;line-height:1.45;word-break:break-word}
+    .drawer-meta{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:8px;color:rgba(255,255,255,.82);font-size:13px;font-weight:600;line-height:1.7}
+    .drawer-body{padding:20px 24px 34px;background:var(--color-bg-alt)}
+    .detail-section{margin-bottom:16px;background:#fff;border:2px solid var(--color-border);border-radius:8px;overflow:hidden}
+    .detail-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:2px solid var(--color-border);background:var(--page-accent-surface);color:var(--color-text-primary);font-size:15px;font-weight:800}
+    .detail-section-body{padding:16px}
+    .recommend-structured{display:flex;flex-direction:column;gap:14px}
+    .detail-card{border:2px solid var(--color-border);border-radius:8px;background:#fff;overflow:hidden}
+    .detail-card-header{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:2px solid var(--color-border);border-left:4px solid var(--page-accent);background:var(--page-accent-surface);color:var(--color-text-primary);font-size:15px;font-weight:800}
+    .detail-card-body{padding:0}
+    .detail-grid{display:flex;flex-direction:column;gap:0}
+    .field-item{display:flex;align-items:flex-start;gap:12px;padding:10px 16px;border-bottom:1px solid var(--color-border)}
+    .field-item:last-child{border-bottom:0}
+    .field-item .field-label{flex:0 0 150px;color:var(--color-text-primary);font-size:13px;font-weight:800;line-height:1.6}
+    .field-item .field-value{flex:1;min-width:0;color:var(--color-text-regular);font-size:14px;font-weight:700;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+    .desc-block{padding:14px 16px;border:1px solid var(--color-border);border-radius:8px;background:var(--color-bg-alt);color:var(--color-text-regular);font-size:13px;line-height:1.8;white-space:pre-wrap;word-break:break-word}
+    .keyword-panel{display:grid;grid-template-columns:150px minmax(0,1fr);min-height:90px}
+    .keyword-sidebar{background:var(--color-bg-alt);border-right:2px solid var(--color-border)}
+    .keyword-tab{padding:12px 14px;border-bottom:1px solid var(--color-border);color:var(--color-text-secondary);font-size:13px;font-weight:800}
+    .keyword-tab.is-active{background:#fff;color:var(--page-accent)}
+    .keyword-content{padding:14px 16px}
+    .scene-usage-list{display:flex;flex-wrap:wrap;gap:8px}
+    .scene-usage-card{min-width:120px;max-width:260px;padding:10px 12px;border:1px solid rgba(59,130,246,.18);border-radius:8px;background:linear-gradient(180deg,#fff 0%,#f6faff 100%)}
+    .scene-usage-card-label{color:var(--color-text-primary);font-size:13px;font-weight:800;line-height:1.5;word-break:break-word}
+    .scene-usage-empty{padding:12px 14px;border:1px dashed var(--color-border);border-radius:8px;background:#fbfdff;color:var(--color-text-secondary);font-size:13px;font-weight:700}
+    .support-card{padding:12px 14px;margin:0 0 10px;border:1px solid var(--color-border);border-radius:8px;background:#fff}
+    .support-card:last-child{margin-bottom:0}
+    .attachment-link-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .attachment-link-item{display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:8px 12px;border:1px solid rgba(59,130,246,.22);border-radius:8px;background:#f8fbff;color:var(--page-accent);font-size:13px;font-weight:800;line-height:1.5;cursor:pointer}
+    .attachment-link-item:hover{border-color:var(--page-accent);background:#eef5ff}
+    .attachment-link-icon{width:12px;height:12px;border-radius:2px;background:#e9ddf5;box-shadow:inset 0 0 0 2px #d8c7eb;flex:0 0 auto}
+    .attachment-link-name{min-width:0;word-break:break-all;text-align:left}
+    .info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .info-item{min-width:0;padding:12px;border-radius:8px;background:var(--color-bg-alt)}
+    .info-item.wide{grid-column:1/-1}
+    .info-label{color:var(--color-text-secondary);font-size:12px;font-weight:700;line-height:1.5}
+    .info-value{margin-top:4px;color:var(--color-text-primary);font-size:14px;font-weight:800;line-height:1.6;word-break:break-word;white-space:pre-wrap}
+    .match-detail-list{display:flex;flex-direction:column;gap:10px}
+    .match-detail-item{padding:12px;border-radius:8px;background:var(--color-bg-alt)}
+    .match-detail-title{display:flex;justify-content:space-between;gap:10px;color:var(--color-text-primary);font-size:13px;font-weight:800;line-height:1.5}
+    .match-detail-meta{margin-top:6px;color:var(--color-text-secondary);font-size:12px;font-weight:700;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+    @media(max-width:1280px){.recommend-alert{grid-template-columns:1fr}}
+    @media(max-width:980px){.toolbar-card,.policy-search-card{grid-template-columns:1fr}.metric-grid--3{grid-template-columns:repeat(2,minmax(0,1fr))}.info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:980px){.doc-split,.keyword-panel{grid-template-columns:1fr}.doc-sidebar,.keyword-sidebar{border-right:0;border-bottom:2px solid var(--color-border)}.doc-content{max-height:none}}
+    @media(max-width:760px){.recommend-page{padding:14px!important}.metric-grid--3,.info-grid,.enterprise-list{grid-template-columns:1fr!important}.enterprise-info-head{flex-direction:column}.enterprise-match-footer{justify-content:stretch}.enterprise-match-footer .el-button{width:100%}.field-item{flex-direction:column;gap:4px}.field-item .field-label{flex-basis:auto}}
+  </style>
+</head>
+<body data-page-tone="blue">
+  <div class="main-layout" id="app">
+    <el-config-provider :locale="zhCnLocale">
+      <aside class="sidebar">
+        <div class="sidebar-logo"></div>
+        <nav class="sidebar-menu" id="sidebar-menu"></nav>
+        <div class="sidebar-footer" id="sidebar-footer"></div>
+      </aside>
+
+      <main class="main-content">
+        <header class="header">
+          <div class="header-left">
+            <div class="header-toggle" onclick="toggleSidebar()"><i class="el-icon-s-unfold" style="font-size:20px;"></i></div>
+            <nav class="header-breadcrumb"></nav>
+          </div>
+          <div class="header-right">
+            <div class="header-icon"><i class="el-icon-bell" style="font-size:20px;"></i></div>
+            <div class="header-user"><div class="avatar">管</div><div class="info"><span class="name">管理员</span><span class="role">系统管理员</span></div></div>
+          </div>
+        </header>
+
+        <div class="content-wrapper page-canvas recommend-page" v-cloak>
+          <el-alert v-if="loadError" :title="loadError" type="error" show-icon :closable="false"></el-alert>
+
+          <section class="toolbar-card">
+            <div class="form-item">
+              <el-select v-model="selectedEnterpriseId" filterable clearable placeholder="输入/选择企业名称、统一社会信用代码" :loading="enterpriseLoading" @change="handleEnterpriseChange">
+                <el-option v-for="item in enterpriseOptions" :key="enterpriseKey(item)" :label="item.enterpriseName || '-'" :value="enterpriseKey(item)">
+                  <span>{{ item.enterpriseName || '-' }}</span>
+                  <span style="float:right;color:#8492a6;font-size:12px">{{ item.creditCode || item.id || '-' }}</span>
+                </el-option>
+              </el-select>
+            </div>
+            <div class="search-actions">
+              <el-button type="primary" @click="runMatch">一键匹配</el-button>
+              <el-button @click="resetSearch">重置</el-button>
+            </div>
+            <div class="quick-filter-row">
+              <span class="quick-filter-label">快捷筛选</span>
+              <button v-for="item in filterOptions" :key="item.value" class="quick-filter-btn" :class="{active:search.filter===item.value}" @click="setFilter(item.value)">
+                {{ item.label }}<span class="cnt">{{ item.count }}</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="policy-search-card">
+            <el-input
+              v-model="search.keyword"
+              clearable
+              placeholder="搜索政策标题、场景用途、行业领域"
+              @input="handleKeywordInput"
+              @clear="handleKeywordInput"
+              @keyup.enter="handleKeywordInput"
+            ></el-input>
+            <div class="search-actions">
+              <el-button type="primary" @click="handleKeywordInput">搜索</el-button>
+              <el-button @click="clearPolicyKeyword">清空</el-button>
+            </div>
+          </section>
+
+          <el-dialog v-model="enterpriseDetailVisible" title="企业信息" class="enterprise-dialog" width="86%" append-to-body destroy-on-close>
+            <section v-if="selectedEnterprise" class="enterprise-info-card">
+              <div class="enterprise-info-head">
+              <div>
+                <div class="enterprise-info-title">{{ selectedEnterprise.enterpriseName || '-' }}</div>
+                <div class="enterprise-info-subtitle">
+                  <span>企业ID：{{ selectedEnterprise.id || selectedEnterprise.enterpriseId || '-' }}</span>
+                  <span>统一社会信用代码：{{ selectedEnterprise.creditCode || '-' }}</span>
+                  <span>更新时间：{{ formatDateTime(selectedEnterprise.updateTime) || '-' }}</span>
+                </div>
+              </div>
+              <el-tag effect="plain">{{ selectedEnterprise.enterpriseScale || '企业规模待确认' }}</el-tag>
+            </div>
+            <div class="enterprise-info-body">
+              <div class="enterprise-block">
+                <div class="enterprise-block-title"><i class="el-icon-office-building"></i>工商与联系信息</div>
+                <div class="info-grid">
+                  <div class="info-item"><div class="info-label">企业名称</div><div class="info-value">{{ fieldValue(selectedEnterprise.enterpriseName) }}</div></div>
+                  <div class="info-item"><div class="info-label">统一社会信用代码</div><div class="info-value">{{ fieldValue(selectedEnterprise.creditCode) }}</div></div>
+                  <div class="info-item"><div class="info-label">注册时间</div><div class="info-value">{{ formatDateTime(selectedEnterprise.registerDate) || '-' }}</div></div>
+                  <div class="info-item"><div class="info-label">注册资本</div><div class="info-value">{{ fieldValue(selectedEnterprise.registerCapital) }}</div></div>
+                  <div class="info-item"><div class="info-label">所属行业</div><div class="info-value">{{ fieldValue(selectedEnterprise.industryField) }}</div></div>
+                  <div class="info-item"><div class="info-label">高新技术领域</div><div class="info-value">{{ fieldValue(selectedEnterprise.highTechField) }}</div></div>
+                  <div class="info-item"><div class="info-label">企业规模</div><div class="info-value">{{ fieldValue(selectedEnterprise.enterpriseScale) }}</div></div>
+                  <div class="info-item"><div class="info-label">法定代表人</div><div class="info-value">{{ fieldValue(selectedEnterprise.legalPerson) }}</div></div>
+                  <div class="info-item"><div class="info-label">法人电话</div><div class="info-value">{{ fieldValue(selectedEnterprise.legalPersonPhone) }}</div></div>
+                  <div class="info-item"><div class="info-label">联系电话</div><div class="info-value">{{ fieldValue(selectedEnterprise.telephone) }}</div></div>
+                  <div class="info-item"><div class="info-label">邮箱</div><div class="info-value">{{ fieldValue(selectedEnterprise.email) }}</div></div>
+                  <div class="info-item"><div class="info-label">官网</div><div class="info-value">{{ fieldValue(selectedEnterprise.website) }}</div></div>
+                  <div class="info-item"><div class="info-label">发明专利数</div><div class="info-value">{{ fieldValue(selectedEnterprise.inventionPatentCount) }}</div></div>
+                  <div class="info-item"><div class="info-label">知识产权总数</div><div class="info-value">{{ fieldValue(selectedEnterprise.ipCount) }}</div></div>
+                  <div class="info-item wide"><div class="info-label">注册地址</div><div class="info-value">{{ fieldValue(selectedEnterprise.registerAddress) }}</div></div>
+                  <div class="info-item wide"><div class="info-label">企业简介</div><div class="info-value">{{ fieldValue(selectedEnterprise.brief) }}</div></div>
+                </div>
+              </div>
+
+              <div class="enterprise-block">
+                <div class="enterprise-block-title"><i class="el-icon-data-line"></i>经营信息</div>
+                <div v-if="toList(selectedEnterprise.operationInfoList).length" class="enterprise-list">
+                  <div v-for="item in toList(selectedEnterprise.operationInfoList)" :key="item.id || item.year" class="enterprise-list-item">
+                    <div class="enterprise-list-title">{{ item.year || '-' }} 年</div>
+                    <div class="enterprise-list-meta">营收：{{ fieldValue(item.operatingIncome) }} / 净利润：{{ fieldValue(item.netProfit) }} / 员工：{{ fieldValue(item.employeeCount) }} / 研发人员：{{ fieldValue(item.rdPersonnelCount) }}</div>
+                    <div class="enterprise-list-meta">研发费用：{{ fieldValue(item.rdExpense) }} / 研发占比：{{ fieldValue(item.rdExpenseRatio) }} / 技术合同额：{{ fieldValue(item.techContractAmount) }}</div>
+                  </div>
+                </div>
+                <div v-else class="empty-inline">暂无经营信息</div>
+              </div>
+
+              <div class="enterprise-block">
+                <div class="enterprise-block-title"><i class="el-icon-cpu"></i>主要技术</div>
+                <div v-if="toList(selectedEnterprise.mainTechnologyList).length" class="enterprise-list">
+                  <div v-for="item in toList(selectedEnterprise.mainTechnologyList)" :key="item.id || item.patentName" class="enterprise-list-item">
+                    <div class="enterprise-list-title">{{ item.patentName || '-' }}</div>
+                    <div class="enterprise-list-meta">类型：{{ fieldValue(item.patentType) }} / PCT公布号：{{ fieldValue(item.pctPublishNum) }}</div>
+                    <div class="enterprise-list-meta">{{ fieldValue(item.brief) }}</div>
+                  </div>
+                </div>
+                <div v-else class="empty-inline">暂无主要技术</div>
+              </div>
+
+              <div class="enterprise-block">
+                <div class="enterprise-block-title"><i class="el-icon-goods"></i>主要产品</div>
+                <div v-if="toList(selectedEnterprise.mainProductList).length" class="enterprise-list">
+                  <div v-for="item in toList(selectedEnterprise.mainProductList)" :key="item.id || item.productName" class="enterprise-list-item">
+                    <div class="enterprise-list-title">{{ item.productName || '-' }}</div>
+                    <div class="enterprise-list-meta">{{ fieldValue(item.productDescription) }}</div>
+                  </div>
+                </div>
+                <div v-else class="empty-inline">暂无主要产品</div>
+              </div>
+
+              <div class="enterprise-block">
+                <div class="enterprise-block-title"><i class="el-icon-medal"></i>荣誉资质</div>
+                <div v-if="toList(selectedEnterprise.honorQualificationList).length" class="info-grid">
+                  <template v-for="item in toList(selectedEnterprise.honorQualificationList)" :key="item.id || item.enterpriseId">
+                    <div class="info-item"><div class="info-label">科技型中小企业</div><div class="info-value">{{ flagText(item.isTechSme) }}</div></div>
+                    <div class="info-item"><div class="info-label">创新型中小企业</div><div class="info-value">{{ flagText(item.isInnovativeSme) }}</div></div>
+                    <div class="info-item"><div class="info-label">高新技术企业</div><div class="info-value">{{ flagText(item.isHighTechEnterprise) }}</div></div>
+                    <div class="info-item"><div class="info-label">专精特新小巨人</div><div class="info-value">{{ flagText(item.isSpecializedLittleGiant) }}</div></div>
+                    <div class="info-item"><div class="info-label">专精特新中小企业</div><div class="info-value">{{ flagText(item.isSpecializedSme) }}</div></div>
+                    <div class="info-item"><div class="info-label">科技领军企业</div><div class="info-value">{{ flagText(item.isTechLeaderEnterprise) }}</div></div>
+                  </template>
+                </div>
+                <div v-else class="empty-inline">暂无荣誉资质</div>
+              </div>
+
+              <div class="enterprise-block">
+                <div class="enterprise-block-title"><i class="el-icon-money"></i>投融资与知识产权统计</div>
+                <div class="info-grid">
+                  <template v-for="item in toList(selectedEnterprise.investmentFinancingList)" :key="item.id || item.enterpriseId">
+                    <div class="info-item"><div class="info-label">天使投资</div><div class="info-value">{{ fieldValue(item.angelInvestment) }}</div></div>
+                    <div class="info-item"><div class="info-label">风险投资</div><div class="info-value">{{ fieldValue(item.ventureInvestment) }}</div></div>
+                    <div class="info-item"><div class="info-label">贷款金额</div><div class="info-value">{{ fieldValue(item.loanAmount) }}</div></div>
+                    <div class="info-item"><div class="info-label">投融资总额</div><div class="info-value">{{ fieldValue(item.totalInvestment) }}</div></div>
+                  </template>
+                  <template v-for="item in toList(selectedEnterprise.ipStatisticsList)" :key="item.id || item.enterpriseId">
+                    <div class="info-item"><div class="info-label">每百名研发人员知识产权数</div><div class="info-value">{{ fieldValue(item.ipPerHundredRd) }}</div></div>
+                  </template>
+                  <div v-if="!toList(selectedEnterprise.investmentFinancingList).length && !toList(selectedEnterprise.ipStatisticsList).length" class="info-item wide">
+                    <div class="info-label">数据状态</div><div class="info-value">暂无投融资与知识产权统计</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="enterprise-block">
+                <div class="enterprise-block-title"><i class="el-icon-trophy"></i>榜单排名</div>
+                <div v-if="rankingItems.length" class="enterprise-list">
+                  <div v-for="item in rankingItems" :key="item.source + '-' + (item.id || item.rankingName)" class="enterprise-list-item">
+                    <div class="enterprise-list-title">{{ item.rankingName || '-' }}</div>
+                    <div class="enterprise-list-meta">{{ item.source }} / 排名：{{ fieldValue(item.rankingPos) }}</div>
+                  </div>
+                </div>
+                <div v-else class="empty-inline">暂无榜单排名</div>
+              </div>
+
+            </div>
+            </section>
+          </el-dialog>
+
+          <section class="list-card">
+            <div class="list-header">
+              <div><div class="list-title">政策推荐列表</div></div>
+            </div>
+            <el-table :data="pagedPolicies" stripe :empty-text="policyEmptyText" row-key="id">
+              <el-table-column label="序号" width="60" align="center">
+                <template #default="{ $index }">{{ pagination.page > 0 ? (pagination.page - 1) * pagination.size + $index + 1 : $index + 1 }}</template>
+              </el-table-column>
+              <el-table-column label="政策标题 / 元数据" min-width="620">
+                <template #default="{ row }">
+                  <div class="policy-list-title">
+                    <span class="policy-table-title clickable-link" @click="openDetail(row)">{{ row.mainFileTitle || '-' }}</span>
+                  </div>
+                  <div class="policy-list-meta">
+                    <span><span class="meta-label">场景用途：</span><span class="meta-value">{{ sceneUsageLeafText(row.sceneUsage) }}</span></span>
+                    <span><span class="meta-label">行业领域：</span><span class="meta-value">{{ displayTagText(row.industryText) }}</span></span>
+                    <span><span class="meta-label">扶持类型：</span><span class="meta-value">{{ supportTypeTags(row.supportTypeText).join('；') || '-' }}</span></span>
+                    <span><span class="meta-label">适用范围：</span><span class="meta-value">{{ applicableScopeLeafText(row.applicableScope) }}</span></span>
+                    <span><span class="meta-label">申报时间：</span><span class="meta-value">{{ formatDateRange(row.applicationStartTime, row.applicationEndTime, row.applicationInstruction) || '-' }}</span></span>
+                    <span><span class="meta-label">最高奖励：</span><span class="meta-value">{{ row.maxAmount || '-' }}</span></span>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column label="星级推荐" width="190" align="center">
+                <template #default="{ row }">
+                  <span v-if="row.starCount" class="star-rating" :title="row.starText">{{ starSymbols(row.starCount) }}</span>
+                  <span class="policy-star-label">{{ row.starText }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="详情" width="100" align="center" fixed="right">
+                <template #default="{ row }">
+                  <el-button type="text" size="small" @click="openDetail(row)">详情</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <div class="pagination">
+              <el-pagination v-model:current-page="pagination.page" v-model:page-size="pagination.size" :page-sizes="[10,20,50]" :total="filteredPolicies.length" layout="total, sizes, prev, pager, next" @size-change="handleSizeChange"></el-pagination>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <el-drawer v-model="detailVisible" size="76%" :with-header="false" class="detail-drawer">
+        <template v-if="currentPolicy">
+          <div class="drawer-head">
+            <div class="drawer-title">{{ currentPolicy.mainFileTitle || '-' }}</div>
+            <div class="drawer-meta">
+              <span>发文部门：{{ currentPolicy.issuingDepartment || '-' }}</span>
+              <span>匹配度：{{ currentPolicy.matchScore === null ? '待重试' : formatScore(currentPolicy.matchScore) + '%' }}</span>
+              <span>星级：{{ currentPolicy.starText }}</span>
+              <span>推荐状态：{{ currentPolicy.recommendText }}</span>
+            </div>
+          </div>
+          <div class="drawer-body">
+            <section class="detail-section">
+              <div class="detail-section-head">企业信息</div>
+              <div class="detail-section-body">
+                <div class="info-grid">
+                  <div class="info-item"><div class="info-label">企业名称</div><div class="info-value">{{ selectedEnterprise?.enterpriseName || '-' }}</div></div>
+                  <div class="info-item"><div class="info-label">统一社会信用代码</div><div class="info-value">{{ selectedEnterprise?.creditCode || '-' }}</div></div>
+                  <div class="info-item"><div class="info-label">所属行业</div><div class="info-value">{{ selectedEnterprise?.industryField || '-' }}</div></div>
+                </div>
+              </div>
+            </section>
+            <section class="detail-section">
+              <div class="detail-section-head">政策推荐信息</div>
+              <div class="detail-section-body">
+                <div class="recommend-structured">
+                  <div class="detail-card">
+                    <div class="detail-card-header">基本信息</div>
+                    <div class="detail-card-body">
+                      <div class="detail-grid">
+                        <div class="field-item"><span class="field-label">政策标题（后端）</span><span class="field-value">{{ currentPolicy.mainFileTitle || '-' }}</span></div>
+                        <div class="field-item" v-if="currentPolicy.policyOriginalTitle && currentPolicy.policyOriginalTitle !== currentPolicy.mainFileTitle"><span class="field-label">政策原标题（前端）</span><span class="field-value">{{ currentPolicy.policyOriginalTitle }}</span></div>
+                        <div class="field-item"><span class="field-label">场景用途（前端）</span><span class="field-value"><el-tag v-for="tag in sceneUsageLeafTags(currentPolicy.sceneUsage)" :key="tag" size="small" effect="plain" style="border-color:var(--color-primary);color:var(--color-primary);margin:2px;">{{ tag }}</el-tag><span v-if="!sceneUsageLeafTags(currentPolicy.sceneUsage).length">-</span></span></div>
+                        <div class="field-item"><span class="field-label">适用范围（前端）</span><span class="field-value"><el-tag v-for="tag in applicableScopeLeafTags(currentPolicy.applicableScope)" :key="tag" size="small" effect="plain" style="border-color:var(--color-primary);color:var(--color-primary);margin:2px;">{{ tag }}</el-tag><span v-if="!applicableScopeLeafTags(currentPolicy.applicableScope).length">-</span></span></div>
+                        <div class="field-item"><span class="field-label">行业领域（前端）</span><span class="field-value"><el-tag v-for="tag in splitTags(currentPolicy.industryText)" :key="tag" size="small" effect="plain" style="border-color:var(--color-primary);color:var(--color-primary);margin:2px;">{{ tag }}</el-tag><span v-if="!splitTags(currentPolicy.industryText).length">-</span></span></div>
+                        <div class="field-item"><span class="field-label">发文部门（后端）</span><span class="field-value">{{ currentPolicy.issuingDepartment || '-' }}</span></div>
+                        <div class="field-item"><span class="field-label">指导/细则政策文号（后端）</span><span class="field-value">{{ currentPolicy.policyCode || '-' }}</span></div>
+                        <div class="field-item"><span class="field-label">指导/细则有效时间（前端）</span><span class="field-value">{{ formatDateRange(currentPolicy.effectiveStartDate, currentPolicy.effectiveEndDate) || '-' }}</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="detail-card">
+                    <div class="detail-card-header">类型（前端）</div>
+                    <div class="detail-card-body" style="padding:0;">
+                      <div v-if="currentPolicy.documents.length" class="doc-split">
+                        <div class="doc-sidebar">
+                          <div
+                            v-for="grp in getDocTypeGroups(currentPolicy.documents)"
+                            :key="grp"
+                            class="doc-sidebar-item"
+                            :class="{'is-active':docTypeTab===grp}"
+                            @click="docTypeTab=grp"
+                          >
+                            {{ grp }}<span class="doc-sidebar-count">({{ getDocsByAttr(currentPolicy.documents,grp).length }})</span>
+                          </div>
+                        </div>
+                        <div class="doc-content">
+                          <template v-if="getDocsByAttr(currentPolicy.documents, docTypeTab).length">
+                            <div
+                              v-for="d in getDocsByAttr(currentPolicy.documents, docTypeTab)"
+                              :key="d.id || d.sourcePolicyId || d.filePath || d.policyTitle"
+                              class="doc-row"
+                              @click="viewDocumentContent(d)"
+                            >
+                              <div class="doc-item-title">
+                                <span class="doc-file-icon"></span>
+                                <span class="clickable-link">{{ d.policyTitle || d.fileName || '-' }}</span>
+                              </div>
+                            </div>
+                          </template>
+                          <div v-else class="empty-state">该分类下暂无关联政策</div>
+                        </div>
+                      </div>
+                      <div v-else class="empty-state">暂无关联政策</div>
+                    </div>
+                  </div>
+
+                  <div class="detail-card">
+                    <div class="detail-card-header">政策关键词</div>
+                    <div class="detail-card-body" style="padding:0;">
+                      <div class="keyword-panel">
+                        <div class="keyword-sidebar">
+                          <div
+                            v-for="tab in policyKeywordTabs(currentPolicy)"
+                            :key="tab.key"
+                            class="keyword-tab"
+                            :class="{'is-active':tab.active}"
+                            @click="setPolicyKeywordTab(tab.key)"
+                          >
+                            {{ tab.label }}<span class="doc-sidebar-count">({{ tab.count }})</span>
+                          </div>
+                        </div>
+                        <div class="keyword-content">
+                          <div v-if="activePolicyKeywordItems(currentPolicy).length" class="scene-usage-list">
+                            <div v-for="item in activePolicyKeywordItems(currentPolicy)" :key="item.type + '-' + item.value" class="scene-usage-card">
+                              <div class="scene-usage-card-label">{{ item.value }}</div>
+                            </div>
+                          </div>
+                          <div v-else class="scene-usage-empty">暂无政策关键词</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="detail-card">
+                    <div class="detail-card-header">政策摘要（前端）</div>
+                    <div class="detail-card-body" style="padding:16px;">
+                      <div v-if="currentPolicy.summary" class="desc-block">{{ currentPolicy.summary }}</div>
+                      <div v-else class="empty-state">暂无政策摘要</div>
+                    </div>
+                  </div>
+
+                  <div class="detail-card">
+                    <div class="detail-card-header">支持方式</div>
+                    <div class="detail-card-body" style="padding:14px 16px;">
+                      <div v-if="currentPolicy.supportDetails.length">
+                        <div v-for="(sm, si) in currentPolicy.supportDetails" :key="si" class="support-card">
+                          <div class="detail-grid">
+                            <div class="field-item"><span class="field-label">扶持类型（前端）</span><span class="field-value"><el-tag v-for="tag in supportTypeTags(sm.supportType)" :key="tag" size="small" effect="plain" style="border-color:var(--color-primary);color:var(--color-primary);margin:2px;">{{ tag }}</el-tag><span v-if="!supportTypeTags(sm.supportType).length">-</span></span></div>
+                            <div class="field-item"><span class="field-label">扶持内容（前端）</span><span class="field-value">{{ sm.contentDesc || '-' }}</span></div>
+                            <div class="field-item"><span class="field-label">最高金额（前端）</span><span class="field-value"><el-tag v-if="sm.maxAmount" size="small" type="danger" effect="dark">{{ sm.maxAmount }}</el-tag><span v-else>-</span></span></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div v-else class="empty-state">暂无支持方式</div>
+                    </div>
+                  </div>
+
+                  <div class="detail-card">
+                    <div class="detail-card-header">申报材料及方式</div>
+                    <div class="detail-card-body" style="padding:14px 16px;">
+                      <template v-if="currentPolicy.materials.length">
+                        <div v-for="(mat, mi) in currentPolicy.materials" :key="mi" class="support-card">
+                          <div v-if="mat.materials" style="margin-bottom:12px;">
+                            <div class="field-label">申报材料（前端）</div>
+                            <div class="desc-block">{{ mat.materials }}</div>
+                          </div>
+                          <div v-if="formatDateRange(currentPolicy.applicationStartTime, currentPolicy.applicationEndTime)" style="margin-bottom:12px;">
+                            <div class="field-label">申报时间（后端）</div>
+                            <div class="desc-block">{{ formatDateRange(currentPolicy.applicationStartTime, currentPolicy.applicationEndTime) }}</div>
+                          </div>
+                          <div v-if="currentPolicy.applicationInstruction" style="margin-bottom:12px;">
+                            <div class="field-label">申报时间（前端）</div>
+                            <div class="desc-block">{{ currentPolicy.applicationInstruction }}</div>
+                          </div>
+                          <div v-if="mat.method" style="margin-bottom:12px;">
+                            <div class="field-label">申报方式（前端）</div>
+                            <div class="desc-block">{{ mat.method }}</div>
+                          </div>
+                          <div v-if="mat.url">
+                            <div class="field-label">申报链接（后端）</div>
+                            <a :href="mat.url" target="_blank" style="color:var(--page-accent);text-decoration:none;">{{ mat.url }}</a>
+                          </div>
+                        </div>
+                      </template>
+                      <div v-else class="empty-state">暂无申报材料</div>
+                      <div v-if="currentPolicy.materialAttachments.length" style="margin-top:14px;">
+                        <div class="field-label">申报材料类附件（前端）</div>
+                        <div class="attachment-link-list">
+                          <button
+                            v-for="att in currentPolicy.materialAttachments"
+                            :key="att.id || att.filePath || att.name"
+                            type="button"
+                            class="attachment-link-item"
+                            @click="viewAttachmentContent(att)"
+                          >
+                            <span class="attachment-link-icon"></span>
+                            <span class="attachment-link-name">{{ att.name || att.fileName || '-' }}</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="detail-section">
+              <div class="detail-section-head">匹配情况</div>
+              <div class="detail-section-body">
+                <div class="info-grid" style="margin-bottom:12px">
+                  <div class="info-item"><div class="info-label">匹配度</div><div class="info-value">{{ currentPolicy.matchScore === null ? '待重试' : formatScore(currentPolicy.matchScore) + '%' }}</div></div>
+                  <div class="info-item"><div class="info-label">星级</div><div class="info-value"><span class="star-rating">{{ starSymbols(currentPolicy.starCount) }}</span> {{ currentPolicy.starText }}</div></div>
+                  <div class="info-item"><div class="info-label">推荐状态</div><div class="info-value">{{ currentPolicy.recommendText }}</div></div>
+                  <div class="info-item wide"><div class="info-label">匹配状态</div><div class="info-value">{{ currentPolicy.matchStatusText }}</div></div>
+                </div>
+                <div v-if="toList(currentPolicy.recommendationBlockers).length" class="match-detail-list" style="margin-bottom:12px;">
+                  <div v-for="(item, index) in toList(currentPolicy.recommendationBlockers)" :key="'blocker-' + index" class="match-detail-item">
+                    <div class="match-detail-title">
+                      <span>未推荐原因 {{ index + 1 }}</span>
+                      <el-tag size="small" type="warning" effect="plain">阻断</el-tag>
+                    </div>
+                    <div class="match-detail-meta">{{ item }}</div>
+                  </div>
+                </div>
+                <div v-if="currentPolicy.matchDetails.length" class="match-detail-list">
+                  <div v-for="(item, index) in currentPolicy.matchDetails" :key="index" class="match-detail-item">
+                    <div class="match-detail-title">
+                      <span>{{ item.conditionName || item.name || item.title || ('匹配项 ' + (index + 1)) }}</span>
+                      <el-tag size="small" effect="plain">{{ item.matchLevel || item.matchDegree || item.status || (item.score === undefined ? '-' : formatScore(item.score) + '分') }}</el-tag>
+                    </div>
+                    <div class="match-detail-meta" v-if="item.policyRequirement || item.policyText || item.requirement || item.applicationRequirement">政策要求：{{ item.policyRequirement || item.policyText || item.requirement || item.applicationRequirement }}</div>
+                    <div class="match-detail-meta" v-if="item.enterpriseStatus || item.enterpriseValue || item.currentValue || item.enterpriseField">企业情况：{{ item.enterpriseStatus || item.enterpriseValue || item.currentValue || (item.enterpriseField + '：' + fieldValue(item.enterpriseValue)) }}</div>
+                    <div class="match-detail-meta" v-if="item.gapAnalysis || item.analysis || item.remark">差距分析：{{ item.gapAnalysis || item.analysis || item.remark }}</div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </template>
+      </el-drawer>
+
+      <el-dialog v-model="docTypeVisible" :title="documentPolicy?.mainFileTitle || '类型（前端）'" width="80%" top="5vh" style="max-width:1200px;">
+        <div class="detail-card">
+          <div class="detail-card-body" style="padding:0;">
+            <div v-if="policyDocuments.length" class="doc-split">
+              <div class="doc-sidebar">
+                <div
+                  v-for="grp in getDocTypeGroups(policyDocuments)"
+                  :key="grp"
+                  class="doc-sidebar-item"
+                  :class="{'is-active':docTypeTab===grp}"
+                  @click="docTypeTab=grp"
+                >
+                  {{ grp }}<span class="doc-sidebar-count">({{ getDocsByAttr(policyDocuments,grp).length }})</span>
+                </div>
+              </div>
+              <div class="doc-content">
+                <template v-if="getDocsByAttr(policyDocuments, docTypeTab).length">
+                  <div
+                    v-for="d in getDocsByAttr(policyDocuments, docTypeTab)"
+                    :key="d.id || d.sourcePolicyId || d.filePath || d.policyTitle"
+                    class="doc-row"
+                    @click="viewDocumentContent(d)"
+                  >
+                    <div class="doc-item-title">
+                      <span class="doc-file-icon"></span>
+                      <span class="clickable-link">{{ d.policyTitle || d.fileName || '-' }}</span>
+                    </div>
+                  </div>
+                </template>
+                <div v-else class="empty-state" style="padding:30px 0;text-align:center;color:var(--color-text-secondary);">该分类下暂无关联政策</div>
+              </div>
+            </div>
+            <div v-else class="empty-state" style="padding:30px 0;text-align:center;color:var(--color-text-secondary);">暂无关联政策</div>
+          </div>
+        </div>
+      </el-dialog>
+
+      <el-dialog v-model="contentVisible" :title="contentDialogTitle" width="80%" top="3vh" style="max-width:1200px;" @close="contentLoading=false;contentError='';contentData=null">
+        <template v-if="contentLoading">
+          <div style="padding:60px 20px;text-align:center;color:#718096;">
+            <div style="font-size:15px;">正在加载原文...</div>
+          </div>
+        </template>
+        <template v-else-if="contentError">
+          <div style="padding:40px 20px;text-align:center;color:#e74c3c;">
+            <div style="font-size:15px;font-weight:700;">加载失败</div>
+            <div style="margin-top:10px;font-size:13px;color:#718096;">{{ contentError }}</div>
+          </div>
+        </template>
+        <template v-else-if="contentData">
+          <div class="content-dialog-meta">
+            <div><span>文档标题：</span><strong>{{ contentData.policyTitle || contentData.title || contentData.fileName || '-' }}</strong></div>
+            <div v-if="contentData.publishDate"><span>发布日期：</span><strong>{{ contentData.publishDate }}</strong></div>
+            <div v-if="contentData.documentNo"><span>文号：</span><strong>{{ contentData.documentNo }}</strong></div>
+            <div v-if="contentData.issuingDepartment"><span>发文机关：</span><strong>{{ contentData.issuingDepartment }}</strong></div>
+          </div>
+          <div class="content-panel">
+            <div class="content-panel-head">原文内容</div>
+            <div class="content-panel-body">
+              <div v-if="contentData.contentHtml" class="content-panel-html" v-html="contentData.contentHtml"></div>
+              <pre v-else>{{ contentData.content || '（无内容）' }}</pre>
+            </div>
+          </div>
+        </template>
+        <template #footer>
+          <el-button @click="contentVisible=false">关闭</el-button>
+        </template>
+      </el-dialog>
+    </el-config-provider>
+  </div>
+
+  <script src="/lib/cdn/vue.global.js"></script>
+  <script src="/lib/cdn/element-plus.umd.js"></script>
+  <script src="/lib/cdn/element-plus-icons.min.js"></script>
+  <script src="../js/menu.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/page-init.js"></script>
+  <script>
+    const { createApp, ref, reactive, computed, onMounted } = Vue;
+    const { ElMessage } = ElementPlus;
+
+    const zhCnLocale = {
+      name: 'zh-cn',
+      el: {
+        select: { loading: '加载中', noMatch: '无匹配数据', noData: '无数据', placeholder: '请选择' },
+        pagination: { goto: '前往', pagesize: '条/页', total: '共 {total} 条', pageClassifier: '页', prev: '上一页', next: '下一页' },
+        table: { emptyText: '暂无数据', confirmFilter: '确认', resetFilter: '重置', clearFilter: '全部', sumText: '合计' },
+        messagebox: { title: '提示', confirm: '确定', cancel: '取消', error: '输入的数据不合法' }
+      }
+    };
+
+    const app = createApp({
+      setup() {
+        const DEFAULT_POLICY_RESULT_PATH = '/api/enterprise-match-results/result?file=policy-match-results.json';
+        const ENTERPRISE_MATCH_MANIFEST_PATH = '/api/enterprise-match-results/manifest';
+        const defaultEnterprise = {
+          id: 'xiamen-new-tech-integration',
+          enterpriseName: '厦门新技术集成有限公司',
+          creditCode: '',
+          industryField: '',
+          enterpriseScale: '',
+          registerDate: '',
+          updateTime: '',
+          operationInfoList: [],
+          mainTechnologyList: [],
+          mainProductList: [],
+          honorQualificationList: [],
+          investmentFinancingList: [],
+          ipStatisticsList: [],
+          internationalRankingList: [],
+          nationalRankingList: [],
+          provincialRankingList: [],
+          matchResultPath: DEFAULT_POLICY_RESULT_PATH
+        };
+        const enterpriseLoading = ref(false);
+        const loadError = ref('');
+        const enterprises = ref([defaultEnterprise]);
+        const selectedEnterpriseId = ref('');
+        const selectedEnterprise = ref(null);
+        const hasMatched = ref(false);
+        const policies = ref([]);
+        const enterpriseDetailVisible = ref(false);
+        const detailVisible = ref(false);
+        const currentPolicy = ref(null);
+        const docTypeVisible = ref(false);
+        const documentPolicy = ref(null);
+        const docTypeTab = ref('');
+        const detailKeywordTab = ref('');
+        const contentVisible = ref(false);
+        const contentLoading = ref(false);
+        const contentError = ref('');
+        const contentData = ref(null);
+        const search = reactive({ filter: 'all', keyword: '' });
+        const pagination = reactive({ page: 1, size: 10 });
+        const loadedPolicyResultPath = ref('');
+        let policyLoadSeq = 0;
+
+        const asArray = value => Array.isArray(value) ? value : (value ? [value] : []);
+        const toList = value => asArray(value);
+        const toNumberOrNull = value => {
+          if (value === null || value === undefined || value === '') return null;
+          const num = Number(value);
+          return Number.isFinite(num) ? num : null;
+        };
+        const enterpriseKey = row => String(row?.id || row?.creditCode || row?.enterpriseName || '');
+        const policyResultPathOf = row => String(row?.matchResultPath || DEFAULT_POLICY_RESULT_PATH);
+        const boolValue = value => value === true || value === 1 || value === '1' || value === 'true' || value === '是' || value === '推荐';
+        const parseDate = value => {
+          if (!value) return null;
+          const date = new Date(String(value).replace(/-/g, '/'));
+          return Number.isNaN(date.getTime()) ? null : date;
+        };
+        const applicationStatus = (startValue, endValue) => {
+          const start = parseDate(startValue);
+          const end = parseDate(endValue);
+          const now = new Date();
+          if (!start && !end) return { value: 'unknown', label: '时间待确认', type: 'info' };
+          if (start && now < start) return { value: 'notStarted', label: '未开始', type: 'warning' };
+          if (end && now > end) return { value: 'ended', label: '已截止', type: 'danger' };
+          return { value: 'applying', label: '申报中', type: 'success' };
+        };
+        const documentText = documents => asArray(documents)
+          .map(item => typeof item === 'string' ? item : (item?.policyAttribute || item?.type || item?.category || ''))
+          .filter(Boolean)
+          .filter((item, index, arr) => arr.indexOf(item) === index)
+          .join('、');
+        const sourceDocumentText = documents => asArray(documents)
+          .map(item => typeof item === 'string' ? item : (item?.policyTitle || item?.title || item?.name || item?.mainFileTitle || ''))
+          .filter(Boolean)
+          .join('、');
+        const supportMethods = value => asArray(value).map(String).map(item => item.trim()).filter(Boolean);
+        const splitTags = text => String(text || '').split(/[；;、,，\n]/).map(item => item.trim()).filter(Boolean);
+        const uniqueJoin = (items, separator = '；') => items.map(item => String(item || '').trim()).filter(Boolean).filter((item, index, arr) => arr.indexOf(item) === index).join(separator);
+        const cleanCategoryPart = value => String(value || '').replace(/[\u00a0\u3000]/g, ' ').trim();
+        const collapseRepeatedPath = text => {
+          const parts = cleanCategoryPart(text).split(/\s*[-—–/]\s*/).map(cleanCategoryPart).filter(Boolean);
+          if (parts.length >= 2 && parts.length % 2 === 0) {
+            const half = parts.length / 2;
+            const left = parts.slice(0, half).join('-');
+            const right = parts.slice(half).join('-');
+            if (left && left === right) return left;
+          }
+          return parts.length ? parts.join('-') : cleanCategoryPart(text);
+        };
+        const leafPathLabel = tag => {
+          const text = collapseRepeatedPath(tag);
+          if (!text) return '';
+          const parts = text.split(/\s*[-—–/]\s*/).map(item => item.trim()).filter(Boolean);
+          return parts.length ? parts[parts.length - 1] : text;
+        };
+        const fullPathLabel = tag => collapseRepeatedPath(tag);
+        const parseSceneUsageItems = text => {
+          const seen = new Set();
+          return splitTags(text).map(value => {
+            const normalized = String(value || '').trim();
+            if (!normalized || seen.has(normalized)) return null;
+            seen.add(normalized);
+            return { value: normalized, label: normalized };
+          }).filter(Boolean);
+        };
+        const applicableScopeLeafLabel = tag => {
+          const text = String(tag || '').trim();
+          if (!text) return '';
+          const topLevels = ['国家级', '省级', '市级', '区级', '厦门区', '园区'];
+          for (const level of topLevels) {
+            const matched = text.match(new RegExp(`^${level}\\s*[-—–/]\\s*(.+)$`));
+            if (matched && matched[1]) return matched[1].trim();
+          }
+          return text;
+        };
+        const applicableScopeLeafTags = text => splitTags(text).map(applicableScopeLeafLabel).filter(Boolean);
+        const applicableScopeLeafText = text => {
+          const tags = applicableScopeLeafTags(text);
+          return tags.length ? tags.join('；') : '-';
+        };
+        const supportTypeLeafLabel = tag => fullPathLabel(tag);
+        const sceneUsageLeafTags = text => parseSceneUsageItems(text).map(item => fullPathLabel(item.label || item.value)).filter(Boolean);
+        const sceneUsageLeafText = text => {
+          const tags = sceneUsageLeafTags(text);
+          return tags.length ? tags.join('；') : '-';
+        };
+        const splitSupportTypeValues = text => String(text || '').split(/\s*[、，,；;\n]+\s*/g).map(item => item.trim()).filter(Boolean);
+        const parseSupportTypeItems = text => {
+          const seen = new Set();
+          return splitSupportTypeValues(text).map(value => {
+            const normalized = String(value || '').trim();
+            if (!normalized || seen.has(normalized)) return null;
+            seen.add(normalized);
+            return { value: normalized, label: normalized };
+          }).filter(Boolean);
+        };
+        const supportTypeTags = text => parseSupportTypeItems(text).map(item => supportTypeLeafLabel(item.label || item.value)).filter(Boolean);
+        const displayTagText = text => splitTags(text).join('；') || '-';
+        const supportTypeText = value => uniqueJoin(asArray(value).map(item => {
+          if (typeof item === 'string') {
+            const normalized = item.trim().replace(/^\d+[、.．]\s*/, '');
+            const heading = normalized.match(/^[（(][一二三四五六七八九十百千万\d]+[）)]\s*([^。；;\n]{2,24})/);
+            const bracket = normalized.match(/[【\[]([^】\]]{2,24})[】\]]/);
+            if (heading) return heading[1];
+            if (bracket) return bracket[1];
+            return normalized.length <= 60 ? normalized : '';
+          }
+          return item?.supportType || item?.type || item?.category || item?.name || item?.supportMethod || '';
+        }));
+        const normalizeSupportDetails = (value, fallbackMaxAmount = '') => {
+          const list = asArray(value).map((item, index) => {
+            if (typeof item === 'string') {
+              const text = item.trim();
+              if (!text) return null;
+              return {
+                id: `support-${index}`,
+                supportType: supportTypeText([text]),
+                contentDesc: text,
+                maxAmount: fallbackMaxAmount || ''
+              };
+            }
+            const supportType = supportTypeText(item?.supportType || item?.supportTypes || item?.type || item?.category || item?.name || item?.supportMethod);
+            return {
+              id: item?.id || `support-${index}`,
+              supportType,
+              contentDesc: String(item?.contentDesc || item?.content || item?.description || item?.supportContent || '').trim(),
+              maxAmount: String(item?.maxAmount || item?.amount || fallbackMaxAmount || '').trim()
+            };
+          }).filter(Boolean);
+          if (!list.length && fallbackMaxAmount) {
+            return [{ id: 'support-fallback', supportType: '', contentDesc: '', maxAmount: fallbackMaxAmount }];
+          }
+          return list;
+        };
+        const normalizeMaterials = item => {
+          const rawMaterials = asArray(item?.materials || item?.applicationMaterials || item?.applicationMaterialList);
+          const materials = rawMaterials.map((mat, index) => {
+            if (typeof mat === 'string') return { id: `material-${index}`, materials: mat, method: '', url: '' };
+            return {
+              id: mat?.id || `material-${index}`,
+              materials: String(mat?.materials || mat?.material || mat?.name || mat?.content || '').trim(),
+              method: String(mat?.method || mat?.applicationMethod || mat?.applyMethod || '').trim(),
+              url: String(mat?.url || mat?.applicationUrl || mat?.applyUrl || '').trim()
+            };
+          }).filter(mat => mat.materials || mat.method || mat.url);
+          const fallbackUrl = asArray(item?.documents).map(doc => doc?.originalUrl).find(Boolean) || '';
+          if (!materials.length && (item?.applicationInstruction || fallbackUrl)) {
+            materials.push({ id: 'material-fallback', materials: '', method: '', url: fallbackUrl });
+          }
+          return materials;
+        };
+        const normalizeMaterialAttachments = documents => asArray(documents).flatMap(doc => asArray(doc?.attachments).map((att, index) => {
+          const name = att?.name || att?.attachmentName || att?.attachmentShowName || att?.fileName || att?.title || '';
+          const typeText = `${att?.attachmentType || ''} ${name}`;
+          return {
+            ...att,
+            id: att?.id || `${doc?.id || doc?.sourcePolicyId || 'doc'}-${index}`,
+            name,
+            fileName: att?.fileName || name,
+            policyTitle: doc?.policyTitle || doc?.fileName || name,
+            sourcePolicyId: doc?.sourcePolicyId || att?.sourcePolicyId || '',
+            isApplicationMaterial: /申报材料|申请|申报表|材料|模板|流程|指南/i.test(typeText)
+          };
+        })).filter(att => att.isApplicationMaterial);
+        const normalizeDetailAttachments = detail => {
+          const fromDocuments = normalizeMaterialAttachments(detail?.documents || []);
+          const fromTopLevel = asArray(detail?.attachments).map((att, index) => {
+            const name = att?.name || att?.attachmentName || att?.attachmentShowName || att?.fileName || att?.title || '';
+            const typeText = `${att?.attachmentType || ''} ${name}`;
+            return {
+              ...att,
+              id: att?.id || `attachment-${index}`,
+              name,
+              fileName: att?.fileName || name,
+              policyTitle: att?.policyTitle || name,
+              isApplicationMaterial: /申报材料|申请|申报表|材料|模板|流程|指南/i.test(typeText)
+            };
+          }).filter(att => att.isApplicationMaterial);
+          const seen = new Set();
+          return [...fromDocuments, ...fromTopLevel].filter(att => {
+            const key = String(att.id || att.filePath || att.name || '').trim();
+            if (!key || seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          });
+        };
+        const starCountFromText = text => {
+          if (text.includes('五星')) return 5;
+          if (text.includes('四星')) return 4;
+          if (text.includes('三星')) return 3;
+          if (text.includes('二星')) return 2;
+          if (text.includes('一星')) return 1;
+          return 0;
+        };
+        const starSymbols = count => count > 0 ? '⭐'.repeat(count) : '-';
+        const deriveStar = (score, retryable) => {
+          if (retryable || score === null) return '待重试';
+          if (score >= 90) return '五星推荐';
+          if (score >= 80) return '四星推荐';
+          if (score >= 70) return '三星推荐';
+          if (score >= 60) return '二星推荐';
+          if (score >= 50) return '一星推荐';
+          return '不推荐';
+        };
+        const deriveRecommendText = (score, retryable, hasBlockers) => {
+          if (hasBlockers) return '不推荐';
+          if (retryable || score === null) return '推荐待确认';
+          return score >= 50 ? '推荐' : '不推荐';
+        };
+        const normalizePolicy = (item, index) => {
+          const matchScore = toNumberOrNull(item?.matchScore);
+          const retryable = boolValue(item?.retryable);
+          const fusionPolicyId = String(item?.fusionPolicyId || item?.policyId || '');
+          const status = applicationStatus('', '');
+          const isRecommended = item?.isRecommended === null || item?.isRecommended === undefined ? null : boolValue(item?.isRecommended);
+          const recommendationBlockers = asArray(item?.recommendationBlockers).map(value => String(value || '').trim()).filter(Boolean);
+          const starText = recommendationBlockers.length ? '不推荐' : deriveStar(matchScore, retryable);
+          const matchDetails = asArray(item?.matchDetails || item?.conditionMatchDetails || item?.conditionDetails || item?.ruleResults || item?.matchedConditions || item?.['条件匹配详情']);
+          const documents = asArray(item?.documents);
+          const supportDetails = [];
+          const documentForBasicInfo = documents.find(doc => doc?.documentNo || doc?.policyTitle || doc?.publishDate) || {};
+          return {
+            id: fusionPolicyId || `${item?.mainFileTitle || 'policy'}-${index}`,
+            fusionPolicyId,
+            mainFileTitle: String(item?.mainFileTitle || ''),
+            policyOriginalTitle: String(item?.policyOriginalTitle || item?.originalTitle || documentForBasicInfo.policyTitle || ''),
+            issuingDepartment: String(item?.issuingDepartment || ''),
+            policyCode: String(item?.policyCode || item?.documentNo || documentForBasicInfo.documentNo || ''),
+            effectiveStartDate: item?.effectiveStartDate || item?.policyEffectiveStartDate || '',
+            effectiveEndDate: item?.effectiveEndDate || item?.policyEffectiveEndDate || '',
+            matchScore,
+            starText,
+            starCount: starCountFromText(starText),
+            isRecommended,
+            recommendText: deriveRecommendText(matchScore, retryable, recommendationBlockers.length > 0),
+            maxAmount: '',
+            sceneUsage: '',
+            documents,
+            documentText: documentText(documents),
+            sourceDocumentText: sourceDocumentText(documents),
+            applicableScope: '',
+            industryText: '',
+            applicationStartTime: '',
+            applicationEndTime: '',
+            applicationInstruction: item?.applicationInstruction || '',
+            summary: String(item?.summary || item?.policySummary || item?.policyInfo?.summary || '').trim(),
+            keywords: asArray(item?.keywords || item?.policyKeywords || item?.policyInfo?.keywords).map(value => typeof value === 'string' ? value : (value?.text || value?.name || value?.value || '')).filter(Boolean),
+            materials: normalizeMaterials(item),
+            materialAttachments: normalizeMaterialAttachments(documents),
+            applicationStatus: status,
+            supportMethods: [],
+            supportDetails,
+            supportTypeText: '',
+            matchStatusText: String(item?.matchStatus || (retryable ? '匹配失败待重试' : 'matched')),
+            recommendationBlockers,
+            matchDetails,
+            retryable,
+            raw: item
+          };
+        };
+
+        const enterpriseOptions = computed(() => enterprises.value);
+        const rankingItems = computed(() => [
+          ...asArray(selectedEnterprise.value?.internationalRankingList).map(item => ({ ...item, source: '国际榜单' })),
+          ...asArray(selectedEnterprise.value?.nationalRankingList).map(item => ({ ...item, source: '国家榜单' })),
+          ...asArray(selectedEnterprise.value?.provincialRankingList).map(item => ({ ...item, source: '省级榜单' }))
+        ]);
+        const visiblePolicies = computed(() => (hasMatched.value && selectedEnterpriseId.value ? policies.value : []));
+        const filterOptions = computed(() => [
+          { label: '全部', value: 'all', count: visiblePolicies.value.length },
+          { label: '五星推荐', value: 'star5', count: visiblePolicies.value.filter(item => item.starText === '五星推荐').length },
+          { label: '四星推荐', value: 'star4', count: visiblePolicies.value.filter(item => item.starText === '四星推荐').length },
+          { label: '三星推荐', value: 'star3', count: visiblePolicies.value.filter(item => item.starText === '三星推荐').length },
+          { label: '二星推荐', value: 'star2', count: visiblePolicies.value.filter(item => item.starText === '二星推荐').length },
+          { label: '一星推荐', value: 'star1', count: visiblePolicies.value.filter(item => item.starText === '一星推荐').length },
+          { label: '不推荐', value: 'notRecommended', count: visiblePolicies.value.filter(item => item.starText === '不推荐' || item.recommendText === '不推荐').length }
+        ]);
+        const filteredPolicies = computed(() => {
+          const keyword = String(search.keyword || '').trim().toLowerCase();
+          return visiblePolicies.value.filter(row => {
+            if (search.filter === 'star5' && row.starText !== '五星推荐') return false;
+            if (search.filter === 'star4' && row.starText !== '四星推荐') return false;
+            if (search.filter === 'star3' && row.starText !== '三星推荐') return false;
+            if (search.filter === 'star2' && row.starText !== '二星推荐') return false;
+            if (search.filter === 'star1' && row.starText !== '一星推荐') return false;
+            if (search.filter === 'notRecommended' && !(row.starText === '不推荐' || row.recommendText === '不推荐')) return false;
+            if (keyword) {
+              const haystack = [row.mainFileTitle, row.sceneUsage, row.industryText].join(' ').toLowerCase();
+              if (!haystack.includes(keyword)) return false;
+            }
+            return true;
+          });
+        });
+        const pagedPolicies = computed(() => {
+          const start = (pagination.page - 1) * pagination.size;
+          return filteredPolicies.value.slice(start, start + pagination.size);
+        });
+        const policyDocuments = computed(() => asArray(documentPolicy.value?.documents));
+        const contentDialogTitle = computed(() => contentData.value?.policyTitle || contentData.value?.title || contentData.value?.fileName || '政策原文');
+        const policyEmptyText = computed(() => selectedEnterpriseId.value && hasMatched.value ? '暂无政策推荐结果' : '请输入企业名称并点击一键匹配');
+        const policyKeywordItems = row => {
+          const typedItems = [
+            ...splitTags(row?.industryText).map(value => ({ type: 'industryField', value })),
+            ...splitTags(row?.sceneUsage).map(value => ({ type: 'sceneUsage', value })),
+            ...splitTags(row?.supportTypeText).map(value => ({ type: 'supportType', value })),
+            ...asArray(row?.keywords).map(value => ({ type: 'keyword', value: String(value || '').trim() }))
+          ];
+          const used = new Set();
+          return typedItems.filter(item => {
+            if (!item.value || used.has(`${item.type}-${item.value}`)) return false;
+            used.add(`${item.type}-${item.value}`);
+            return true;
+          });
+        };
+        const policyKeywordItemsByType = (row, type) => policyKeywordItems(row).filter(item => item.type === type);
+        const activePolicyKeywordTab = row => {
+          const tabs = policyKeywordTabs(row);
+          if (tabs.some(tab => tab.key === detailKeywordTab.value)) return detailKeywordTab.value;
+          return tabs[0]?.key || '';
+        };
+        const policyKeywordTabs = row => {
+          const items = policyKeywordItems(row);
+          const tabs = [
+            { key: 'industryField', label: '行业领域（前端）', count: items.filter(item => item.type === 'industryField').length },
+            { key: 'sceneUsage', label: '场景用途（前端）', count: items.filter(item => item.type === 'sceneUsage').length },
+            { key: 'supportType', label: '扶持类型（前端）', count: items.filter(item => item.type === 'supportType').length },
+            { key: 'keyword', label: '政策关键词（前端）', count: items.filter(item => item.type === 'keyword').length }
+          ].filter(tab => tab.count > 0);
+          const normalizedTabs = tabs.length ? tabs : [{ key: 'empty', label: '政策关键词（前端）', count: 0 }];
+          const activeKey = detailKeywordTab.value && normalizedTabs.some(tab => tab.key === detailKeywordTab.value) ? detailKeywordTab.value : normalizedTabs[0]?.key;
+          return normalizedTabs.map(tab => ({ ...tab, active: tab.key === activeKey }));
+        };
+        const activePolicyKeywordItems = row => policyKeywordItemsByType(row, activePolicyKeywordTab(row));
+        const setPolicyKeywordTab = key => {
+          detailKeywordTab.value = key;
+        };
+        const documentMergeKey = doc => String(doc?.policyTitle || doc?.fileName || doc?.title || '').trim();
+        const mergeDocumentLists = (detailDocuments, rowDocuments) => {
+          const rowByTitle = new Map(asArray(rowDocuments).map(doc => [documentMergeKey(doc), doc]).filter(([key]) => key));
+          const merged = asArray(detailDocuments).map(doc => {
+            const localDoc = rowByTitle.get(documentMergeKey(doc));
+            return localDoc ? { ...doc, ...localDoc, id: localDoc.id || doc.id } : doc;
+          });
+          const existing = new Set(merged.map(documentMergeKey).filter(Boolean));
+          for (const doc of asArray(rowDocuments)) {
+            const key = documentMergeKey(doc);
+            if (key && !existing.has(key)) {
+              merged.push(doc);
+              existing.add(key);
+            }
+          }
+          return merged;
+        };
+        const mergeStructuredDetail = (row, detail) => {
+          const policyInfo = detail?.policyInfo || {};
+          const documents = asArray(detail?.documents).length
+            ? mergeDocumentLists(detail.documents, row?.documents)
+            : asArray(row?.documents);
+          const supportDetails = asArray(detail?.supportMethods).length
+            ? normalizeSupportDetails(detail.supportMethods, row?.maxAmount || '')
+            : asArray(row?.supportDetails);
+          const supportType = uniqueJoin([
+            row?.supportTypeText,
+            ...supportDetails.map(item => item.supportType)
+          ].flatMap(splitTags));
+          const merged = {
+            ...row,
+            mainFileTitle: detail?.mainFileTitle || detail?.directoryTitle || row?.mainFileTitle || '',
+            policyOriginalTitle: policyInfo.policyOriginalTitle || row?.policyOriginalTitle || '',
+            issuingDepartment: policyInfo.issuingDepartment || row?.issuingDepartment || '',
+            policyCode: policyInfo.policyCode || row?.policyCode || '',
+            effectiveStartDate: policyInfo.effectiveStartDate || row?.effectiveStartDate || '',
+            effectiveEndDate: policyInfo.effectiveEndDate || row?.effectiveEndDate || '',
+            sceneUsage: row?._structureListMeta ? (row?.sceneUsage || '') : (policyInfo.sceneUsage || row?.sceneUsage || ''),
+            applicableScope: row?._structureListMeta ? (row?.applicableScope || '') : (policyInfo.applicableScope || row?.applicableScope || ''),
+            industryText: row?._structureListMeta ? (row?.industryText || '') : (policyInfo.industryField || row?.industryText || ''),
+            summary: String(policyInfo.summary || detail?.summary || row?.summary || '').trim(),
+            keywords: asArray(detail?.keywords).length ? asArray(detail.keywords).map(value => typeof value === 'string' ? value : (value?.text || value?.name || value?.value || '')).filter(Boolean) : asArray(row?.keywords),
+            documents,
+            documentText: documentText(documents),
+            sourceDocumentText: sourceDocumentText(documents),
+            supportDetails,
+            supportMethods: supportDetails.map(item => item.contentDesc).filter(Boolean),
+            supportTypeText: row?._structureListMeta ? (row?.supportTypeText || '') : supportType,
+            materials: asArray(detail?.materials).length ? normalizeMaterials(detail) : asArray(row?.materials),
+            materialAttachments: normalizeDetailAttachments({ documents, attachments: detail?.attachments })
+          };
+          if (!merged.materialAttachments.length) merged.materialAttachments = asArray(row?.materialAttachments);
+          return merged;
+        };
+        const loadStructuredPolicyDetail = async row => {
+          if (row?._structuredDetailLoaded) return row;
+          const fusionPolicyId = String(row?.fusionPolicyId || row?.id || '').trim();
+          if (!fusionPolicyId) return row;
+          try {
+            const response = await fetch(`/api/fusion-classification/fusion-detail?fusionPolicyId=${encodeURIComponent(fusionPolicyId)}`, { cache: 'no-store' });
+            const payload = await response.json().catch(() => ({}));
+            if (!response.ok || payload.success === false || !payload.data || payload.data.hasFusionStructuredData !== true) return row;
+            return { ...mergeStructuredDetail(row, payload.data), _structuredDetailLoaded: true };
+          } catch (error) {
+            return row;
+          }
+        };
+        const loadStructurePolicyListMeta = async matchedIds => {
+          const metaMap = new Map();
+          const remaining = new Set(asArray(matchedIds).map(id => String(id || '').trim()).filter(Boolean));
+          if (!remaining.size) return metaMap;
+          const size = 100;
+          let page = 1;
+          let total = 0;
+          do {
+            const params = new URLSearchParams({
+              page: String(page),
+              size: String(size),
+              reviewStatus: '1',
+              requireSourcePolicyId: '1',
+              structureReviewStatus: 'all',
+              skipFilterStats: '1'
+            });
+            const response = await fetch(`/api/fusion-classification/policies?${params.toString()}`, { cache: 'no-store' });
+            const payload = await response.json().catch(() => ({}));
+            if (!response.ok || payload.success === false) throw new Error(payload.message || '结构化政策列表读取失败');
+            const rows = asArray(payload.data);
+            rows.forEach(item => {
+              const id = String(item?.id || item?.fusionPolicyId || '').trim();
+              if (!id) return;
+              metaMap.set(id, {
+                sceneUsage: String(item?.sceneUsage || ''),
+                industryField: String(item?.industryField || ''),
+                supportType: String(item?.supportType || ''),
+                applicableScope: String(item?.applicableScope || ''),
+                applicationStartTime: item?.applicationStartTime || '',
+                applicationEndTime: item?.applicationEndTime || '',
+                maxAmount: String(item?.maxAmount || '')
+              });
+              remaining.delete(id);
+            });
+            total = Number(payload.pagination?.total || rows.length || 0);
+            page += 1;
+            if (!rows.length || !remaining.size) break;
+          } while ((page - 1) * size < total);
+          return metaMap;
+        };
+        const applyStructureListMeta = (row, metaMap) => {
+          const meta = metaMap.get(String(row?.fusionPolicyId || row?.id || '').trim());
+          if (!meta) return row;
+          return {
+            ...row,
+            _structureListMeta: true,
+            sceneUsage: meta.sceneUsage,
+            industryText: meta.industryField,
+            supportTypeText: meta.supportType,
+            applicableScope: meta.applicableScope,
+            applicationStartTime: meta.applicationStartTime,
+            applicationEndTime: meta.applicationEndTime,
+            maxAmount: meta.maxAmount,
+            applicationStatus: applicationStatus(meta.applicationStartTime, meta.applicationEndTime)
+          };
+        };
+        const refreshStructureMetaForList = async (rows, loadSeq) => {
+          try {
+            const ids = rows.map(row => row?.fusionPolicyId || row?.id).filter(Boolean);
+            const metaMap = await loadStructurePolicyListMeta(ids);
+            if (loadSeq !== policyLoadSeq || !metaMap.size) return;
+            policies.value = policies.value.map(row => applyStructureListMeta(row, metaMap));
+          } catch (error) {
+            console.warn('[match] structure list meta refresh failed', error);
+          }
+        };
+        const loadEnterpriseOptions = async () => {
+          enterpriseLoading.value = true;
+          try {
+            const manifestResponse = await fetch(ENTERPRISE_MATCH_MANIFEST_PATH, { cache: 'no-store' });
+            const manifest = await manifestResponse.json().catch(() => ({}));
+            const manifestEnterprises = asArray(manifest?.data?.enterprises || manifest?.enterprises);
+            if (!manifestResponse.ok || manifest.success === false || !manifestEnterprises.length) throw new Error(manifest.message || '企业匹配结果读取失败');
+            enterprises.value = manifestEnterprises;
+            return;
+          } catch (error) {
+            loadError.value = error.message || '企业数据读取失败';
+          } finally {
+            enterpriseLoading.value = false;
+          }
+        };
+
+        const loadPolicyResults = async (path = DEFAULT_POLICY_RESULT_PATH) => {
+          const loadSeq = ++policyLoadSeq;
+          try {
+            loadError.value = '';
+            const response = await fetch(path, { cache: 'no-store' });
+            const payload = await response.json();
+            if (!response.ok || payload.success === false) {
+              throw new Error(payload.message || '政策推荐结果读取失败');
+            }
+            if (loadSeq !== policyLoadSeq) return;
+            const normalizedPolicies = asArray(payload.data?.policies).map(normalizePolicy);
+            policies.value = normalizedPolicies;
+            loadedPolicyResultPath.value = path;
+            pagination.page = 1;
+            refreshStructureMetaForList(normalizedPolicies, loadSeq);
+          } catch (error) {
+            loadError.value = error.message || '政策推荐结果读取失败';
+            policies.value = [];
+            loadedPolicyResultPath.value = '';
+          }
+        };
+        const selectEnterprise = (row, clearResults = true) => {
+          selectedEnterprise.value = row;
+          selectedEnterpriseId.value = enterpriseKey(row);
+          if (clearResults) {
+            enterpriseDetailVisible.value = false;
+            pagination.page = 1;
+          }
+        };
+        const handleEnterpriseChange = value => {
+          if (!value) {
+            selectedEnterprise.value = null;
+            selectedEnterpriseId.value = '';
+            hasMatched.value = false;
+            pagination.page = 1;
+            return;
+          }
+          const row = enterprises.value.find(item => enterpriseKey(item) === value);
+          if (row) {
+            selectEnterprise(row);
+            hasMatched.value = false;
+          }
+        };
+        const runMatch = async () => {
+          loadError.value = '';
+          const row = enterprises.value.find(item => enterpriseKey(item) === selectedEnterpriseId.value);
+          if (!row) {
+            selectedEnterprise.value = null;
+            hasMatched.value = false;
+            ElMessage.warning('请先输入或选择企业名称');
+            return;
+          }
+          selectEnterprise(row, false);
+          hasMatched.value = true;
+          search.filter = 'all';
+          pagination.page = 1;
+          const resultPath = policyResultPathOf(row);
+          if (loadedPolicyResultPath.value !== resultPath) await loadPolicyResults(resultPath);
+        };
+        const setFilter = value => {
+          search.filter = value;
+          pagination.page = 1;
+        };
+        const resetSearch = () => {
+          selectedEnterpriseId.value = '';
+          selectedEnterprise.value = null;
+          hasMatched.value = false;
+          search.filter = 'all';
+          search.keyword = '';
+          pagination.page = 1;
+        };
+        const handleKeywordInput = () => {
+          pagination.page = 1;
+        };
+        const clearPolicyKeyword = () => {
+          search.keyword = '';
+          pagination.page = 1;
+        };
+        const handleSizeChange = () => {
+          pagination.page = 1;
+        };
+        const openDetail = async row => {
+          const baseRow = row || {};
+          currentPolicy.value = baseRow;
+          const groups = getDocTypeGroups(baseRow?.documents || []);
+          docTypeTab.value = groups[0] || '未分类';
+          detailKeywordTab.value = policyKeywordTabs(baseRow)[0]?.key || '';
+          detailVisible.value = true;
+          const enriched = await loadStructuredPolicyDetail(baseRow);
+          if (currentPolicy.value?.id !== baseRow.id) return;
+          currentPolicy.value = enriched;
+          Object.assign(baseRow, enriched);
+          const enrichedGroups = getDocTypeGroups(enriched?.documents || []);
+          docTypeTab.value = enrichedGroups[0] || '未分类';
+          detailKeywordTab.value = policyKeywordTabs(enriched)[0]?.key || '';
+        };
+        const getDocTypeGroups = documents => {
+          const groups = asArray(documents)
+            .map(item => String(item?.policyAttribute || '未分类').trim() || '未分类')
+            .filter((item, index, arr) => arr.indexOf(item) === index);
+          return groups.length ? groups : ['未分类'];
+        };
+        const getDocsByAttr = (documents, attr) => asArray(documents).filter(item => (String(item?.policyAttribute || '未分类').trim() || '未分类') === attr);
+        const openPolicyDocuments = row => {
+          documentPolicy.value = row;
+          const groups = getDocTypeGroups(row?.documents || []);
+          docTypeTab.value = groups[0] || '未分类';
+          docTypeVisible.value = true;
+        };
+        const readContentResponse = async response => {
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok || payload.success === false) throw new Error(payload.message || '获取原文失败');
+          const data = payload.data || {};
+          if (!String(data.content || data.contentHtml || '').trim()) throw new Error('原文内容为空');
+          return data;
+        };
+        const fileSuffixOf = value => {
+          const name = String(value || '').split(/[\\/]/).pop();
+          const dot = name.lastIndexOf('.');
+          return dot >= 0 ? name.slice(dot + 1).toLowerCase() : '';
+        };
+        const viewDocumentContent = async doc => {
+          contentVisible.value = true;
+          contentLoading.value = true;
+          contentError.value = '';
+          contentData.value = null;
+          try {
+            if (doc?.filePath) {
+              const params = new URLSearchParams({ filePath: doc.filePath });
+              const response = await fetch(`/api/local/document/content?${params.toString()}`, { cache: 'no-store' });
+              const data = await readContentResponse(response);
+              contentData.value = {
+                ...data,
+                policyTitle: doc.policyTitle || data.policyTitle || data.title || doc.fileName || '',
+                fileName: doc.fileName || data.fileName || ''
+              };
+            }
+            const id = String(doc?.id || '').trim();
+            if (!contentData.value && id) {
+              try {
+                const response = await fetch(`/api/fusion-classification/documents/content?id=${encodeURIComponent(id)}`, { cache: 'no-store' });
+                contentData.value = await readContentResponse(response);
+              } catch (error) {
+                if (!doc?.filePath) throw error;
+              }
+            }
+            if (!contentData.value) throw new Error('文档ID和文件路径为空');
+          } catch (error) {
+            contentError.value = error.message || '加载异常';
+            ElMessage.error(contentError.value);
+          } finally {
+            contentLoading.value = false;
+          }
+        };
+        const viewAttachmentContent = async att => {
+          contentVisible.value = true;
+          contentLoading.value = true;
+          contentError.value = '';
+          contentData.value = null;
+          try {
+            const params = new URLSearchParams();
+            if (att?.filePath) {
+              params.set('filePath', att.filePath);
+              params.set('fileSuffix', att.fileSuffix || fileSuffixOf(att.fileName || att.name || att.filePath));
+              params.set('fileName', att.name || att.fileName || '');
+            } else {
+              const id = String(att?.attachmentId || att?.id || '').trim();
+              if (id) {
+                params.set('id', id);
+                params.set('attachmentId', id);
+              }
+            }
+            if (!params.toString()) throw new Error('附件ID和文件路径为空');
+            const response = await fetch(`/api/attachment/content?${params.toString()}`, { cache: 'no-store' });
+            const data = await readContentResponse(response);
+            contentData.value = {
+              ...data,
+              policyTitle: att?.policyTitle || data.policyTitle || data.attachmentName || data.fileName || att?.name || att?.fileName || '',
+              fileName: att?.fileName || att?.name || data.fileName || data.attachmentName || ''
+            };
+          } catch (error) {
+            contentError.value = error.message || '加载异常';
+            ElMessage.error(contentError.value);
+          } finally {
+            contentLoading.value = false;
+          }
+        };
+        function formatScore(value) {
+          const num = Number(value);
+          if (!Number.isFinite(num)) return '-';
+          return Number.isInteger(num) ? String(num) : num.toFixed(2).replace(/0+$/, '').replace(/\.$/, '');
+        }
+        const clampPercent = value => Math.max(0, Math.min(100, Number(value) || 0));
+        const formatDateTime = value => {
+          const date = parseDate(value);
+          if (!date) return value ? String(value) : '';
+          const pad = n => String(n).padStart(2, '0');
+          return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+        };
+        const fieldValue = value => {
+          if (value === null || value === undefined) return '-';
+          const text = String(value).trim();
+          return text || '-';
+        };
+        const flagText = value => boolValue(value) ? '是' : '否';
+        const formatDateRange = (start, end, fallback = '') => {
+          const normalizedStart = String(start || '').trim();
+          const normalizedEnd = String(end || '').trim();
+          if (normalizedStart && normalizedEnd) return `${normalizedStart}至${normalizedEnd}`;
+          if (normalizedStart) return normalizedStart;
+          if (normalizedEnd) return normalizedEnd;
+          return String(fallback || '').trim();
+        };
+
+        onMounted(() => {
+          loadEnterpriseOptions();
+        });
+        return {
+          zhCnLocale, enterpriseLoading, loadError, enterprises, enterpriseOptions,
+          selectedEnterpriseId, selectedEnterprise, hasMatched, policies,
+          filterOptions, rankingItems, search, pagination, filteredPolicies, pagedPolicies, policyEmptyText, enterpriseDetailVisible,
+          detailVisible, currentPolicy, docTypeVisible, documentPolicy, docTypeTab, detailKeywordTab, policyDocuments,
+          contentVisible, contentLoading, contentError, contentData, contentDialogTitle,
+          enterpriseKey, toList, splitTags, handleEnterpriseChange, runMatch, setFilter, resetSearch, handleKeywordInput, clearPolicyKeyword, handleSizeChange,
+          openDetail, openPolicyDocuments, viewDocumentContent, viewAttachmentContent, getDocTypeGroups, getDocsByAttr, formatScore, clampPercent, formatDateTime, formatDateRange, fieldValue, flagText, starSymbols,
+          sceneUsageLeafTags, sceneUsageLeafText, applicableScopeLeafTags, applicableScopeLeafText, supportTypeTags, displayTagText,
+          policyKeywordTabs, policyKeywordItems, activePolicyKeywordItems, setPolicyKeywordTab
+        };
+      }
+    });
+
+    app.use(ElementPlus);
+    app.mount('#app');
+    PageInit.initStandalonePage();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>政策数据爬取 - 政策解读系统</title>
+  <style>[v-cloak]{display:none!important}</style>
+  <link rel="stylesheet" href="/lib/cdn/element-plus.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/form.css">
+  <link rel="stylesheet" href="../css/policy.css">
+  <style>
+    .crawler-url-panel{border:1px solid #e5e7eb;border-radius:8px;background:#fff;padding:16px;margin-bottom:16px}
+    .crawler-url-row{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:end}
+    .path-copy{font-family:Consolas,Monaco,monospace;font-size:12px}
+    .crawler-preview-drawer .el-drawer__body{padding:0;background:#f8fafc}
+    .crawler-preview-panel{display:flex;flex-direction:column;height:100%}
+    .crawler-preview-summary{padding:18px 22px;background:linear-gradient(180deg,#f8fbff 0%,#f3f7fc 100%);border-bottom:1px solid #dbe4f0}
+    .crawler-preview-title{margin:0 0 14px;color:#0f172a;font-size:18px;font-weight:700;line-height:1.55;word-break:break-word}
+    .crawler-preview-info{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .crawler-preview-info-item{min-width:0;padding:12px 14px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+    .crawler-preview-info-label{display:block;margin-bottom:5px;color:#64748b;font-size:12px;font-weight:600;line-height:18px}
+    .crawler-preview-info-value{display:block;color:#0f172a;font-size:14px;font-weight:600;line-height:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .crawler-preview-title-input{margin-bottom:14px}
+    .crawler-preview-title-input .el-input__wrapper{min-height:38px;padding:0 12px;background:#fff}
+    .crawler-preview-title-input .el-input__inner{height:38px;color:#0f172a;font-size:18px;font-weight:700;line-height:38px}
+    .crawler-preview-info-input .el-input__wrapper,
+    .crawler-preview-info-input.el-date-editor.el-input__wrapper{min-height:34px;box-shadow:none;border:1px solid #dbe4f0}
+    .crawler-preview-info-input .el-input__inner{height:32px;color:#0f172a;font-size:14px;font-weight:600}
+    .crawler-preview-info-input.el-date-editor{width:100%}
+    .crawler-preview-tabs{padding:10px 22px 0;background:#fff;border-bottom:1px solid #e5e7eb}
+    .crawler-preview-body{flex:1;min-height:0;padding:16px 22px;overflow:hidden}
+    .crawler-md-editor{height:100%;min-height:0;border:1px solid #dbe4f0;border-radius:8px;background:#fff;overflow:hidden;display:flex;flex-direction:column}
+    .crawler-md-toolbar{min-height:48px;padding:10px 14px;border-bottom:1px solid #e5e7eb;background:#f8fafc;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .crawler-md-title{color:#0f172a;font-size:14px;font-weight:700}
+    .crawler-md-textarea{flex:1;min-height:0}
+    .crawler-md-textarea .el-textarea__inner{height:100%!important;min-height:100%!important;border:0;border-radius:0;box-shadow:none!important;resize:none;font-family:Consolas,Monaco,'Courier New',monospace;font-size:13px;line-height:1.75;color:#1f2937;background:#fff}
+    .crawler-attachment-view{height:100%;min-height:0;display:grid;grid-template-columns:260px minmax(0,1fr);gap:14px}
+    .crawler-attachment-list{border:1px solid #dbe4f0;border-radius:8px;background:#fff;overflow:auto}
+    .crawler-attachment-item{display:block;width:100%;padding:13px 14px;border:0;border-bottom:1px solid #eef2f7;background:#fff;text-align:left;cursor:pointer}
+    .crawler-attachment-item:hover,.crawler-attachment-item.active{background:#f3f8ff}
+    .crawler-attachment-item.active{box-shadow:inset 3px 0 0 #3b82f6}
+    .crawler-attachment-name{font-size:13px;font-weight:700;color:#0f172a;line-height:1.45;word-break:break-all}
+    .crawler-attachment-meta{margin-top:5px;color:#64748b;font-size:12px}
+    .crawler-attachment-preview{min-height:0;border:1px solid #dbe4f0;border-radius:8px;background:#fff;overflow:hidden;display:flex;flex-direction:column}
+    .crawler-attachment-preview-head{min-height:48px;padding:12px 16px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .crawler-attachment-preview-title{min-width:0;color:#0f172a;font-size:14px;font-weight:700;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .crawler-attachment-preview-body{flex:1;min-height:0;padding:16px;overflow:auto;background:#f8fafc;color:#334155;font-size:13px;line-height:1.85}
+    .crawler-attachment-frame{width:100%;height:100%;min-height:560px;border:1px solid #dbe4f0;background:#fff}
+    .crawler-attachment-content{white-space:pre-wrap}
+    .crawler-attachment-html{white-space:normal}
+    .crawler-attachment-html p{margin:0 0 12px}
+    .crawler-attachment-html .doc-preview-text{white-space:pre-wrap;margin-bottom:14px}
+    .crawler-attachment-html .doc-preview-image-wrap{margin:14px 0;text-align:center}
+    .crawler-attachment-html .doc-preview-image-wrap img{max-width:100%;height:auto;border:1px solid #dce4ef;background:#fff}
+    .crawler-attachment-html .doc-preview-table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff}
+    .crawler-attachment-html .doc-preview-table td{border:1px solid #dce4ef;padding:8px;vertical-align:top}
+    .crawler-empty-preview{height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;color:#6b7280;font-size:13px;background:#fff}
+    .crawler-preview-footer{display:flex;justify-content:flex-end;gap:10px;padding:12px 18px;background:#fff;border-top:1px solid #e5e7eb}
+    .crawler-search-card .card-header{padding:10px 18px}
+    .crawler-search-card .card-title{font-size:14px;line-height:20px}
+    .crawler-search-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 136px;gap:12px 16px;align-items:end;padding:12px 18px 14px}
+    .crawler-search-grid .form-item{min-width:0}
+    .crawler-search-grid .form-item label{font-size:12px;font-weight:600;line-height:18px;margin-bottom:5px}
+    .crawler-search-grid .el-input__wrapper{min-height:34px}
+    .crawler-search-grid .el-input__inner{font-size:13px;height:32px}
+    .crawler-search-grid .el-button{height:34px;padding:8px 16px;font-size:13px}
+    .crawler-search-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:nowrap}
+    .crawler-table .el-table__cell{vertical-align:middle}
+    .crawler-detail-drawer .el-drawer__body{padding:0;background:#f8fafc;overflow:hidden}
+    .crawler-detail-panel{height:100%;min-height:0;padding:18px 22px 22px;display:flex;flex-direction:column;overflow:hidden}
+    .crawler-detail-panel .detail-sheet{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #dbe4f0;border-radius:8px;background:#fff}
+    .crawler-detail-panel .detail-sheet__row{min-width:0;border-right:1px solid #dbe4f0;border-bottom:1px solid #dbe4f0}
+    .crawler-detail-panel .detail-sheet__row:nth-child(3n){border-right:none}
+    .crawler-detail-panel .detail-sheet__row:nth-child(n+4){border-bottom:none}
+    .crawler-detail-panel .detail-sheet__label{width:92px;padding:10px 12px;font-size:13px;line-height:20px}
+    .crawler-detail-panel .detail-sheet__value{padding:10px 12px;font-size:13px;line-height:20px;display:flex;align-items:center}
+    .crawler-detail-tabs{flex:1;min-height:0;margin-top:12px;border:1px solid #dbe4f0;border-radius:8px;background:#fff;overflow:hidden;display:flex;flex-direction:column}
+    .crawler-detail-tabs .el-tabs__header{margin:0;padding:0 16px;background:#fff;border-bottom:1px solid #e5e7eb}
+    .crawler-detail-tabs .el-tabs__content{flex:1;min-height:0;padding:16px;overflow:hidden}
+    .crawler-detail-tabs .el-tab-pane{height:100%;min-height:0}
+    .crawler-original-view{height:100%;min-height:0;border:1px solid #dbe4f0;border-radius:8px;background:#fff;overflow:auto;padding:16px;color:#1f2937;font-size:13px;line-height:1.8;white-space:pre-wrap;word-break:break-word}
+    .crawler-detail-attachment-view{height:100%;min-height:0}
+    .crawler-schedule-dialog .el-dialog__body{padding:0!important;background:#f5f6f8}
+    .crawler-schedule-shell{min-height:520px;display:grid;grid-template-columns:220px minmax(0,1fr);background:#f5f6f8}
+    .crawler-schedule-nav{padding:18px 12px;border-right:1px solid #e5e7eb;background:#f1f2f4}
+    .crawler-schedule-nav-item{width:100%;height:42px;border:0;border-radius:6px;background:transparent;color:#111827;font-size:14px;line-height:20px;display:flex;align-items:center;gap:12px;padding:0 12px;text-align:left;cursor:pointer}
+    .crawler-schedule-nav-item:hover{background:#e7e9ec}
+    .crawler-schedule-nav-item.active{background:#fff;box-shadow:inset 3px 0 0 #1677d2}
+    .crawler-schedule-nav-item .el-icon{width:18px;font-size:18px;color:#1677d2}
+    .crawler-schedule-main{min-width:0;padding:22px 24px 20px;overflow:auto}
+    .crawler-schedule-section{min-height:476px;display:flex;flex-direction:column;gap:14px}
+    .crawler-schedule-section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+    .crawler-schedule-section-head h3{margin:0;color:#111827;font-size:22px;font-weight:600;line-height:30px}
+    .crawler-schedule-section-head p{margin:6px 0 0;color:#6b7280;font-size:13px;line-height:20px}
+    .crawler-schedule-card{border:1px solid #e0e3e8;border-radius:8px;background:#fff;overflow:hidden}
+    .crawler-setting-row{min-height:82px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:18px;align-items:center;padding:16px 20px;border-bottom:1px solid #e8eaee}
+    .crawler-setting-row:last-child{border-bottom:0}
+    .crawler-setting-row--range{grid-template-columns:minmax(0,1fr) 360px}
+    .crawler-setting-copy{min-width:0;display:flex;flex-direction:column;gap:4px}
+    .crawler-setting-title{color:#111827;font-size:15px;font-weight:600;line-height:22px}
+    .crawler-setting-desc{color:#6b7280;font-size:13px;line-height:20px}
+    .crawler-setting-row .el-input,
+    .crawler-setting-row .el-date-editor{width:100%!important;height:38px}
+    .crawler-setting-row .el-input__wrapper,
+    .crawler-setting-row .el-range-editor.el-input__wrapper{min-height:38px;font-size:13px}
+    .crawler-setting-row .el-input__inner,
+    .crawler-setting-row .el-range-input,
+    .crawler-setting-row .el-range-separator{font-size:13px;line-height:36px}
+    .crawler-setting-row .el-switch{height:38px;justify-self:end}
+    .crawler-setting-row .el-switch__label{font-size:13px;font-weight:500}
+    .crawler-schedule-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .crawler-schedule-summary-item{padding:12px 14px;border:1px solid #e0e3e8;border-radius:8px;background:#fff}
+    .crawler-schedule-summary-label{display:block;color:#64748b;font-size:12px;line-height:18px}
+    .crawler-schedule-summary-value{display:block;margin-top:3px;color:#0f172a;font-size:14px;font-weight:700;line-height:20px}
+    .crawler-schedule-footer{margin-top:auto;display:flex;justify-content:flex-end;padding-top:10px}
+    .crawler-schedule-footer .el-button{min-width:132px;height:40px;min-height:40px;font-size:13px;font-weight:700}
+    .crawler-schedule-progress{padding:14px 16px;border:1px solid #e0e3e8;border-radius:8px;background:#fff}
+    .crawler-schedule-progress-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;color:#374151;font-size:13px;line-height:20px}
+    .crawler-schedule-progress-head strong{color:#111827;font-size:14px}
+    .crawler-schedule-records{flex:1;min-height:0;overflow:auto;border:1px solid #dbe4f0;border-radius:8px;background:#fff}
+    .crawler-schedule-record-title{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:12px 14px;border-bottom:1px solid #e5e7eb;font-size:13px}
+    .crawler-schedule-record-meta{color:#64748b;font-size:12px}
+    @media(max-width:1080px){.crawler-url-row{grid-template-columns:1fr}}
+    @media(max-width:1100px){.crawler-preview-info{grid-template-columns:repeat(2,minmax(0,1fr))}.crawler-attachment-view{grid-template-columns:220px minmax(0,1fr)}}
+    @media(max-width:900px){.crawler-preview-drawer,.crawler-detail-drawer{width:92vw!important}.crawler-attachment-view{grid-template-columns:1fr}.crawler-attachment-list{max-height:220px}.crawler-schedule-shell{grid-template-columns:1fr}.crawler-schedule-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-right:0;border-bottom:1px solid #e5e7eb}.crawler-schedule-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.crawler-setting-row,.crawler-setting-row--range{grid-template-columns:1fr}.crawler-setting-row .el-switch{justify-self:start}}
+    @media(max-width:820px){.crawler-search-grid{grid-template-columns:1fr 1fr}.crawler-search-actions{grid-column:1 / -1;justify-content:flex-end}}
+    @media(max-width:560px){.crawler-search-grid{grid-template-columns:1fr}.crawler-search-actions{justify-content:flex-start}.crawler-schedule-nav,.crawler-schedule-summary{grid-template-columns:1fr}.crawler-schedule-main{padding:16px}.crawler-schedule-section-head{flex-direction:column}.crawler-schedule-section-head .el-button{width:100%}}
+  </style>
+</head>
+<body data-page-tone="blue">
+  <div class="main-layout" id="app">
+    <aside class="sidebar">
+      <div class="sidebar-logo"></div>
+      <nav class="sidebar-menu" id="sidebar-menu"></nav>
+      <div class="sidebar-footer" id="sidebar-footer"></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="header">
+        <div class="header-left">
+          <div class="header-toggle" onclick="toggleSidebar()">
+            <i class="el-icon-s-unfold" style="font-size:20px;"></i>
+          </div>
+          <nav class="header-breadcrumb"></nav>
+        </div>
+        <div class="header-right">
+          <div class="header-icon"><i class="el-icon-bell" style="font-size:20px;"></i></div>
+          <div class="header-icon"><i class="el-icon-full-screen" style="font-size:20px;"></i></div>
+          <div class="header-user">
+            <div class="avatar">管</div>
+            <div class="info">
+              <span class="name">管理员</span>
+              <span class="role">系统管理员</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-wrapper page-canvas" v-cloak>
+        <div class="card mb-16 crawler-search-card">
+          <div class="card-header">
+            <div class="card-title">查询条件</div>
+          </div>
+          <div class="crawler-search-grid">
+            <div class="form-item" style="margin-bottom:0;">
+              <label>发文部门</label>
+              <el-input v-model="search.department" placeholder="请输入发文部门" clearable @keyup.enter="handleSearch"></el-input>
+            </div>
+            <div class="form-item" style="margin-bottom:0;">
+              <label>适用范围</label>
+              <el-input v-model="search.scope" placeholder="请输入适用范围" clearable @keyup.enter="handleSearch"></el-input>
+            </div>
+            <div class="search-actions crawler-search-actions" style="align-items:flex-end;">
+              <el-button type="primary" :loading="loading" @click="handleSearch">查询</el-button>
+              <el-button @click="resetSearch">重置</el-button>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="showUrlPanel" class="crawler-url-panel">
+          <div class="crawler-url-row">
+            <div class="form-item" style="margin-bottom:0;">
+              <label>政策URL</label>
+              <el-input v-model="crawlerUrl" placeholder="请输入慧企云政策详情页 URL" clearable @keyup.enter="previewUrl"></el-input>
+            </div>
+            <el-button type="primary" :loading="previewLoading" @click="previewUrl">查看</el-button>
+            <el-button @click="closeUrlPanel">关闭</el-button>
+          </div>
+
+        </div>
+
+        <div class="table-container">
+          <div class="table-header">
+            <span class="table-title">政策列表</span>
+            <div class="form-actions-inline">
+              <el-button size="small" type="primary" @click="openUrlPanel">新增</el-button>
+              <el-button size="small" @click="startScheduledCrawl">设置</el-button>
+              <el-button size="small" @click="fetchPolicies">刷新</el-button>
+            </div>
+          </div>
+          <el-table class="crawler-table" :data="policies" stripe border style="width:100%" v-loading="loading">
+            <el-table-column prop="id" label="序号" width="90" align="center"></el-table-column>
+            <el-table-column prop="title" label="政策标题" min-width="360" show-overflow-tooltip>
+              <template #default="{ row }">
+                <a href="javascript:void(0);" @click="showDetail(row)" class="text-link">{{ row.title }}</a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="department" label="发文部门" min-width="160" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="publishDate" label="发布日期" width="130"></el-table-column>
+            <el-table-column prop="attachmentCount" label="附件" width="80" align="center"></el-table-column>
+            <el-table-column prop="storageStatus" label="状态" width="110" align="center">
+              <template #default="{ row }">
+                <el-tag :type="storageStatusTagType(row)" size="small">{{ storageStatusText(row) }}</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" width="110" fixed="right">
+              <template #default="{ row }">
+                <el-button type="text" size="small" @click="showDetail(row)">查看详情</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div class="pagination-wrapper">
+            <el-pagination
+              v-model:current-page="pagination.page"
+              v-model:page-size="pagination.size"
+              :page-sizes="[10, 20, 50, 100]"
+              :total="pagination.total"
+              layout="total, sizes, prev, pager, next, jumper"
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+            />
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <el-drawer v-model="detailDrawer" :title="currentPolicy?.title || '政策详情'" size="75vw" direction="rtl" custom-class="crawler-detail-drawer">
+      <div class="crawler-detail-panel">
+        <div class="detail-sheet">
+          <div class="detail-sheet__row">
+            <div class="detail-sheet__label">政策编号</div>
+            <div class="detail-sheet__value">{{ currentPolicy?.uuid || '-' }}</div>
+          </div>
+          <div class="detail-sheet__row">
+            <div class="detail-sheet__label">发文部门</div>
+            <div class="detail-sheet__value">{{ currentPolicy?.department || '-' }}</div>
+          </div>
+          <div class="detail-sheet__row">
+            <div class="detail-sheet__label">发布日期</div>
+            <div class="detail-sheet__value">{{ currentPolicy?.publishDate || '-' }}</div>
+          </div>
+          <div class="detail-sheet__row">
+            <div class="detail-sheet__label">文号</div>
+            <div class="detail-sheet__value">{{ currentPolicy?.documentNo || '-' }}</div>
+          </div>
+          <div class="detail-sheet__row">
+            <div class="detail-sheet__label">附件数量</div>
+            <div class="detail-sheet__value">{{ currentPolicy?.attachmentCount ?? 0 }} 个</div>
+          </div>
+          <div class="detail-sheet__row">
+            <div class="detail-sheet__label">入库状态</div>
+            <div class="detail-sheet__value">
+              <el-tag :type="storageStatusTagType(currentPolicy)" size="small">{{ storageStatusText(currentPolicy) }}</el-tag>
+            </div>
+          </div>
+        </div>
+
+        <el-tabs v-model="detailTab" class="crawler-detail-tabs">
+          <el-tab-pane label="政策原文" name="original">
+            <div v-loading="detailOriginalLoading" class="crawler-original-view">
+              {{ detailOriginal.content || '暂无政策原文' }}
+            </div>
+          </el-tab-pane>
+          <el-tab-pane :label="`附件链接(${detailAttachments.length})`" name="attachments">
+            <div class="crawler-attachment-view crawler-detail-attachment-view" v-loading="detailAttachmentsLoading">
+              <div class="crawler-attachment-list">
+                <button
+                  v-for="item in detailAttachments"
+                  :key="item.id || item.filePath || attachmentDisplayName(item)"
+                  class="crawler-attachment-item"
+                  :class="{ active: selectedDetailAttachmentKey === attachmentKey(item) }"
+                  type="button"
+                  @click="showDetailAttachment(item)"
+                >
+                  <div class="crawler-attachment-name">{{ attachmentDisplayName(item) }}</div>
+                  <div class="crawler-attachment-meta">{{ attachmentSuffix(item) }}</div>
+                </button>
+                <div v-if="!detailAttachments.length" class="crawler-empty-preview">暂无附件</div>
+              </div>
+              <div class="crawler-attachment-preview">
+                <div class="crawler-attachment-preview-head">
+                  <div class="crawler-attachment-preview-title">{{ attachmentDisplayName(selectedDetailAttachment) || '附件内容' }}</div>
+                  <el-tag v-if="selectedDetailAttachment" size="small" effect="plain">{{ attachmentSuffix(selectedDetailAttachment) }}</el-tag>
+                </div>
+                <div class="crawler-attachment-preview-body" v-loading="detailAttachmentPreviewLoading">
+                  <iframe
+                    v-if="detailAttachmentPreview.previewUrl"
+                    class="crawler-attachment-frame"
+                    :src="detailAttachmentPreview.previewUrl"
+                    title="附件预览"
+                  ></iframe>
+                  <div v-else-if="detailAttachmentPreview.contentHtml" class="crawler-attachment-html" v-html="detailAttachmentPreview.contentHtml"></div>
+                  <div v-else-if="detailAttachmentPreview.content" class="crawler-attachment-content">{{ detailAttachmentPreview.content }}</div>
+                  <div v-else class="crawler-empty-preview">{{ detailAttachments.length ? '点击左侧附件链接查看内容' : '暂无附件' }}</div>
+                </div>
+              </div>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+    </el-drawer>
+
+    <el-drawer
+      v-model="previewDrawer"
+      :title="previewData?.title || '政策预览'"
+      size="66.666vw"
+      direction="rtl"
+      custom-class="crawler-preview-drawer"
+    >
+      <div v-if="previewData" class="crawler-preview-panel">
+        <div class="crawler-preview-summary">
+          <el-input
+            v-model="previewData.title"
+            class="crawler-preview-title-input"
+            maxlength="500"
+            show-word-limit
+            placeholder="请输入入库政策标题"
+          ></el-input>
+          <div class="crawler-preview-info">
+            <div class="crawler-preview-info-item">
+              <span class="crawler-preview-info-label">发文部门</span>
+              <el-input
+                v-model="previewData.department"
+                class="crawler-preview-info-input"
+                clearable
+                placeholder="请输入发文部门"
+              ></el-input>
+            </div>
+            <div class="crawler-preview-info-item">
+              <span class="crawler-preview-info-label">适用范围</span>
+              <el-input
+                v-model="previewData.applicableScope"
+                class="crawler-preview-info-input"
+                clearable
+                placeholder="请输入适用范围"
+              ></el-input>
+            </div>
+            <div class="crawler-preview-info-item">
+              <span class="crawler-preview-info-label">发布日期</span>
+              <el-date-picker
+                v-model="previewData.publishDate"
+                class="crawler-preview-info-input"
+                type="date"
+                value-format="YYYY-MM-DD"
+                placeholder="请选择发布日期"
+              ></el-date-picker>
+            </div>
+            <div class="crawler-preview-info-item">
+              <span class="crawler-preview-info-label">文号</span>
+              <el-input
+                v-model="previewData.policyCode"
+                class="crawler-preview-info-input"
+                clearable
+                placeholder="请输入文号"
+              ></el-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="crawler-preview-tabs">
+          <el-tabs v-model="previewTab">
+            <el-tab-pane label="正文内容" name="content"></el-tab-pane>
+            <el-tab-pane :label="`附件(${previewAttachments.length})`" name="attachments"></el-tab-pane>
+          </el-tabs>
+        </div>
+
+        <div class="crawler-preview-body">
+          <div v-show="previewTab === 'content'" class="crawler-md-editor">
+            <div class="crawler-md-toolbar">
+              <span class="crawler-md-title">Markdown 文档内容</span>
+              <el-tag size="small" effect="plain">可编辑</el-tag>
+            </div>
+            <el-input
+              v-model="previewData.markdown"
+              class="crawler-md-textarea"
+              type="textarea"
+              resize="none"
+              placeholder="暂无 Markdown 内容"
+            ></el-input>
+          </div>
+
+          <div v-show="previewTab === 'attachments'" class="crawler-attachment-view">
+            <div class="crawler-attachment-list">
+              <button
+                v-for="item in previewAttachments"
+                :key="item.filePath || item.name"
+                class="crawler-attachment-item"
+                :class="{ active: selectedAttachmentKey === attachmentKey(item) }"
+                type="button"
+                @click="showPreviewAttachment(item)"
+              >
+                <div class="crawler-attachment-name">{{ item.showName || item.name }}</div>
+                <div class="crawler-attachment-meta">{{ attachmentSuffix(item) }}<span v-if="item.size"> · {{ formatFileSize(item.size) }}</span></div>
+              </button>
+              <div v-if="!previewAttachments.length" class="crawler-empty-preview">暂无附件</div>
+            </div>
+            <div class="crawler-attachment-preview">
+              <div class="crawler-attachment-preview-head">
+                <div class="crawler-attachment-preview-title">{{ selectedAttachment?.showName || selectedAttachment?.name || '附件内容' }}</div>
+                <el-tag v-if="selectedAttachment" size="small" effect="plain">{{ attachmentSuffix(selectedAttachment) }}</el-tag>
+              </div>
+              <div class="crawler-attachment-preview-body" v-loading="attachmentPreviewLoading">
+                <iframe
+                  v-if="attachmentPreview.previewUrl"
+                  class="crawler-attachment-frame"
+                  :src="attachmentPreview.previewUrl"
+                  title="附件预览"
+                ></iframe>
+                <div v-else-if="attachmentPreview.contentHtml" class="crawler-attachment-html" v-html="attachmentPreview.contentHtml"></div>
+                <div v-else-if="attachmentPreview.content" class="crawler-attachment-content">{{ attachmentPreview.content }}</div>
+                <div v-else class="crawler-empty-preview">{{ previewAttachments.length ? '点击左侧附件文件名查看内容' : '暂无附件' }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="crawler-preview-footer">
+          <el-button type="primary" :loading="importLoading" @click="importPreview">入库</el-button>
+        </div>
+      </div>
+    </el-drawer>
+
+    <el-dialog
+      v-model="scheduleDialogVisible"
+      title="定时增量更新设置"
+      width="1120px"
+      top="5vh"
+      custom-class="crawler-schedule-dialog"
+      style="max-width:94vw;"
+    >
+      <div class="crawler-schedule-shell">
+        <aside class="crawler-schedule-nav" aria-label="定时增量更新设置导航">
+          <button
+            v-for="item in scheduleSections"
+            :key="item.key"
+            type="button"
+            class="crawler-schedule-nav-item"
+            :class="{ active: scheduleActiveSection === item.key }"
+            @click="scheduleActiveSection = item.key"
+          >
+            <el-icon><component :is="item.icon" /></el-icon>
+            <span>{{ item.label }}</span>
+          </button>
+        </aside>
+
+        <section class="crawler-schedule-main">
+          <div v-if="scheduleActiveSection === 'timed'" class="crawler-schedule-section">
+            <div class="crawler-schedule-section-head">
+              <div>
+                <h3>定时获取</h3>
+                <p>设置每日自动增量获取的开始时间，并控制定时任务开启或关闭。</p>
+              </div>
+              <el-button type="primary" plain :loading="scheduleStatusLoading" @click="loadIncrementalStatus">
+                <el-icon><Refresh /></el-icon>
+                刷新状态
+              </el-button>
+            </div>
+
+            <div class="crawler-schedule-card">
+              <div class="crawler-setting-row">
+                <div class="crawler-setting-copy">
+                  <span class="crawler-setting-title">每日获取时间</span>
+                  <span class="crawler-setting-desc">服务端会在每天这个时间执行增量获取，默认抓取昨天的政策。</span>
+                </div>
+                <el-time-picker
+                  v-model="scheduleForm.time"
+                  format="HH:mm"
+                  value-format="HH:mm"
+                  placeholder="选择时间"
+                  :clearable="false"
+                />
+              </div>
+              <div class="crawler-setting-row">
+                <div class="crawler-setting-copy">
+                  <span class="crawler-setting-title">定时任务</span>
+                  <span class="crawler-setting-desc">{{ scheduleForm.enabled ? '当前为开启状态，保存后按每日时间执行。' : '当前为关闭状态，保存后不会自动执行。' }}</span>
+                </div>
+                <el-switch v-model="scheduleForm.enabled" active-text="开启" inactive-text="关闭" />
+              </div>
+            </div>
+
+            <div class="crawler-schedule-summary">
+              <div class="crawler-schedule-summary-item">
+                <span class="crawler-schedule-summary-label">当前状态</span>
+                <span class="crawler-schedule-summary-value">{{ scheduleBackendStatus.running ? '运行中' : '空闲' }}</span>
+              </div>
+              <div class="crawler-schedule-summary-item">
+                <span class="crawler-schedule-summary-label">定时状态</span>
+                <span class="crawler-schedule-summary-value">{{ scheduleForm.enabled ? '已开启' : '已关闭' }}</span>
+              </div>
+              <div class="crawler-schedule-summary-item">
+                <span class="crawler-schedule-summary-label">下次执行</span>
+                <span class="crawler-schedule-summary-value">{{ nextScheduleText }}</span>
+              </div>
+            </div>
+
+            <div class="crawler-schedule-footer">
+              <el-button type="success" :loading="scheduleStatusLoading" @click="saveScheduleSettings">
+                <el-icon><Check /></el-icon>
+                保存设置
+              </el-button>
+            </div>
+          </div>
+
+          <div v-else-if="scheduleActiveSection === 'range'" class="crawler-schedule-section">
+            <div class="crawler-schedule-section-head">
+              <div>
+                <h3>选择时间范围</h3>
+                <p>选择要爬取的日期范围，点击立即执行后会逐日获取对应政策。</p>
+              </div>
+            </div>
+
+            <div class="crawler-schedule-card">
+              <div class="crawler-setting-row crawler-setting-row--range">
+                <div class="crawler-setting-copy">
+                  <span class="crawler-setting-title">爬取日期范围</span>
+                  <span class="crawler-setting-desc">未选择时默认抓取昨天；选择开始和结束日期后会按范围执行。</span>
+                </div>
+                <el-date-picker
+                  v-model="scheduleForm.dateRange"
+                  type="daterange"
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
+                  value-format="YYYY-MM-DD"
+                  unlink-panels
+                />
+              </div>
+            </div>
+
+            <div class="crawler-schedule-progress" v-if="scheduleRunning || scheduleRunStatus !== 'idle'">
+              <div class="crawler-schedule-progress-head">
+                <span>{{ scheduleRunStatusText }}</span>
+                <strong>{{ scheduleRunProgress }}%</strong>
+              </div>
+              <el-progress
+                :percentage="scheduleRunProgress"
+                :status="scheduleRunStatus === 'error' ? 'exception' : (scheduleRunStatus === 'success' ? 'success' : '')"
+                :stroke-width="10"
+              />
+            </div>
+
+            <div class="crawler-schedule-summary">
+              <div class="crawler-schedule-summary-item">
+                <span class="crawler-schedule-summary-label">最近成功</span>
+                <span class="crawler-schedule-summary-value">{{ latestRecord?.imported ?? 0 }} 条</span>
+              </div>
+              <div class="crawler-schedule-summary-item">
+                <span class="crawler-schedule-summary-label">最近失败</span>
+                <span class="crawler-schedule-summary-value">{{ latestRecord?.failed ?? 0 }} 条</span>
+              </div>
+              <div class="crawler-schedule-summary-item">
+                <span class="crawler-schedule-summary-label">最近执行</span>
+                <span class="crawler-schedule-summary-value">{{ latestRecord ? formatTrigger(latestRecord.trigger) : '-' }}</span>
+              </div>
+            </div>
+
+            <div class="crawler-schedule-footer">
+              <el-button type="primary" :loading="scheduleRunning" @click="runIncrementalCrawl('manual')">
+                <el-icon><video-play /></el-icon>
+                立即执行
+              </el-button>
+            </div>
+          </div>
+
+          <div v-else class="crawler-schedule-section crawler-schedule-section--records">
+            <div class="crawler-schedule-section-head">
+              <div>
+                <h3>记录</h3>
+                <p>展示最近一次增量获取的结果和政策入库明细。</p>
+              </div>
+              <el-button type="primary" plain :loading="scheduleStatusLoading" @click="loadIncrementalStatus">
+                <el-icon><Refresh /></el-icon>
+                刷新记录
+              </el-button>
+            </div>
+
+            <div class="crawler-schedule-records">
+              <el-empty v-if="!latestRecord" description="暂无自动抓取记录"></el-empty>
+              <template v-else>
+                <div class="crawler-schedule-record-title">
+                  <span>{{ formatTrigger(latestRecord.trigger) }} · {{ latestRecord.date || '-' }} · 成功 {{ latestRecord.imported || 0 }} / 失败 {{ latestRecord.failed || 0 }}</span>
+                  <span class="crawler-schedule-record-meta">{{ formatDateTime(latestRecord.startedAt) }} - {{ formatDateTime(latestRecord.finishedAt) }}</span>
+                </div>
+                <el-table :data="latestRecord.items || []" size="small" border empty-text="暂无明细">
+                  <el-table-column type="index" label="序号" width="70" align="center"></el-table-column>
+                  <el-table-column label="政策名" min-width="300" show-overflow-tooltip>
+                    <template #default="{ row }">{{ row.title || row.url || '-' }}</template>
+                  </el-table-column>
+                  <el-table-column label="获取日期" width="120">
+                    <template #default="{ row }">{{ scheduleItemDate(row) }}</template>
+                  </el-table-column>
+                  <el-table-column label="入库时间" width="170">
+                    <template #default="{ row }">{{ formatDateTime(row.importedAt || row.importStartedAt) }}</template>
+                  </el-table-column>
+                  <el-table-column label="是否成功" width="100" align="center">
+                    <template #default="{ row }">
+                      <el-tag :type="row.success ? 'success' : 'danger'" size="small">{{ row.success ? '是' : '否' }}</el-tag>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </template>
+            </div>
+          </div>
+        </section>
+      </div>
+    </el-dialog>
+  </div>
+
+  <script src="/lib/cdn/vue.global.js"></script>
+  <script src="/lib/cdn/element-plus.umd.js"></script>
+  <script src="/lib/cdn/element-plus-icons.min.js"></script>
+  <script src="../js/menu.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/page-init.js"></script>
+  <script>
+    const { createApp, ref, reactive, computed, onMounted, onBeforeUnmount, watch } = Vue;
+    const { ElMessage } = ElementPlus;
+
+    const app = createApp({
+      setup() {
+        const API_BASE = window.location.origin;
+        const loading = ref(false);
+        const previewLoading = ref(false);
+        const importLoading = ref(false);
+        const showUrlPanel = ref(false);
+        const crawlerUrl = ref('');
+        const previewData = ref(null);
+        const previewDrawer = ref(false);
+        const previewTab = ref('content');
+        const policies = ref([]);
+        const search = reactive({ department: '', scope: '' });
+        const pagination = reactive({ page: 1, size: 10, total: 0, pages: 0 });
+        const detailDrawer = ref(false);
+        const currentPolicy = ref({});
+        const selectedAttachment = ref(null);
+        const attachmentPreviewLoading = ref(false);
+        const attachmentPreview = reactive({ previewUrl: '', content: '', contentHtml: '' });
+        const detailTab = ref('original');
+        const detailOriginalLoading = ref(false);
+        const detailAttachmentsLoading = ref(false);
+        const detailAttachmentPreviewLoading = ref(false);
+        const detailOriginal = reactive({ content: '', filePath: '', fileType: '' });
+        const detailAttachments = ref([]);
+        const selectedDetailAttachment = ref(null);
+        const detailAttachmentPreview = reactive({ previewUrl: '', content: '', contentHtml: '' });
+        const scheduleDialogVisible = ref(false);
+        const scheduleRunning = ref(false);
+        const scheduleStatusLoading = ref(false);
+        const scheduleActiveSection = ref('timed');
+        const scheduleRunProgress = ref(0);
+        const scheduleRunStatus = ref('idle');
+        const scheduleRunProgressTimer = ref(null);
+        const scheduleForm = reactive({ enabled: false, time: '01:00', dateRange: [] });
+        const scheduleBackendStatus = reactive({ running: false, enabled: false, scheduledHour: 1 });
+        const scheduleRecords = ref([]);
+        const scheduleTimerId = ref(null);
+        const nextScheduleAt = ref('');
+        const scheduleSections = [
+          { key: 'timed', label: '定时获取', icon: 'Timer' },
+          { key: 'range', label: '选择时间范围', icon: 'Calendar' },
+          { key: 'records', label: '记录', icon: 'Document' }
+        ];
+        const SCHEDULE_SETTINGS_KEY = 'crawler.incremental.schedule.settings';
+        const SCHEDULE_RECORDS_KEY = 'crawler.incremental.schedule.records';
+        const STORAGE_STATUS_IMPORTED = '已入库';
+        const STORAGE_STATUS_NOT_IMPORTED = '未入库';
+
+        const storageStatusText = (row) => {
+          const value = String(row?.storageStatus || row?.importStatus || row?.databaseStatus || '').trim();
+          if (value === STORAGE_STATUS_NOT_IMPORTED || value === '失败' || value === '入库失败') return STORAGE_STATUS_NOT_IMPORTED;
+          if (value === STORAGE_STATUS_IMPORTED || value === '成功' || value === '入库成功') return STORAGE_STATUS_IMPORTED;
+          return row?.uuid || row?.policyId ? STORAGE_STATUS_IMPORTED : STORAGE_STATUS_NOT_IMPORTED;
+        };
+
+        const storageStatusTagType = (row) => storageStatusText(row) === STORAGE_STATUS_IMPORTED ? 'success' : 'info';
+
+        const normalizePolicyStorageStatus = (policy) => ({
+          ...policy,
+          storageStatus: storageStatusText(policy)
+        });
+
+        const latestRecord = computed(() => scheduleRecords.value[0] || null);
+
+        const nextScheduleText = computed(() => {
+          if (!scheduleForm.enabled) return '未开启';
+          return nextScheduleAt.value ? formatDateTime(nextScheduleAt.value) : '待保存';
+        });
+
+        const scheduleRunStatusText = computed(() => {
+          if (scheduleRunStatus.value === 'running') return '正在爬取选中日期范围';
+          if (scheduleRunStatus.value === 'success') return '爬取完成';
+          if (scheduleRunStatus.value === 'error') return '爬取失败';
+          return '等待执行';
+        });
+
+        const formatDateTime = (value) => {
+          if (!value) return '-';
+          const date = new Date(value);
+          if (Number.isNaN(date.getTime())) return String(value);
+          return date.toLocaleString('zh-CN', { hour12: false });
+        };
+
+        const formatDateOnly = (date) => {
+          const y = date.getFullYear();
+          const m = String(date.getMonth() + 1).padStart(2, '0');
+          const d = String(date.getDate()).padStart(2, '0');
+          return `${y}-${m}-${d}`;
+        };
+
+        const yesterdayDateRange = () => {
+          const date = new Date();
+          date.setDate(date.getDate() - 1);
+          const text = formatDateOnly(date);
+          return [text, text];
+        };
+
+        const normalizeIncrementalDateRange = () => {
+          const range = Array.isArray(scheduleForm.dateRange)
+            ? scheduleForm.dateRange.filter(Boolean)
+            : [];
+          if (range.length !== 2) {
+            scheduleForm.dateRange = yesterdayDateRange();
+            return { date: scheduleForm.dateRange[0] };
+          }
+          const [startDate, endDate] = range;
+          if (startDate > endDate) {
+            throw new Error('开始日期不能晚于结束日期');
+          }
+          return startDate === endDate ? { date: startDate } : { startDate, endDate };
+        };
+
+        const scheduleItemDate = (row) => {
+          if (row?.date) return row.date;
+          const value = row?.fetchedAt || row?.fetchStartedAt || row?.importedAt || row?.finishedAt || '';
+          const match = String(value).match(/\d{4}[-/]\d{1,2}[-/]\d{1,2}/);
+          return match ? match[0].replace(/\//g, '-') : '-';
+        };
+
+        const formatTrigger = (trigger) => trigger === 'schedule' ? '自动抓取' : '手动执行';
+
+        const readJsonStorage = (key, fallback) => {
+          try {
+            const raw = localStorage.getItem(key);
+            return raw ? JSON.parse(raw) : fallback;
+          } catch (err) {
+            return fallback;
+          }
+        };
+
+        const writeJsonStorage = (key, value) => {
+          try {
+            localStorage.setItem(key, JSON.stringify(value));
+          } catch (err) {
+            console.warn('本地记录保存失败:', err);
+          }
+        };
+
+        const loadScheduleSettings = () => {
+          const saved = readJsonStorage(SCHEDULE_SETTINGS_KEY, null);
+          if (saved) {
+            scheduleForm.enabled = Boolean(saved.enabled);
+            scheduleForm.time = saved.time || '01:00';
+            scheduleForm.dateRange = Array.isArray(saved.dateRange) && saved.dateRange.length === 2
+              ? saved.dateRange
+              : yesterdayDateRange();
+          } else {
+            scheduleForm.dateRange = yesterdayDateRange();
+          }
+          scheduleRecords.value = readJsonStorage(SCHEDULE_RECORDS_KEY, []);
+        };
+
+        const normalizeScheduleRecord = (result, trigger = 'manual', success = true, message = '') => ({
+          id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+          success,
+          message: message || result?.message || '',
+          trigger: result?.trigger || trigger,
+          date: result?.date || '',
+          startedAt: result?.startedAt || new Date().toISOString(),
+          finishedAt: result?.finishedAt || new Date().toISOString(),
+          total: Number(result?.total || 0),
+          imported: Number(result?.imported || 0),
+          failed: Number(result?.failed || (success ? 0 : 1)),
+          items: Array.isArray(result?.items)
+            ? result.items.map(item => ({ ...item, date: item.date || result?.date || '' }))
+            : []
+        });
+
+        const addScheduleRecord = (record) => {
+          const sameStartedAt = record.startedAt && scheduleRecords.value.some(item => item.startedAt === record.startedAt);
+          if (sameStartedAt) return;
+          scheduleRecords.value = [record, ...scheduleRecords.value].slice(0, 20);
+          writeJsonStorage(SCHEDULE_RECORDS_KEY, scheduleRecords.value);
+        };
+
+        const msUntilScheduleTime = (time) => {
+          const [hour, minute] = String(time || '01:00').split(':').map(Number);
+          const now = new Date();
+          const next = new Date(now);
+          next.setHours(Number.isFinite(hour) ? hour : 1, Number.isFinite(minute) ? minute : 0, 0, 0);
+          if (next <= now) next.setDate(next.getDate() + 1);
+          nextScheduleAt.value = next.toISOString();
+          return next.getTime() - now.getTime();
+        };
+
+        const clearScheduleTimer = () => {
+          if (scheduleTimerId.value) {
+            clearTimeout(scheduleTimerId.value);
+            scheduleTimerId.value = null;
+          }
+        };
+
+        const clearScheduleRunProgress = () => {
+          if (scheduleRunProgressTimer.value) {
+            clearInterval(scheduleRunProgressTimer.value);
+            scheduleRunProgressTimer.value = null;
+          }
+        };
+
+        const startScheduleRunProgress = () => {
+          clearScheduleRunProgress();
+          scheduleRunStatus.value = 'running';
+          scheduleRunProgress.value = 8;
+          scheduleRunProgressTimer.value = setInterval(() => {
+            scheduleRunProgress.value = Math.min(88, scheduleRunProgress.value + 6);
+          }, 700);
+        };
+
+        const finishScheduleRunProgress = (status) => {
+          clearScheduleRunProgress();
+          scheduleRunStatus.value = status;
+          scheduleRunProgress.value = 100;
+        };
+
+        const scheduleNextIncrementalRun = () => {
+          clearScheduleTimer();
+          if (!scheduleForm.enabled) {
+            nextScheduleAt.value = '';
+            return;
+          }
+          msUntilScheduleTime(scheduleForm.time);
+        };
+
+        const saveScheduleSettings = async () => {
+          scheduleStatusLoading.value = true;
+          try {
+            const res = await fetchWithRetry(`${API_BASE}/api/crawler/xmsme/incremental/schedule`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ enabled: scheduleForm.enabled, time: scheduleForm.time }),
+              timeoutMs: 30000
+            });
+            const result = await parseApiResponse(res, '定时设置保存失败');
+            scheduleBackendStatus.enabled = Boolean(result.data?.enabled);
+            scheduleBackendStatus.scheduledHour = Number(result.data?.scheduledHour ?? scheduleBackendStatus.scheduledHour);
+            scheduleForm.time = result.data?.scheduledTime || scheduleForm.time;
+            writeJsonStorage(SCHEDULE_SETTINGS_KEY, { enabled: scheduleForm.enabled, time: scheduleForm.time, dateRange: scheduleForm.dateRange });
+            scheduleNextIncrementalRun();
+            ElMessage.success(result.message || '定时设置已保存');
+          } catch (err) {
+            const message = String(err.message || '');
+            if (/文件不存在.*\/api\/crawler\/xmsme\/incremental\/schedule/.test(message)) {
+              writeJsonStorage(SCHEDULE_SETTINGS_KEY, { enabled: scheduleForm.enabled, time: scheduleForm.time, dateRange: scheduleForm.dateRange });
+              scheduleNextIncrementalRun();
+              ElMessage.warning('当前后端服务尚未加载定时设置接口，请重启 Node 服务后重新保存。设置已先保存到本地。');
+            } else {
+              ElMessage.error(message || '定时设置保存失败');
+            }
+          } finally {
+            scheduleStatusLoading.value = false;
+          }
+        };
+
+        const normalizeErrorMessage = (message, fallback = '请求失败') => {
+          const text = String(message || '').trim();
+          if (!text) return fallback;
+          if (/^bad message$/i.test(text)) return '请求被上游服务拒绝，请检查查询条件或政策 URL 是否完整、合法';
+          return text;
+        };
+
+        const parseApiResponse = async (res, fallback) => {
+          let result = null;
+          try {
+            result = await res.json();
+          } catch (err) {
+            throw new Error(`服务响应不是合法 JSON：${err.message}`);
+          }
+          if (!res.ok || !result.success) {
+            throw new Error(normalizeErrorMessage(result.message, fallback || `请求失败(${res.status})`));
+          }
+          return result;
+        };
+
+        const fetchPolicies = async () => {
+          loading.value = true;
+          try {
+            const params = new URLSearchParams({
+              page: String(pagination.page),
+              size: String(pagination.size)
+            });
+            if (search.department.trim()) params.append('department', search.department.trim());
+            if (search.scope.trim()) params.append('scope', search.scope.trim());
+
+            const res = await fetchWithRetry(`${API_BASE}/api/policies?${params}`);
+            const result = await parseApiResponse(res, '获取政策列表失败');
+            policies.value = (result.data || []).map(normalizePolicyStorageStatus);
+            pagination.total = result.pagination?.total || 0;
+            pagination.pages = result.pagination?.pages || 0;
+          } catch (err) {
+            console.error('获取政策列表失败:', err);
+            ElMessage.error(err.message || '获取政策列表失败');
+          } finally {
+            loading.value = false;
+          }
+        };
+
+        const handleSearch = () => {
+          pagination.page = 1;
+          fetchPolicies();
+        };
+
+        const resetSearch = () => {
+          search.department = '';
+          search.scope = '';
+          pagination.page = 1;
+          fetchPolicies();
+        };
+
+        const handleSizeChange = (val) => {
+          pagination.size = val;
+          pagination.page = 1;
+          fetchPolicies();
+        };
+
+        const handleCurrentChange = (val) => {
+          pagination.page = val;
+          fetchPolicies();
+        };
+
+        const openUrlPanel = () => {
+          showUrlPanel.value = true;
+        };
+
+        const closeUrlPanel = () => {
+          crawlerUrl.value = '';
+          previewData.value = null;
+          previewDrawer.value = false;
+          previewTab.value = 'content';
+          resetAttachmentPreview();
+          showUrlPanel.value = false;
+        };
+
+        const normalizeCrawlerPreviewData = (data) => {
+          const preview = { ...(data || {}) };
+          preview.title = String(preview.title || preview.name || '').trim();
+          preview.department = String(preview.department || preview.issueDepartment || preview.deptName || '').trim();
+          preview.applicableScope = String(preview.applicableScope || preview.scope || preview.applyScope || '').trim();
+          preview.publishDate = String(preview.publishDate || preview.approvedTime || preview.publishTime || '').trim().slice(0, 10);
+          preview.policyCode = String(preview.policyCode || preview.documentNo || preview.code || '').trim();
+          preview.documentNo = preview.policyCode;
+          preview.markdown = String(preview.markdown || '');
+          return preview;
+        };
+
+        const syncPreviewMetadataToMarkdown = () => {
+          if (!previewData.value) return '';
+          const preview = previewData.value;
+          const metadataLines = {
+            '发文部门': preview.department || '-',
+            '适用范围': preview.applicableScope || '-',
+            '发布日期': preview.publishDate || '-',
+            '文号': preview.policyCode || '-'
+          };
+          const lines = String(preview.markdown || '').replace(/\r\n/g, '\n').split('\n');
+          if (lines.length && /^#\s+/.test(lines[0])) {
+            lines[0] = `# ${preview.title || '未命名政策'}`;
+          }
+          Object.entries(metadataLines).forEach(([label, value]) => {
+            const index = lines.findIndex(line => new RegExp(`^-\\s*${label}[：:]`).test(line));
+            if (index >= 0) lines[index] = `- ${label}：${value}`;
+          });
+          preview.markdown = lines.join('\n');
+          return preview.markdown;
+        };
+
+        const buildPreviewImportPayload = () => {
+          const preview = previewData.value || {};
+          return {
+            previewId: preview.previewId,
+            title: String(preview.title || '').trim(),
+            department: String(preview.department || '').trim(),
+            applicableScope: String(preview.applicableScope || '').trim(),
+            publishDate: String(preview.publishDate || '').trim(),
+            policyCode: String(preview.policyCode || '').trim(),
+            documentNo: String(preview.policyCode || '').trim(),
+            markdown: syncPreviewMetadataToMarkdown()
+          };
+        };
+
+        const previewAttachments = computed(() => {
+          return (previewData.value?.attachments || []).filter(item => item.status === 'downloaded' && item.filePath);
+        });
+
+        const buildPreviewPolicyRow = (storageStatus, policyId = '') => {
+          const preview = previewData.value || {};
+          return normalizePolicyStorageStatus({
+            id: policyId || '预览',
+            uuid: policyId || '',
+            policyId,
+            previewId: preview.previewId || '',
+            title: preview.title || '未命名政策',
+            documentNo: preview.policyCode || preview.documentNo || '',
+            publishDate: preview.publishDate || '',
+            department: preview.department || '',
+            fileType: preview.fileType || '',
+            attachmentCount: previewAttachments.value.length,
+            storageStatus
+          });
+        };
+
+        const updatePreviewPolicyStorageStatus = (storageStatus, policyId = '') => {
+          if (!previewData.value) return;
+          previewData.value.storageStatus = storageStatus;
+          const previewKey = String(previewData.value.previewId || '');
+          const title = String(previewData.value.title || '');
+          const index = policies.value.findIndex(item =>
+            (previewKey && String(item.previewId || '') === previewKey) ||
+            (policyId && String(item.uuid || item.policyId || '') === String(policyId)) ||
+            (title && String(item.title || '') === title)
+          );
+          const row = buildPreviewPolicyRow(storageStatus, policyId);
+          if (index >= 0) {
+            policies.value.splice(index, 1, { ...policies.value[index], ...row });
+          } else {
+            policies.value.unshift(row);
+          }
+        };
+
+        const attachmentDisplayName = (item) => item?.attachmentShowName || item?.showName || item?.attachmentName || item?.name || '';
+
+        const attachmentKey = (item) => String(item?.filePath || item?.id || item?.name || item?.attachmentName || '');
+
+        const selectedAttachmentKey = computed(() => attachmentKey(selectedAttachment.value));
+        const selectedDetailAttachmentKey = computed(() => attachmentKey(selectedDetailAttachment.value));
+
+        const attachmentSuffix = (item) => {
+          const suffix = String(item?.suffix || item?.fileSuffix || '').trim();
+          if (suffix) return suffix.toUpperCase();
+          const name = String(attachmentDisplayName(item));
+          const match = name.match(/\.([^.]+)$/);
+          return match ? match[1].toUpperCase() : '文件';
+        };
+
+        const formatFileSize = (size) => {
+          const value = Number(size || 0);
+          if (!Number.isFinite(value) || value <= 0) return '';
+          if (value < 1024) return `${value} B`;
+          if (value < 1024 * 1024) return `${(value / 1024).toFixed(1)} KB`;
+          return `${(value / 1024 / 1024).toFixed(1)} MB`;
+        };
+
+        const resetAttachmentPreview = () => {
+          selectedAttachment.value = null;
+          attachmentPreview.previewUrl = '';
+          attachmentPreview.content = '';
+          attachmentPreview.contentHtml = '';
+          attachmentPreviewLoading.value = false;
+        };
+
+        const resetDetailAttachmentPreview = () => {
+          selectedDetailAttachment.value = null;
+          detailAttachmentPreview.previewUrl = '';
+          detailAttachmentPreview.content = '';
+          detailAttachmentPreview.contentHtml = '';
+          detailAttachmentPreviewLoading.value = false;
+        };
+
+        const resetDetailContent = () => {
+          detailTab.value = 'original';
+          detailOriginal.content = '';
+          detailOriginal.filePath = '';
+          detailOriginal.fileType = '';
+          detailOriginalLoading.value = false;
+          detailAttachmentsLoading.value = false;
+          detailAttachments.value = [];
+          resetDetailAttachmentPreview();
+        };
+
+        const isPdfAttachment = (item) => attachmentSuffix(item).toLowerCase() === 'pdf';
+
+        const buildAttachmentFileUrl = (item) => {
+          const filePath = String(item?.filePath || '').trim();
+          if (!filePath) return '';
+          return `${API_BASE}/api/attachment/file?filePath=${encodeURIComponent(filePath)}&fileName=${encodeURIComponent(attachmentDisplayName(item))}`;
+        };
+
+        const showPreviewAttachment = async (item) => {
+          selectedAttachment.value = item;
+          attachmentPreview.previewUrl = '';
+          attachmentPreview.content = '';
+          attachmentPreview.contentHtml = '';
+
+          if (!item?.filePath) {
+            attachmentPreview.content = '附件路径为空，无法预览。';
+            return;
+          }
+
+          if (isPdfAttachment(item)) {
+            attachmentPreview.previewUrl = buildAttachmentFileUrl(item);
+            return;
+          }
+
+          attachmentPreviewLoading.value = true;
+          try {
+            const params = new URLSearchParams({
+              filePath: item.filePath,
+              fileSuffix: String(item.suffix || item.fileSuffix || ''),
+              fileName: item.showName || item.name || ''
+            });
+            const res = await fetchWithRetry(`${API_BASE}/api/attachment/content?${params.toString()}`, { timeoutMs: 60000 });
+            const result = await parseApiResponse(res, '附件内容加载失败');
+            attachmentPreview.content = result.data?.content || '';
+            attachmentPreview.contentHtml = result.data?.contentHtml || '';
+            if (!attachmentPreview.content && !attachmentPreview.contentHtml) {
+              attachmentPreview.content = '未能从该附件中提取到可显示的内容。';
+            }
+          } catch (err) {
+            attachmentPreview.content = err.message || '附件内容加载失败';
+          } finally {
+            attachmentPreviewLoading.value = false;
+          }
+        };
+
+        const isCurrentPreviewRow = (row) => {
+          if (!previewData.value) return false;
+          const previewKey = String(previewData.value.previewId || '');
+          const rowPreviewKey = String(row?.previewId || '');
+          const title = String(previewData.value.title || '');
+          return (previewKey && rowPreviewKey === previewKey) || (!!title && String(row?.title || '') === title && !row?.uuid && !row?.policyId);
+        };
+
+        const loadDetailOriginal = async (row) => {
+          const policyId = String(row?.uuid || row?.policyId || '').trim();
+          if (!policyId) {
+            detailOriginal.content = isCurrentPreviewRow(row)
+              ? (previewData.value?.markdown || '暂无政策原文')
+              : '该政策尚未入库，暂无数据库原文。';
+            return;
+          }
+
+          detailOriginalLoading.value = true;
+          try {
+            const res = await fetchWithRetry(`${API_BASE}/api/policy/content?id=${encodeURIComponent(policyId)}`, { timeoutMs: 60000 });
+            const result = await parseApiResponse(res, '政策原文加载失败');
+            detailOriginal.content = result.data?.content || '暂无政策原文';
+            detailOriginal.filePath = result.data?.filePath || '';
+            detailOriginal.fileType = result.data?.fileType || '';
+          } catch (err) {
+            detailOriginal.content = err.message || '政策原文加载失败';
+          } finally {
+            detailOriginalLoading.value = false;
+          }
+        };
+
+        const loadDetailAttachments = async (row) => {
+          const policyId = String(row?.uuid || row?.policyId || '').trim();
+          detailAttachmentsLoading.value = true;
+          try {
+            if (!policyId) {
+              detailAttachments.value = isCurrentPreviewRow(row) ? previewAttachments.value : [];
+              return;
+            }
+
+            const res = await fetchWithRetry(`${API_BASE}/api/attachment/list?policyId=${encodeURIComponent(policyId)}`, { timeoutMs: 60000 });
+            const result = await parseApiResponse(res, '附件列表加载失败');
+            detailAttachments.value = result.data || [];
+          } catch (err) {
+            detailAttachments.value = [];
+            detailAttachmentPreview.content = err.message || '附件列表加载失败';
+          } finally {
+            detailAttachmentsLoading.value = false;
+          }
+        };
+
+        const loadPolicyDetailContent = async (row) => {
+          resetDetailContent();
+          await Promise.all([loadDetailOriginal(row), loadDetailAttachments(row)]);
+        };
+
+        const showDetailAttachment = async (item) => {
+          selectedDetailAttachment.value = item;
+          detailAttachmentPreview.previewUrl = '';
+          detailAttachmentPreview.content = '';
+          detailAttachmentPreview.contentHtml = '';
+
+          if (!item?.filePath && !item?.id) {
+            detailAttachmentPreview.content = '附件路径为空，无法预览。';
+            return;
+          }
+
+          if (isPdfAttachment(item) && item?.filePath) {
+            detailAttachmentPreview.previewUrl = buildAttachmentFileUrl(item);
+            return;
+          }
+
+          detailAttachmentPreviewLoading.value = true;
+          try {
+            const params = new URLSearchParams();
+            if (item?.id) {
+              params.set('id', item.id);
+            } else {
+              params.set('filePath', item.filePath);
+              params.set('fileSuffix', String(item.suffix || item.fileSuffix || ''));
+              params.set('fileName', attachmentDisplayName(item));
+            }
+            const res = await fetchWithRetry(`${API_BASE}/api/attachment/content?${params.toString()}`, { timeoutMs: 60000 });
+            const result = await parseApiResponse(res, '附件内容加载失败');
+            detailAttachmentPreview.content = result.data?.content || '';
+            detailAttachmentPreview.contentHtml = result.data?.contentHtml || '';
+            if (!detailAttachmentPreview.content && !detailAttachmentPreview.contentHtml) {
+              detailAttachmentPreview.content = '未能从该附件中提取到可显示的内容。';
+            }
+          } catch (err) {
+            detailAttachmentPreview.content = err.message || '附件内容加载失败';
+          } finally {
+            detailAttachmentPreviewLoading.value = false;
+          }
+        };
+
+        watch(previewTab, (tab) => {
+          if (tab === 'attachments' && previewAttachments.value.length && !selectedAttachment.value) {
+            showPreviewAttachment(previewAttachments.value[0]);
+          }
+        });
+
+        watch(detailTab, (tab) => {
+          if (tab === 'attachments' && detailAttachments.value.length && !selectedDetailAttachment.value) {
+            showDetailAttachment(detailAttachments.value[0]);
+          }
+        });
+
+        const previewUrl = async () => {
+          const url = crawlerUrl.value.trim();
+          if (!url) {
+            ElMessage.warning('请输入政策 URL');
+            return;
+          }
+          previewLoading.value = true;
+          try {
+            const res = await fetchWithRetry(`${API_BASE}/api/crawler/xmsme/preview`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ url }),
+              timeoutMs: 180000
+            });
+            const result = await parseApiResponse(res, '查看失败');
+            previewData.value = normalizeCrawlerPreviewData(result.data);
+            previewTab.value = 'content';
+            resetAttachmentPreview();
+            previewDrawer.value = true;
+            ElMessage.success('政策已抓取并按目录保存');
+          } catch (err) {
+            console.error('URL 预览失败:', err);
+            const message = err.name === 'AbortError' || String(err.message || '').includes('aborted')
+              ? '爬取超时，请稍后重试或检查目标网址是否可访问'
+              : (err.message || 'URL 预览失败');
+            ElMessage.error(message);
+          } finally {
+            previewLoading.value = false;
+          }
+        };
+
+        const importPreview = async () => {
+          if (!previewData.value?.previewId) {
+            ElMessage.warning('请先查看政策 URL');
+            return;
+          }
+          if (!String(previewData.value.title || '').trim()) {
+            ElMessage.warning('请输入入库政策标题');
+            return;
+          }
+          const payload = buildPreviewImportPayload();
+          importLoading.value = true;
+          try {
+            const res = await fetchWithRetry(`${API_BASE}/api/crawler/xmsme/import`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+              timeoutMs: 60000
+            });
+            const result = await parseApiResponse(res, '入库失败');
+            updatePreviewPolicyStorageStatus(STORAGE_STATUS_IMPORTED, result.data?.policyId || '');
+            ElMessage.success(result.message || '入库成功');
+            previewDrawer.value = false;
+            await fetchPolicies();
+          } catch (err) {
+            updatePreviewPolicyStorageStatus(STORAGE_STATUS_NOT_IMPORTED);
+            console.error('政策入库失败:', err);
+            ElMessage.error(err.message || '政策入库失败');
+          } finally {
+            importLoading.value = false;
+          }
+        };
+
+        const showDetail = (row) => {
+          currentPolicy.value = { ...row };
+          detailDrawer.value = true;
+          loadPolicyDetailContent(row);
+        };
+
+        const startCrawl = () => {
+          openUrlPanel();
+        };
+
+        const loadIncrementalStatus = async () => {
+          scheduleStatusLoading.value = true;
+          try {
+            const res = await fetchWithRetry(`${API_BASE}/api/crawler/xmsme/incremental/status`, { timeoutMs: 30000 });
+            const result = await parseApiResponse(res, '定时状态获取失败');
+            scheduleBackendStatus.running = Boolean(result.data?.running);
+            scheduleBackendStatus.enabled = Boolean(result.data?.enabled);
+            scheduleBackendStatus.scheduledHour = Number(result.data?.scheduledHour ?? 1);
+            scheduleForm.enabled = Boolean(result.data?.enabled);
+            scheduleForm.time = result.data?.scheduledTime || `${String(scheduleBackendStatus.scheduledHour).padStart(2, '0')}:00`;
+            writeJsonStorage(SCHEDULE_SETTINGS_KEY, { enabled: scheduleForm.enabled, time: scheduleForm.time, dateRange: scheduleForm.dateRange });
+            scheduleNextIncrementalRun();
+            if (result.data?.lastResult) {
+              addScheduleRecord(normalizeScheduleRecord(result.data.lastResult, result.data.lastResult.trigger || 'schedule'));
+            }
+          } catch (err) {
+            console.error('定时状态获取失败:', err);
+            ElMessage.error(err.message || '定时状态获取失败');
+          } finally {
+            scheduleStatusLoading.value = false;
+          }
+        };
+
+        const runIncrementalCrawl = async (trigger = 'manual') => {
+          scheduleRunning.value = true;
+          startScheduleRunProgress();
+          try {
+            const payload = {
+              trigger,
+              ...(trigger === 'manual' ? normalizeIncrementalDateRange() : {})
+            };
+            const res = await fetchWithRetry(`${API_BASE}/api/crawler/xmsme/incremental`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+              timeoutMs: 1800000
+            });
+            const result = await parseApiResponse(res, '定时增量更新失败');
+            addScheduleRecord(normalizeScheduleRecord(result.data, trigger, true, result.message));
+            finishScheduleRunProgress('success');
+            ElMessage.success(result.message || '定时增量更新完成');
+            await fetchPolicies();
+          } catch (err) {
+            addScheduleRecord(normalizeScheduleRecord({
+              trigger,
+              startedAt: new Date().toISOString(),
+              finishedAt: new Date().toISOString(),
+              total: 0,
+              imported: 0,
+              failed: 1,
+              items: [{ success: false, message: err.message || '定时增量更新失败', finishedAt: new Date().toISOString() }]
+            }, trigger, false, err.message || '定时增量更新失败'));
+            finishScheduleRunProgress('error');
+            console.error('定时增量更新失败:', err);
+            ElMessage.error(err.message || '定时增量更新失败');
+          } finally {
+            scheduleRunning.value = false;
+            loadIncrementalStatus();
+          }
+        };
+
+        const startScheduledCrawl = async () => {
+          scheduleDialogVisible.value = true;
+          scheduleActiveSection.value = 'timed';
+          await loadIncrementalStatus();
+        };
+
+        onMounted(() => {
+          loadScheduleSettings();
+          fetchPolicies();
+          loadIncrementalStatus();
+          scheduleNextIncrementalRun();
+        });
+
+        onBeforeUnmount(() => {
+          clearScheduleTimer();
+          clearScheduleRunProgress();
+        });
+
+        return {
+          loading,
+          previewLoading,
+          importLoading,
+          showUrlPanel,
+          crawlerUrl,
+          previewData,
+          previewDrawer,
+          previewTab,
+          previewAttachments,
+          selectedAttachment,
+          selectedAttachmentKey,
+          attachmentPreview,
+          attachmentPreviewLoading,
+          policies,
+          search,
+          pagination,
+          detailDrawer,
+          currentPolicy,
+          detailTab,
+          detailOriginalLoading,
+          detailAttachmentsLoading,
+          detailAttachmentPreviewLoading,
+          detailOriginal,
+          detailAttachments,
+          selectedDetailAttachment,
+          selectedDetailAttachmentKey,
+          detailAttachmentPreview,
+          scheduleDialogVisible,
+          scheduleRunning,
+          scheduleStatusLoading,
+          scheduleActiveSection,
+          scheduleRunProgress,
+          scheduleRunStatus,
+          scheduleRunStatusText,
+          scheduleForm,
+          scheduleBackendStatus,
+          scheduleSections,
+          scheduleRecords,
+          latestRecord,
+          nextScheduleText,
+          storageStatusText,
+          storageStatusTagType,
+          formatDateTime,
+          scheduleItemDate,
+          formatTrigger,
+          fetchPolicies,
+          handleSearch,
+          resetSearch,
+          handleSizeChange,
+          handleCurrentChange,
+          openUrlPanel,
+          closeUrlPanel,
+          previewUrl,
+          importPreview,
+          attachmentKey,
+          attachmentDisplayName,
+          attachmentSuffix,
+          formatFileSize,
+          showPreviewAttachment,
+          showDetailAttachment,
+          showDetail,
+          loadIncrementalStatus,
+          runIncrementalCrawl,
+          saveScheduleSettings,
+          startCrawl,
+          startScheduledCrawl
+        };
+      }
+    });
+
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component);
+    }
+    app.use(ElementPlus);
+    app.mount('#app');
+    PageInit.initStandalonePage();
+  </script>
+</body>
+</html>

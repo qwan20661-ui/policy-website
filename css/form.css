@@ -1,0 +1,347 @@
+/* ========================================
+   表单与配置页样式
+   ======================================== */
+
+.form-section {
+  margin-bottom: 16px;
+}
+
+.form-section-body {
+  padding: 20px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px;
+}
+
+.form-row:last-child {
+  margin-bottom: 0;
+}
+
+.form-item {
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.form-item label,
+.field-label,
+.merge-search-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--color-text-regular);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-item label .required {
+  margin-right: 4px;
+  color: var(--color-danger);
+}
+
+.form-grid,
+.form-grid-2,
+.form-grid-3,
+.form-grid-4 {
+  display: grid;
+  gap: 16px;
+}
+
+.form-grid,
+.form-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.form-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.form-grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 20px;
+  border-top: 2px solid var(--color-border);
+  background: var(--page-accent-surface);
+}
+
+.form-actions-inline,
+.search-actions,
+.merge-search-actions,
+.review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.advanced-search {
+  overflow: hidden;
+}
+
+.advanced-search-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--page-accent-surface);
+  color: var(--color-text-regular);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+.advanced-search-toggle:hover {
+  color: var(--page-accent);
+}
+
+.advanced-search-body {
+  display: none;
+  padding: 20px;
+}
+
+.advanced-search.expanded .advanced-search-body {
+  display: block;
+}
+
+.step-form {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 0;
+  margin-bottom: 28px;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+}
+
+.step-item:not(:last-child)::after {
+  content: '';
+  width: 72px;
+  height: 4px;
+  margin: 0 12px;
+  background: var(--color-border);
+}
+
+.step-item.completed:not(:last-child)::after,
+.step-item.active:not(:last-child)::after {
+  background: var(--page-accent);
+}
+
+.step-number {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-alt);
+  border: 2px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.step-item.active .step-number,
+.step-item.completed .step-number {
+  background: var(--page-accent);
+  border-color: var(--page-accent);
+  color: #fff;
+}
+
+.step-label {
+  margin-left: 10px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.step-item.active .step-label,
+.step-item.completed .step-label {
+  color: var(--color-text-primary);
+}
+
+.upload-area {
+  padding: 42px 24px;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-alt);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.upload-area:hover {
+  border-color: var(--page-accent);
+  background: #fff;
+  transform: scale(1.01);
+}
+
+.upload-area .el-icon,
+.upload-area i {
+  display: inline-flex;
+  margin-bottom: 14px;
+  color: var(--page-accent);
+  font-size: 42px;
+}
+
+.upload-area p {
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.upload-area .upload-tip {
+  margin-top: 8px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.time-range,
+.number-input,
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.checkbox-group {
+  gap: 16px;
+}
+
+.checkbox-item,
+.switch-item {
+  display: flex;
+  align-items: center;
+}
+
+.switch-item {
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.switch-item:last-child {
+  border-bottom: none;
+}
+
+.switch-item-label {
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.switch-item-desc {
+  margin-top: 4px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tag-input {
+  min-height: 46px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-alt);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.tag-input:focus-within {
+  border-color: var(--page-accent);
+  background: #fff;
+}
+
+.tag-input-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--page-accent-soft);
+  color: var(--page-accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tag-input input {
+  min-width: 120px;
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+}
+
+.rating {
+  display: flex;
+  gap: 6px;
+}
+
+.rating-star {
+  color: var(--color-border);
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.rating-star.active,
+.rating-star:hover {
+  color: var(--color-accent);
+  transform: scale(1.08);
+}
+
+.slider-item {
+  padding: 8px 0;
+}
+
+.slider-value {
+  margin-top: 8px;
+  color: var(--page-accent);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.el-form-item.is-error .el-input__wrapper,
+.el-form-item.is-error .el-textarea__inner {
+  border-color: var(--color-danger) !important;
+}
+
+.el-form-item__error {
+  font-size: 12px !important;
+  font-weight: 600;
+}
+
+@media (max-width: 1200px) {
+  .form-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .form-grid,
+  .form-grid-2,
+  .form-grid-3,
+  .form-grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    padding: 16px;
+  }
+}

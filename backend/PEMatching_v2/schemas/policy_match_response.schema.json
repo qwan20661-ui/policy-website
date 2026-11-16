@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "policy_match_response.schema.json",
+  "title": "企业政策匹配响应",
+  "description": "新条件匹配引擎的外部响应与内部审计契约。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "success", "data", "meta", "message"],
+  "properties": {
+    "schemaVersion": {"const": "policy-match-response-v1"},
+    "success": {"const": true},
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enterpriseName", "recommendations"],
+      "properties": {
+        "enterpriseName": {"type": "string", "minLength": 1},
+        "recommendations": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/recommendation"}
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "engine",
+        "policyVersion",
+        "policyCount",
+        "candidateCount",
+        "excludedCount",
+        "modelCallCount",
+        "cacheHitCount",
+        "failedCount",
+        "elapsedMs",
+        "modelRetryCount",
+        "modelQueueWaitMs",
+        "scoringConfigVersion",
+        "allRecommendationCount",
+        "returnedCount"
+      ],
+      "properties": {
+        "engine": {"const": "condition_llm"},
+        "policyVersion": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "policyCount": {"type": "integer", "minimum": 0},
+        "candidateCount": {"type": "integer", "minimum": 0},
+        "excludedCount": {"type": "integer", "minimum": 0},
+        "modelCallCount": {"type": "integer", "minimum": 0},
+        "cacheHitCount": {"type": "integer", "minimum": 0},
+        "failedCount": {"type": "integer", "minimum": 0},
+        "elapsedMs": {"type": "integer", "minimum": 0},
+        "modelRetryCount": {"type": "integer", "minimum": 0},
+        "modelQueueWaitMs": {"type": "integer", "minimum": 0},
+        "scoringConfigVersion": {"type": "string", "minLength": 1},
+        "allRecommendationCount": {"type": "integer", "minimum": 0},
+        "returnedCount": {"type": "integer", "minimum": 0},
+        "globalExclusion": {"type": ["object", "null"]},
+        "prefilterExclusions": {"type": "array", "items": {"type": "object"}},
+        "failures": {"type": "array", "items": {"type": "object"}}
+      }
+    },
+    "message": {"type": "string"}
+  },
+  "$defs": {
+    "applicationWindow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "startTime", "endTime", "instruction"],
+      "properties": {
+        "status": {"enum": ["open", "upcoming", "closed", "last_year", "unknown"]},
+        "startTime": {"type": ["string", "null"]},
+        "endTime": {"type": ["string", "null"]},
+        "instruction": {"type": "string"}
+      }
+    },
+    "recommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fusionPolicyId",
+        "policyTitle",
+        "rank",
+        "finalScore",
+        "conditionScore",
+        "timelinessScore",
+        "reason",
+        "applicationWindow",
+        "audit"
+      ],
+      "properties": {
+        "fusionPolicyId": {"type": "string", "minLength": 1},
+        "policyTitle": {"type": "string", "minLength": 1},
+        "rank": {"type": "integer", "minimum": 1},
+        "finalScore": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "conditionScore": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "timelinessScore": {"type": "number", "minimum": 0, "maximum": 100},
+        "reason": {"type": "string", "minLength": 1},
+        "applicationWindow": {"$ref": "#/$defs/applicationWindow"},
+        "audit": {"$ref": "#/$defs/audit"}
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conditionResults",
+        "groupResults",
+        "sourceConflicts",
+        "verifiedConditionScore",
+        "policyContentHash",
+        "enterpriseProfileHash",
+        "modelName",
+        "promptVersion",
+        "scoreSource",
+        "elapsedMs",
+        "cacheHit",
+        "retryCount",
+        "queueWaitMs",
+        "invalidConditionKeys",
+        "invalidDiscoveredConditionCount",
+        "dataPending"
+      ],
+      "properties": {
+        "conditionResults": {"type": "array", "items": {"type": "object"}},
+        "groupResults": {"type": "array", "items": {"type": "object"}},
+        "sourceConflicts": {"type": "array", "items": {"type": "object"}},
+        "verifiedConditionScore": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "policyContentHash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "enterpriseProfileHash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "modelName": {"type": "string", "minLength": 1},
+        "promptVersion": {"type": "string", "minLength": 1},
+        "scoreSource": {"const": "server_verified"},
+        "elapsedMs": {"type": "integer", "minimum": 0},
+        "cacheHit": {"type": "boolean"},
+        "retryCount": {"type": "integer", "minimum": 0},
+        "queueWaitMs": {"type": "integer", "minimum": 0},
+        "invalidConditionKeys": {"type": "array", "items": {"type": "string"}},
+        "invalidDiscoveredConditionCount": {"type": "integer", "minimum": 0},
+        "dataPending": {"type": "boolean"}
+      }
+    }
+  }
+}

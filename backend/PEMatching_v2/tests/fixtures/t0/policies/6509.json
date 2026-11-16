@@ -1,0 +1,374 @@
+{
+  "success": true,
+  "data": {
+    "id": "6509",
+    "sourcePolicyId": "24000",
+    "directoryTitle": "厦门市企业研发费用补助管理办法",
+    "mainFileTitle": "厦门市企业研发费用补助申报",
+    "status": "ACTIVE",
+    "reviewStatus": "1",
+    "reviewedAt": "2026-08-06 22:14:04.680771",
+    "reviewedBy": "管理员",
+    "reviewRemark": "",
+    "structureReviewStatus": "1",
+    "structureReviewedAt": "2026-07-30 16:37:51.748671",
+    "structureReviewedBy": "管理员",
+    "structureReviewRemark": "",
+    "ruleTableJson": {
+      "hardRuleGroups": [],
+      "softRuleGroups": [
+        {
+          "conditionNo": 3,
+          "rawText": "2024年度自主研发费用高于200万元",
+          "conditionContext": "",
+          "conditionBranchId": "C3-B1",
+          "conditionBranchText": "所属2023、2024年度均有自主研发费用，其中2024年度自主研发费用高于200万元且较2023年实现增长",
+          "conditionOperator": "AND",
+          "conditionFieldItems": [
+            {
+              "itemId": "3-1",
+              "sourceFragmentId": "C3-A1",
+              "itemName": "自主研发费用",
+              "policyFragment": "2024年度自主研发费用高于200万元",
+              "itemStatus": "unresolved",
+              "enterpriseFields": [
+                "自主研发费用"
+              ],
+              "sourceStandardField": null,
+              "matchRule": {
+                "ruleId": "S3-1",
+                "ruleKind": "reference",
+                "fieldType": "number",
+                "operator": "gt",
+                "targetValue": 200,
+                "unit": "万元",
+                "description": "2024年度自主研发费用"
+              },
+              "conditionBranchId": "C3-B1",
+              "conditionBranchText": "所属2023、2024年度均有自主研发费用，其中2024年度自主研发费用高于200万元且较2023年实现增长"
+            }
+          ],
+          "unresolvedFragments": [],
+          "evaluationRole": "quantitative_signal"
+        },
+        {
+          "conditionNo": 3,
+          "rawText": "较2023年实现增长",
+          "conditionContext": "",
+          "conditionBranchId": "C3-B1",
+          "conditionBranchText": "所属2023、2024年度均有自主研发费用，其中2024年度自主研发费用高于200万元且较2023年实现增长",
+          "conditionOperator": "AND",
+          "conditionFieldItems": [
+            {
+              "itemId": "3-2",
+              "sourceFragmentId": "C3-A2",
+              "itemName": "自主研发费用",
+              "policyFragment": "较2023年实现增长",
+              "itemStatus": "unresolved",
+              "enterpriseFields": [
+                "研发投入强度"
+              ],
+              "sourceStandardField": null,
+              "matchRule": {
+                "ruleId": "S3-2",
+                "ruleKind": "reference",
+                "fieldType": "string",
+                "operator": "llm_judge",
+                "targetValue": "较2023年实现增长",
+                "unit": "",
+                "description": "2024年度自主研发费用较2023年增长"
+              },
+              "conditionBranchId": "C3-B1",
+              "conditionBranchText": "所属2023、2024年度均有自主研发费用，其中2024年度自主研发费用高于200万元且较2023年实现增长"
+            }
+          ],
+          "unresolvedFragments": [],
+          "evaluationRole": "eligibility_signal"
+        }
+      ],
+      "specialPassRuleGroups": [],
+      "definitionNotes": [],
+      "applicationChecklistGroups": [
+        {
+          "checklistNo": 1,
+          "checklistType": "时效",
+          "rawText": "在年度所得税汇算清缴结束前（即2025年5月31日前）申报享受研发费用加计扣除",
+          "items": [
+            "申报时间应在2025年5月31日前"
+          ]
+        }
+      ],
+      "name": "厦门市企业研发费用补助申报_规则表",
+      "schemaVersion": "1.2",
+      "policyDisplayName": "厦门市企业研发费用补助申报",
+      "fusionPolicyId": "6509"
+    },
+    "parentPolicyId": "",
+    "parentPolicyTitle": "",
+    "parentPolicyReviewStatus": "",
+    "parentPolicyReviewedAt": "",
+    "parentPolicy": {},
+    "directParentPolicyCount": 0,
+    "directParentPolicies": [],
+    "ancestorPolicyCount": 0,
+    "ancestorPolicies": [],
+    "childPolicyCount": 0,
+    "childPolicies": [],
+    "descendantPolicyCount": 0,
+    "descendantPolicies": [],
+    "documents": [
+      {
+        "id": "14388",
+        "sourcePolicyId": "60",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "申报通知",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局关于2025年企业研发费用补助相关事项的通知",
+        "fileName": "关于2025年企业研发费用补助相关事项的通知.md",
+        "filePath": "importantplus/关于2025年企业研发费用补助相关事项的通知/关于2025年企业研发费用补助相关事项的通知.md",
+        "fileSuffix": "md",
+        "displayOrder": "302",
+        "publishDate": "2025-05-27",
+        "documentNo": "",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "厦门市",
+        "originalUrl": "https://sti.xm.gov.cn/xxgk/tzgg/202505/t20250527_2935652.htm",
+        "attachments": []
+      },
+      {
+        "id": "14389",
+        "sourcePolicyId": "11943",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "申报通知",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局关于组织申报2025年厦门市企业研发费用补助的通知",
+        "fileName": "2025-11-26_厦门市科学技术局关于组织申报2025年厦门市企业研发费用补助的通知.md",
+        "filePath": "docs1/市级/2025-11-26_厦门市科学技术局关于组织申报2025年厦门市企业研发费用补助的通知/2025-11-26_厦门市科学技术局关于组织申报2025年厦门市企业研发费用补助的通知.md",
+        "fileSuffix": "md",
+        "displayOrder": "303",
+        "publishDate": "2025-11-26",
+        "documentNo": "--",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "市级-厦门市",
+        "originalUrl": "https://www.xmsme.cn/policy/market/51127B5kvvr0UZD",
+        "attachments": []
+      },
+      {
+        "id": "14390",
+        "sourcePolicyId": "10752",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局关于2023年企业研发费用补助（第五批）拟补助企业名单的公示",
+        "fileName": "2025-03-12_厦门市科学技术局关于2023年企业研发费用补助（第五批）拟补助企业名单的公示.md",
+        "filePath": "docs1/市级/2025-03-12_厦门市科学技术局关于2023年企业研发费用补助（第五批）拟补助企业名单的公示/2025-03-12_厦门市科学技术局关于2023年企业研发费用补助（第五批）拟补助企业名单的公示.md",
+        "fileSuffix": "md",
+        "displayOrder": "404",
+        "publishDate": "2025-03-12",
+        "documentNo": "--",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "市级-厦门市",
+        "originalUrl": "https://www.xmsme.cn/policy/market/50312LNa5kdmvp3",
+        "attachments": [
+          {
+            "id": "4242d0f9-eb73-468b-9b11-bea475d05ca3",
+            "policyId": "10752",
+            "attachmentName": "附件：2023年企业研发费用补助（第五批）拟补助企业名单.xlsx",
+            "attachmentShowName": "附件：2023年企业研发费用补助（第五批）拟补助企业名单.xlsx",
+            "filePath": "docs1/市级/2025-03-12_厦门市科学技术局关于2023年企业研发费用补助（第五批）拟补助企业名单的公示/附件/附件：2023年企业研发费用补助（第五批）拟补助企业名单.xlsx",
+            "fileSuffix": "xlsx",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "14391",
+        "sourcePolicyId": "10774",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局关于2024年企业研发费用补助拟补助企业名单（厦门万泰沧海生物技术有限公司等18家企业）的公示",
+        "fileName": "2025-03-20_厦门市科学技术局关于2024年企业研发费用补助拟补助企业名单（厦门万泰沧海生物.md",
+        "filePath": "docs1/市级/2025-03-20_厦门市科学技术局关于2024年企业研发费用补助拟补助企业名单（厦门万泰沧海生物/2025-03-20_厦门市科学技术局关于2024年企业研发费用补助拟补助企业名单（厦门万泰沧海生物.md",
+        "fileSuffix": "md",
+        "displayOrder": "405",
+        "publishDate": "2025-03-20",
+        "documentNo": "--",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "市级-厦门市",
+        "originalUrl": "https://www.xmsme.cn/policy/market/50325qnmj3eZUgZ",
+        "attachments": [
+          {
+            "id": "9cdfedd2-2505-4afd-955b-c6b2bc84b5a5",
+            "policyId": "10774",
+            "attachmentName": "附件：2024年企业研发费用补助拟补助企业名单.xls",
+            "attachmentShowName": "附件：2024年企业研发费用补助拟补助企业名单.xls",
+            "filePath": "docs1/市级/2025-03-20_厦门市科学技术局关于2024年企业研发费用补助拟补助企业名单（厦门万泰沧海生物/附件/附件：2024年企业研发费用补助拟补助企业名单.xls",
+            "fileSuffix": "xls",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "14392",
+        "sourcePolicyId": "11494",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局关于2024年企业研发费用补助（第二批）拟补助企业名单的公示",
+        "fileName": "2025-08-13_厦门市科学技术局关于2024年企业研发费用补助（第二批）拟补助企业名单的公示.md",
+        "filePath": "docs1/市级/2025-08-13_厦门市科学技术局关于2024年企业研发费用补助（第二批）拟补助企业名单的公示/2025-08-13_厦门市科学技术局关于2024年企业研发费用补助（第二批）拟补助企业名单的公示.md",
+        "fileSuffix": "md",
+        "displayOrder": "406",
+        "publishDate": "2025-08-13",
+        "documentNo": "--",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "市级-厦门市",
+        "originalUrl": "https://www.xmsme.cn/policy/market/50813pgESRLNzAw",
+        "attachments": [
+          {
+            "id": "9af91ad3-1f5a-4c71-9e62-19115c8274d6",
+            "policyId": "11494",
+            "attachmentName": "附件：2024年企业研发费用补助（第二批）拟补助企业名单.xls",
+            "attachmentShowName": "附件：2024年企业研发费用补助（第二批）拟补助企业名单.xls",
+            "filePath": "docs1/市级/2025-08-13_厦门市科学技术局关于2024年企业研发费用补助（第二批）拟补助企业名单的公示/附件/附件：2024年企业研发费用补助（第二批）拟补助企业名单.xls",
+            "fileSuffix": "xls",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "14393",
+        "sourcePolicyId": "12241",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局关于2024年企业研发费用补助（第三批）拟补助企业名单的公示",
+        "fileName": "2026-01-16_厦门市科学技术局关于2024年企业研发费用补助（第三批）拟补助企业名单的公示.md",
+        "filePath": "docs1/市级/2026-01-16_厦门市科学技术局关于2024年企业研发费用补助（第三批）拟补助企业名单的公示/2026-01-16_厦门市科学技术局关于2024年企业研发费用补助（第三批）拟补助企业名单的公示.md",
+        "fileSuffix": "md",
+        "displayOrder": "407",
+        "publishDate": "2026-01-16",
+        "documentNo": "--",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "市级-厦门市",
+        "originalUrl": "https://www.xmsme.cn/policy/market/60119nyt8sWapVB",
+        "attachments": [
+          {
+            "id": "35469f6d-6a0e-4ded-8bad-3aea9d3020f4",
+            "policyId": "12241",
+            "attachmentName": "附件：2024年企业研发费用补助（第三批）拟补助企业名单 .xlsx",
+            "attachmentShowName": "附件：2024年企业研发费用补助（第三批）拟补助企业名单 .xlsx",
+            "filePath": "docs1/市级/2026-01-16_厦门市科学技术局关于2024年企业研发费用补助（第三批）拟补助企业名单的公示/附件/附件：2024年企业研发费用补助（第三批）拟补助企业名单 .xlsx",
+            "fileSuffix": "xlsx",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "14394",
+        "sourcePolicyId": "16040",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局关于2024年企业研发费用补助（第四批）拟补助企业名单的公示",
+        "fileName": "厦门市科学技术局关于2024年企业研发费用补助（第四批）拟补助企业名单的公示_60616sZyUWljNt2.md",
+        "filePath": "docs1/新添/厦门市科学技术局关于2024年企业研发费用补助（第四批）拟补助企业名单的公示_60616sZyUWljNt2/厦门市科学技术局关于2024年企业研发费用补助（第四批）拟补助企业名单的公示_60616sZyUWljNt2.md",
+        "fileSuffix": "xlsx",
+        "displayOrder": "408",
+        "publishDate": "2026-06-15",
+        "documentNo": "",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "厦门市",
+        "originalUrl": "https://www.xmsme.cn/policy/market/60616sZyUWljNt2",
+        "attachments": [
+          {
+            "id": "71c572ab-73ad-4b3d-a574-219fff16a43f",
+            "policyId": "16040",
+            "attachmentName": "附件：2024年企业研发费用补助（第四批）拟补助企业名单.xls",
+            "attachmentShowName": "附件：2024年企业研发费用补助（第四批）拟补助企业名单.xls",
+            "filePath": "docs1/新添/厦门市科学技术局关于2024年企业研发费用补助（第四批）拟补助企业名单的公示_60616sZyUWljNt2/attachments/附件：2024年企业研发费用补助（第四批）拟补助企业名单.xls",
+            "fileSuffix": "xls",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      }
+    ],
+    "hasFusionStructuredData": true,
+    "policyInfo": {
+      "policyTitle": "厦门市企业研发费用补助申报",
+      "summary": "厦门市企业研发费用补助管理办法是指为引导激励企业加大研发投入、规范补助管理及提高资金使用效益而制定的专项管理规定。申报企业经审核核查及信用查询后，可按比例获得研发费用奖补资金。确立资金查重与资料留存原则，明确违规追责与退回机制，有效支持企业开展自主研发活动，降低创新成本，适用于本市实际经营且享受研发费用加计扣除的企业。",
+      "contactInfo": "1、咨询受理单位：厦门市技术创新协会\n2、咨询电话：2058997、2029802、2201526、2029038、2029878、2029958、2029968\n3、咨询地址：思明区虎园路2号科技大院5号楼403、406室\n4、责任处室电话：市科技局科技资源配置处 2021878\n5、技术支持电话：5397711",
+      "applicationVolume": "",
+      "policyAttribute": "指导政策",
+      "policyOriginalTitle": "厦门市企业研发费用补助管理办法",
+      "sceneUsage": "研发经费补助",
+      "sceneUsagePath": "研发创新-研发经费补助",
+      "applicableScope": "厦门市",
+      "applicableScopePath": "市级-厦门市",
+      "industryField": "通用行业",
+      "industryFieldPath": "通用行业",
+      "effectiveStartDate": "2026.04.26",
+      "effectiveEndDate": "2029.04.25",
+      "issuingDepartment": "厦门市科学技术局",
+      "policyCode": "厦科规〔2026〕2号"
+    },
+    "keywords": [
+      {
+        "id": "2531",
+        "text": "研发经费补助",
+        "pathText": "研发创新-研发经费补助"
+      }
+    ],
+    "conditions": [
+      {
+        "id": "1076",
+        "applicableTarget": "企业",
+        "applicableTargetPath": "企业类-企业",
+        "applicationInstruction": "2025年11月26日-2025年12月10日18：00",
+        "applicationRequirement": "1、在本市登记注册并实际经营的规上工业、规上软件和信息技术企业。\n2、开展的自主研发活动符合研发费用税前加计扣除政策要求，在年度所得税汇算清缴结束前（即2025年5月31日前）申报享受研发费用加计扣除。\n3、所属2023、2024年度均有自主研发费用，其中2024年度自主研发费用高于200万元且较2023年实现增长。",
+        "applicationStartTime": "2025.11.26",
+        "applicationEndTime": "2025.12.10",
+        "announcementDate": ""
+      }
+    ],
+    "supportMethods": [
+      {
+        "id": "1078",
+        "supportType": "研发专项补助",
+        "supportTypePath": "资金补助-研发专项补助",
+        "contentDesc": "　　1.补助：企业2024年度自主研发费用高于200万元且较上年实现增长的，每满200万元给予最高10万元补助，最高补助500万元；对2024年度自主研发费用超过1000万元的企业，按其可获得的研发费用补助额，再增加5%给予补助。（厦门市先进制造业倍增计划企业最高奖补1000万元）\n\n　　2.奖励：企业2024年度自主研发费用高于500万元且自主研发费用增长率超过20%的，给予最高奖励30万元；增长率超过40%的，给予最高奖励50万元。\n\n　　市科技局根据当年财政预算可安排资金额度，按比例确定当年研补实际金额。",
+        "amount": "",
+        "maxAmount": "1000万"
+      }
+    ],
+    "attachments": [],
+    "materials": [
+      {
+        "id": "1076",
+        "materials": "1、《2025年厦门市企业研发费用补助申报表》（系统填报后形成打印件加盖企业公章扫描后上传，含《承诺书》）。\n2、2021-2024年度企业所得税年度纳税申报表（共4个年度，分年度完整表上传，可从电子税务系统导出PDF版），其中2024年度须导出2025年5月31日前完整申报表，以及最新完整申报表（如有更正申报），更正前的申报表如无电子税务章，请在封面及A107012表加盖企业公章。\n3、2021-2024年度企业所得税年度纳税申报表更正记录日期截图（共4个年度，分年度上传，加盖企业公章）。\n4、纳税证明：税务部门提供的2021-2024年度纳税证明（所属期，加盖企业公章）。\n5、从统计系统打印2024年度的2张表（加盖企业公章）：《一套表调查单位基本情况》（101-1表）和《企业研究开发活动及相关情况》（107-2表）。",
+        "method": "　（一）企业申报\n\n　　1.系统填报路径\n\n　　登录“i厦门”（https://www.ixiamen.org.cn）—“法人账号”，登录—“i财政”—“厦企通”—“立即访问”—“法人账号”，登录后选择“项目申报”—“市科学技术局”—“2025年厦门市企业研发费用补助”。\n\n　　2.填报期限\n\n　　2025年11月26日-12月10日18:00\n\n　　3.上传附件\n\n　　（1）《2025年厦门市企业研发费用补助申报表》（系统填报后形成打印件加盖企业公章扫描后上传，含《承诺书》）。\n\n　　（2）2021-2024年度企业所得税年度纳税申报表（共4个年度，分年度完整表上传，可从电子税务系统导出PDF版），其中2024年度须导出2025年5月31日前完整申报表，以及最新完整申报表（如有更正申报），更正前的申报表如无电子税务章，请在封面及A107012表加盖企业公章。\n\n　　（3）2021-2024年度企业所得税年度纳税申报表更正记录日期截图（共4个年度，分年度上传，加盖企业公章）。\n\n　　截图路径：电子税务局-我要查询-一户式查询-申报查询-相应年度企业所得税年度纳税申报表的更正申报记录日期。\n\n　　（4）纳税证明：税务部门提供的2021-2024年度纳税证明（所属期，加盖企业公章）。\n\n　　（5）从统计系统打印2024年度的2张表（加盖企业公章）：《一套表调查单位基本情况》（101-1表）和《企业研究开发活动及相关情况》（107-2表）。\n\n　　4.填报要求：\n\n　　（1）【按期填报】企业应在规定期限内完成申报，逾期视为放弃当年研补。\n\n　　（2）【准确填报】企业需填报并提交所属2021-2024年度（共4年）的研发费用相关数据和相应佐证材料，请务必确认所有数据及信息无误，审核通过后企业不能再修改。\n\n　　（3）【填报修改】填报材料经审核需修改完善的，申报系统退回并发送短信，受理单位通过协会短信平台发送修改截止期限（注意：企业联系人将收到2条短信），企业应于修改截止期限前按要求补充再次提交，未按时提交视为企业自动放弃填报。",
+        "url": "https://www.ixiamen.org.cn"
+      }
+    ]
+  }
+}

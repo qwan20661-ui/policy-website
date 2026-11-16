@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "pematching-v2-keywords-v1",
+  "note": "C 子类判定的文本源实测覆盖率仅 7.0%（productServiceIntro 0% / highTechField 0% / brief 4.4% / mainProductList 2.9% / mainTechnologyList 5.4%），本库定位是加分项而非主判据。属地关键词的末级源 registerAddress 覆盖率 100%，属地是本链路最可靠的一组规则。",
+  "sourceRule": "只收录两类词：docx 原文出现的（source 含 docx）、真实企业文本实测有命中的（source 含 measured）。hits 为实测命中企业数，基线样本 backend/PEMatching/企业测试目录 3251 份。hits=0 的词不入库。禁止凭行业常识加词。",
+  "measuredAt": "2026-08-03",
+  "measuredSampleSize": 3251,
+  "cSubTags": {
+    "C1.1": [
+      {"kw": "面板", "hits": 57, "source": "measured"},
+      {"kw": "光电", "hits": 30, "source": "docx+measured"},
+      {"kw": "新型显示", "hits": 4, "source": "docx+measured"},
+      {"kw": "背光", "hits": 4, "source": "measured"},
+      {"kw": "OLED", "hits": 2, "source": "measured"},
+      {"kw": "Micro LED", "hits": 1, "source": "measured"},
+      {"kw": "显示", "hits": null, "source": "docx", "note": "docx R12「经营范围含显示/光电」原文用词，范围较宽，与「新型显示」并存"}
+    ],
+    "C1.2": [
+      {"kw": "芯片", "hits": 44, "source": "measured"},
+      {"kw": "半导体", "hits": 17, "source": "docx+measured"},
+      {"kw": "集成电路", "hits": 11, "source": "docx+measured"},
+      {"kw": "晶圆", "hits": 8, "source": "measured"},
+      {"kw": "流片", "hits": 1, "source": "docx+measured"},
+      {"kw": "EDA", "hits": 1, "source": "docx+measured"}
+    ],
+    "C1.3": [
+      {"kw": "系统集成", "hits": 15, "source": "measured"},
+      {"kw": "软件开发", "hits": 8, "source": "docx+measured"},
+      {"kw": "SaaS", "hits": 4, "source": "measured"},
+      {"kw": "信息技术服务", "hits": 2, "source": "measured"},
+      {"kw": "软件", "hits": null, "source": "docx", "note": "docx R09 原文用词"}
+    ],
+    "C10.1": [
+      {"kw": "人工智能", "hits": 22, "source": "docx+measured"},
+      {"kw": "机器学习", "hits": 11, "source": "measured"},
+      {"kw": "算力", "hits": 2, "source": "docx+measured"},
+      {"kw": "大模型", "hits": 1, "source": "docx+measured"},
+      {"kw": "AI", "hits": null, "source": "docx", "note": "docx R10「经营范围含 AI/大模型/算力」原文用词。短词易误命中（如 AIoT、AIGC 之外的偶然匹配），匹配时要求词边界"}
+    ]
+  },
+  "removedKeywords": [
+    {"kw": "IP核", "reason": "docx R08 原文但实测 0 命中"},
+    {"kw": "封测", "reason": "编者行业常识，无据且实测 0 命中"},
+    {"kw": "CMMI", "reason": "编者行业常识，实测 0 命中"},
+    {"kw": "智能算法", "reason": "编者行业常识，实测 0 命中"},
+    {"kw": "生物制药/影像设备/植介入/基因治疗/CAR-T/特种合金/高性能纤维/前沿材料/钠电/固态电池/第六代移动通信", "reason": "编者行业常识加的词，实测全部 0 命中；且对应子类 C2/C4/C6/C10.2 未在 docx 中定义，已按决策 11 移除"}
+  ],
+  "wordBoundaryRequired": ["EDA", "AI", "SaaS", "OLED", "Micro LED"],
+  "regions": {
+    "火炬高新区": ["火炬高新区", "火炬园", "火炬高新园", "火炬"],
+    "厦门科学城": ["厦门科学城", "科学城"],
+    "自贸片区": ["自贸片区", "自由贸易试验区", "自贸试验区", "自贸区"],
+    "思明区": ["思明区"],
+    "湖里区": ["湖里区"],
+    "集美区": ["集美区"],
+    "海沧区": ["海沧区"],
+    "同安区": ["同安区"],
+    "翔安区": ["翔安区"]
+  },
+  "regionNote": "匹配源三级回退：registerDistrict(30.8%) → nationalHighTechZone(7.7%) → registerAddress(100%)。「火炬」单独列出是因 registerAddress 里常写作「火炬高新区创新二路」等变体。",
+  "creditNegative": [
+    "经营异常",
+    "严重失信",
+    "失信被执行",
+    "行政处罚",
+    "黑名单",
+    "吊销",
+    "列入异常名录",
+    "严重违法"
+  ],
+  "creditNote": "enterpriseCredit 字段实测 100% 为空，本词表当前无实际触发。字段一旦有值即自动启用 G0 拦截，见 docs/开发计划.md 2.4。"
+}

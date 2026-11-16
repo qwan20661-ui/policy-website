@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>基础数据维护 - 政策解读系统</title>
+  <style>[v-cloak]{display:none!important}</style>
+  <link rel="stylesheet" href="../lib/cdn/element-plus.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/form.css">
+  <link rel="stylesheet" href="../css/workbench.css">
+  <style>
+    * { box-sizing: border-box; }
+
+    /* 页面容器 */
+    .page-wrapper {
+      padding: 24px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    /* 面包屑 */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    .breadcrumb a { color: var(--color-text-secondary); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--color-primary); }
+    .breadcrumb span { color: var(--color-text-placeholder); }
+
+    /* 标题区 */
+    .page-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .page-title h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+    .page-title .actions { display: flex; gap: 12px; }
+    .page-desc {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      margin: 0 0 24px 0;
+    }
+
+    /* 搜索区 - Flat Card */
+    .search-panel {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--color-muted);
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+    .search-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .search-item label {
+      font-size: 14px;
+      color: var(--color-text-regular);
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    /* 表格区 - Flat Card */
+    .table-panel {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--color-muted);
+      overflow-x: auto;
+    }
+
+    /* 原生表格样式 */
+    .data-table {
+      width: 100%;
+      min-width: 800px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .data-table thead { background: var(--color-muted); }
+    .data-table th {
+      padding: 14px 12px;
+      font-weight: 700;
+      color: var(--color-text-regular);
+      font-size: 13px;
+      text-align: center;
+      border-bottom: 2px solid var(--color-border);
+      white-space: nowrap;
+    }
+    .data-table td {
+      padding: 14px 12px;
+      color: var(--color-text-primary);
+      border-bottom: 2px solid var(--color-muted);
+      text-align: center;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .data-table tbody tr:hover { background: var(--color-muted); }
+    .data-table tbody tr:last-child td { border-bottom: none; }
+    .data-table .cell-name { text-align: left; }
+    .data-table .cell-desc { text-align: left; max-width: 250px; }
+    .data-table .cell-actions { display: flex; justify-content: center; gap: 8px; }
+    .data-table .empty-row td { text-align: center; color: var(--color-text-secondary); padding: 40px; }
+    .table-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 2px solid var(--color-muted);
+    }
+    .table-header .title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+    .table-header .actions,
+    .table-header .form-actions-inline { display: flex; gap: 8px; }
+
+    /* Element Plus 表格 */
+    .el-table { font-size: 14px; width: 100%; }
+
+    /* 标签样式 - Flat tags */
+    .el-tag { border-radius: var(--radius-md); border: none; font-size: 12px; font-weight: 500; }
+    .tag-blue { background: rgba(59,130,246,0.1); color: var(--color-primary); }
+    .tag-purple { background: rgba(114,46,209,0.1); color: #722ED1; }
+    .tag-orange { background: rgba(245,158,11,0.1); color: var(--color-warning); }
+    .tag-cyan { background: rgba(19,194,194,0.1); color: #13C2C2; }
+    .tag-green { background: rgba(16,185,129,0.1); color: var(--color-success); }
+    .tag-red { background: rgba(239,68,68,0.1); color: var(--color-danger); }
+    .tag-gray { background: var(--color-muted); color: var(--color-text-secondary); }
+
+    /* 分页 */
+    .pagination-wrap {
+      display: flex;
+      justify-content: flex-end;
+      padding: 16px 20px;
+      border-top: 2px solid var(--color-muted);
+    }
+
+    /* 操作按钮 */
+    .action-buttons { display: flex; align-items: center; justify-content: center; gap: 4px; }
+
+    /* 对话框 */
+    .el-dialog__body { padding: 20px 24px; }
+    .form-section { margin-bottom: 16px; }
+    .form-section label {
+      display: block;
+      font-size: 14px;
+      color: var(--color-text-regular);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .form-section label .required { color: var(--color-danger); margin-right: 4px; }
+    .input-tip {
+      margin-top: 6px;
+      font-size: 12px;
+      line-height: 18px;
+      color: var(--color-text-secondary);
+    }
+
+    /* 查看对话框 */
+    .detail-item {
+      display: flex;
+      padding: 12px 0;
+      border-bottom: 2px solid var(--color-muted);
+    }
+    .detail-item:last-child { border-bottom: none; }
+    .detail-label { width: 120px; flex-shrink: 0; font-size: 14px; color: var(--color-text-secondary); font-weight: 500; }
+    .detail-value { flex: 1; font-size: 14px; color: var(--color-text-primary); word-break: break-all; }
+
+    /* 响应式 */
+    @media (max-width: 1100px) {
+      .search-item { width: 100%; }
+    }
+    @media (max-width: 900px) {
+      .search-grid { grid-template-columns: 1fr !important; }
+    }
+
+    /* 加载提示 */
+    .loading-tip { text-align: center; padding: 40px; color: var(--color-text-secondary); }
+  </style>
+</head>
+<body data-page-tone="blue">
+  <div class="main-layout" id="app">
+    <!-- 侧边栏 -->
+    <aside class="sidebar">
+      <div class="sidebar-logo"></div>
+      <nav class="sidebar-menu" id="sidebar-menu"></nav>
+      <div class="sidebar-footer" id="sidebar-footer"></div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <header class="header">
+        <div class="header-left">
+          <div class="header-toggle" onclick="toggleSidebar()"><i class="el-icon-s-unfold" style="font-size:20px;"></i></div>
+          <nav class="header-breadcrumb"></nav>
+        </div>
+        <div class="header-right">
+          <div class="header-icon"><i class="el-icon-bell" style="font-size:20px;"></i></div>
+          <div class="header-user"><div class="avatar">管</div><div class="info"><span class="name">管理员</span><span class="role">系统管理员</span></div></div>
+        </div>
+      </header>
+
+      <div class="content-wrapper" style="background: #F5F7FA; padding: 0;" v-cloak>
+        <div class="page-wrapper">
+          <!-- 面包屑 -->
+          <div class="breadcrumb">
+            <a href="dashboard.html">首页</a>
+            <span>/</span>
+            <a href="#">基础数据维护</a>
+            <span>/</span>
+            <span style="color: #303133;" id="breadcrumb-title">{{ moduleTitle }}</span>
+          </div>
+
+          <!-- 标题区 -->
+          <div class="page-title">
+            <h1 id="page-title">{{ moduleTitle }}</h1>
+            <div class="actions" v-if="currentModuleType === 'policy_keyword'">
+              <el-button type="danger" @click="handleClearAll"><el-icon style="vertical-align: middle;"><Delete /></el-icon>清空数据</el-button>
+            </div>
+          </div>
+          <p class="page-desc" id="page-desc">{{ moduleDesc }}</p>
+
+          <!-- 搜索区 -->
+          <div class="search-panel">
+            <div class="search-grid" style="grid-template-columns:1fr 1fr 1fr auto;">
+              <div class="search-item">
+                <label>一级分类</label>
+                <el-select v-model="search.level1" placeholder="请选择" clearable style="width:100%;min-width:120px;" @keyup.enter="handleSearchEnter">
+                  <el-option v-for="item in level1Options" :key="item" :label="item" :value="item" />
+                </el-select>
+              </div>
+              <div class="search-item">
+                <label>二级分类</label>
+                <el-select v-model="search.level2" placeholder="请选择" clearable style="width:100%;min-width:120px;" @keyup.enter="handleSearchEnter">
+                  <el-option v-for="item in level2Options" :key="item" :label="item" :value="item" />
+                </el-select>
+              </div>
+              <div class="search-item">
+                <label>关键词</label>
+                <el-input v-model="search.keyword" placeholder="名称" clearable prefix-icon="el-icon-search" style="width:100%;min-width:120px;" @input="handleKeywordInput" @keyup.enter="handleSearchEnter" />
+              </div>
+              <div class="search-actions" style="align-items:flex-end;">
+                <el-button type="primary" @click="handleSearch"><el-icon style="vertical-align: middle;"><Search /></el-icon>查询</el-button>
+                <el-button @click="handleReset"><el-icon style="vertical-align: middle;"><Refresh /></el-icon>重置</el-button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 表格区 -->
+          <div class="table-panel" v-loading="loading">
+            <div class="table-header">
+              <span class="title">数据列表</span>
+              <div class="form-actions-inline">
+                <el-button type="primary" size="small" @click="handleAdd"><el-icon style="vertical-align: middle;"><Plus /></el-icon>新增</el-button>
+                <el-button size="small" @click="handleExport"><el-icon style="vertical-align: middle;"><Download /></el-icon>导出</el-button>
+              </div>
+            </div>
+            <div style="overflow-x: auto;">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th style="width: 70px;">序号</th>
+                    <th style="min-width: 120px;">一级分类</th>
+                    <th style="min-width: 120px;">二级分类</th>
+                    <th v-if="showLevel3Field" style="min-width: 200px;">三级分类</th>
+                    <th v-if="showNameColumn" style="min-width: 180px; text-align: center;">{{ terminalColumnLabel }}</th>
+                    <th v-if="isApplicationCondition" style="min-width: 180px; text-align: center;">三级分类</th>
+                    <th v-if="showDescription" style="min-width: 200px;">范围定义说明</th>
+                    <th v-if="isApplicationCondition" style="min-width: 260px;">核心字段</th>
+                    <th style="width: 90px;">状态</th>
+                    <th style="width: 150px;">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-if="tableData.length === 0">
+                    <td :colspan="emptyColspan" style="text-align: center; color: #909399; padding: 40px;">
+                      暂无数据
+                    </td>
+                  </tr>
+                  <tr v-for="(row, index) in tableData" :key="row.id || index">
+                    <td>{{ rowIndex(index) }}</td>
+                    <td>{{ row.level1Category || row.level1 }}</td>
+                    <td>{{ displayLevel2Value(row) }}</td>
+                    <td v-if="showLevel3Field" class="cell-name" style="text-align: center;">{{ displayLevel3Value(row) }}</td>
+                    <td v-if="showNameColumn" class="cell-name" style="text-align: center;">{{ displayTerminalValue(row) }}</td>
+                    <td v-if="isApplicationCondition" class="cell-name" style="text-align: center;">{{ row.name || '-' }}</td>
+                    <td v-if="showDescription" class="cell-desc" :title="row.description">{{ row.description }}</td>
+                    <td v-if="isApplicationCondition" class="cell-desc" :title="row.coreField">{{ row.coreField || '-' }}</td>
+                    <td>
+                      <el-tag :type="displayStatusValue(row) === '启用' ? 'success' : 'danger'" size="small">
+                        {{ displayStatusValue(row) }}
+                      </el-tag>
+                    </td>
+                    <td>
+                      <div class="cell-actions" style="display:flex;align-items:center;justify-content:center;gap:8px;">
+                        <el-button type="text" size="small" @click="handleView(row)">查看</el-button>
+                        <el-button type="text" size="small" @click="handleEdit(row)">编辑</el-button>
+                        <el-button type="text" size="small" style="color:#f56c6c;" @click="handleDelete(row)">删除</el-button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="pagination-wrap">
+              <el-pagination
+                v-model:current-page="pagination.page"
+                v-model:page-size="pagination.size"
+                :page-sizes="[10, 20, 50, 100]"
+                :total="pagination.total"
+                layout="total, sizes, prev, pager, next, jumper"
+                @current-change="handlePageChange"
+                @size-change="handleSizeChange"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 新增/编辑对话框 -->
+    <el-dialog v-model="formDialog" :title="formTitle" width="560px" @close="resetForm">
+      <el-form :model="form" :rules="formRules" ref="formRef" label-position="top">
+        <el-form-item label="一级分类" prop="level1">
+          <el-select ref="formLevel1SelectRef" v-model="form.level1" placeholder="请选择或输入一级分类" filterable allow-create default-first-option style="width: 100%;" @blur="commitFormSelectDraft('level1', $event)">
+            <el-option v-for="item in level1Options" :key="item" :label="item" :value="item" />
+          </el-select>
+          <div class="input-tip">可直接输入新一级分类，历史分类会作为下拉建议。</div>
+        </el-form-item>
+        <el-form-item label="二级分类" prop="level2">
+          <el-select ref="formLevel2SelectRef" v-model="form.level2" placeholder="请选择或输入二级分类" filterable allow-create default-first-option style="width: 100%;" @blur="commitFormSelectDraft('level2', $event)">
+            <el-option v-for="item in level2Options" :key="item" :label="item" :value="item" />
+          </el-select>
+          <div class="input-tip">可直接输入新二级分类，也可从当前一级分类下的历史项中选择。</div>
+        </el-form-item>
+        <el-form-item v-if="showLevel3Field" :label="level3Label" prop="level3">
+          <el-select ref="formLevel3SelectRef" v-model="form.level3" :placeholder="`请选择或输入${level3Label}`" filterable allow-create default-first-option style="width: 100%;" @blur="commitFormSelectDraft('level3', $event)">
+            <el-option v-for="item in level3Options" :key="item" :label="item" :value="item" />
+          </el-select>
+          <div class="input-tip">可直接输入新的三级标题；如果只维护一级或二级分类，可以留空后直接确定。</div>
+        </el-form-item>
+        <el-form-item v-if="!showLevel3Field" :label="terminalNameLabel" prop="name">
+          <el-select ref="formNameSelectRef" v-model="form.name" :placeholder="`请选择或输入${terminalNameLabel}`" filterable allow-create default-first-option style="width: 100%;" @blur="commitFormSelectDraft('name', $event)">
+            <el-option v-for="item in terminalNameOptions" :key="item" :label="item" :value="item" />
+          </el-select>
+          <div class="input-tip">{{ terminalInputTip }}</div>
+        </el-form-item>
+        <el-form-item v-if="showDescriptionField && !showLevel3Field" label="范围定义说明" prop="description">
+          <el-input v-model="form.description" type="textarea" :rows="3" placeholder="请输入范围定义说明" maxlength="500" show-word-limit />
+        </el-form-item>
+        <el-form-item v-if="isApplicationCondition" label="核心字段" prop="coreField">
+          <el-input v-model="form.coreField" type="textarea" :rows="3" placeholder="请输入核心字段，多个字段可用顿号或逗号分隔" maxlength="500" show-word-limit />
+        </el-form-item>
+        <el-form-item label="状态" prop="status">
+          <el-radio-group v-model="form.status">
+            <el-radio label="启用">启用</el-radio>
+            <el-radio label="禁用">禁用</el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="formDialog = false">取消</el-button>
+        <el-button type="primary" @click="submitForm">确定</el-button>
+      </template>
+    </el-dialog>
+
+    <!-- 查看对话框 -->
+    <el-dialog v-model="viewDialog" title="查看详情" width="560px">
+      <div class="detail-view">
+        <div class="detail-item">
+          <div class="detail-label">序号</div>
+          <div class="detail-value">{{ currentRow.displayIndex || '-' }}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">一级分类</div>
+          <div class="detail-value">{{ currentRow.level1Category || currentRow.level1 }}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">二级分类</div>
+          <div class="detail-value">{{ displayLevel2Value(currentRow) }}</div>
+        </div>
+        <div v-if="showLevel3Field" class="detail-item">
+          <div class="detail-label">三级分类</div>
+          <div class="detail-value">{{ displayLevel3Value(currentRow) }}</div>
+        </div>
+        <div v-if="showNameColumn" class="detail-item">
+          <div class="detail-label">{{ terminalColumnLabel }}</div>
+          <div class="detail-value">{{ displayTerminalValue(currentRow) }}</div>
+        </div>
+        <div v-if="isApplicationCondition" class="detail-item">
+          <div class="detail-label">三级分类</div>
+          <div class="detail-value">{{ currentRow.name }}</div>
+        </div>
+        <div v-if="showDescription" class="detail-item">
+          <div class="detail-label">范围定义说明</div>
+          <div class="detail-value">{{ currentRow.description || '-' }}</div>
+        </div>
+        <div v-if="isApplicationCondition" class="detail-item">
+          <div class="detail-label">核心字段</div>
+          <div class="detail-value">{{ currentRow.coreField || '-' }}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">状态</div>
+          <div class="detail-value">
+            <el-tag :type="displayStatusValue(currentRow) === '启用' ? 'success' : 'danger'" size="small">
+              {{ displayStatusValue(currentRow) }}
+            </el-tag>
+          </div>
+        </div>
+        <div v-if="!isApplicationCondition" class="detail-item">
+          <div class="detail-label">创建时间</div>
+          <div class="detail-value">{{ currentRow.createTime }}</div>
+        </div>
+        <div v-if="!isApplicationCondition" class="detail-item">
+          <div class="detail-label">更新时间</div>
+          <div class="detail-value">{{ currentRow.updateTime }}</div>
+        </div>
+      </div>
+      <template #footer>
+        <el-button @click="viewDialog = false">关闭</el-button>
+      </template>
+    </el-dialog>
+  </div>
+
+  <script src="../lib/cdn/vue.global.js"></script>
+  <script src="../lib/cdn/element-plus.umd.js"></script>
+  <script src="../lib/cdn/element-plus-icons.min.js"></script>
+  <script src="../js/menu.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/page-init.js"></script>
+  <script>
+    const { createApp, ref, reactive, computed, onMounted, watch } = Vue;
+    const { ElMessage, ElMessageBox } = ElementPlus;
+    const app = createApp({
+      setup() {
+        // ==================== 模块配置 ====================
+        const moduleTypes = {
+          policy_usage: {
+            title: '场景用途管理',
+            desc: '维护场景用途分类数据，用于标注政策的适用场景',
+            level1Options: ['项目支持', '资金扶持', '人才支持', '平台支持', '荣誉资质']
+          },
+          policy_keyword: {
+            title: '政策关键词管理',
+            desc: '维护政策关键词，用于政策检索和智能匹配',
+            level1Options: ['科技类', '工业类', '农业类', '服务业类', '人才类']
+          },
+          applicable_object: {
+            title: '适用对象管理',
+            desc: '维护政策适用对象类型，明确政策受众范围',
+            level1Options: ['企业类型', '主体性质', '规模大小', '所属行业', '发展阶段']
+          },
+          support_type: {
+            title: '支持方式管理',
+            desc: '维护政策支持方式，用于分类展示政策支持方式',
+            level1Options: ['资金支持', '税收优惠', '融资支持', '人才支持', '服务支持']
+          },
+          applicable_scope: {
+            title: '适用范围管理',
+            desc: '维护政策适用范围，明确政策的地域和主体适用性',
+            level1Options: ['全国级', '省级', '市级', '区县级', '园区级']
+          },
+          application_condition: {
+            title: '申报条件管理',
+            desc: '维护政策申报条件字典，用于智能匹配企业可申报项目',
+            level1Options: ['工商基础信息', '核心团队', '创新投入', '创新发展', '创新产出', '创新影响']
+          }
+        };
+        const DEFAULT_MODULE_TYPE = 'applicable_object';
+        const DISABLED_MODULE_TYPES = new Set(['policy_usage']);
+
+        // 获取当前模块类型
+        const getModuleType = () => {
+          const params = new URLSearchParams(window.location.search);
+          const requestedType = params.get('type');
+          const moduleType = (!requestedType || DISABLED_MODULE_TYPES.has(requestedType) || !moduleTypes[requestedType])
+            ? DEFAULT_MODULE_TYPE
+            : requestedType;
+
+          if (requestedType !== moduleType) {
+            params.set('type', moduleType);
+            const query = params.toString();
+            window.history.replaceState(null, '', `${window.location.pathname}${query ? '?' + query : ''}`);
+          }
+
+          return moduleType;
+        };
+
+        const currentModuleType = ref(getModuleType());
+        const showDescriptionField = computed(() =>
+          ['applicable_scope'].includes(currentModuleType.value)
+        );
+
+        // 模块配置
+        const moduleConfig = computed(() => moduleTypes[currentModuleType.value] || moduleTypes[DEFAULT_MODULE_TYPE]);
+        const moduleTitle = computed(() => moduleConfig.value.title);
+        const moduleDesc = computed(() => moduleConfig.value.desc);
+        const showDescription = computed(() => false);
+        const isPolicyUsage = computed(() => currentModuleType.value === 'policy_usage');
+        const isPolicyKeyword = computed(() => currentModuleType.value === 'policy_keyword');
+        const isApplicableObject = computed(() => currentModuleType.value === 'applicable_object');
+        const isApplicableScope = computed(() => currentModuleType.value === 'applicable_scope');
+        const isApplicationCondition = computed(() => currentModuleType.value === 'application_condition');
+        const isThreeLevelBaseModule = computed(() =>
+          ['policy_keyword', 'applicable_object', 'support_type', 'applicable_scope'].includes(currentModuleType.value)
+        );
+        const showLevel3Field = computed(() => isThreeLevelBaseModule.value);
+        const level3Label = computed(() => isApplicableScope.value ? '三级分类' : '三级标题');
+        const terminalNameLabel = computed(() => {
+          if (isApplicationCondition.value) return '三级分类';
+          if (isApplicableObject.value) return '三级标题';
+          if (isPolicyKeyword.value) return '关键词';
+          if (isApplicableScope.value) return '名称';
+          return '名称';
+        });
+        const terminalColumnLabel = computed(() => {
+          if (isApplicableObject.value) return '三级分类';
+          if (isPolicyKeyword.value) return '关键词';
+          return '名称';
+        });
+        const terminalInputTip = computed(() => {
+          if (isApplicableObject.value) return '可直接输入新的三级标题；如果只维护一级或二级分类，可以留空后直接确定。';
+          return `可直接输入新的${terminalNameLabel.value}，历史值会作为下拉建议。`;
+        });
+        const showNameColumn = computed(() => !showLevel3Field.value && !isApplicationCondition.value);
+        const emptyColspan = computed(() => {
+          if (isPolicyUsage.value) return 6;
+          if (isApplicableScope.value) return 6;
+          if (isApplicationCondition.value) return 7;
+          return showDescription.value ? 7 : 6;
+        });
+        const databaseOptions = ref([]);
+        const scopeLeafValue = (value) => {
+          const text = (value || '').trim();
+          if (!text) return '';
+          const placeholder = '\u0001';
+          const parts = text
+            .replace(/\s+-\s+/g, placeholder)
+            .split('-')
+            .map(part => part.replaceAll(placeholder, ' - ').trim())
+            .filter(Boolean);
+          return parts.length ? parts[parts.length - 1] : text;
+        };
+        const normalizeLevel3Value = (value, rowOrLevel2 = '') => {
+          const level3 = scopeLeafValue(value);
+          const level2 = typeof rowOrLevel2 === 'string'
+            ? rowOrLevel2.trim()
+            : (rowOrLevel2?.level2Category || rowOrLevel2?.level2 || '').trim();
+          return level3 && level3 !== level2 ? level3 : '';
+        };
+        function rawLevel3Value(row) {
+          const level2 = (row?.level2Category || row?.level2 || '').trim();
+          if (isApplicableScope.value) {
+            const level3 = normalizeLevel3Value(row?.level3 || '', level2);
+            if (level3) return level3;
+            const name = normalizeLevel3Value(row?.name || '', level2);
+            if (name) return name;
+            return '';
+          }
+          const level3 = normalizeLevel3Value(row?.level3 || '', level2);
+          if (level3) return level3;
+          if (isApplicableObject.value || currentModuleType.value === 'support_type') return '';
+          if (!isThreeLevelBaseModule.value) return '';
+          const value = (row?.name || '').trim();
+          const level1 = (row?.level1Category || row?.level1 || '').trim();
+          if (!value) return '';
+          if ((!level2 && value === level1) || (level2 && value === level2)) return '';
+          return value;
+        }
+        const level1Options = computed(() => {
+          const values = databaseOptions.value.map(item => item.level1).filter(Boolean);
+          return values.length ? [...new Set(values)] : moduleConfig.value.level1Options;
+        });
+        const level3Options = computed(() => {
+          const values = tableData.value
+            .filter(item =>
+              (!form.level1 || (item.level1Category || item.level1) === form.level1) &&
+              (!form.level2 || (item.level2Category || item.level2) === form.level2)
+            )
+            .map(item => rawLevel3Value(item))
+            .filter(Boolean);
+          return [...new Set(values)];
+        });
+        const terminalNameOptions = computed(() => {
+          const values = tableData.value
+            .filter(item =>
+              (!form.level1 || (item.level1Category || item.level1) === form.level1) &&
+              (!form.level2 || (item.level2Category || item.level2) === form.level2)
+            )
+            .map(item => item.name)
+            .filter(Boolean);
+          return [...new Set(values)];
+        });
+
+        // 二级分类选项（根据一级分类动态变化）
+        const level2OptionsMap = {
+          policy_usage: {
+            '项目支持': ['科技项目', '工业项目', '农业项目', '服务业项目'],
+            '资金扶持': ['无偿资助', '贷款贴息', '股权投资', '奖励补助'],
+            '人才支持': ['人才引进', '人才培养', '人才激励'],
+            '平台支持': ['孵化平台', '创新平台', '公共服务平台'],
+            '荣誉资质': ['认定类', '评选类', '示范类']
+          },
+          policy_keyword: {
+            '科技类': ['技术创新', '研发投入', '成果转化', '知识产权'],
+            '工业类': ['智能制造', '数字化转型', '绿色制造', '安全生产'],
+            '农业类': ['现代农业', '乡村振兴', '农产品加工', '农机装备'],
+            '服务业类': ['现代服务业', '电子商务', '物流配送', '金融服务'],
+            '人才类': ['高层次人才', '技能人才', '创业人才', '管理人才']
+          },
+          applicable_object: {
+            '企业类型': ['国有企业', '民营企业', '外资企业', '混合所有制企业'],
+            '主体性质': ['法人单位', '非法人单位', '个体工商户', '社会组织'],
+            '规模大小': ['大型企业', '中型企业', '小微企业', '微型企业'],
+            '所属行业': ['制造业', '服务业', '建筑业', '农业', '交通运输'],
+            '发展阶段': ['初创期', '成长期', '成熟期', '转型期']
+          },
+          support_type: {
+            '资金支持': ['直接资助', '奖励补贴', '贷款贴息', '政府购买'],
+            '税收优惠': ['减免税', '抵免税', '延迟纳税', '出口退税'],
+            '融资支持': ['贷款担保', '融资贴息', '风险投资', '上市辅导'],
+            '人才支持': ['人才引进补贴', '住房补贴', '子女入学', '医疗保障'],
+            '服务支持': ['技术支持', '管理咨询', '市场开拓', '培训服务']
+          },
+          applicable_scope: {
+            '全国级': ['中央部委', '全国性', '跨区域'],
+            '省级': ['省级政府', '省级部门', '省部共建'],
+            '市级': ['市级政府', '市级部门', '市县联动'],
+            '区县级': ['区政府', '县级政府', '街道乡镇'],
+            '园区级': ['高新区', '经开区', '产业园区', '孵化器']
+          },
+          application_condition: {
+            '工商基础信息': ['机构性质', '注册地址', '经营范围', '资质证书'],
+            '核心团队': ['企业职工总数', '科技人员占比', '学历结构', '研发团队'],
+            '创新投入': ['年研发投入', '研发费用占比', '研发设备投入', '产学研合作'],
+            '创新发展': ['营收规模', '资产规模', '增长趋势', '市场占有率'],
+            '创新产出': ['专利数量', '软件著作权', '科技成果', '技术标准'],
+            '创新影响': ['重复申报限制', '信用记录', '行业排名', '社会贡献']
+          }
+        };
+
+        // ==================== API 配置 ====================
+        // 使用相对路径 /api/*，通过 Node 3000 代理转发到 Java 8080
+        // 不再直接使用 http://localhost:8080，避免跨域问题
+
+        // ==================== 响应式数据 ====================
+        
+        // 统计数据
+        const statistics = reactive({
+          total: 0,
+          enabled: 0,
+          disabled: 0,
+          categories: 0
+        });
+
+        // 搜索条件
+        const search = reactive({
+          level1: '',
+          level2: '',
+          keyword: ''
+        });
+
+        // 二级分类选项
+        const level2Options = ref([]);
+
+        // 表格数据
+        const tableData = ref([]);
+
+        // 分页
+        const pagination = reactive({
+          page: 1,
+          size: 10,
+          total: 0
+        });
+
+        // 加载状态
+        const loading = ref(true);
+
+        // 对话框状态
+        const formDialog = ref(false);
+        const viewDialog = ref(false);
+        const formTitle = ref('新增');
+        const isEdit = ref(false);
+
+        // 当前行数据
+        const currentRow = ref({});
+
+        // 表单数据
+        const form = reactive({
+          id: null,
+          level1: '',
+          level2: '',
+          level3: '',
+          name: '',
+          code: '',
+          description: '',
+          coreField: '',
+          status: '启用'
+        });
+
+        // 表单验证规则
+        const formRules = {
+          level1: [{ required: true, message: '请选择一级分类', trigger: 'change' }],
+          level2: [],
+          name: [],
+          status: [{ required: true, message: '请选择状态', trigger: 'change' }]
+        };
+
+        const formRef = ref(null);
+        const formLevel1SelectRef = ref(null);
+        const formLevel2SelectRef = ref(null);
+        const formLevel3SelectRef = ref(null);
+        const formNameSelectRef = ref(null);
+        const formSelectRefs = {
+          level1: formLevel1SelectRef,
+          level2: formLevel2SelectRef,
+          level3: formLevel3SelectRef,
+          name: formNameSelectRef
+        };
+
+        const getFormSelectDraft = (field, event) => {
+          const eventValue = String(event?.target?.value || '').trim();
+          if (eventValue) return eventValue;
+          const selectRef = formSelectRefs[field]?.value;
+          const inputEl = selectRef?.$el?.querySelector?.('input');
+          return String(inputEl?.value || '').trim();
+        };
+
+        const commitFormSelectDraft = (field, event) => {
+          const value = getFormSelectDraft(field, event);
+          if (!value || form[field] === value) return;
+          form[field] = value;
+        };
+
+        const commitFormSelectDrafts = () => {
+          commitFormSelectDraft('level1');
+          commitFormSelectDraft('level2');
+          if (showLevel3Field.value) {
+            commitFormSelectDraft('level3');
+          } else {
+            commitFormSelectDraft('name');
+          }
+        };
+
+        // ==================== 方法 ====================
+
+        // 从 API 加载数据
+        const loadData = async () => {
+          loading.value = true;
+          try {
+            // 构建查询参数
+            const params = new URLSearchParams({
+              page: pagination.page.toString(),
+              size: pagination.size.toString()
+            });
+            
+            if (search.level1) {
+              params.append('level1', search.level1);
+            }
+            if (search.level2) {
+              params.append('level2', search.level2);
+            }
+            if (search.keyword) {
+              params.append('keyword', search.keyword);
+            }
+            
+            const mappedTypes = ['policy_keyword', 'applicable_object', 'support_type', 'applicable_scope'];
+            let apiPath;
+            if (mappedTypes.includes(currentModuleType.value)) {
+              apiPath = '/api/baseDataRecords';
+              params.append('type', currentModuleType.value);
+            } else if (currentModuleType.value === 'application_condition') {
+              apiPath = '/api/categoryFieldInfo';
+            } else {
+              apiPath = '/api/baseDataDict';
+              params.append('type', currentModuleType.value);
+            }
+            const response = await fetchWithRetry(`${apiPath}?${params}`);
+            if (!response.ok) {
+              throw new Error(`请求失败: ${response.status}`);
+            }
+            const result = await response.json();
+
+            // 打印日志，方便调试
+            console.log('baseDataDict接口返回', result);
+            console.log('tableData数据', tableData.value);
+            
+            if (result.success) {
+              // 正确赋值表格数据
+              tableData.value = result.data || [];
+              // 正确赋值分页总数
+              pagination.total = result.pagination?.total || 0;
+              
+              // 打印赋值后的数据（Vue 3 中使用 tableData 访问值）
+              console.log('tableData赋值后', JSON.parse(JSON.stringify(tableData.value)));
+              if (tableData.value.length > 0) {
+                console.log('当前表格第一条数据', JSON.parse(JSON.stringify(tableData.value[0])));
+              }
+              
+              databaseOptions.value = result.options || [];
+              const allData = result.data || [];
+              statistics.total = result.statistics?.total ?? result.pagination?.total ?? 0;
+              statistics.enabled = result.statistics?.enabled ?? allData.filter(item => item.status === '启用').length;
+              statistics.disabled = result.statistics?.disabled ?? allData.filter(item => item.status === '禁用').length;
+              statistics.categories = result.statistics?.categories ?? new Set(allData.map(item => item.level1)).size;
+            } else {
+              ElMessage.error(result.message || '加载数据失败');
+            }
+          } catch (err) {
+            console.error('加载数据失败:', err);
+            const msg = err.message || String(err);
+            if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('网络错误')) {
+              ElMessage.error('无法连接服务器，请确认服务是否已启动（node server.js）');
+            } else if (msg.includes('JSON') || msg.includes('JSON')) {
+              ElMessage.error('服务器返回数据格式异常');
+            } else if (msg.includes('timeout') || msg.includes('abort') || msg.includes('超时')) {
+              ElMessage.error('请求超时，请检查数据库连接状态');
+            } else if (msg.includes('503') || msg.includes('502') || msg.includes('500')) {
+              ElMessage.error('服务暂时不可用（' + msg + '）');
+            } else {
+              ElMessage.error('请求失败: ' + msg);
+            }
+          } finally {
+            loading.value = false;
+          }
+        };
+
+        // 搜索
+        const handleSearch = async () => {
+          pagination.page = 1;
+          await loadData();
+        };
+
+        const handleSearchEnter = async (event) => {
+          if (event?.isComposing) return;
+          await handleSearch();
+        };
+
+        let keywordSearchTimer = null;
+        const handleKeywordInput = () => {
+          if (keywordSearchTimer) clearTimeout(keywordSearchTimer);
+          keywordSearchTimer = setTimeout(async () => {
+            pagination.page = 1;
+            await loadData();
+          }, 300);
+        };
+
+        // 重置
+        const handleReset = async () => {
+          search.level1 = '';
+          search.level2 = '';
+          search.keyword = '';
+          pagination.page = 1;
+          await loadData();
+        };
+
+        // 分页变化
+        const handlePageChange = async (page) => {
+          pagination.page = page;
+          await loadData();
+        };
+
+        // 每页条数变化
+        const handleSizeChange = async (size) => {
+          pagination.size = size;
+          pagination.page = 1;
+          await loadData();
+        };
+
+        // 新增
+        const handleAdd = () => {
+          formTitle.value = '新增';
+          isEdit.value = false;
+          resetForm();
+          formDialog.value = true;
+        };
+
+        // 查看
+        const rowIndex = (index) => (pagination.page - 1) * pagination.size + index + 1;
+
+        const handleView = (row, index) => {
+          const visibleIndex = typeof index === 'number'
+            ? rowIndex(index)
+            : tableData.value.findIndex(item => item.id === row.id) + 1;
+          currentRow.value = {
+            ...row,
+            displayIndex: visibleIndex > 0 ? (pagination.page - 1) * pagination.size + visibleIndex : ''
+          };
+          viewDialog.value = true;
+        };
+
+        const displayTerminalValue = (row) => {
+          const value = (row?.name || '').trim();
+          if (!value) return '-';
+          if (!isApplicableObject.value) return value;
+          const level1 = (row?.level1Category || row?.level1 || '').trim();
+          const level2 = (row?.level2Category || row?.level2 || '').trim();
+          if ((!level2 && value === level1) || (level2 && value === level2)) return '-';
+          return value;
+        };
+
+        const displayLevel2Value = (row) => {
+          const level1 = (row?.level1Category || row?.level1 || '').trim();
+          const level2 = (row?.level2Category || row?.level2 || '').trim();
+          const name = (row?.name || '').trim();
+          const level3 = rawLevel3Value(row);
+          if (!level2) return '-';
+          if (isThreeLevelBaseModule.value && level2 === level1 && name === level1 && !level3) return '-';
+          return level2;
+        };
+
+        const displayLevel3Value = (row) => {
+          const value = rawLevel3Value(row);
+          if (value) return value;
+          if (isApplicableObject.value || currentModuleType.value === 'support_type') return '';
+          return '-';
+        };
+
+        const displayStatusValue = (row) => {
+          return (row?.status || '启用').trim() || '启用';
+        };
+
+        // 编辑
+        const handleEdit = (row) => {
+          const level3Value = rawLevel3Value(row);
+          formTitle.value = '编辑';
+          isEdit.value = true;
+          Object.assign(form, {
+            id: row.id,
+            level1: row.level1Category || row.level1,
+            level2: displayLevel2Value(row) === '-' ? '' : displayLevel2Value(row),
+            level3: level3Value,
+            name: isThreeLevelBaseModule.value ? '' : row.name,
+            code: row.code,
+            description: row.description,
+            coreField: row.coreField || '',
+            status: row.status
+          });
+          formDialog.value = true;
+        };
+
+        // 删除
+        const handleDelete = (row) => {
+          ElMessageBox.confirm(`确定删除 "${row.name}" 吗？`, '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(async () => {
+            try {
+              const mappedTypes = ['policy_keyword', 'applicable_object', 'support_type', 'applicable_scope'];
+              let deletePath;
+              if (mappedTypes.includes(currentModuleType.value)) {
+                deletePath = '/api/baseDataRecords/delete';
+              } else if (currentModuleType.value === 'application_condition') {
+                deletePath = '/api/categoryFieldInfo/delete';
+              } else {
+                deletePath = '/api/baseDataDict/delete';
+              }
+              const response = await fetchWithRetry(deletePath, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: row.id, type: currentModuleType.value })
+              });
+              
+              const result = await response.json();
+              
+              if (result.success) {
+                ElMessage.success('删除成功');
+                await loadData();
+              } else {
+                ElMessage.error(result.message || '删除失败');
+              }
+            } catch (err) {
+              console.error('删除失败:', err);
+              ElMessage.error('删除失败，请检查服务');
+            }
+          }).catch(() => {});
+        };
+
+        // 清空政策关键词数据
+        const handleClearAll = () => {
+          if (currentModuleType.value !== 'policy_keyword') {
+            ElMessage.warning('当前模块不支持清空数据');
+            return;
+          }
+          const typeName = '政策关键词';
+          ElMessageBox.confirm(
+            `确定清空所有「${typeName}」数据吗？\n此操作不可恢复，会将数据库中该分类的所有记录全部删除！`,
+            '⚠️ 危险操作确认',
+            {
+              confirmButtonText: '确认清空',
+              cancelButtonText: '取消',
+              type: 'error',
+              confirmButtonClass: 'el-button--danger'
+            }
+          ).then(async () => {
+            try {
+              const response = await fetchWithRetry('/api/baseDataRecords/clear', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: currentModuleType.value })
+              });
+              const result = await response.json();
+              if (result.success) {
+                ElMessage.success(result.message || '清空成功');
+                await loadData();
+              } else {
+                ElMessage.error(result.message || '清空失败');
+              }
+            } catch (err) {
+              console.error('清空失败:', err);
+              ElMessage.error('清空失败，请检查服务');
+            }
+          }).catch(() => {});
+        };
+
+        // 重置表单
+        const resetForm = () => {
+          if (formRef.value) {
+            formRef.value.resetFields();
+          }
+          Object.assign(form, {
+            id: null,
+            level1: '',
+            level2: '',
+            level3: '',
+            name: '',
+            code: '',
+            description: '',
+            coreField: '',
+            status: '启用'
+          });
+        };
+
+        // 提交表单
+        const submitForm = async () => {
+          if (!formRef.value) return;
+          commitFormSelectDrafts();
+          
+          await formRef.value.validate(async (valid) => {
+            if (valid) {
+              try {
+                const mappedTypes = ['policy_keyword', 'applicable_object', 'support_type', 'applicable_scope'];
+                let apiPrefix;
+                if (mappedTypes.includes(currentModuleType.value)) {
+                  apiPrefix = '/api/baseDataRecords';
+                } else if (currentModuleType.value === 'application_condition') {
+                  apiPrefix = '/api/categoryFieldInfo';
+                } else {
+                  apiPrefix = '/api/baseDataDict';
+                }
+                const path = isEdit.value ? `${apiPrefix}/update` : `${apiPrefix}/create`;
+                const level1Value = (form.level1 || '').trim();
+                const level2Value = (form.level2 || '').trim();
+                const level3Value = normalizeLevel3Value(form.level3 || '', level2Value);
+                const preserveEmptyLevels = isPolicyKeyword.value || isApplicableObject.value ||
+                  currentModuleType.value === 'support_type' || isApplicableScope.value;
+                const payloadLevel2 = preserveEmptyLevels
+                  ? level2Value
+                  : (isThreeLevelBaseModule.value ? (level2Value || level1Value) : level2Value);
+                const terminalValue = preserveEmptyLevels
+                  ? level3Value
+                  : (isThreeLevelBaseModule.value
+                    ? (level3Value || level2Value || level1Value)
+                    : (form.name || form.level3 || form.level2 || '').trim());
+                const typesNeedTerminal = [];
+                if (typesNeedTerminal.includes(currentModuleType.value) && !terminalValue) {
+                  ElMessage.warning(`请输入或选择${showLevel3Field.value ? level3Label.value : terminalNameLabel.value}`);
+                  return;
+                }
+                
+                const payload = currentModuleType.value === 'application_condition'
+                  ? {
+                      id: form.id,
+                      level1Category: level1Value,
+                      level2Category: level2Value,
+                      name: terminalValue,
+                      coreField: form.coreField,
+                      status: form.status
+                    }
+                  : {
+                      id: form.id,
+                      type: currentModuleType.value,
+                      level1: level1Value,
+                      level2: payloadLevel2,
+                      level3: showLevel3Field.value ? level3Value : undefined,
+                      name: terminalValue,
+                      code: form.code,
+                      description: form.description,
+                      status: form.status
+                    };
+
+                const response = await fetchWithRetry(path, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                  ElMessage.success(isEdit.value ? '保存成功' : '新增成功');
+                  formDialog.value = false;
+                  await loadData();
+                } else {
+                  ElMessage.error(result.message || '操作失败');
+                }
+              } catch (err) {
+                console.error('操作失败:', err);
+                ElMessage.error('操作失败，请检查服务');
+              }
+            }
+          });
+        };
+
+        // 导出
+        const csvCell = (value) => {
+          const text = String(value ?? '');
+          return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+        };
+
+        const downloadCsvFile = (filename, headers, rows) => {
+          const csvContent = [
+            headers.map(csvCell).join(','),
+            ...(rows || []).map(row => row.map(csvCell).join(','))
+          ].join('\n');
+          const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = filename;
+          link.click();
+          setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+        };
+
+        const handleExport = async () => {
+          try {
+            const mappedTypes = ['policy_keyword', 'applicable_object', 'support_type', 'applicable_scope'];
+            let apiPath;
+            let result;
+
+            if (currentModuleType.value === 'application_condition') {
+              // 申报条件页面导出全部数据，不受当前搜索条件影响，便于后续做条件细化和政策匹配
+              const firstResponse = await fetchWithRetry('/api/categoryFieldInfo?page=1&size=1');
+              const firstResult = await firstResponse.json();
+              if (!firstResult.success) {
+                ElMessage.error('获取导出数据失败');
+                return;
+              }
+
+              const total = firstResult.pagination?.total || firstResult.data?.length || 0;
+              if (total === 0) {
+                const dateText = new Date().toISOString().slice(0, 10).replaceAll('-', '');
+                downloadCsvFile(`${moduleTitle.value}_${dateText}.csv`, ['序号', '一级分类', '二级分类', '三级分类', '核心字段', '状态', '创建时间', '更新时间'], []);
+                ElMessage.success('导出成功');
+                return;
+              }
+
+              const exportResponse = await fetchWithRetry(`/api/categoryFieldInfo?page=1&size=${total}`);
+              result = await exportResponse.json();
+              if (!result.success) {
+                ElMessage.error('获取导出数据失败');
+                return;
+              }
+            } else {
+              // 获取当前筛选条件下的所有数据用于导出
+              const params = new URLSearchParams({
+                page: '1',
+                size: '99999'
+              });
+
+              if (search.level1) {
+                params.append('level1', search.level1);
+              }
+              if (search.level2) {
+                params.append('level2', search.level2);
+              }
+              if (search.keyword) {
+                params.append('keyword', search.keyword);
+              }
+
+              if (mappedTypes.includes(currentModuleType.value)) {
+                apiPath = '/api/baseDataRecords';
+                params.append('type', currentModuleType.value);
+              } else {
+                apiPath = '/api/baseDataDict';
+                params.append('type', currentModuleType.value);
+              }
+              const response = await fetchWithRetry(`${apiPath}?${params}`);
+              result = await response.json();
+              if (!result.success) {
+                ElMessage.error('获取导出数据失败');
+                return;
+              }
+            }
+
+            // 简单导出为 CSV
+            if (isApplicationCondition.value) {
+              const filtered = result.data || [];
+              const headers = ['序号', '一级分类', '二级分类', '三级分类', '核心字段', '状态', '创建时间', '更新时间'];
+              const csvRows = filtered.map((item, index) => [
+                index + 1,
+                item.level1Category || item.level1,
+                item.level2Category || item.level2,
+                item.name,
+                item.coreField,
+                item.status,
+                item.createTime,
+                item.updateTime
+              ]);
+              const today = new Date();
+              const dateText = [
+                today.getFullYear(),
+                String(today.getMonth() + 1).padStart(2, '0'),
+                String(today.getDate()).padStart(2, '0')
+              ].join('');
+              downloadCsvFile(`${moduleTitle.value}_${dateText}.csv`, headers, csvRows);
+            } else if (currentModuleType.value === 'support_type') {
+              const filtered = result.data || [];
+              const headers = ['序号', '一级分类', '二级分类', '三级名称', '状态'];
+              const csvRows = filtered.map((item, index) => [
+                index + 1,
+                item.level1Category || item.level1,
+                item.level2Category || item.level2,
+                displayLevel3Value(item),
+                item.status
+              ].join(','));
+              const csvContent = [headers.join(','), ...csvRows].join('\n');
+              const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+              const link = document.createElement('a');
+              link.href = URL.createObjectURL(blob);
+              const today = new Date();
+              const dateText = [
+                today.getFullYear(),
+                String(today.getMonth() + 1).padStart(2, '0'),
+                String(today.getDate()).padStart(2, '0')
+              ].join('');
+              link.download = `${moduleTitle.value}_${dateText}.csv`;
+              link.click();
+              setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            } else if (isPolicyUsage.value || isPolicyKeyword.value) {
+              const filtered = result.data || [];
+              const headers = ['序号', '一级分类', '二级分类', '三级分类', '状态'];
+              const csvRows = filtered.map((item, index) => [
+                index + 1,
+                item.level1Category || item.level1,
+                item.level2Category || item.level2,
+                displayLevel3Value(item),
+                item.status
+              ].join(','));
+              const csvContent = [headers.join(','), ...csvRows].join('\n');
+              const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+              const link = document.createElement('a');
+              link.href = URL.createObjectURL(blob);
+              const today = new Date();
+              const dateText = [
+                today.getFullYear(),
+                String(today.getMonth() + 1).padStart(2, '0'),
+                String(today.getDate()).padStart(2, '0')
+              ].join('');
+              link.download = `${moduleTitle.value}_${dateText}.csv`;
+              link.click();
+              setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            } else if (isApplicableScope.value) {
+              const filtered = result.data || [];
+              const headers = ['序号', '一级分类', '二级分类', '三级分类', '状态'];
+              const csvRows = filtered.map((item, index) => [
+                index + 1,
+                item.level1Category || item.level1,
+                displayLevel2Value(item),
+                displayLevel3Value(item),
+                item.status
+              ].join(','));
+              const csvContent = [headers.join(','), ...csvRows].join('\n');
+              const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+              const link = document.createElement('a');
+              link.href = URL.createObjectURL(blob);
+              const today = new Date();
+              const dateText = [
+                today.getFullYear(),
+                String(today.getMonth() + 1).padStart(2, '0'),
+                String(today.getDate()).padStart(2, '0')
+              ].join('');
+              link.download = `${moduleTitle.value}_${dateText}.csv`;
+              link.click();
+              setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            } else if (showDescription.value) {
+              const filtered = result.data || [];
+              const headers = ['序号', '一级分类', '二级分类', '范围定义说明'];
+              const csvRows = filtered.map((item, index) => [
+                index + 1,
+                item.level1,
+                item.level2,
+                `"${(item.description || '').replace(/"/g, '""')}"`
+              ].join(','));
+              const csvContent = [headers.join(','), ...csvRows].join('\n');
+              const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+              const link = document.createElement('a');
+              link.href = URL.createObjectURL(blob);
+              const today = new Date();
+              const dateText = [
+                today.getFullYear(),
+                String(today.getMonth() + 1).padStart(2, '0'),
+                String(today.getDate()).padStart(2, '0')
+              ].join('');
+              link.download = `${moduleTitle.value}_${dateText}.csv`;
+              link.click();
+              setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            } else {
+              const filtered = result.data || [];
+              const headers = ['序号', '一级分类', '二级分类', '名称', '状态', '创建时间', '更新时间'];
+              const csvRows = filtered.map(item => [item.id, item.level1, item.level2, item.name, item.status, item.createTime, item.updateTime].join(','));
+              const csvContent = [headers.join(','), ...csvRows].join('\n');
+              const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+              const link = document.createElement('a');
+              link.href = URL.createObjectURL(blob);
+              const today = new Date();
+              const dateText = [
+                today.getFullYear(),
+                String(today.getMonth() + 1).padStart(2, '0'),
+                String(today.getDate()).padStart(2, '0')
+              ].join('');
+              link.download = `${moduleTitle.value}_${dateText}.csv`;
+              link.click();
+              setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            }
+
+            ElMessage.success('导出成功');
+          } catch (err) {
+            console.error('导出失败:', err);
+            ElMessage.error('导出失败，请检查服务');
+          }
+        };
+
+        const resolveLevel2Options = (level1) => {
+          const databaseValues = databaseOptions.value
+            .filter(item => item.level1 === level1 && item.level2)
+            .map(item => item.level2);
+          if (databaseValues.length) return [...new Set(databaseValues)];
+          return level2OptionsMap[currentModuleType.value]?.[level1] || [];
+        };
+
+        // 监听一级分类变化，更新二级分类选项
+        watch(() => search.level1, (newVal) => {
+          const options = newVal ? resolveLevel2Options(newVal) : [];
+          level2Options.value = options;
+          if (search.level2 && !options.includes(search.level2)) search.level2 = '';
+        });
+
+        // 监听表单一级分类变化，更新二级分类选项
+        watch(() => form.level1, (newVal) => {
+          const options = newVal ? resolveLevel2Options(newVal) : [];
+          level2Options.value = options;
+        });
+
+        // 监听 URL 变化
+        watch(() => window.location.search, async () => {
+          currentModuleType.value = getModuleType();
+          search.level1 = '';
+          search.level2 = '';
+          search.keyword = '';
+          databaseOptions.value = [];
+          pagination.page = 1;
+          await loadData();
+        });
+
+        // ==================== 生命周期 ====================
+        
+        onMounted(async () => {
+          await loadData();
+        });
+
+        return {
+          // 模块配置
+          currentModuleType,
+          moduleTitle,
+          moduleDesc,
+          showDescriptionField,
+          showDescription,
+          isPolicyUsage,
+          isPolicyKeyword,
+          isApplicableObject,
+          isApplicableScope,
+          isApplicationCondition,
+          isThreeLevelBaseModule,
+          showLevel3Field,
+          level3Label,
+          terminalNameLabel,
+          terminalColumnLabel,
+          terminalInputTip,
+          showNameColumn,
+          emptyColspan,
+          level1Options,
+          level2Options,
+          level3Options,
+          terminalNameOptions,
+          
+          // 统计数据
+          statistics,
+          
+          // 搜索
+          search,
+          handleSearch,
+          handleSearchEnter,
+          handleKeywordInput,
+          handleReset,
+          
+          // 表格
+          tableData,
+          pagination,
+          loading,
+          rowIndex,
+          displayLevel2Value,
+          displayTerminalValue,
+          displayLevel3Value,
+          displayStatusValue,
+          handlePageChange,
+          handleSizeChange,
+          
+          // 操作
+          handleAdd,
+          handleView,
+          handleEdit,
+          handleDelete,
+          handleClearAll,
+          handleExport,
+          
+          // 表单
+          formDialog,
+          viewDialog,
+          formTitle,
+          form,
+          formRules,
+          formRef,
+          formLevel1SelectRef,
+          formLevel2SelectRef,
+          formLevel3SelectRef,
+          formNameSelectRef,
+          commitFormSelectDraft,
+          resetForm,
+          submitForm,
+          
+          // 查看
+          currentRow
+        };
+      }
+    });
+
+    // 注册 Element Plus 图标组件
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component);
+    }
+
+    app.use(ElementPlus);
+    app.mount('#app');
+
+    PageInit.initStandalonePage();
+  </script>
+</body>
+</html>

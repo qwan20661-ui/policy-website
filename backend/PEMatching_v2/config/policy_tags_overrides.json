@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "pematching-v2-policy-tag-overrides-v1",
+  "generatedAt": "2026-08-05T00:00:00",
+  "source": "phase4-scale-threshold-and-policy-source-consistency",
+  "count": 2,
+  "data": [
+    {
+      "fusionPolicyId": "6451",
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "人工复核：5亿元营收门槛仅约束牵头单位，参与单位没有统一企业规模门槛，不能用于整条政策的统一评分"
+      },
+      "reviewNote": "清除分支条件被错误提升为全政策统一门槛的问题"
+    },
+    {
+      "fusionPolicyId": "6548",
+      "sourceKind": "policy_source",
+      "tags": {
+        "B": {
+          "values": ["B1"],
+          "confidence": "high",
+          "basis": "政策设计原文将科技型中小企业评价/入库定义为 B1 初创期的入门政策；职工和营收上限是资格条件，不能反推为 B2 生命周期归属"
+        }
+      },
+      "reviewNote": "修复政策阶段标签与规则 R05、原始设计文档不一致的问题"
+    }
+  ]
+}

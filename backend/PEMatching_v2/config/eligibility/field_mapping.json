@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "pematching-v2-eligibility-field-map-v1",
+  "mappings": [
+    {"v1Field": "企业职工总数", "v2Paths": ["$.metrics.employeeCount"], "semanticCategory": "workforce.total", "canonicalUnit": "人", "yearPolicy": "latest_available", "mappingStatus": "verified"},
+    {"v1Field": "科技人员数量", "v2Paths": ["$.metrics.rdPersonnelCount"], "semanticCategory": "workforce.rd", "canonicalUnit": "人", "yearPolicy": "latest_available", "mappingStatus": "verified"},
+    {"v1Field": "年销售收入", "v2Paths": ["$.metrics.revenueWan"], "semanticCategory": "financial.revenue", "canonicalUnit": "万元", "yearPolicy": "latest_available", "mappingStatus": "verified"},
+    {"v1Field": "营业收入", "v2Paths": ["$.metrics.revenueWan"], "semanticCategory": "financial.revenue", "canonicalUnit": "万元", "yearPolicy": "latest_available", "mappingStatus": "verified"},
+    {"v1Field": "营收规模-年营业收入", "v2Paths": ["$.metrics.revenueWan"], "semanticCategory": "financial.revenue", "canonicalUnit": "万元", "yearPolicy": "latest_available", "mappingStatus": "verified"},
+    {"v1Field": "年主营业务收入", "v2Paths": ["$.metrics.mainBusinessIncomeWan"], "semanticCategory": "financial.main_business_revenue", "canonicalUnit": "万元", "yearPolicy": "latest_available", "mappingStatus": "verified"},
+    {"v1Field": "年研发投入", "v2Paths": ["$.metrics.rdExpenseWan"], "semanticCategory": "financial.rd_expense", "canonicalUnit": "万元", "yearPolicy": "latest_available", "mappingStatus": "verified"},
+    {"v1Field": "研发投入占比", "v2Paths": ["$.metrics.rdExpenseRatioPct"], "semanticCategory": "financial.rd_expense_ratio", "canonicalUnit": "%", "yearPolicy": "latest_available", "mappingStatus": "verified"},
+    {"v1Field": "技术交易额", "v2Paths": ["$.metrics.techContractWan"], "semanticCategory": "financial.tech_contract", "canonicalUnit": "万元", "yearPolicy": "latest_available", "mappingStatus": "verified"},
+    {"v1Field": "资产总额（万元）", "v2Paths": ["$.metrics.totalAssetsWan"], "semanticCategory": "financial.assets", "canonicalUnit": "万元", "yearPolicy": "latest_available", "mappingStatus": "verified"},
+    {"v1Field": "企业资质", "v2Paths": ["$.qualifications.isHighTechEnterprise"], "semanticCategory": "qualification.high_tech", "canonicalUnit": "", "yearPolicy": "current", "mappingStatus": "verified"},
+    {"v1Field": "是否有研发类会计科目", "v2Paths": ["$.rndConditions.hasRndAccount"], "semanticCategory": "rnd.accounting", "canonicalUnit": "", "yearPolicy": "current", "mappingStatus": "verified"},
+    {"v1Field": "是否企业办研究开发机构", "v2Paths": ["$.rndConditions.hasRndInstitution"], "semanticCategory": "rnd.institution", "canonicalUnit": "", "yearPolicy": "current", "mappingStatus": "verified"}
+  ]
+}

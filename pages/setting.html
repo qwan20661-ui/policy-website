@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>系统设置 - 政策解读系统</title>
+  <style>[v-cloak]{display:none!important}</style>
+  <link rel="stylesheet" href="/lib/cdn/element-plus.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/form.css">
+</head>
+<body data-page-tone="blue">
+  <div class="main-layout" id="app">
+    <!-- 侧边栏 -->
+    <aside class="sidebar">
+      <div class="sidebar-logo"></div>
+      <nav class="sidebar-menu" id="sidebar-menu"></nav>
+      <div class="sidebar-footer" id="sidebar-footer"></div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <header class="header">
+        <div class="header-left">
+          <div class="header-toggle" onclick="toggleSidebar()"><i class="el-icon-s-unfold" style="font-size:20px;"></i></div>
+          <nav class="header-breadcrumb"></nav>
+        </div>
+        <div class="header-right">
+          <div class="header-icon"><i class="el-icon-bell" style="font-size:20px;"></i></div>
+          <div class="header-user"><div class="avatar">管</div><div class="info"><span class="name">管理员</span><span class="role">系统管理员</span></div></div>
+        </div>
+      </header>
+
+      <div class="content-wrapper page-canvas" v-cloak>
+        <!-- 页面标题 -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">系统设置</h1>
+            <p class="page-description">系统配置与参数管理</p>
+          </div>
+        </div>
+
+        <!-- 设置标签页 -->
+        <el-tabs v-model="activeTab" type="border-card">
+          <!-- 爬取规则配置 -->
+          <el-tab-pane label="爬取规则" name="crawl">
+            <div class="form-section">
+              <div class="form-section-header">
+                <div class="form-section-title"><i class="el-icon-download"></i> 爬取配置</div>
+              </div>
+              <div class="form-section-body">
+                <div class="form-grid-2 mb-16">
+                  <div class="form-item">
+                    <label>爬取频率</label>
+                    <el-select v-model="settings.crawl.frequency" style="width:100%;">
+                      <el-option label="每小时" value="hourly" />
+                      <el-option label="每天" value="daily" />
+                      <el-option label="每周" value="weekly" />
+                    </el-select>
+                  </div>
+                  <div class="form-item">
+                    <label>并发数</label>
+                    <el-input-number v-model="settings.crawl.concurrent" :min="1" :max="10" style="width:100%;" />
+                  </div>
+                </div>
+                <div class="form-item mb-16">
+                  <label>爬取时间范围</label>
+                  <el-date-picker v-model="settings.crawl.dateRange" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" style="width:100%;" />
+                </div>
+                <div class="form-item mb-16">
+                  <label>爬取数据源</label>
+                  <div class="type-tags">
+                    <span class="type-tag active">国务院政策文件库</span>
+                    <span class="type-tag active">国家各部委网站</span>
+                    <span class="type-tag active">省级政策平台</span>
+                    <span class="type-tag active">市级政策网站</span>
+                    <span class="type-tag">行业协会网站</span>
+                  </div>
+                </div>
+                <div class="form-item">
+                  <el-switch v-model="settings.crawl.autoClassify" active-color="#165dff" />
+                  <span style="margin-left:8px;">爬取后自动分类</span>
+                </div>
+              </div>
+            </div>
+          </el-tab-pane>
+
+          <!-- 分类配置 -->
+          <el-tab-pane label="分类配置" name="category">
+            <div class="form-section">
+              <div class="form-section-header">
+                <div class="form-section-title"><i class="el-icon-collection-tag"></i> 分类配置</div>
+                <el-button type="primary" size="small" icon="el-icon-plus">新增分类</el-button>
+              </div>
+              <div class="form-section-body">
+                <div class="form-item mb-16">
+                  <label>政策类型</label>
+                  <div class="type-tags" style="margin-top:8px;">
+                    <el-tag v-for="t in policyTypes" :key="t" closable @close="removeType(t)" style="margin:0;">{{ t }}</el-tag>
+                    <el-input v-model="newType" placeholder="新增类型" size="small" style="width:120px;" @keyup.enter="addType" />
+                  </div>
+                </div>
+                <div class="form-item">
+                  <label>附件类型</label>
+                  <div class="type-tags" style="margin-top:8px;">
+                    <el-tag v-for="t in attachmentTypes" :key="t" closable @close="removeAttachmentType(t)" style="margin:0;">{{ t }}</el-tag>
+                    <el-input v-model="newAttachmentType" placeholder="新增类型" size="small" style="width:140px;" @keyup.enter="addAttachmentType" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </el-tab-pane>
+
+          <!-- 匹配规则 -->
+          <el-tab-pane label="匹配规则" name="match">
+            <div class="form-section">
+              <div class="form-section-header">
+                <div class="form-section-title"><i class="el-icon-s-custom"></i> 匹配规则配置</div>
+              </div>
+              <div class="form-section-body">
+                <div class="form-item mb-16">
+                  <label>匹配度阈值</label>
+                  <el-slider v-model="settings.match.threshold" :min="0" :max="100" :step="5" show-stops style="margin-top:8px;" />
+                  <div style="color:#165dff;font-weight:500;margin-top:4px;">当前阈值: {{ settings.match.threshold }}%</div>
+                </div>
+                <div class="form-item mb-16">
+                  <el-switch v-model="settings.match.autoMatch" active-color="#165dff" />
+                  <span style="margin-left:8px;">自动匹配新政策</span>
+                </div>
+                <div class="form-item mb-16">
+                  <el-switch v-model="settings.match.sendNotification" active-color="#165dff" />
+                  <span style="margin-left:8px;">匹配成功后发送通知</span>
+                </div>
+                <div class="form-item">
+                  <label>最大匹配政策数</label>
+                  <el-input-number v-model="settings.match.maxPolicies" :min="1" :max="20" style="width:200px;" />
+                  <span style="margin-left:8px;color:#909399;">每家企业</span>
+                </div>
+              </div>
+            </div>
+          </el-tab-pane>
+
+          <!-- 系统参数 -->
+          <el-tab-pane label="系统参数" name="system">
+            <div class="form-section">
+              <div class="form-section-header">
+                <div class="form-section-title"><i class="el-icon-setting"></i> 系统参数</div>
+              </div>
+              <div class="form-section-body">
+                <div class="form-item mb-16">
+                  <label>系统名称</label>
+                  <el-input v-model="settings.system.name" style="width:300px;" />
+                </div>
+                <div class="form-item mb-16">
+                  <label>数据保留天数</label>
+                  <el-input-number v-model="settings.system.retentionDays" :min="30" :max="365" style="width:200px;" />
+                  <span style="margin-left:8px;color:#909399;">天</span>
+                </div>
+                <div class="form-item mb-16">
+                  <label>日志级别</label>
+                  <el-select v-model="settings.system.logLevel" style="width:200px;">
+                    <el-option label="DEBUG" value="debug" />
+                    <el-option label="INFO" value="info" />
+                    <el-option label="WARNING" value="warning" />
+                    <el-option label="ERROR" value="error" />
+                  </el-select>
+                </div>
+                <div class="form-item">
+                  <el-switch v-model="settings.system.enableCache" active-color="#165dff" />
+                  <span style="margin-left:8px;">启用数据缓存</span>
+                </div>
+              </div>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
+
+        <!-- 保存按钮 -->
+        <div class="form-actions">
+          <el-button type="primary" size="large" icon="el-icon-check" @click="saveSettings">保存设置</el-button>
+          <el-button size="large" icon="el-icon-refresh-left" @click="resetSettings">重置</el-button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/lib/cdn/vue.global.js"></script>
+  <script src="/lib/cdn/element-plus.umd.js"></script>
+  <script src="/lib/cdn/element-plus-icons.min.js"></script>
+  <script src="../js/menu.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/page-init.js"></script>
+  <script>
+    const { createApp, ref, reactive } = Vue;
+    const app = createApp({
+      setup() {
+        const activeTab = ref('crawl');
+        const policyTypes = ref(['指导政策', '实施细则', '通知公告', '申报指南']);
+        const attachmentTypes = ref(['申报材料类', '实施细则类', '指导文件类']);
+        const newType = ref('');
+        const newAttachmentType = ref('');
+
+        const settings = reactive({
+          crawl: {
+            frequency: 'daily',
+            concurrent: 3,
+            dateRange: null,
+            autoClassify: true
+          },
+          match: {
+            threshold: 70,
+            autoMatch: true,
+            sendNotification: true,
+            maxPolicies: 5
+          },
+          system: {
+            name: '政策解读智能管理系统',
+            retentionDays: 90,
+            logLevel: 'info',
+            enableCache: true
+          }
+        });
+
+        const removeType = (t) => { policyTypes.value = policyTypes.value.filter(x => x !== t); };
+        const addType = () => { if (newType.value && !policyTypes.value.includes(newType.value)) { policyTypes.value.push(newType.value); newType.value = ''; } };
+        const removeAttachmentType = (t) => { attachmentTypes.value = attachmentTypes.value.filter(x => x !== t); };
+        const addAttachmentType = () => { if (newAttachmentType.value && !attachmentTypes.value.includes(newAttachmentType.value)) { attachmentTypes.value.push(newAttachmentType.value); newAttachmentType.value = ''; } };
+        const saveSettings = () => { ElMessage.success('设置保存成功'); };
+        const resetSettings = () => { ElMessage.info('已重置为默认设置'); };
+
+        return { activeTab, policyTypes, attachmentTypes, newType, newAttachmentType, settings, removeType, addType, removeAttachmentType, addAttachmentType, saveSettings, resetSettings };
+      }
+    });
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) { app.component(key, component); }
+    app.use(ElementPlus);
+    app.mount('#app');
+    PageInit.initStandalonePage();
+  </script>
+</body>
+</html>

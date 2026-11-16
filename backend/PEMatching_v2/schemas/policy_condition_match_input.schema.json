@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "policy_condition_match_input.schema.json",
+  "title": "单政策条件匹配模型输入",
+  "description": "一条候选政策一次模型调用的精简输入契约。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "policy", "enterprise", "evaluationRules"],
+  "properties": {
+    "schemaVersion": {"const": "policy-condition-match-input-v2"},
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fusionPolicyId", "title", "policyInfo", "conditions", "ruleTableJson", "keywords"],
+      "properties": {
+        "fusionPolicyId": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "policyInfo": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "summary": {},
+            "policyAttribute": {},
+            "sceneUsage": {},
+            "applicableScope": {},
+            "industryField": {}
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "applicableTarget": {},
+              "applicationRequirement": {},
+              "applicationStartTime": {},
+              "applicationEndTime": {}
+            }
+          }
+        },
+        "ruleTableJson": {"type": ["object", "null"]},
+        "keywords": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "enterprise": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["facts"],
+      "properties": {
+        "facts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "value", "label"],
+            "properties": {
+              "path": {"type": "string", "pattern": "^\\$"},
+              "value": {},
+              "label": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    },
+    "evaluationRules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["missingScore", "minimumThresholdFormula", "conditionKeys"],
+      "properties": {
+        "missingScore": {"const": 10},
+        "minimumThresholdFormula": {"const": "actual/target*100"},
+        "conditionKeys": {
+          "type": "array",
+          "uniqueItems": true,
+          "description": "按规则表分组和条件项原始顺序生成的条件键，输出必须逐项覆盖。",
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}

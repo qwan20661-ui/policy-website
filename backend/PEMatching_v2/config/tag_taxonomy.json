@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "pematching-v2-taxonomy-v1",
+  "source": "基于工商数据的科技政策标签体系与匹配规则.docx",
+  "note": "A/B/C/D/E/F 六维标签定义与评分参数。阈值与权重全部落在此文件，调参不改代码。",
+  "dimensions": {
+    "A": {
+      "name": "支持方式",
+      "select": "single_with_secondary",
+      "required": true,
+      "values": {
+        "A1": "资质认定类",
+        "A2": "财税优惠类",
+        "A3": "资金奖补类",
+        "A4": "人才类",
+        "A5": "金融支持类",
+        "A6": "载体平台类",
+        "A7": "成果转化类",
+        "A8": "科技合作类"
+      }
+    },
+    "B": {
+      "name": "发展阶段",
+      "select": "multi",
+      "required": true,
+      "note": "企业侧按三信号「或」逻辑运行时计算，可同时归入多个阶段；政策侧打的是「适用哪些阶段」",
+      "values": {
+        "B1": "初创期",
+        "B2": "成长期",
+        "B3": "成熟期"
+      },
+      "signals": {
+        "B1": {
+          "yearsMax": 3,
+          "revenueMaxWan": 2000,
+          "noQualification": true
+        },
+        "B2": {
+          "yearsMin": 3,
+          "yearsMax": 7,
+          "revenueMinWan": 2000,
+          "revenueMaxWan": 20000,
+          "qualifications": ["isTechSme", "isHighTechEnterprise"]
+        },
+        "B3": {
+          "yearsMin": 7,
+          "revenueMinWan": 20000,
+          "qualifications": ["isSpecializedSme", "isSpecializedLittleGiant"],
+          "registerTypeKeywords": ["股份有限公司"]
+        }
+      },
+      "adjacency": {
+        "B1": ["B2"],
+        "B2": ["B1", "B3"],
+        "B3": ["B2"]
+      }
+    },
+    "C": {
+      "name": "行业领域",
+      "select": "multi",
+      "required": true,
+      "note": "docx 只写「C1-C8 高企八大领域」未逐项列出，按其子类（C1.1/C1.2/C1.3 均挂 C1）反推 C1=电子信息，即高企认定国家重点支持的八大领域。子类只保留 docx 明文定义的 4 个。",
+      "values": {
+        "C1": "电子信息",
+        "C2": "生物与新医药",
+        "C3": "航空航天",
+        "C4": "新材料",
+        "C5": "高技术服务",
+        "C6": "新能源与节能",
+        "C7": "资源与环境",
+        "C8": "先进制造与自动化",
+        "C9": "通用",
+        "C10": "未来产业",
+        "C11": "数字经济"
+      },
+      "subValues": {
+        "C1.1": {"parent": "C1", "name": "新型显示"},
+        "C1.2": {"parent": "C1", "name": "集成电路"},
+        "C1.3": {"parent": "C1", "name": "软件开发"},
+        "C10.1": {"parent": "C10", "name": "人工智能"}
+      },
+      "genericTag": "C9"
+    },
+    "D": {
+      "name": "申报门槛",
+      "select": "single",
+      "required": true,
+      "values": {
+        "D1": "低门槛（登记/入库/自行判别即享）",
+        "D2": "中门槛（需特定资质或规模达标）",
+        "D3": "高门槛（竞争立项、评审择优、名额限制）"
+      }
+    },
+    "E": {
+      "name": "支持力度",
+      "select": "single_optional",
+      "required": false,
+      "values": {
+        "E1": "万元级",
+        "E2": "十万元级",
+        "E3": "百万元级",
+        "E4": "千万元级",
+        "E5": "亿元级"
+      }
+    },
+    "F": {
+      "name": "兑现周期",
+      "select": "single_optional",
+      "required": false,
+      "values": {
+        "F1": "一次性奖励",
+        "F2": "长期普惠",
+        "F3": "年度申报"
+      }
+    }
+  },
+  "confidenceLevels": ["high", "medium", "low"],
+  "scoring": {
+    "baseWeights": {
+      "industryMatch": 30,
+      "stageMatch": 20,
+      "innovationActivity": 25,
+      "scaleMatch": 15,
+      "creditRecord": 10
+    },
+    "industryMatchScores": {
+      "strongSubTagIntersect": 30,
+      "weakSubTagIntersect": 25,
+      "majorTagExactIntersect": 25,
+      "genericOnly": 10,
+      "noIntersect": 0,
+      "note": "docx 原为「子类30/大类20/通用10」。本方案两处调整：(1) majorTagExactIntersect=25，因只有 4 个子类，需一个不依赖子类的区分档位；(2) 子类分强弱两档——由 brief/产品/技术子表等业务描述文本命中的算强子类（30 分），仅由 industryLevel2 行业名命中的算弱子类（25 分）。行业名含关键词（如「软件和信息技术服务业」含「软件」）不等价于企业真做该方向，实测会让 461 家软件企业全部命中 C1.3，故降档。见 docs/开发计划.md 3.1.1。"
+    },
+    "stageMatchScores": {
+      "intersect": 20,
+      "adjacent": 10,
+      "noIntersect": 0,
+      "bySignalCount": {"3": 20, "2": 15, "1": 10},
+      "note": "docx 原为「有交集20/相邻10」。实测 B2 命中率 100%（样本来自科技型中小企业名单，isTechSme 覆盖率 100% 且几乎全为「是」，三信号「或」逻辑下人人命中），该维度失去区分度。改为按命中信号数计分：企业在该阶段命中的信号越多（成立年限/营收规模/已有资质），匹配越强。标签归属仍保留 docx 的多归属「或」逻辑不变，只改计分粒度。"
+    },
+    "innovationTiers": [
+      {"minCount": 10, "score": 25},
+      {"minCount": 5, "score": 15},
+      {"minCount": 1, "score": 8},
+      {"minCount": 0, "score": 0}
+    ],
+    "scaleMatchScores": {
+      "inRange": 15,
+      "boundary": 8,
+      "outOfRange": 0
+    },
+    "creditScores": {
+      "clean": 10,
+      "negative": 0
+    },
+    "bonus": {
+      "keywordTitle": 20,
+      "keywordATag": 12,
+      "keywordCTag": 10,
+      "keywordContent": 5,
+      "timelinessNotStarted": 15,
+      "timelinessInProgress": 10,
+      "timelinessPastYear": 5,
+      "timelinessPreviousYear": 8,
+      "chainBonus": 10,
+      "cap": 50,
+      "note": "关键词四级取最高一级不叠加；时效性三档互斥。timelinessPreviousYear 对应 docx「2025 年政策按 +8 分倾斜」，已改为相对逻辑（上一年度），避免年份写死。"
+    },
+    "thresholds": {
+      "directPush": 85,
+      "needsSupplement": 60
+    },
+    "secondarySort": {
+      "enabled": true,
+      "keys": [
+        {"field": "daysToDeadline", "order": "asc"},
+        {"field": "supportLevel", "order": "desc"},
+        {"field": "thresholdLevel", "order": "asc"},
+        {"field": "confidenceScore", "order": "desc"}
+      ],
+      "note": "只在总分相同时生效；缺失值排在有值之后，最终按政策ID稳定排序。"
+    },
+    "bands": {
+      "directPush": "direct_push",
+      "needsSupplement": "needs_supplement",
+      "notRecommended": "not_recommended",
+      "notEvaluable": "not_evaluable"
+    }
+  }
+}

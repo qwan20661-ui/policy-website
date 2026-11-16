@@ -1,0 +1,6 @@
+-- 为融合政策表新增规则表 JSON 字段
+-- 达梦数据库 (DM8) 语法
+
+ALTER TABLE SYSDBA.X1_FUSION_POLICY ADD (RULE_TABLE_JSON CLOB);
+
+COMMENT ON COLUMN SYSDBA.X1_FUSION_POLICY.RULE_TABLE_JSON IS 'LLM 生成的规则表 JSON（hardRuleGroups + softRuleGroups），用于企业-政策匹配引擎';

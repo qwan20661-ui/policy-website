@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "pematching-v2-policy-tags-v1",
+  "generatedAt": "2026-08-06T18:34:11",
+  "count": 3,
+  "failureCount": 0,
+  "data": [
+    {
+      "fusionPolicyId": "019fcfa8-1547-7e31-9914-baa16aa32c46",
+      "title": "2026年行业龙头企业年会、峰会补助项目",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=开拓市场；contentDesc 明确‘给予符合条件的项目按实际会议支出最高50%一次性补助，单个项目补助总额不超过50万元’，属资金奖补"
+        },
+        "B": {
+          "values": [
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "政策要求‘行业龙头企业’，重点支持省级以上政府部门认定的工业龙头企业，通常为成熟期大企业，但未明确年限或营收门槛"
+        },
+        "C": {
+          "values": [
+            "C1",
+            "C8"
+          ],
+          "subValues": [
+            "C1.3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件限定‘工业及软件和信息技术服务业相关重点行业领域’，软件与信息服务对应C1.3，工业对应C8先进制造与自动化"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "要求获得省级以上工业龙头企业称号，且需提前备案并提交申报材料，属特定资质校验"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "contentDesc 明确‘单个项目补助总额不超过50万元’"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "系统提取申报期2026-03-05至2026-11-30，且政策按‘2026年’组织申报，属年度申报项目"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "行业龙头企业可申报并在事后获得一次性补助",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-03-05",
+        "endDate": "2026-11-30",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026-03-05' applicationEndTime='2026-11-30'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "行业龙头企业",
+          "年会",
+          "峰会",
+          "补助"
+        ],
+        "aKeywords": [
+          "开拓市场",
+          "一次性补助"
+        ],
+        "cKeywords": [
+          "工业",
+          "软件和信息技术服务业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件中明确【企业规模】不限规模，未发现统一的企业整体规模门槛"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "81c5c0ec85a15fc7afbe50f564d237cf",
+      "_taggedAt": "2026-08-06T18:33:37"
+    },
+    {
+      "fusionPolicyId": "823d63d5-ba08-4eac-b43f-caf557cba769",
+      "title": "2022年度福建省知识产权信息公共服务网点续期申请",
+      "tags": {
+        "A": {
+          "primary": "A1",
+          "secondary": [],
+          "confidence": "medium",
+          "basis": "supportTypePath=评选认定，属于资质认定类支持方式"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件未限定企业成立年限、营收或资质门槛，且写明【企业规模】不限规模，适用于已备案网点续期"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=不限行业，申报条件未限定产业方向"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "需在线填报并上传盖章申请书，由市市场监管局审核、省市场监管局可组织专家评审，含评审环节"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 无金额字段，正文未涉及资金奖补"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "low",
+          "basis": "标题含‘2022年度’且系统提取了申报期，但续期申报频次不十分确定"
+        }
+      },
+      "applicability": {
+        "applicable": false,
+        "reason": "面向已备案的知识产权信息公共服务网点续期，属于服务机构资格确认，不是普通企业申报并获得资金或资质支持的政策",
+        "audience": "机构"
+      },
+      "applicationWindow": {
+        "startDate": "2025-04-30",
+        "endDate": "2025-05-20",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025-04-30' applicationEndTime='2025-05-20'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "知识产权信息公共服务网点",
+          "续期申请"
+        ],
+        "aKeywords": [
+          "评选认定"
+        ],
+        "cKeywords": [
+          "知识产权信息公共服务"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件写明【企业规模】不限规模，未设置职工人数、营业收入或销售收入的上下限"
+      },
+      "notes": "适用于2022年度已备案网点续期，非新申请；已备案国家级网点按国家网点备案实施办法办理，无需参与本次续期申请。",
+      "warnings": [
+        "判定为不可申报政策（机构）：面向已备案的知识产权信息公共服务网点续期，属于服务机构资格确认，不是普通企业申报并获得资金或资质支持的政策"
+      ],
+      "_attempts": 1,
+      "_fingerprint": "51da4a5559e21c9e19a824dba74e02c8",
+      "_taggedAt": "2026-08-06T18:34:11"
+    },
+    {
+      "fusionPolicyId": "a1be98cb-465e-42fd-a45d-a1b79c566676",
+      "title": "2024年“火炬协同创新主体”资金兑付",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportType=资金扶持；contentDesc明确按研发经费或服务收入15%给予补贴/奖励，最高不超过100万元，属资金奖补类"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件未明确年限或营收，但要求获评火炬协同创新主体，通常需具备产学研合作或中试服务能力，倾向成长期与成熟期"
+        },
+        "C": {
+          "values": [
+            "C8",
+            "C5"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=制造业、科学研究和技术服务业，分别对应先进制造与自动化、高技术服务"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "申报要求获评厦门火炬高新区2024年'火炬协同创新主体'的企业，需以该资质为前提，非竞争性评审"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "contentDesc明确每家企业合计补贴金额最高不超过100万元，属百万元级"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "标题为资金兑付，针对2024年获评企业一次性申报兑付，非长期或年度循环支持"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "获评火炬协同创新主体的企业可申报并获得资金补贴",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-02-27",
+        "endDate": "2025-04-30",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025-02-27' applicationEndTime='2025-04-30'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属科小-高企-专精特新等梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "火炬协同创新主体",
+          "资金兑付"
+        ],
+        "aKeywords": [
+          "资金扶持",
+          "产学研合作补贴",
+          "中试服务奖励"
+        ],
+        "cKeywords": [
+          "制造业",
+          "科学研究和技术服务业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件明确企业规模不限，未设置职工人数或营收门槛"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "c3aa092a206906b2459584cad7b5080a",
+      "_taggedAt": "2026-08-06T18:33:07"
+    }
+  ]
+}

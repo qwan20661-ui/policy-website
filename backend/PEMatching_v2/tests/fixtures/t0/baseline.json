@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "pematching-v2-t0-baseline-v1",
+  "recordedAt": "2026-08-06T23:59:29+08:00",
+  "ruleBaseline": "docs/企业政策匹配新规则.md V1.0",
+  "filters": {
+    "reviewStatus": 1,
+    "structureReviewStatus": 1,
+    "requireSourcePolicyId": 1
+  },
+  "requirementBaseline": {
+    "reviewApprovedPolicyCount": 89,
+    "structureReviewApprovedPolicyCount": 78,
+    "nonEmptyRuleTablePolicyCount": 41,
+    "emptyRuleTablePolicyCount": 37,
+    "ruleItemCount": 220,
+    "boundStandardFieldCount": 8,
+    "unresolvedRuleItemCount": 212,
+    "llmJudgeRuleItemCount": 69,
+    "hardRuleGroupCount": 8,
+    "softRuleGroupCount": 212,
+    "orRuleGroupCount": 0
+  },
+  "observedApiBaseline": {
+    "reviewedPolicyCount": 76,
+    "nonEmptyRuleTablePolicyCount": 39,
+    "emptyRuleTablePolicyCount": 37,
+    "applicationConditionCount": 76,
+    "ruleItemCount": 203,
+    "boundStandardFieldCount": 8,
+    "unresolvedRuleItemCount": 195,
+    "llmJudgeRuleItemCount": 62,
+    "hardRuleGroupCount": 0,
+    "softRuleGroupCount": 203,
+    "specialPassRuleGroupCount": 0,
+    "orRuleGroupCount": 0
+  },
+  "baselineDrift": {
+    "policyCount": -2,
+    "note": "运行时以 pagination.total 为准；需求确认值不作为硬编码数量。"
+  },
+  "representativePolicyIds": [
+    "6451",
+    "6509",
+    "6534"
+  ],
+  "enterpriseFixtures": [
+    "普通企业.json",
+    "高企.json",
+    "专精特新.json"
+  ],
+  "performanceBaseline": {
+    "singlePolicyLlmAverageSeconds": 12,
+    "singleEnterpriseConditionEvidence": {
+      "policyCount": 24,
+      "workers": 6,
+      "elapsedSecondsApprox": 70,
+      "source": "docs/最新匹配链路.md"
+    },
+    "legacyDeterministicSingleEnterprise": {
+      "p50Ms": 74,
+      "p95Ms": 195,
+      "source": "docs/三期验收报告.md"
+    },
+    "legacyDeterministicBatch": {
+      "enterpriseCount": 100,
+      "elapsedSeconds": 2,
+      "source": "docs/三期验收报告.md"
+    },
+    "legacyAgentBatch": {
+      "enterpriseCount": 12,
+      "workers": 4,
+      "elapsedSeconds": 459,
+      "source": "docs/三期验收报告.md"
+    }
+  }
+}

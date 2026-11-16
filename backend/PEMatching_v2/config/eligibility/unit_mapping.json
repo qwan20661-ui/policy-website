@@ -1,0 +1,5 @@
+{
+  "schemaVersion": "pematching-v2-eligibility-unit-map-v1",
+  "money": {"元": 1, "万元": 10000, "亿元": 100000000},
+  "ratio": {"%": "percent", "1": "fraction"}
+}

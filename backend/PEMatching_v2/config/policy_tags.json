@@ -1,0 +1,7078 @@
+{
+  "schemaVersion": "pematching-v2-policy-tags-v1",
+  "generatedAt": "2026-08-05T18:10:00",
+  "count": 77,
+  "failureCount": 0,
+  "data": [
+    {
+      "fusionPolicyId": "6451",
+      "title": "厦门市创新联合体备案申请",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8",
+            "A5"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-一次性奖励补助、科技发展计划项目扶持；主要支持方式为市重大科技计划项目（最高2000万元）、国家重大科技专项配套（最高1000万元），属资金奖补类；次要支持方式含产学研合作与金融支持"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求牵头单位年主营业务收入原则上达到5亿元以上、近三年年均研发投入不低于2000万元或占销售收入比例不低于3%，规模门槛指向成长期与成熟期企业，但未限定成立年限"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryFieldPath含通用行业，申报条件未限定具体产业方向，创新联合体面向多产业领域组建"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "medium",
+          "basis": "备案审核需满足基本条件（企业数量、营收门槛、研发投入等），经公示等程序，但非竞争立项或评审择优，属资质认定类行政程序"
+        },
+        "E": {
+          "value": "E4",
+          "confidence": "high",
+          "basis": "maxAmount=3000万元，市重大科技计划项目最高2000万元、国家配套最高1000万元，属千万元级支持"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "备案成功后按项目申报一次性支持，申报说明为长期受理但兑现为项目制"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可作为牵头单位或参与单位申报创新联合体备案，备案后可获得科技项目支持、配套资金及金融支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": true,
+        "confidence": "high",
+        "basis": "申报说明：长期受理",
+        "source": "rolling_text"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "创新联合体备案属平台资质认定，不在科小→高企→专精特新→小巨人→瞪羚梯度培育链路内"
+      },
+      "keywordIndex": {
+        "title": [
+          "创新联合体",
+          "备案"
+        ],
+        "aKeywords": [
+          "创新联合体认定",
+          "核心技术攻关",
+          "产学研合作",
+          "科技计划项目",
+          "一次性奖励补助",
+          "科技保险保费补贴",
+          "产业投资基金"
+        ],
+        "cKeywords": [
+          "新型显示",
+          "未来产业",
+          "半导体和集成电路",
+          "新材料",
+          "高端装备与仪器",
+          "生物",
+          "深海空天开发"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": 50000,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件第六条：牵头单位年主营业务收入原则上应达到5亿元以上（含）"
+      },
+      "notes": "申报条件要求7个（含）以上单位组成创新联合体，其中企业不少于5个；长期受理申报，备案审核后公示",
+      "warnings": [],
+      "_attempts": 2,
+      "_fingerprint": "8d09f2d96c7d96af76c000b70afdbf85",
+      "_taggedAt": "2026-08-04T11:43:04"
+    },
+    {
+      "fusionPolicyId": "6457",
+      "title": "厦门市省级新型研发机构非财政资金购买科研仪器设备软件后补助项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-研发专项补助"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "未限定企业年限营收，但适用对象为省级新型研发机构，通常处于成长期或成熟期"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "申报条件要求为经评估命名的省级新型研发机构，需提交申请书及发票审核"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "正文仅有12.5%后补助比例，未给出补助金额上限，无法判断量级"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "申报条件提及‘一次性后补助’，且已获补助单位不得重复申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "符合条件的省级新型研发机构可申报并获得非财政资金购置设备后补助资金",
+        "audience": "机构"
+      },
+      "applicationWindow": {
+        "startDate": "2025-11-11",
+        "endDate": "2026-02-01",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.11.11' applicationEndTime='2026.02.01'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "省级新型研发机构",
+          "非财政资金",
+          "科研仪器设备",
+          "后补助"
+        ],
+        "aKeywords": [
+          "研发专项补助",
+          "后补助",
+          "研发经费补助"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入"
+      },
+      "notes": "省级后补助资金少于3万元不予立项，补助比例12.5%",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "99da06f593115a31ec0f9022baab1289",
+      "_taggedAt": "2026-08-05T18:00:43"
+    },
+    {
+      "fusionPolicyId": "6461",
+      "title": "厦门市国家科学技术奖提名",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "medium",
+          "basis": "政策旨在推动本市科技创新成果获取国家科技奖，最终获奖项目可获中央财政奖金支持，属资金奖补类；提名推荐工作具有科技合作协同性质"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件未限定企业年限、营收或资质门槛，适用对象覆盖个人、团队、高校科研院所及企业"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "政策明确'择优推荐'，要求近五年曾获省级科学技术奖一等奖，属竞争立项评审"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 仅引用国家层面奖金规定条款，未给出具体资助金额；实际奖金数额由国务院相关部门另行规定"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "申报期2025-05-19至2025-05-25为年度组织申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可参与申报，经择优推荐后获国家科技奖提名资格，获奖后可获中央财政奖金",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-05-19",
+        "endDate": "2025-05-25",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.05.19' applicationEndTime='2025.05.25'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "国家科技奖提名不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "国家科学技术奖",
+          "提名"
+        ],
+        "aKeywords": [
+          "科技创新奖励",
+          "国家科技奖"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入"
+      },
+      "notes": "政策为提名推荐工作，非直接资助；实际奖金由国家层面规定，厦门市仅负责征集和择优推荐",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "518db10ee351392622d695039139aed3",
+      "_taggedAt": "2026-08-04T11:43:42"
+    },
+    {
+      "fusionPolicyId": "6462",
+      "title": "厦门市福建省科学技术奖提名",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A1"
+          ],
+          "confidence": "medium",
+          "basis": "支持方式为颁发证书与奖金，属资金奖补类；获奖证书具有荣誉资质性质"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件要求重大科学发现、重大技术发明、显著经济效益等成果门槛，倾向成长期与成熟期主体，但未明确企业年限营收限制"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件未限定具体产业方向"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "省科学技术奖需经评审程序，条件涉及重大突破、重大科学发现、重大技术发明等高标准，属竞争立项评审"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "支持方式仅提及颁发证书与奖金，第二十一条称奖金数额需调整后报批，未给出具体金额"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "科学技术奖为一次性评奖，获奖后颁发证书与奖金，无年度申报机制"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "厦门市相关组织或个人可按规定程序向福建省提名参评省级科技奖项，获奖后可获证书与奖金",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": false,
+        "confidence": "low",
+        "basis": "结构化字段与申报说明均无申报期",
+        "source": "not_found"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "省科学技术奖为独立评奖政策，不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "福建省科学技术奖",
+          "提名"
+        ],
+        "aKeywords": [
+          "科技创新奖励",
+          "科学技术奖",
+          "奖金",
+          "证书"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件主要针对个人和组织，规定了科学发现、技术发明的成果标准，未限定企业整体职工数或营业收入"
+      },
+      "notes": "政策由福建省人民政府发布，厦门市相关组织或个人按规定程序向省级推荐；奖金依法免征个人所得税，获奖情况记入个人档案",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "42adb5abbb3ede7c721aa4a9bc822536",
+      "_taggedAt": "2026-08-04T11:43:53"
+    },
+    {
+      "fusionPolicyId": "6464",
+      "title": "厦门市技术交易奖励金申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-一次性奖励补助，对技术交易按比例给予财政直接奖励"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件面向厦门市从事技术交易的企事业单位，未限定企业年限、营收或资质门槛"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需提交技术合同登记证明、发票、银行回单等材料，经审核后发放奖励，非自行判别"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "maxAmount=100万元，按年实际技术交易金额比例奖励，单个单位每年最高100万元"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "一次性奖励补助，按年度技术交易实际金额核算后发放"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企事业单位可自主申报技术交易奖励，经认定登记后获得资金奖励",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-03-26",
+        "endDate": "2026-06-20",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.03.26' applicationEndTime='2026.06.20'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "技术交易奖励金",
+          "技术合同"
+        ],
+        "aKeywords": [
+          "一次性奖励补助",
+          "技术交易奖励"
+        ],
+        "cKeywords": [
+          "通用行业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "639a682fb93235adfa5d440de247776f",
+      "_taggedAt": "2026-08-04T11:44:13"
+    },
+    {
+      "fusionPolicyId": "6466",
+      "title": "厦门市科技成果登记",
+      "tags": {
+        "A": {
+          "primary": "A7",
+          "secondary": [],
+          "confidence": "medium",
+          "basis": "政策为科技成果登记认定，属成果转化服务体系的前置环节，虽无直接激励但为成果转化提供基础支撑"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件未限定企业年限、营收或资质门槛，适用对象覆盖全类型申报主体"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D1",
+          "confidence": "high",
+          "basis": "行政登记流程，提交材料经审核即可获登记号，无竞争评审环节"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 为空，摘要未提及具体资助金额"
+        },
+        "F": {
+          "value": "F2",
+          "confidence": "medium",
+          "basis": "长期受理，持续性行政登记工作"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可通过线上渠道提交科技成果登记材料，经审核后获得登记号，属于可申报并获得行政确认的行政服务事项",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": true,
+        "confidence": "high",
+        "basis": "申报说明：长期受理",
+        "source": "rolling_text"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "科技成果登记是成果转化的前置管理环节，不属于科小-高企-专精特新梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "科技成果",
+          "登记"
+        ],
+        "aKeywords": [
+          "成果登记",
+          "审核认定",
+          "登记号"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入"
+      },
+      "notes": "政策为行政登记类事项，非直接资金支持；科技成果登记是成果转化服务体系的基础环节",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "300515a3d1ff1b97c84fabbc391e3ae7",
+      "_taggedAt": "2026-08-04T11:45:02"
+    },
+    {
+      "fusionPolicyId": "6468",
+      "title": "厦门市科学仪器设备资源共享填报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "contentDesc明确为财政奖补，maxAmount=30万元，属资金奖补类"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件面向在厦高校、科研院所、事业单位、新型研发机构及企业等广泛主体，未限定企业年限与营收规模"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需在共享平台填报信息、提交汇总表及票据凭证等材料，运营单位审核并报市科技局审批，无竞争性评审但需资质校验"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "maxAmount=30万元，按百万元级标准对应E3"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "奖补资金按年度发放，申报期为2026年3-4月，属年度申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业和高校、科研院所等机构可作为提供共享服务单位申报，通过共享平台提交材料并获得财政奖补",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-03-02",
+        "endDate": "2026-04-30",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.03.02' applicationEndTime='2026.04.30'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "科学仪器设备",
+          "资源共享",
+          "填报"
+        ],
+        "aKeywords": [
+          "财政奖补",
+          "共享奖补",
+          "仪器共享"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入"
+      },
+      "notes": "政策核心是促进科学仪器设备开放共享，奖补对象为提供共享服务的单位（检验检测机构除外），按共享总台次计算奖补，每增加10台次增加5万元，最高30万元",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "7e736206e8edf1925a7c5637725dd206",
+      "_taggedAt": "2026-08-04T11:45:22"
+    },
+    {
+      "fusionPolicyId": "6475",
+      "title": "发展中国家技术培训班项目管理",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "contentDesc明确为分档资助，maxAmount=30万，属资金奖补类"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件仅要求为独立法人机构，未限定企业年限、营收或资质门槛，属通用申报范围"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，industryFieldPath=通用行业"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "经推荐部门预审、形式审查及综合评审分档资助，涉及竞争性评审环节"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "maxAmount=30万，排名前三分之一项目支持30万元"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "年度申报指南，每年组织一次申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "独立法人机构（企业、事业单位）可通过组织推荐部门申报并获得分档资助",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-02-14",
+        "endDate": "2026-03-30",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.02.14' applicationEndTime='2026.03.30'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "发展中国家技术培训班",
+          "项目管理",
+          "国际合作"
+        ],
+        "aKeywords": [
+          "分档资助",
+          "国际科技合作",
+          "技术培训"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入"
+      },
+      "notes": "国家级项目，申报单位须通过组织推荐部门推荐；优先支持科技部国际科技合作基地及品牌类培训班",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "c3966294ec02a24cc18af80996da95c3",
+      "_taggedAt": "2026-08-04T11:46:30"
+    },
+    {
+      "fusionPolicyId": "6476",
+      "title": "国际杰青计划项目申报",
+      "tags": {
+        "A": {
+          "primary": "A4",
+          "secondary": [
+            "A3"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=人才专项扶持项目支持，面向国际青年科研人员提供资助，属人才类支持；资助经费以月度形式拨付，属资金奖补类"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "政策面向中方接收单位（企业、高校、科研院所），未限定接收单位的发展阶段；国际杰青候选人要求45岁以下、博士学位或5年以上科研经历，属成熟科研人才"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "涉及专家评审、岗位匹配、材料核实、推荐信等多环节，属竞争立项类申报"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=24万元（12个月×2万元/月），属十万元级"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "资助经费一次性拨付至中方接收单位，按月发放给国际杰青，属单次申报单次兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可作为中方接收单位申报岗位并获得资助经费，用于支付国际杰青相关费用",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-03-16",
+        "endDate": "2026-03-16",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.03.16' applicationEndTime='2026.03.16'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路，为国际科技人才交流项目"
+      },
+      "keywordIndex": {
+        "title": [
+          "国际杰青计划",
+          "项目申报",
+          "青年科研人员"
+        ],
+        "aKeywords": [
+          "人才专项扶持项目支持",
+          "国际杰青",
+          "资助经费"
+        ],
+        "cKeywords": [
+          "通用行业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入，仅要求具有法人资格和相应科研条件"
+      },
+      "notes": "政策核心是资助外籍青年科研人员来华工作，企业作为中方接收单位参与申报并获得经费支持",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "6d53d9aa3dca098872227f4ba56fe644",
+      "_taggedAt": "2026-08-04T11:46:49"
+    },
+    {
+      "fusionPolicyId": "6479",
+      "title": "福建省引导性项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "high",
+          "basis": "supportMethods maxAmount=20万元，属科技计划项目资助；sceneUsage含研发创新项目申报、核心技术攻关，含科技合作性质"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求具备科研开发能力和条件的企事业单位，未明确年限营收门槛，但项目研发周期3年且需一定研发能力，倾向成长期与成熟期"
+        },
+        "C": {
+          "values": [
+            "C1",
+            "C2",
+            "C4",
+            "C5",
+            "C6",
+            "C8",
+            "C10"
+          ],
+          "subValues": [
+            "C10.1"
+          ],
+          "confidence": "high",
+          "basis": "industryFieldPath含电子信息(C1)、生物医药(C2)、新材料(C4)、高端装备与仪器(C8)、新能源(C6)、文旅创意(C5)、深海空天开发(C10)、人工智能(C10.1)"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "需单位内部审核、归口推荐、专家评审，竞争立项"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=20万元，单项资助10-20万元，属十万元级"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "长期受理但按年度组织申报，研发周期2026年5月至2029年4月"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "具有法人资格的企事业单位可申报并获得科技计划项目资助",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": true,
+        "confidence": "high",
+        "basis": "申报说明：长期受理",
+        "source": "rolling_text"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "福建省引导性项目",
+          "科技计划项目",
+          "申报"
+        ],
+        "aKeywords": [
+          "科技计划项目支持",
+          "研发创新项目申报",
+          "核心技术攻关"
+        ],
+        "cKeywords": [
+          "电子信息",
+          "人工智能",
+          "新材料",
+          "高端装备",
+          "新能源",
+          "文旅创意",
+          "深海空天",
+          "生物医药"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入，仅要求具备科研开发能力"
+      },
+      "notes": "政策覆盖多领域，申报需通过省级推荐流程，不支持基础研究和已完成产品开发的项目",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "36e4b9c71c8b75255d548edd34e6ebc0",
+      "_taggedAt": "2026-08-04T11:47:24"
+    },
+    {
+      "fusionPolicyId": "6480",
+      "title": "福建省科技计划项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "high",
+          "basis": "supportType=资金补助；supportTypePath=资金补助-一次性奖励补助-，场景用途含科技计划项目支持、产学研合作项目支持"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "未限定企业成立年限与营收规模，项目类型涵盖科技型中小企业技术创新资金项目等，适用初创至成熟企业"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "立项评审程序，需经申报、推荐、评审立项，属于竞争性立项"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 无具体金额，contentDesc 为具体详见各类申报通知"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "省科技计划项目按年度申报指南组织，属年度申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业、事业单位等可申报省级科技计划项目并获得资金补助",
+        "audience": "机构"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": false,
+        "confidence": "low",
+        "basis": "结构化字段与申报说明均无申报期",
+        "source": "not_found"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "科技计划项目",
+          "申报"
+        ],
+        "aKeywords": [
+          "资金补助",
+          "科技计划项目支持"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入门槛"
+      },
+      "notes": "省级科技计划项目总管理办法，具体支持额度依各类申报通知",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "3fb784c3ea705f9e362f4f5cb6bb2429",
+      "_taggedAt": "2026-08-05T18:00:46"
+    },
+    {
+      "fusionPolicyId": "6491",
+      "title": "福建省高校产学合作项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-研发专项补助，属资金奖补类；场景用途为产学研合作项目支持，含科技合作性质"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件要求合作企业具有一定规模但未明确年限与营收门槛，无法精确判断适用阶段"
+        },
+        "C": {
+          "values": [
+            "C4",
+            "C8",
+            "C2"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=新材料、电力装备、生物医药，分别对应 C4、C8、C2；行业领域路径含高端医疗器械但未单独作为子类标注"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "需高校与企业在闽联合申报、签订三方协议、主管部门现场调研核实、竞争立项，属竞争性评审"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=50万元，单项资助额度不超过50万元"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "项目实施期限2-3年，申报说明为长期受理但按年度组织申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "在闽注册企业可与省内高校联合申报并获得研发专项资助",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-05-01",
+        "endDate": "2029-04-30",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026-05-01' applicationEndTime='2029-04-30'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "高校产学合作",
+          "项目申报",
+          "产学研合作"
+        ],
+        "aKeywords": [
+          "研发专项补助",
+          "产学研合作项目支持"
+        ],
+        "cKeywords": [
+          "新材料",
+          "电力装备",
+          "生物医药"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "low",
+        "basis": "申报条件仅要求合作企业具有一定规模，未明确职工人数或营业收入的具体门槛"
+      },
+      "notes": "政策要求高校、设区市管理部门到合作企业现场调研核实，重点审核是否真实开展产学合作、项目研究成果是否能够落地转化",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "1142722f673b66ed3e140110a5f30e1d",
+      "_taggedAt": "2026-08-04T11:57:11"
+    },
+    {
+      "fusionPolicyId": "6499",
+      "title": "厦门市公共技术服务平台项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-产业项目资助资金-；资金补助-一次性奖励补助-，最高2000万元无偿资助或股权投资"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件未限定成立年限与营收，但需具备较大平台规模、服务能力和自筹资金比例要求，倾向成长期与成熟期"
+        },
+        "C": {
+          "values": [
+            "C1",
+            "C2",
+            "C6",
+            "C10"
+          ],
+          "subValues": [
+            "C1.2",
+            "C10.1"
+          ],
+          "confidence": "medium",
+          "basis": "industryField=半导体和集成电路；创新医药；高端医疗器，摘要明确重点支持人工智能、氢能、生物医药"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "需前期策划、专家咨询、网上申报，提交项目申报表、可行性研究报告等完整材料，属竞争立项评审制"
+        },
+        "E": {
+          "value": "E4",
+          "confidence": "high",
+          "basis": "contentDesc明确重大公共技术服务平台和产业中试平台最高2000万元"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "长期受理，单次申报立项后分首期、进度款、尾款拨付，属一次性项目资助"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "高校、科研院所、事业单位及企业可申报公共技术服务平台项目并获得无偿资助或股权投资",
+        "audience": "不限"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": true,
+        "confidence": "high",
+        "basis": "申报说明：长期受理",
+        "source": "rolling_text"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "公共技术服务平台",
+          "项目申报"
+        ],
+        "aKeywords": [
+          "产业项目资助资金",
+          "一次性奖励补助",
+          "科技计划项目支持"
+        ],
+        "cKeywords": [
+          "半导体",
+          "集成电路",
+          "创新医药",
+          "高端医疗器械",
+          "人工智能",
+          "氢能"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入，仅有自筹资金比例、技术服务收入占比等平台运营要求"
+      },
+      "notes": "摘要提及重点支持人工智能、氢能、生物医药，已纳入C维度",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "448d90fd20d4b24b14b99972a8b812c9",
+      "_taggedAt": "2026-08-05T18:00:42"
+    },
+    {
+      "fusionPolicyId": "6503",
+      "title": "厦门市科技专家库专家征集",
+      "tags": {
+        "A": {
+          "primary": "A1",
+          "secondary": [],
+          "confidence": "low",
+          "basis": "无 supportMethods，政策为专家入库征集，可视为专家资格入库认定"
+        },
+        "B": {
+          "values": [],
+          "confidence": "low",
+          "basis": "政策面向个人专家征集，不涉及企业阶段"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件未限定产业方向"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "medium",
+          "basis": "需具备副高及以上职称、科技奖项、任职经历等特定资质，经审核入库，非仅凭公开数据"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 无金额字段，正文未提金额"
+        },
+        "F": {
+          "value": "F2",
+          "confidence": "medium",
+          "basis": "长期受理，入库后长期有效"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "面向个人专家征集入库，非企业可申报的支持政策；审核通过的政策视为可申报",
+        "audience": "个人"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": true,
+        "confidence": "high",
+        "basis": "申报说明：长期受理",
+        "source": "rolling_text"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "科技专家库",
+          "专家征集"
+        ],
+        "aKeywords": [
+          "专家入库",
+          "遴选"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "本政策面向个人专家，未涉及企业职工人数或营业收入门槛"
+      },
+      "notes": "政策面向个人专家，非企业申报政策，下游检索应排除",
+      "warnings": [
+        "判定为不可申报政策（个人）：面向个人专家征集入库，非企业可申报的支持政策"
+      ],
+      "_attempts": 1,
+      "_fingerprint": "b6342ec4654eaa591af51f19f45fd51e",
+      "_taggedAt": "2026-08-05T18:00:31"
+    },
+    {
+      "fusionPolicyId": "6508",
+      "title": "厦门市企业研发项目纳入市级重大科技计划项目认定",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "medium",
+          "basis": "平台关键词为研发创新-科技计划项目支持；政策内容为研发项目纳入市级重大科技计划项目认定，获得编号视同承担市级科技计划项目，属项目资助/支持类"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件未限定企业年限与营收，但要求自主研发费用≥500万元且项目已完成验收，实际适用成长期与成熟期企业"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需提交完整申报材料并审核，要求自主研发费用≥500万元，属资质/规模校验门槛，无竞争评审"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "支持方式无金额字段，正文明确研发项目资金全部由企业自筹，无资助金额"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "按年度定期申报，系统申报期 2025-09-04 至 2025-09-30"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报认定，获得市级科技计划项目编号作为资格佐证",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-09-04",
+        "endDate": "2025-09-30",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.09.04' applicationEndTime='2025.09.30'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "企业研发项目",
+          "市级重大科技计划项目",
+          "认定"
+        ],
+        "aKeywords": [
+          "科技计划项目支持"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入，仅要求项目自主研发费用≥500万元，非企业规模指标"
+      },
+      "notes": "政策为认定类项目，无直接财政资金；获得编号后视同承担市级科技计划项目，可作为申报其他扶持政策的资格佐证；申报已过期，需关注最新批次",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "3673e48d790b09050ef0d43f459f8873",
+      "_taggedAt": "2026-08-05T18:01:24"
+    },
+    {
+      "fusionPolicyId": "6509",
+      "title": "厦门市企业研发费用补助申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-研发专项补助"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求规上企业且研发费用需达200万元以上，暗示企业已过初创期"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "申报条件要求规上企业资质、研发费用加计扣除享受资格，并需通过审核核查及信用查询"
+        },
+        "E": {
+          "value": "E4",
+          "confidence": "high",
+          "basis": "maxAmount=1000万，先进制造业倍增计划企业最高奖补1000万元"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "企业研发费用补助为单次申报单次兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报并获得研发费用补助资金",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-11-26",
+        "endDate": "2025-12-10",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.11.26' applicationEndTime='2025.12.10'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "企业研发费用补助",
+          "研发费用",
+          "补助申报"
+        ],
+        "aKeywords": [
+          "研发专项补助",
+          "研发费用补助",
+          "资金补助"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": 2000,
+        "revenueMaxWan": null,
+        "confidence": "medium",
+        "basis": "申报条件要求规上工业、规上软件和信息技术企业，规上企业标准为年主营业务收入2000万元以上"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "3c631b7e8680d738ee099640cdd94264",
+      "_taggedAt": "2026-08-04T11:58:29"
+    },
+    {
+      "fusionPolicyId": "6510",
+      "title": "中国创新创业大赛（厦门赛区）、_创客中国_中小企业创新创业大赛暨_白鹭之星_创新创业大赛",
+      "tags": {
+        "A": {
+          "primary": "A5",
+          "secondary": [
+            "A3",
+            "A4",
+            "A8"
+          ],
+          "confidence": "medium",
+          "basis": "supportTypePath=金融支持-产业投资基金扶持、金融支持-科技信贷利息贴息补贴，核心支持为股权投资推荐与贷款贴息；次要支持包括荣誉证书（A3）、人才计划推荐（A4）、技术需求对接（A8）"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2"
+          ],
+          "confidence": "medium",
+          "basis": "大赛分初创企业组（2025年1月1日后注册）与成长企业组，覆盖初创期与成长期企业；营收限制2亿元以下，无其他明确阶段门槛"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件未限定具体产业方向"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "创新创业大赛属竞争性赛事，需通过官网注册报名并提交完整材料，经评审评选获奖名次"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods无具体金额字段，政策内容为荣誉证书、优先推荐、配套支持、免费培训等服务性内容，未明确单项奖励金额"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "大赛为年度赛事，获奖企业获得一次性荣誉证书及配套支持，非持续性政策"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可自主报名参赛，获奖企业可获得荣誉证书、优先推荐投资机构、贷款贴息、产业配套支持及人才计划推荐等实质性支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-07-03",
+        "endDate": "2026-07-15",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.07.03' applicationEndTime='2026.07.15'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "创新创业大赛为独立赛事活动，不属于科小→高企→专精特新→小巨人→瞪羚梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "创新创业大赛",
+          "白鹭之星",
+          "创客中国"
+        ],
+        "aKeywords": [
+          "产业投资基金扶持",
+          "科技信贷利息贴息补贴",
+          "股权投资",
+          "贷款贴息",
+          "人才计划推荐"
+        ],
+        "cKeywords": [
+          "通用行业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": 20000,
+        "confidence": "medium",
+        "basis": "申报条件明确企业2025年营业收入不超过2亿元人民币；未限定职工人数"
+      },
+      "notes": "大赛分初创企业组与成长企业组；另设两岸融合创新奖鼓励台资项目；往届获奖企业需用新项目参赛",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "3cd26725ed5ddb91c50e83dab949ab67",
+      "_taggedAt": "2026-08-04T11:58:35"
+    },
+    {
+      "fusionPolicyId": "6511",
+      "title": "厦门市苏颂杯未来产业技术创新赛",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A1",
+            "A5"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath包含资金补助-一次性奖励补助、资质荣誉-高新技术企业认定、金融支持-产业投资基金扶持，核心为现金奖励"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件未限定企业年限或营收，适用有技术成果的团队、企业、高校等各阶段主体"
+        },
+        "C": {
+          "values": [
+            "C10"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=未来产业，industryFieldPath=未来产业-深海空天开发，对应未来产业大类"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "赛事通过遴选优质项目，需线上报名并评审，属竞争立项"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "maxAmount=100万元，获奖项目最高100万元现金奖励"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "赛事年度组织申报，申报期2026-05-01至2026-06-30，获奖后一次性兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业、团队等可报名参赛，获奖可获得最高100万元现金奖励及落地融资对接服务",
+        "audience": "不限"
+      },
+      "applicationWindow": {
+        "startDate": "2026-05-01",
+        "endDate": "2026-06-30",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.05.01' applicationEndTime='2026.06.30'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "苏颂杯",
+          "未来产业",
+          "技术创新赛"
+        ],
+        "aKeywords": [
+          "赛事扶持",
+          "一次性奖励补助",
+          "高新技术企业认定",
+          "产业投资基金扶持"
+        ],
+        "cKeywords": [
+          "未来产业",
+          "深海空天开发"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "1787dd5a909b0ac2eb25470e1fd1a45b",
+      "_taggedAt": "2026-08-05T18:01:11"
+    },
+    {
+      "fusionPolicyId": "6512",
+      "title": "厦门市中国—东盟创新创业大赛",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "high",
+          "basis": "supportMethods 以奖金奖励为主（团队组/企业组奖项各设一、二、三等奖），属资金奖补类；赛事搭建中国与东盟科技创新合作平台，带有科技合作性质"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "政策面向企业及团队参赛，未限定企业年限、营收或资质门槛，覆盖全发展阶段"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "创新创业大赛设等级奖项（团队组/企业组各6名），需竞争评选，属竞争立项"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=50000元，最高奖金5万元，属十万元级"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "赛事奖项为一次性评选兑现，非年度申报或长期普惠"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业及团队可报名参赛并获得奖金奖补",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-01-15",
+        "endDate": "2026-03-01",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.01.15' applicationEndTime='2026.03.01'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "中国—东盟创新创业大赛",
+          "创新创业",
+          "赛事"
+        ],
+        "aKeywords": [
+          "资金奖补",
+          "奖金",
+          "赛事扶持",
+          "奖项"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入"
+      },
+      "notes": "政策属性为指导政策，但企业可实际申报参赛并获奖金；设团队组和企业组双赛道，含一至三等奖及创意之星、合作之星等多项奖励",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "a9ee94525be6a2e980f674abb58ca347",
+      "_taggedAt": "2026-08-04T11:58:53"
+    },
+    {
+      "fusionPolicyId": "6513",
+      "title": "厦门市科学技术局关于征集中国国际高新技术成果交易会参展项目的通知",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-参展展会专项补贴，对参展企业免收展位费及特装费，属资金奖补"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件未限定企业年限、营收或资质门槛，面向企业、院校、创新平台广泛征集，覆盖全阶段"
+        },
+        "C": {
+          "values": [
+            "C1",
+            "C2",
+            "C4",
+            "C6",
+            "C8"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField明确为新能源(C6)、新材料(C4)、生物医药(C2)、汽车(C8)、电子信息(C1)、高端装备与仪器(C8)，政策未点明细分赛道，subValues不填"
+        },
+        "D": {
+          "value": "D1",
+          "confidence": "high",
+          "basis": "企业填写《参展报名表》反馈至指定邮箱即可，无评审竞争环节"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "支持方式仅描述免收展位费及特装费，未给出具体金额"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "高交会为年度性展会活动，参展支持属一次性兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报参展项目并获得免展位费及特装费的资金支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-09-03",
+        "endDate": "2025-09-26",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.09.03' applicationEndTime='2025.09.26'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "中国国际高新技术成果交易会",
+          "参展项目",
+          "征集"
+        ],
+        "aKeywords": [
+          "参展展会专项补贴",
+          "展位费",
+          "特装费"
+        ],
+        "cKeywords": [
+          "新能源",
+          "新材料",
+          "生物医药",
+          "汽车",
+          "电子信息",
+          "高端装备"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "90b2ba7cca3acbdf797e929d74aa1a33",
+      "_taggedAt": "2026-08-04T11:59:05"
+    },
+    {
+      "fusionPolicyId": "6515",
+      "title": "厦门市科学技术局关于征集中国—金砖国家新时代科创孵化园科技成果展示单位的通知",
+      "tags": {
+        "A": {
+          "primary": "A8",
+          "secondary": [],
+          "confidence": "medium",
+          "basis": "为入选项目免费提供展位及设计布置，并组织与金砖国家及新兴市场对接合作，属科技合作类"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "要求具备自主知识产权和一定出口业绩，未限定年限营收，倾向成长期与成熟期"
+        },
+        "C": {
+          "values": [
+            "C2",
+            "C6",
+            "C8"
+          ],
+          "subValues": [],
+          "confidence": "medium",
+          "basis": "申报条件明确包括但不限于前沿科技、绿色能源、智能制造、生物医药大健康等领域，对应C2、C6、C8"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "medium",
+          "basis": "对征集到的项目进行筛选，属择优评选"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods无金额字段，仅提供免费展位及推介"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "单次征集展示活动，申报期内提交材料后集中筛选展示"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报，入选后获得免费展位及推介对接机会",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2024-12-16",
+        "endDate": "2024-12-28",
+        "yearScope": "2024",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2024.12.16' applicationEndTime='2024.12.28'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "金砖国家",
+          "科创孵化园",
+          "科技成果展示",
+          "征集"
+        ],
+        "aKeywords": [
+          "科技成果展示",
+          "免费展位",
+          "推介会",
+          "对接合作",
+          "金砖国家创新合作项目"
+        ],
+        "cKeywords": [
+          "生物医药",
+          "绿色能源",
+          "智能制造",
+          "前沿科技"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入，仅要求具备自主知识产权和一定出口业绩"
+      },
+      "notes": "支持方式为免费展位及推介对接，无直接资金；行业领域以申报条件为准，不限于平台标注的生物医药",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "d4f047e6696581e51c6459139b61a0c2",
+      "_taggedAt": "2026-08-05T18:01:09"
+    },
+    {
+      "fusionPolicyId": "6516",
+      "title": "厦门市中国 - 金砖国家新时代科创孵化园巴西专场成果展示暨推介会项目征集",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-参展展会专项补贴，为入选项目免费提供展位及设计布置，属资金奖补类"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求具备自主知识产权和一定出口业绩、已与金砖国家产生订单或计划拓展，倾向成长期与成熟期企业，但未明确年限营收门槛"
+        },
+        "C": {
+          "values": [
+            "C2"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=生物医药，对应C2；申报条件涵盖生物医药大健康等领域"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "medium",
+          "basis": "征集参展成果活动，需主办方审核评选入选，免费提供展位并优先纳入推介会，属竞争性筛选"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods为免费提供展位及设计布置，无明确金额；正文未提具体补助金额"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "巴西专场成果展示暨推介会为一次性活动，参展后即兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报参展，入选后获得免费展位及设计布置服务，符合条件还可申请参展补助费用",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": false,
+        "confidence": "low",
+        "basis": "结构化字段与申报说明均无申报期",
+        "source": "not_found"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "金砖国家",
+          "科创孵化园",
+          "巴西专场",
+          "成果展示",
+          "推介会",
+          "项目征集"
+        ],
+        "aKeywords": [
+          "参展展会专项补贴",
+          "资金补助",
+          "展位",
+          "展会参展补助"
+        ],
+        "cKeywords": [
+          "生物医药",
+          "高端医疗器械",
+          "科技创新"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入门槛"
+      },
+      "notes": "政策申报已过期；申报对象含高校和科研院所，但科技企业也可申报；领域覆盖前沿科技、绿色能源、智能制造、生物医药大健康等",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "4f84d09bec6717e260f460851d850f86",
+      "_taggedAt": "2026-08-04T11:59:36"
+    },
+    {
+      "fusionPolicyId": "6517",
+      "title": "厦门市科创风投基金子基金和直接投资申报指南",
+      "tags": {
+        "A": {
+          "primary": "A5",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportType=金融支持-产业投资基金扶持，对应 A5 金融支持类"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件仅注明长期受理，无年限、营收或资质门槛限定，产业投资基金通常覆盖各发展阶段"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "medium",
+          "basis": "需提交完整申报材料并经基金管理公司初审，材料审核流程明确，但无竞争名额或评审择优表述"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 无金额字段，政策正文未提及具体资助额度，实际投资金额由基金管理公司按项目情况确定"
+        },
+        "F": {
+          "value": null,
+          "confidence": "low",
+          "basis": "长期受理机制，基金投资非一次性奖励，兑现周期无法明确判断"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可按指南要求提交申报材料，经基金管理公司审核后获得科创风投基金投资支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": true,
+        "confidence": "high",
+        "basis": "申报说明：长期受理",
+        "source": "rolling_text"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "产业投资基金属金融支持类政策，不属于科小-高企-专精特新梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "科创风投基金",
+          "子基金",
+          "直接投资",
+          "申报指南"
+        ],
+        "aKeywords": [
+          "产业投资基金扶持",
+          "金融支持",
+          "科技产业投资基金"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入规模"
+      },
+      "notes": "政策为申报指南性质，实际支持额度与投资决策由基金管理公司（厦门海峡科技创新股权投资有限公司）根据项目情况确定",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "6f7165300381f76fa4e19ea98f3f26d9",
+      "_taggedAt": "2026-08-04T11:59:38"
+    },
+    {
+      "fusionPolicyId": "6521",
+      "title": "厦门市疾病防治领域重大科技计划项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=重点专项项目-科技发展计划项目扶持，属项目资助；创新联合体联合申报含科技合作性质"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "重大科技项目要求申报单位具有较强研发或成果转化能力、稳定人员队伍，倾向成长期与成熟期机构，但申报条件未明确企业年限营收门槛"
+        },
+        "C": {
+          "values": [
+            "C2"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=生物医药，对应C2生物与新医药；未点明高端医疗器械细分赛道，subValues不填"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "集中受理、材料审查和集中评审，属竞争立项；要求项目可行性分析报告、预算编制、伦理审查等完整申报材料"
+        },
+        "E": {
+          "value": "E4",
+          "confidence": "high",
+          "basis": "单项最高资助1000万元，对应E4千万元级"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "项目制一次性资助，合同签订后拨付70%、验收后拨付30%，非年度申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可作为创新联合体牵头或成员单位申报重大科技项目并获得资助",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-05-29",
+        "endDate": "2026-07-03",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.05.29' applicationEndTime='2026.07.03'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "疾病防治",
+          "重大科技计划项目",
+          "创新联合体"
+        ],
+        "aKeywords": [
+          "科技发展计划项目扶持",
+          "项目资助",
+          "无偿资助"
+        ],
+        "cKeywords": [
+          "生物医药",
+          "高端医疗器械"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入，仅要求具备研发或成果转化能力"
+      },
+      "notes": "定向委托形式支持创新联合体申报，自筹资金与资助资金比例不低于1:1",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "892d4cfda7481136bac88bede6a0cc79",
+      "_taggedAt": "2026-08-04T11:59:47"
+    },
+    {
+      "fusionPolicyId": "6522",
+      "title": "厦门市重点科技计划前沿技术及未来产业项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A2"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=重点专项项目-科技发展计划项目扶持，单个项目100万元无偿资助，属资金奖补类；次要支持方式为研发费用税前加计扣除，属财税优惠类"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求具有较强的科技研发或成果转化能力和条件，需为项目实施提供必要条件和资金保障，倾向成长期与成熟期企业，但未明确年限营收门槛"
+        },
+        "C": {
+          "values": [
+            "C1",
+            "C4",
+            "C6",
+            "C10"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryFieldPath包含半导体和集成电路(C1)、前沿战略材料(C4)、新能源(C6)、未来产业-未来网络-第六代移动通信和量子科技(C10)"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "市科技局组织集中受理、材料审查、集中评审，属竞争立项"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "maxAmount=100万元，单个项目扶持资金100万元"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "采用事前立项、事后资助方式，项目验收通过后一次性兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "申报主体须为在厦门市域内开展研发活动的独立法人单位，企业可申报并获得科技计划项目资助",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-12-23",
+        "endDate": "2026-01-08",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025-12-23' applicationEndTime='2026-01-08'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路，为特定领域科技计划项目"
+      },
+      "keywordIndex": {
+        "title": [
+          "重点科技计划",
+          "前沿技术",
+          "未来产业",
+          "项目申报"
+        ],
+        "aKeywords": [
+          "科技发展计划项目扶持",
+          "研发费用税前加计扣除",
+          "事前立项事后资助",
+          "无偿资助"
+        ],
+        "cKeywords": [
+          "半导体和集成电路",
+          "新能源",
+          "前沿战略材料",
+          "第六代移动通信",
+          "量子科技",
+          "未来网络"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入门槛，仅要求具有较强科技研发能力和条件"
+      },
+      "notes": "政策要求项目自筹资金与资助金额比例不少于2:1，企业需具备较强研发能力和条件",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "7b62b6b511812038426c52b9b3f525b8",
+      "_taggedAt": "2026-08-04T12:00:10"
+    },
+    {
+      "fusionPolicyId": "6523",
+      "title": "厦门市重大科技计划项目（生物技术与生物制造领域）申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=重点专项项目-揭榜挂帅科技攻关项目扶持/科技发展计划项目扶持，属项目资助；揭榜挂帅机制含科技合作协同性质"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求具有较强研发能力、稳定人员队伍，且同一单位限牵头申报1项重大科技项目、在研重大项目不超过2项，倾向成长期与成熟期企业，但未明确营收或年限门槛"
+        },
+        "C": {
+          "values": [
+            "C2"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=生物医药；生物制造+医药，对应C2生物与新医药，未点明具体细分赛道"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "需提交可行性研究报告、财务报表、技术水平证明、知识产权证明等完整申报材料，市科技局组织集中受理、材料审查和集中评审"
+        },
+        "E": {
+          "value": "E4",
+          "confidence": "high",
+          "basis": "maxAmount=500万元，按项目研发投入总额30%资助，单项不超过500万元"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "项目总执行周期6年分2-3期立项，每期执行期2-3年，需按年度组织申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "面向具备较强科技研发或成果转化能力的企事业单位与科研机构，通过揭榜挂帅和科技计划项目提供资金支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-08-01",
+        "endDate": "2025-09-05",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.08.01' applicationEndTime='2025.09.05'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "重大科技计划项目",
+          "生物技术与生物制造",
+          "申报"
+        ],
+        "aKeywords": [
+          "揭榜挂帅",
+          "科技攻关",
+          "项目扶持",
+          "研发经费补助",
+          "科技发展计划"
+        ],
+        "cKeywords": [
+          "生物医药",
+          "生物制造"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入"
+      },
+      "notes": "政策面向生物技术与生物制造领域共性关键技术难题，开展重大科技攻关与产业化前期准备；资助方式含无偿资助与后补助两种",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "03d9401a36fe2070d82d7d244fae09e0",
+      "_taggedAt": "2026-08-04T12:00:16"
+    },
+    {
+      "fusionPolicyId": "6525",
+      "title": "国家重点研发计划项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-研发专项补助-，属资金奖补"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件未明确年限营收门槛，但适用对象含国家级专精特新小巨人企业分支，国家级重大科技项目通常面向成长期和成熟期企业"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "摘要明确开放揭榜挂帅、赛马制等灵活申报模式，属竞争性立项，非登记即享"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 的 amount 与 maxAmount 均为空，contentDesc 未提供具体金额"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "国家重点研发计划通常按年度发布项目申报指南，属年度申报；摘要提到前置资助、里程碑拨付，非长期普惠"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业、高校等主体可申报国家重点研发计划并获得中央财政专项资金支持",
+        "audience": "不限"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": false,
+        "confidence": "low",
+        "basis": "结构化字段与申报说明均无申报期",
+        "source": "not_found"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "国家重点研发计划",
+          "项目申报"
+        ],
+        "aKeywords": [
+          "研发专项补助",
+          "科技计划项目支持"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入；适用对象含国家级专精特新小巨人企业分支，无法统一为数值门槛"
+      },
+      "notes": "具体支持力度与申报要求以各专项申报通知为准",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "6285b17bb6e472ca4b10a7041ec74fad",
+      "_taggedAt": "2026-08-05T18:01:31"
+    },
+    {
+      "fusionPolicyId": "6526",
+      "title": "厦门市院省科技合作计划项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "medium",
+          "basis": "supportTypePath=重点专项项目-科技发展计划项目扶持，属项目资助；项目由企业与中科院研究所联合攻关，含产学研协同"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求牵头单位为规模以上企业，规模以上通常对应成长期与成熟期，未限定上限"
+        },
+        "C": {
+          "values": [
+            "C9",
+            "C10"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业；未来产业，未限定具体产业且标注未来产业导向"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "省科技厅根据综合评审结果提出立项意见，择优配套，需完整申报材料和推荐评审"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "未给出具体金额上限，仅按实际到账经费最高1:1配套"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "列入年度项目申报指南，申报期2026-11-11至2026-12-14，年度立项计划"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可联合中科院研究所申报，获得项目立项与财政配套支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-11-11",
+        "endDate": "2026-12-14",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.11.11' applicationEndTime='2026.12.14'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "院省科技合作",
+          "科技合作计划",
+          "项目申报"
+        ],
+        "aKeywords": [
+          "科技发展计划项目扶持",
+          "核心技术攻关",
+          "科技计划项目支持",
+          "产学研合作项目支持"
+        ],
+        "cKeywords": [
+          "通用行业",
+          "未来产业",
+          "深海空天开发"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "medium",
+        "basis": "申报条件仅要求牵头单位为规模以上企业，未提供具体职工数或营业收入绝对值，无法统一表达企业整体规模门槛"
+      },
+      "notes": "政策属性为指导政策，但实为项目申报；申报主体须为规模以上企业联合中科院研究所；配套支持按实际到账经费最高1:1。",
+      "warnings": [
+        "C 同时含通用标签 C9 与具体领域 ['C10']，语义可能矛盾"
+      ],
+      "_attempts": 1,
+      "_fingerprint": "bc62d7dfb6cd74033b010d00188ee66d",
+      "_taggedAt": "2026-08-05T18:01:54"
+    },
+    {
+      "fusionPolicyId": "6529",
+      "title": "厦门市高新技术企业认定专项工作组关于厦门市2026年第二批高新技术企业更名的公告",
+      "tags": {
+        "A": {
+          "primary": "A1",
+          "secondary": [],
+          "confidence": "low",
+          "basis": "支持方式无数据，但政策涉及高新技术企业资质证书的更名维护，属资质认定类管理服务"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求资格有效期内的国家级高企，通常覆盖成长期与成熟期企业"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件未限定产业方向"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需持有有效期内的国家级高企资质，并提交材料审核"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 无金额字段，政策为更名服务无资金奖补"
+        },
+        "F": {
+          "value": null,
+          "confidence": "low",
+          "basis": "政策为名称变更行政服务，无资金兑现周期，无法对应 F1-F3"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报高企名称变更，经审核公示后重新核发证书",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": false,
+        "confidence": "low",
+        "basis": "结构化字段与申报说明均无申报期",
+        "source": "not_found"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "高新技术企业",
+          "更名"
+        ],
+        "aKeywords": [
+          "高新技术企业更名",
+          "资质证书"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入，仅要求高企资格"
+      },
+      "notes": "政策为高企名称变更登记与证书换发，非新增资助事项。",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "57060fb6cc1006e91090a07e6be7830c",
+      "_taggedAt": "2026-08-05T18:01:33"
+    },
+    {
+      "fusionPolicyId": "6531",
+      "title": "国家级高新技术企业发展情况填报",
+      "tags": {
+        "A": {
+          "primary": "A1",
+          "secondary": [],
+          "confidence": "low",
+          "basis": "无 supportMethods，本政策为已认定高企的年度填报义务，不提供新的支持方式，硬归为资质维护类"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "仅面向资格有效期内的国家级高企，申报无年限营收分层，实际适用已具一定规模的成长期与成熟期企业"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "申报条件要求为资格有效期内的国家级高企，需资质校验，但填报流程无评审"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 为空，政策不涉及资金奖补"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "每年4月15日-5月20日组织年度发展情况填报，属年度申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "属于已认定高企的年度统计填报义务，企业无申报获利动作，无支持内容；审核通过的政策视为可申报",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-04-15",
+        "endDate": "2026-05-20",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.04.15' applicationEndTime='2026.05.20'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路，为已认定高企的年度填报义务"
+      },
+      "keywordIndex": {
+        "title": [
+          "国家级高新技术企业",
+          "发展情况",
+          "填报"
+        ],
+        "aKeywords": [
+          "年度填报",
+          "发展情况报表"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件仅要求为资格有效期内的国家级高企，未限定职工总数或营业收入"
+      },
+      "notes": "applicable=false，下游检索应排除，但保留标签供人工复核",
+      "warnings": [
+        "判定为不可申报政策（企业）：属于已认定高企的年度统计填报义务，企业无申报获利动作，无支持内容"
+      ],
+      "_attempts": 1,
+      "_fingerprint": "d4897e2fd3789cef1400d241b33360f5",
+      "_taggedAt": "2026-08-05T18:01:48"
+    },
+    {
+      "fusionPolicyId": "6532",
+      "title": "厦门市重点企业骨干人才子女就读厦门高新学校需求申报",
+      "tags": {
+        "A": {
+          "primary": "A4",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=人才支持-高层次人才子女入学保障，属人才类子女入学支持"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求规模以上的国家级高新技术企业、技术先进型服务企业和未来产业骨干企业，通常需具备一定规模与资质，覆盖成长期与成熟期"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件虽提及三类企业但未限定特定产业方向，整体为普惠适用"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "medium",
+          "basis": "需提交汇总表、社保纳税证明、岗位佐证等材料并经审核通过，且要求企业为国家级高新技术企业等资质"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "支持方式为子女入学保障非资金奖补，supportMethods无金额字段"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "按学年组织入学需求申报，系统提取申报期为2026-05-21至2026-06-08，属年度申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可为其骨干人才子女申报就读厦门高新学校，获得人才子女入学保障",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-05-21",
+        "endDate": "2026-06-08",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.05.21' applicationEndTime='2026.06.08'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "重点企业骨干人才",
+          "子女就读",
+          "高新学校",
+          "需求申报"
+        ],
+        "aKeywords": [
+          "高层次人才子女入学保障",
+          "人才子女入学"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "medium",
+        "basis": "申报条件仅要求'全市规模以上'，未给出可统一表达的企业整体职工人数或营业收入绝对上下限"
+      },
+      "notes": "适用对象为规模以上国家级高新技术企业、技术先进型服务企业和未来产业骨干企业，申报主体为企业，受益人为骨干人才子女。",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "766a0737e3f6128b77c8d8bcdbba6899",
+      "_taggedAt": "2026-08-05T18:01:57"
+    },
+    {
+      "fusionPolicyId": "6533",
+      "title": "厦门市“国家级高新技术企业培育孵化”奖励申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-一次性奖励补助，申报通过后给予一次性财政奖励20万元"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求申报企业为资格有效国家级高新技术企业，通常对应成长期及以上，但未限定年限营收，故覆盖成长期与成熟期"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件未限定产业方向"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "市科技局组织专家评审，视情况组织现场调研，属于竞争立项、评审择优"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "supportMethods.maxAmount=20万元，属十万元级奖励"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "通过评审确认的企业可获得一次性财政奖励20万元，属一次性奖励"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报并通过评审获得一次性20万元财政奖励",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-07-24",
+        "endDate": "2026-08-30",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.07.24' applicationEndTime='2026.08.30'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "国家级高新技术企业",
+          "培育孵化",
+          "奖励"
+        ],
+        "aKeywords": [
+          "一次性奖励补助",
+          "国家级高新技术企业"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入，仅要求国家级高企资质、直接持股及实际到资比例等"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "3158bbe5a76d04f1b898ae5c70aa2a44",
+      "_taggedAt": "2026-08-05T18:01:51"
+    },
+    {
+      "fusionPolicyId": "6539",
+      "title": "厦门市医疗卫生指导性项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "medium",
+          "basis": "supportMethods 给出市科技计划项目立项编号，属科技计划项目支持/研发创新项目，对应项目资助类"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件未限定成立年限、营收或资质门槛，各类医疗卫生机构均可申报"
+        },
+        "C": {
+          "values": [
+            "C2"
+          ],
+          "subValues": [],
+          "confidence": "low",
+          "basis": "适用对象为医疗卫生机构，聚焦前沿技术研发及临床应用研究，对应生物与新医药领域"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "申报说明要求各医疗机构根据申报指标分配表自行组织评审并汇总填报，属限额择优评审"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "支持方式仅给立项编号，机构自筹经费，无资助金额"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "系统已提取申报期2025-09-30至2025-10-23，按年度组织申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "医疗卫生机构可申报并获得市科技计划项目立项编号",
+        "audience": "机构"
+      },
+      "applicationWindow": {
+        "startDate": "2025-09-30",
+        "endDate": "2025-10-23",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.09.30' applicationEndTime='2025.10.23'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "医疗卫生",
+          "指导性项目",
+          "申报"
+        ],
+        "aKeywords": [
+          "科技计划项目支持",
+          "立项编号"
+        ],
+        "cKeywords": [
+          "医疗卫生",
+          "临床研究"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "未发现可统一表达的企业整体规模门槛"
+      },
+      "notes": "项目为自筹经费的指导性项目，不涉及财政资金补助",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "65ad879467edcaa08b0a94e25f01002e",
+      "_taggedAt": "2026-08-05T18:02:12"
+    },
+    {
+      "fusionPolicyId": "6540",
+      "title": "厦门市生物医药产业政策兑现",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A4"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-研发专项补助/产业项目资助资金/一次性奖励补助；人才支持-人才生活专项补贴，以资金奖补为主，含人才补贴"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件未限定企业年限、营收等阶段门槛，支持从临床前研究到产业化的全链条，适用各阶段生物医药企业"
+        },
+        "C": {
+          "values": [
+            "C2"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=生物医药，industryFieldPath=生物医药-高端医疗器械，对应生物与新医药"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "需填写申报信息并上传佐证材料，存在专家评审，如科技成果转化项目经专家评审通过"
+        },
+        "E": {
+          "value": "E4",
+          "confidence": "medium",
+          "basis": "contentDesc中创新药Ⅲ期临床试验最高3000万元，maxAmount=10000万元，按单项上限为千万元级"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "申报期为2026-03-06至2026-03-27，按年度集中申报兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "生物医药企业、机构可申报研发、产业化、人才等各类奖补资金",
+        "audience": "不限"
+      },
+      "applicationWindow": {
+        "startDate": "2026-03-06",
+        "endDate": "2026-03-27",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.03.06' applicationEndTime='2026.03.27'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "生物医药",
+          "政策兑现"
+        ],
+        "aKeywords": [
+          "研发专项补助",
+          "产业项目资助资金",
+          "一次性奖励补助",
+          "人才生活专项补贴"
+        ],
+        "cKeywords": [
+          "生物医药",
+          "高端医疗器械"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "未发现可统一表达的企业整体规模门槛；仅特定CRO服务要求年度营业收入2000万元以上，属于业务门槛"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "20bc0741a8028192b190cddb21a1a372",
+      "_taggedAt": "2026-08-05T18:02:23"
+    },
+    {
+      "fusionPolicyId": "6541",
+      "title": "厦门市医工结合项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-研发专项补助；摘要提及促进产学研医协同创新，属资金奖补及科技合作"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件仅要求合作企业具备与项目匹配的研发能力，未限定企业成立年限、营收或资质门槛"
+        },
+        "C": {
+          "values": [
+            "C2"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=生物医药；高端医疗器械，对应C2生物与新医药"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "资助项目经申报单位择优推荐、市科技局组织专家评审并择优立项，属竞争立项"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=10万元，属十万元级"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "系统提取申报期2026-02-20至2026-03-27，按年度组织申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "医疗机构牵头联合企业申报，立项后获得立项编号或经费资助；企业可联合申报",
+        "audience": "机构"
+      },
+      "applicationWindow": {
+        "startDate": "2026-02-20",
+        "endDate": "2026-03-27",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.02.20' applicationEndTime='2026.03.27'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "医工结合",
+          "项目申报"
+        ],
+        "aKeywords": [
+          "研发专项补助",
+          "医工交叉融合创新项目支持"
+        ],
+        "cKeywords": [
+          "生物医药",
+          "高端医疗器械",
+          "医工结合"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入门槛"
+      },
+      "notes": "政策由医疗机构牵头，企业需联合医疗机构申报；资助项目最高10万元，须1:1自筹配套",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "debc4b4ce0079df0670b2efd541c8086",
+      "_taggedAt": "2026-08-05T18:02:45"
+    },
+    {
+      "fusionPolicyId": "6542",
+      "title": "厦门市生物医药产业应用基础平台申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-一次性奖励补助-；资金补助-产业项目资助资金-，属资金奖补"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件未限定企业年限/营收，但要求新建成CRO/CMO/CDMO并投入使用，实际需要一定规模，倾向成长期与成熟期"
+        },
+        "C": {
+          "values": [
+            "C2"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=生物医药，industryFieldPath=生物医药-高端医疗器械，均对应生物与新医药"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "申报条件要求药品注册批件/医疗器械注册证书或建成CRO/CMO/CDMO，需资质校验"
+        },
+        "E": {
+          "value": "E5",
+          "confidence": "high",
+          "basis": "supportMethods maxAmount=1亿元，属亿元级"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "supportType包含一次性奖励补助，资金采取后奖补方式，按项目一次性兑现；申报期有明确窗口但未体现年度常态化"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报并获得一次性奖励补助/产业项目资助资金",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-03-06",
+        "endDate": "2026-03-27",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.03.06' applicationEndTime='2026.03.27'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "生物医药",
+          "应用基础平台",
+          "申报"
+        ],
+        "aKeywords": [
+          "一次性奖励补助",
+          "产业项目资助资金"
+        ],
+        "cKeywords": [
+          "生物医药",
+          "高端医疗器械"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件仅涉及产品注册批件与平台建设，未限定企业整体职工人数或营业收入"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "3d3076c2221cbd6012a807ad531500a6",
+      "_taggedAt": "2026-08-05T18:02:34"
+    },
+    {
+      "fusionPolicyId": "6543",
+      "title": "厦门市生物医药产业人才项目认定",
+      "tags": {
+        "A": {
+          "primary": "A4",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=人才支持-专业技术职称评定-，contentDesc=对入选生物医药产业人才的给予分层次补助，属人才类支持"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件未限定企业成立年限、营收或资质，仅要求企业属生物医药领域且人才符合条件，覆盖各发展阶段"
+        },
+        "C": {
+          "values": [
+            "C2"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=生物医药，industryFieldPath=生物医药-高端医疗器械，对应C2生物与新医药"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "申报程序含评审核查（专家评审）及信用查询，属竞争性评审立项"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 无具体金额，contentDesc仅表述为分层次补助和一定额度安居补贴，未给金额"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "政策属性为申报通知，且有明确申报期2025-05-20至2025-07-04，推测每年组织申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "政策面向生物医药产业人才个人，企业仅作为申报单位，不直接获得资金支持；审核通过的政策视为可申报",
+        "audience": "个人"
+      },
+      "applicationWindow": {
+        "startDate": "2025-05-20",
+        "endDate": "2025-07-04",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.05.20' applicationEndTime='2025.07.04'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "生物医药",
+          "人才",
+          "认定"
+        ],
+        "aKeywords": [
+          "人才支持",
+          "人才专项扶持项目支持",
+          "人才补助",
+          "安居补贴"
+        ],
+        "cKeywords": [
+          "生物医药",
+          "高端医疗器械"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "未发现企业整体职工人数或营业收入门槛，仅对个人薪资有要求"
+      },
+      "notes": "政策面向个人人才，企业不可作为申报主体获得资金，故 applicable=false",
+      "warnings": [
+        "判定为不可申报政策（个人）：政策面向生物医药产业人才个人，企业仅作为申报单位，不直接获得资金支持"
+      ],
+      "_attempts": 1,
+      "_fingerprint": "db97cfb37fe7adcb97a7536ba898d784",
+      "_taggedAt": "2026-08-05T18:02:34"
+    },
+    {
+      "fusionPolicyId": "6544",
+      "title": "厦门市新优药械产品目录征集",
+      "tags": {
+        "A": {
+          "primary": "A1",
+          "secondary": [],
+          "confidence": "medium",
+          "basis": "政策为产品目录征集，收录新优药械产品，属于资质认定/名录收录类市场准入支持"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件未限定企业年限、营收或资质，适用于各发展阶段企业，但要求产品具备创新性，未明确排除任何阶段"
+        },
+        "C": {
+          "values": [
+            "C2"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=生物医药，industryFieldPath=生物医药-高端医疗器械，对应C2，无生物医药子类"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "medium",
+          "basis": "申报材料要求提供评审证明，存在需评审产品，含评审环节"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods无金额字段，政策未涉及资金奖补"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "low",
+          "basis": "申报通知有明确申报期，但未说明年度频率，推测按年度征集"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业作为产品上市许可持有人可以申报，入选后产品纳入官方目录，获得市场准入支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-01-07",
+        "endDate": "2026-01-21",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.01.07' applicationEndTime='2026.01.21'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "新优药械",
+          "产品目录",
+          "征集"
+        ],
+        "aKeywords": [
+          "医疗器械药物准入",
+          "目录收录"
+        ],
+        "cKeywords": [
+          "生物医药",
+          "高端医疗器械",
+          "药械"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入，仅限制每家单位申报产品数量"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "fd9e49ebd234dc6e0d3d3e67c3b9399a",
+      "_taggedAt": "2026-08-05T18:02:58"
+    },
+    {
+      "fusionPolicyId": "6546",
+      "title": "厦门市医疗卫生重点项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-研发专项补助，每个项目资助30万元"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件未限定企业年限营收门槛，但项目要求较强研发能力和配套资金，倾向成长期与成熟期"
+        },
+        "C": {
+          "values": [
+            "C2"
+          ],
+          "subValues": [],
+          "confidence": "medium",
+          "basis": "申报指南明确支持恶性肿瘤、心脑血管疾病、罕见病及中医药等医疗卫生领域，对应生物与新医药"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "组织集中受理、材料审查和集中评审，属于竞争立项/评审择优"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=30万，每个项目资助资金30万元"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "在线申报起止时间明确，属于按年度组织的科技计划项目申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "申报主体为三级医院独立科室及基层医疗卫生机构，企业不可申报；审核通过的政策视为可申报",
+        "audience": "机构"
+      },
+      "applicationWindow": {
+        "startDate": "2025-10-09",
+        "endDate": "2025-10-28",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.10.09' applicationEndTime='2025.10.28'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "医疗卫生",
+          "重点项目",
+          "申报"
+        ],
+        "aKeywords": [
+          "研发专项补助",
+          "科技计划项目支持",
+          "无偿资助"
+        ],
+        "cKeywords": [
+          "医疗卫生",
+          "临床研究",
+          "中医药"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入，未发现可统一表达的企业规模门槛"
+      },
+      "notes": "申报主体为医疗机构，非企业申报政策",
+      "warnings": [
+        "判定为不可申报政策（机构）：申报主体为三级医院独立科室及基层医疗卫生机构，企业不可申报"
+      ],
+      "_attempts": 1,
+      "_fingerprint": "c863f5cc9b7137bb7f67e8a2f2b2d42b",
+      "_taggedAt": "2026-08-05T18:03:17"
+    },
+    {
+      "fusionPolicyId": "6547",
+      "title": "厦门市产学研合作项目补助兑现",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-一次性奖励补助、产业项目资助资金，属资金奖补类；政策明确支持产学研合作，含科技合作性质"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件未限定企业年限、营收规模，仅要求实际支付技术交易经费不低于20万元，覆盖各发展阶段"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "需提交验收材料、股权证明、技术交易凭证等完整申报材料，经审核后兑现，属竞争性评审"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "maxAmount=100万元，按企业实际支付技术交易额最高50%给予支持"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "一次性奖励补助，申报期2026-05-09至2026-06-17，单次申报单次兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业作为牵头申报单位，与高校科研院所联合申报后可获得资金补助",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-05-09",
+        "endDate": "2026-06-17",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.05.09' applicationEndTime='2026.06.17'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "产学研合作",
+          "项目补助",
+          "兑现"
+        ],
+        "aKeywords": [
+          "资金补助",
+          "一次性奖励补助",
+          "产业项目资助资金",
+          "产学研合作项目支持"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入，仅要求项目实际支付技术交易经费不低于20万元"
+      },
+      "notes": "需企业与高校科研院所联合申报，牵头单位须为企业；同一企业同一申报期最多申报2项；补助资金将在研发费用补助基数计算中扣除",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "9ad5723436330c759f83c6a0e6e99e0a",
+      "_taggedAt": "2026-08-04T12:03:41"
+    },
+    {
+      "fusionPolicyId": "6549",
+      "title": "厦门市科技中小企业创新项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A5"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-产业项目资助资金，提供无偿资助（≤50万/项）或股权投资（≤500万/项），属资金奖补类；股权投资方式含金融支持性质"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求符合小微企业标准，研发费用≥100万元，覆盖初创期与成长期企业"
+        },
+        "C": {
+          "values": [
+            "C2",
+            "C6",
+            "C7",
+            "C10"
+          ],
+          "subValues": [
+            "C10.1"
+          ],
+          "confidence": "high",
+          "basis": "申报条件明确聚焦人工智能（对应C10.1子类）、生物医药（C2）、能源环保（C6新能源与节能、C7资源与环境）"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "政策明确采用竞争性专家评审方式，按竞争择优原则经审查后立项，属竞争立项"
+        },
+        "E": {
+          "value": "E4",
+          "confidence": "high",
+          "basis": "maxAmount=500万元，股权投资单个项目不超过500万元，属千万元级"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "项目资助类政策，项目实施周期2年，分期补助（立项70%+验收30%），属一次性项目奖励"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可自主申报，经竞争评审立项后获得资金资助（无偿资助或股权投资）",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-10-17",
+        "endDate": "2026-01-15",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025-10-17' applicationEndTime='2026-01-15'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "科技中小企业",
+          "创新项目",
+          "申报"
+        ],
+        "aKeywords": [
+          "产业项目资助资金",
+          "无偿资助",
+          "股权投资",
+          "研发创新项目申报"
+        ],
+        "cKeywords": [
+          "人工智能",
+          "生物医药",
+          "能源环保"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": 500,
+        "revenueMinWan": null,
+        "revenueMaxWan": 20000,
+        "confidence": "high",
+        "basis": "申报条件要求符合《中小企业划型标准规定》界定的小微企业标准，即职工总数不超过500人、年销售收入不超过2亿元"
+      },
+      "notes": "政策适用对象限定为厦门科学城或金砖国家科创孵化园内注册的小微企业；含",
+      "warnings": [],
+      "_attempts": 2,
+      "_fingerprint": "dd58dddfebf1ca40dce4b9904c666450",
+      "_taggedAt": "2026-08-04T12:04:49"
+    },
+    {
+      "fusionPolicyId": "6552",
+      "title": "厦门市市级科技计划项目申报",
+      "tags": {
+        "A": {
+          "primary": "A1",
+          "secondary": [],
+          "confidence": "medium",
+          "basis": "成功备案可取得市级重大科技计划项目编号，视同承担市级科技计划项目，属备案认定类支持"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件未限定企业年限营收，但要求项目自研费用500万元以上，研发投入较大的成长期与成熟期企业更常见"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "medium",
+          "basis": "需提交材料证明项目自主研发费用不低于500万元并验收合格，无竞争评审，属达到条件即备案认定"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 无金额字段，正文未提资助金额"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "申报期为2025年9月4日至9月30日，按年度集中申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报并备案认定为市级重大科技计划项目，获得编号作为政策申报佐证",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-09-04",
+        "endDate": "2025-09-30",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025-09-04' applicationEndTime='2025-09-30'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "市级科技计划项目",
+          "备案认定",
+          "研发项目"
+        ],
+        "aKeywords": [
+          "科技计划项目支持",
+          "研发创新项目申报",
+          "研发经费补助",
+          "核心技术攻关"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业职工人数或营业收入规模，只要求项目自主研发费用500万元及以上"
+      },
+      "notes": "政策为备案认定，无直接资金奖补；取得编号后可作为申报各级科技扶持政策的佐证",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "9ab3225fa322a4cbd5ac4eb16583535a",
+      "_taggedAt": "2026-08-05T18:03:07"
+    },
+    {
+      "fusionPolicyId": "6553",
+      "title": "厦门市技术转移机构认定",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A7"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-企业运营扶持补贴/一次性奖励补助，主要支持方式为经费资助与活动奖励；政策核心目标为促进技术转移转化，secondary 标注 A7"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件未限定机构成立年限、营收规模或资质等级，面向所有在厦设立的技术转移机构，覆盖全阶段"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件围绕技术转移服务能力，未限定具体产业方向"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需满足固定场所、专职人员≥4人、技术转移人员占比≥70%、无违规记录等多项条件，经认定审核通过，非自行判别亦非竞争立项"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "maxAmount=100万元；每年最高50万元（科学城100万元）办公运行经费资助+每年最高100万元技术经济活动奖励"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "经费资助最长3年，按年度考核分批兑现；技术经济活动奖励按年度申报兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "技术转移机构可自主申报认定，获得经费资助与技术交易奖励",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-07-22",
+        "endDate": "2025-07-26",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025-07-22' applicationEndTime='2025-07-26'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "技术转移机构认定为独立资质类型，不属科小→高企→专精特新→小巨人→瞪羚梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "技术转移机构",
+          "认定",
+          "经费资助"
+        ],
+        "aKeywords": [
+          "企业运营扶持补贴",
+          "一次性奖励补助",
+          "技术交易奖励",
+          "技术经济活动奖励"
+        ],
+        "cKeywords": [
+          "通用行业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件仅要求专职人员不少于4人，未限定机构整体职工数或营业收入上下限"
+      },
+      "notes": "政策适用对象含高校院所内设非独立法人机构，audience 仍为机构/企业混合；maxAmount=100万元为技术经济活动奖励单项上限，办公运行经费资助为独立条目",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "6ddf17e45f845460d5d19f28f0ddb24c",
+      "_taggedAt": "2026-08-04T12:05:04"
+    },
+    {
+      "fusionPolicyId": "6554",
+      "title": "福建省技术转移机构申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-技术经济活动奖励；资金补助-一次性奖励补助，最高50万元"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求从事技术转移业务不少于两年、交易类机构促成技术交易不低于400万元、平台类服务企业不少于100家，表明需具备一定经营积累"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需满足人员数量、服务业绩、交易额或活动场次等具体资质要求，经评估命名"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=50万元，按十万元级计"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "一次性奖励补助，评估命名后兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "技术转移机构可自主申报，经评估命名后纳入省级管理体系并获得资金奖励",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-07-29",
+        "endDate": "2025-08-27",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.07.29' applicationEndTime='2025.08.27'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "技术转移机构",
+          "申报",
+          "评估命名"
+        ],
+        "aKeywords": [
+          "技术经济活动奖励",
+          "一次性奖励补助",
+          "技术转移机构认定"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件仅规定人员数量要求（独立法人5人以上、内设机构3人以上）及服务业绩指标，未限定企业整体职工数或营业收入"
+      },
+      "notes": "申报主体包括独立法人机构、企事业单位内设机构、高校科研院内设机构及分支机构；政策由福建省科技厅发布，厦门市企业可通过省级渠道申报",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "cbd633d7cc08130f0dec8661c4edb5a0",
+      "_taggedAt": "2026-08-04T12:05:16"
+    },
+    {
+      "fusionPolicyId": "6556",
+      "title": "厦门市留学人员创业扶持资金申报",
+      "tags": {
+        "A": {
+          "primary": "A4",
+          "secondary": [
+            "A3"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-一次性奖励补助，但政策核心目的是鼓励留学人员来厦创新创业，面向留学人员创业者，属人才类支持"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求企业成立半年（含）以上5年以下，覆盖初创期（≤3年）与成长期（3-7年）企业"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件未限定特定产业方向"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "medium",
+          "basis": "需具备留学人员资质、企业注册时间、持股比例、员工结构等特定条件校验，无竞争评审但非自行判别即享"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=50万元，单项最高50万元，属十万元级"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "年度申报，申报期为2025-05-12至2025-05-30"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "留学人员企业可自主申报并获得资金奖补",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-05-12",
+        "endDate": "2025-05-30",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.05.12' applicationEndTime='2025.05.30'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "留学人员创业扶持属人才创业专项政策，不属于科小→高企→专精特新梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "留学人员",
+          "创业扶持",
+          "资金申报"
+        ],
+        "aKeywords": [
+          "一次性奖励补助",
+          "资金补助",
+          "留学人员创业扶持"
+        ],
+        "cKeywords": [
+          "通用行业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "medium",
+        "basis": "申报条件未限定企业整体职工人数或营业收入，仅对申请30万元/50万元档次要求实际到位注册资本不低于500万元，该条件为分支条件非统一门槛"
+      },
+      "notes": "政策分三档资助：基础20万元、满足注册资本及资质条件可获50万元、已获20万且满足条件可再申请30万元；留学人员需担任法定代表人或技术负责人且持股不低于30%",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "5052fc81667f381345bcd296659acd3a",
+      "_taggedAt": "2026-08-04T12:05:42"
+    },
+    {
+      "fusionPolicyId": "6558",
+      "title": "福厦泉国家自主创新示范区协同创新平台项目征集",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-产业项目资助资金，专项资金资助不超过200万元"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求合作单位为规模以上企业、研发费用占营收比例达2.5%以上，门槛覆盖成长期与成熟期企业"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "竞争立项、专家评审、限项申报、需提供完整财务报表及合作协议"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "maxAmount=200万元，属百万元级"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "项目实施周期原则上为2年，属一次性项目资助"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "面向厦门片区企事业单位与在闽合作单位联合申报，企业可获专项资金资助",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-01-06",
+        "endDate": "2026-01-16",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.01.06' applicationEndTime='2026.01.16'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "福厦泉国家自主创新示范区",
+          "协同创新平台",
+          "项目征集"
+        ],
+        "aKeywords": [
+          "产业项目资助资金",
+          "协同创新",
+          "科研开发",
+          "平台运营补贴"
+        ],
+        "cKeywords": [
+          "通用行业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": 2000,
+        "revenueMaxWan": null,
+        "confidence": "medium",
+        "basis": "申报条件要求合作单位为企业的原则上是规模以上企业（软件等行业参照工业企业），规模以上企业标准为营收2000万元以上"
+      },
+      "notes": "外地与厦门协同合作项目，需与在闽合作单位联合申报；高校限项申报；同一平台项目合作双方只能通过一个设区市申报",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "969e0a6a860c6092a37feb36c4d14b63",
+      "_taggedAt": "2026-08-04T12:05:41"
+    },
+    {
+      "fusionPolicyId": "6559",
+      "title": "厦门市高新技术成果转化项目认定",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A7"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-一次性奖励补助，属资金奖补类；政策核心为成果转化项目认定，次标签为A7成果转化类"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求项目近2年内实现年均销售收入500万元以上或纳税100万元以上，反映企业需具备一定经营规模，倾向成长期与成熟期企业"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件未限定特定产业方向"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "medium",
+          "basis": "需提交完整申报材料包括审计报告、检测报告、知识产权证明等，经形式审核与专家评审后认定，非简单登记入库"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "maxAmount=100万元，奖励金额按直接销售收入分段累进计算，每年最高100万元"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "一次性认定后连续两年发放奖励，属单次申报单次认定"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可自主申报高新技术成果转化项目认定，获得认定后享受资金奖励",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-12-25",
+        "endDate": "2026-01-06",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.12.25' applicationEndTime='2026.01.06'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "成果转化项目认定不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "高新技术成果转化",
+          "项目认定"
+        ],
+        "aKeywords": [
+          "资金补助",
+          "一次性奖励补助",
+          "成果转化"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "low",
+        "basis": "申报条件中销售收入500万元/纳税100万元的要求是针对项目而非企业整体规模，且未限定企业职工人数"
+      },
+      "notes": "奖励金额以项目年度直接销售收入分段累进计算：500万元（含）以下部分按2%、500-1500万元部分按1.5%、1500万元以上部分按1%计算基数",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "e92923bbf29787e8cebb2f6cd87b494c",
+      "_taggedAt": "2026-08-04T12:05:43"
+    },
+    {
+      "fusionPolicyId": "6561",
+      "title": "同安区国家高新技术企业认定奖励",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-一次性奖励补助，按市级扶持资金40%及最高2万元给予奖励"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求已通过国家级高新技术企业认定，该资质通常需企业具备一定研发积累与营收规模，倾向成长期与成熟期企业"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需提供国高证书、市级扶持资金到账凭证、营业执照等材料核验，需具备国高资质"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "medium",
+          "basis": "按市级扶持资金40%奖励加最高2万元，市级国高扶持资金通常为十万元级，40%奖励加2万为十万元级"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "supportType为一次性奖励补助，针对2024年认定企业单次兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业通过国高认定后可申报并获得资金奖励支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-09-05",
+        "endDate": "2025-09-28",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.09.05' applicationEndTime='2025.09.28'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": "市高新技术企业或科技型中小企业",
+        "nextStage": "专精特新中小企业/小巨人",
+        "basis": "国高认定奖励处于梯度培育链路中间环节，前置需具备市高或科小资质"
+      },
+      "keywordIndex": {
+        "title": [
+          "国家高新技术企业",
+          "认定奖励"
+        ],
+        "aKeywords": [
+          "一次性奖励补助",
+          "资金补助",
+          "国高认定"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入规模"
+      },
+      "notes": "政策要求企业已获得市级扶持资金方可申报，属于配套激励政策",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "d9da8eba885a8665e2c9d619e3c88589",
+      "_taggedAt": "2026-08-04T12:06:14"
+    },
+    {
+      "fusionPolicyId": "6564",
+      "title": "思明区国家级高新技术企业认定奖励申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-一次性奖励补助，按企业所获市级扶持资金给予等额奖励"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "政策面向已获得国家级高企认定的企业，该资质通常要求企业具备一定研发积累与规模，倾向成长期与成熟期；申报条件未明确年限营收门槛"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需持有国家级高新技术企业认定证书及已获市级扶持资金的证明材料，属资质校验类"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 的 amount 与 maxAmount 均为空，奖励金额按企业所获市级扶持资金等额匹配，未给出具体金额区间"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "一次性奖励补助，企业获市级高企扶持资金后一次性等额配套"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "思明区依法设立的国家级高企可申报等额配套奖励资金",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-07-17",
+        "endDate": "2025-09-30",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.07.17' applicationEndTime='2025.09.30'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": "国家级高新技术企业认定",
+        "nextStage": "专精特新中小企业/小巨人",
+        "basis": "高企认定奖励位于梯度培育链路中间环节，前置为高企认定，后续可向专精特新方向升级"
+      },
+      "keywordIndex": {
+        "title": [
+          "国家级高新技术企业",
+          "认定奖励",
+          "思明区"
+        ],
+        "aKeywords": [
+          "一次性奖励补助",
+          "等额奖励",
+          "资金补助"
+        ],
+        "cKeywords": [
+          "通用行业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入门槛"
+      },
+      "notes": "奖励与市级高企扶持资金等额匹配，实际金额取决于企业所获市级补贴；同区已获其他区（含火炬）高企奖励的不可重复申请",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "46f8f2e891b2eb9be2c4bc139f2a203f",
+      "_taggedAt": "2026-08-04T12:06:21"
+    },
+    {
+      "fusionPolicyId": "6565",
+      "title": "湖里区国家级高新技术企业奖励兑现",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-一次性奖励补助，属财政直接奖补"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求已获国家级高企认定，该资质通常对应成长期与成熟期企业，但政策未明确营收或人员规模门槛"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需验证国家级高企资质、已获市级奖励资金、税收入库归属等条件，非简单登记入库"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "low",
+          "basis": "最高按市级奖励金额50%给予支持，厦门市高企认定奖励通常为10-25万元，但政策未明确具体上限且提及年度预算不足时按比例折算"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "一次性奖励补助，根据年度申请情况兑现，无持续性支持承诺"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业符合条件可申报并获得区级配套资金奖补",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-11-06",
+        "endDate": "2025-11-19",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.11.06' applicationEndTime='2025.11.19'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": "科小/省级高新技术企业",
+        "nextStage": "专精特新中小企业/小巨人",
+        "basis": "国家级高企处于梯度培育链路中间环节，前置为科小或省级高企认定，后继可申报专精特新"
+      },
+      "keywordIndex": {
+        "title": [
+          "国家级高新技术企业",
+          "奖励兑现",
+          "湖里区"
+        ],
+        "aKeywords": [
+          "一次性奖励补助",
+          "资金补助",
+          "配套支持"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入，仅要求具备国家级高企资质"
+      },
+      "notes": "政策提及年度财政预算不足时将按比例折算，且实行限额控制，支持力度存在不确定性；申报条件中适用对象路径标注为国家级专精特新小巨人企业，但正文申报要求明确为国家级高新技术企业，应以正文为准。",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "00eb6cc0bdfbe55fb925bb2bd8726aeb",
+      "_taggedAt": "2026-08-04T12:14:25"
+    },
+    {
+      "fusionPolicyId": "6569",
+      "title": "集美区国家级高新技术企业、科技进步奖扶持",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-一次性奖励补助，对高企认定和科技进步奖给予资金奖励"
+        },
+        "B": {
+          "values": [
+            "B2"
+          ],
+          "confidence": "medium",
+          "basis": "政策面向国家级高新技术企业，高企认定通常要求企业已具备一定研发能力与规模基础"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需独立法人资格、商事登记地和纳税归属集美区，需提交材料审核"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=50万元，单项奖励最高50万元，属十万元级"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "一次性奖励补助，符合条件即兑现，无持续申报要求"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业自主申报并获得资金奖励",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2024-11-22",
+        "endDate": "2024-11-29",
+        "yearScope": "2024",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2024.11.22' applicationEndTime='2024.11.29'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": "科小/市高企培育库",
+        "nextStage": "专精特新/小巨人",
+        "basis": "国家级高企认定是梯度培育链路核心环节"
+      },
+      "keywordIndex": {
+        "title": [
+          "国家级高新技术企业",
+          "科技进步奖",
+          "扶持"
+        ],
+        "aKeywords": [
+          "一次性奖励补助",
+          "高新技术企业认定",
+          "科技进步奖"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入；'上年度营收2000万元及以上'为奖励叠加条件，非统一申报门槛"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "e89eb673fc17bbe4530672d66fadd5a5",
+      "_taggedAt": "2026-08-04T12:06:52"
+    },
+    {
+      "fusionPolicyId": "6570",
+      "title": "厦门市未来产业骨干企业备案申报",
+      "tags": {
+        "A": {
+          "primary": "A1",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资质荣誉-未来产业骨干企业备案，属资质认定类"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件仅要求独立法人资格并经营一年以上，无营收或人员规模限制，覆盖各发展阶段"
+        },
+        "C": {
+          "values": [
+            "C10"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=未来产业，对应C10；深海空天开发为该领域具体方向但不在可选子类列表中"
+        },
+        "D": {
+          "value": "D1",
+          "confidence": "high",
+          "basis": "企业自主申报备案，提交材料后审核认定，无择优、评审、竞争性字样"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 无金额字段，正文未提及具体资助金额"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "年度备案申报工作，申报期为2025年7月17日至10月20日"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业自主申报并获得未来产业骨干企业备案资质，纳入备案管理后可获科技创新与产业支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-07-17",
+        "endDate": "2025-10-20",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.07.17' applicationEndTime='2025.10.20'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "未来产业骨干企业",
+          "备案"
+        ],
+        "aKeywords": [
+          "未来产业骨干企业备案",
+          "资质认定"
+        ],
+        "cKeywords": [
+          "未来产业",
+          "深海空天开发",
+          "第三代半导体",
+          "氢能储能",
+          "人工智能"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入规模"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "44e0879afc8a42a049a851e55a6be095",
+      "_taggedAt": "2026-08-04T12:06:54"
+    },
+    {
+      "fusionPolicyId": "6579",
+      "title": "厦门市重点实验室建设情况报告报送",
+      "tags": {
+        "A": {
+          "primary": null,
+          "secondary": [],
+          "confidence": "low",
+          "basis": "supportMethods 为空，政策本质是行政报告报送要求，非支持类政策"
+        },
+        "B": {
+          "values": [
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "报送对象为已认定的市级重点实验室，依托单位通常为成熟期企业"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D1",
+          "confidence": "high",
+          "basis": "数据填报采用网上受理，登录系统填报即可，无评审竞争环节"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 为空，正文无金额信息，为管理报告报送要求"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "每年1月31日前报送上年度建设情况，属年度周期性管理要求"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "政策为行政报告报送要求，要求重点实验室报送年度建设情况统计表，无面向企业的支持承诺或资金奖补内容；审核通过的政策视为可申报",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-02-21",
+        "endDate": "2025-03-10",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025-02-21' applicationEndTime='2025-03-10'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路，为已认定重点实验室的年度管理要求"
+      },
+      "keywordIndex": {
+        "title": [
+          "重点实验室",
+          "建设情况报告",
+          "报送"
+        ],
+        "aKeywords": [
+          "重点实验室认定",
+          "平台资质认定"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入门槛"
+      },
+      "notes": "政策性质为行政报告报送，非申报类支持政策。报送情况纳入绩效评估指标，属于管理流程要求而非资金或资质支持。",
+      "warnings": [
+        "判定为不可申报政策（企业）：政策为行政报告报送要求，要求重点实验室报送年度建设情况统计表，无面向企业的支持承诺或资金奖补内容"
+      ],
+      "_attempts": 1,
+      "_fingerprint": "3537c0adf510e2a8e88b13df1e5ee8e7",
+      "_taggedAt": "2026-08-04T12:07:22"
+    },
+    {
+      "fusionPolicyId": "6581",
+      "title": "厦门市众创空间认定",
+      "tags": {
+        "A": {
+          "primary": "A6",
+          "secondary": [
+            "A3"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=资质认定-平台资质认定-孵化器认定，属载体平台类认定；支持方式含滚动资助，属资金奖补"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "政策面向众创空间运营机构，未限定运营机构的成立年限与营收规模，属全阶段适用"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需独立法人资格、场地面积、在孵团队数量、管理人员配置、导师队伍等多项量化指标达标，需材料审核与现场勘查"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 仅提及'滚动资助'，未给出具体资助金额或上限"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "第八条明确'众创空间每年考评一次'，属年度申报年度兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业类主体（众创空间运营机构）可申报认定，获得资质认定及滚动资助支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-02-25",
+        "endDate": "2025-03-21",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.02.25' applicationEndTime='2025.03.21'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "众创空间认定属平台资质认定，不在科小→高企→专精特新→小巨人→瞪羚梯度培育链路中"
+      },
+      "keywordIndex": {
+        "title": [
+          "众创空间",
+          "认定"
+        ],
+        "aKeywords": [
+          "众创空间认定",
+          "平台资质认定",
+          "孵化器认定",
+          "滚动资助"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未对运营机构整体职工人数或营业收入设定上下限，仅对专职管理人员数量（≥3人）有要求"
+      },
+      "notes": "政策申报主体为众创空间运营机构（非在孵企业），申报条件主要针对平台场地、服务能力、在孵团队规模等平台运营指标；当前申报期已过期。",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "cfbc9c7523f46f741caa14635641f090",
+      "_taggedAt": "2026-08-04T12:08:03"
+    },
+    {
+      "fusionPolicyId": "6582",
+      "title": "厦门市专业化众创空间年度考核认定",
+      "tags": {
+        "A": {
+          "primary": "A6",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "政策对专业化众创空间进行年度考核认定，属载体平台类政策"
+        },
+        "B": {
+          "values": [],
+          "confidence": "low",
+          "basis": "政策针对众创空间载体进行年度绩效评价，不涉及在孵企业的发展阶段划分"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "medium",
+          "basis": "需按考核指标准备佐证材料并提交评审，但无竞争立项或名额限制"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 为空，摘要提及政策兑现但未明确具体金额"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "年度考核工作，每年组织一次"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "众创空间运营主体可申报年度考核，考核结果用于政策兑现",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-03-18",
+        "endDate": "2025-04-12",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.03.18' applicationEndTime='2025.04.12'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "专业化众创空间",
+          "年度考核",
+          "认定"
+        ],
+        "aKeywords": [
+          "众创空间考核",
+          "载体平台",
+          "年度评价"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "政策针对众创空间载体进行年度考核，不涉及在孵企业规模门槛"
+      },
+      "notes": "政策针对已认定的市级专业化众创空间进行年度绩效评价，申报主体为众创空间运营主体（通常为企业），考核结果用于后续政策兑现",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "4d7cf9955c6740a40a1a2529ef6201f2",
+      "_taggedAt": "2026-08-04T12:08:29"
+    },
+    {
+      "fusionPolicyId": "6584",
+      "title": "厦门市科技企业孵化器信息变更备案申请",
+      "tags": {
+        "A": {
+          "primary": null,
+          "secondary": [],
+          "confidence": "low",
+          "basis": "supportMethods 数据为空，无资金奖补或资质认定内容"
+        },
+        "B": {
+          "values": [],
+          "confidence": "low",
+          "basis": "申报主体为科技企业孵化器（载体机构），非普通企业，不适用企业发展阶段分类"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "medium",
+          "basis": "需按变更准则提交材料并经审核备案，属行政备案流程"
+        },
+        "E": {
+          "value": null,
+          "confidence": "high",
+          "basis": "supportMethods 为空，无金额字段，政策为信息变更备案无资助内容"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "信息变更备案为一次性事项，变更后结果作为年度考核依据"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "该政策为科技企业孵化器信息变更备案的行政管理工作，申报主体为孵化器机构而非普通企业，且无资金奖补或资质认定等实质性支持内容，变更结果仅作为年度考核依据；审核通过的政策视为可申报",
+        "audience": "机构"
+      },
+      "applicationWindow": {
+        "startDate": "2025-11-20",
+        "endDate": "2025-12-05",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.11.20' applicationEndTime='2025.12.05'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "信息变更备案为孵化器管理行政流程，不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "科技企业孵化器",
+          "信息变更",
+          "备案"
+        ],
+        "aKeywords": [
+          "信息变更备案",
+          "行政备案"
+        ],
+        "cKeywords": [
+          "通用行业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报主体为科技企业孵化器（载体机构），非普通企业，不适用企业规模门槛"
+      },
+      "notes": "该政策为行政备案类政策，非资助类政策，申报主体为孵化器机构而非普通企业",
+      "warnings": [
+        "判定为不可申报政策（机构）：该政策为科技企业孵化器信息变更备案的行政管理工作，申报主体为孵化器机构而非普通企业，且无资金奖补或资质认定等实质性支持内"
+      ],
+      "_attempts": 1,
+      "_fingerprint": "b9c278f449873710d1d970c501ff2cd9",
+      "_taggedAt": "2026-08-04T12:08:42"
+    },
+    {
+      "fusionPolicyId": "6585",
+      "title": "厦门市科技企业孵化器年度统计调查",
+      "tags": {
+        "A": {
+          "primary": null,
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportMethods 为空，政策内容为统计调查数据采集，无资金、资质、人才等支持方式"
+        },
+        "B": {
+          "values": [],
+          "confidence": "high",
+          "basis": "申报对象为科技企业孵化器（载体），非在孵企业，不适用企业发展阶段分类"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业"
+        },
+        "D": {
+          "value": null,
+          "confidence": "high",
+          "basis": "统计调查类政策，申报门槛判断不适用"
+        },
+        "E": {
+          "value": null,
+          "confidence": "high",
+          "basis": "无资金支持内容，统计调查数据为考核参考依据"
+        },
+        "F": {
+          "value": null,
+          "confidence": "high",
+          "basis": "统计调查类政策，兑现周期判断不适用"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "统计调查类政策，属于行政数据采集与核查流程要求，无资金、资质或其他实质性支持内容，填报数据仅为年度考核和政策兑现的参考依据；审核通过的政策视为可申报",
+        "audience": "机构"
+      },
+      "applicationWindow": {
+        "startDate": "2026-01-19",
+        "endDate": "2026-01-31",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.01.19' applicationEndTime='2026.01.31'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "统计调查类政策，不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "科技企业孵化器",
+          "年度",
+          "统计调查"
+        ],
+        "aKeywords": [
+          "统计调查",
+          "数据采集"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报对象为科技企业孵化器载体，非在孵企业，不涉及企业规模门槛"
+      },
+      "notes": "政策为行政统计调查要求，申报对象为孵化器载体而非在孵企业，关联政策'科技型企业孵化器认定'为父政策",
+      "warnings": [
+        "判定为不可申报政策（机构）：统计调查类政策，属于行政数据采集与核查流程要求，无资金、资质或其他实质性支持内容，填报数据仅为年度考核和政策兑现的参考依"
+      ],
+      "_attempts": 1,
+      "_fingerprint": "04ff5a00be1f5e40427c16847735fe48",
+      "_taggedAt": "2026-08-04T12:09:00"
+    },
+    {
+      "fusionPolicyId": "6588",
+      "title": "厦门市面向_一带一路_国家可持续发展技术征集",
+      "tags": {
+        "A": {
+          "primary": "A8",
+          "secondary": [],
+          "confidence": "medium",
+          "basis": "无 supportMethods 数据；标题为'技术征集'，摘要描述为'技术成果进行征集与推荐'，推动技术向'一带一路'国家转移与应用，属科技合作类"
+        },
+        "B": {
+          "values": [
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件明确要求'国家级专精特新小巨人企业'，该资质对应成熟期企业；事业单位不适用企业阶段分类"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业；虽征集技术涵盖人工智能、生态农业、可再生能源等多领域，但政策定位为通用行业技术征集"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "申报条件明确要求'国家级专精特新小巨人企业'资质，需特定资质校验"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 无数据，摘要未提及具体资助金额，属技术征集推荐工作"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "申报期为 2026-03-26 至 2026-04-14 的阶段性征集，属于一次性征集活动"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报技术征集并获得向'一带一路'国家推广的机会与配套支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-03-26",
+        "endDate": "2026-04-14",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.03.26' applicationEndTime='2026.04.14'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "国家级专精特新'小巨人'企业是较高层级资质，不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "一带一路",
+          "可持续发展",
+          "技术征集"
+        ],
+        "aKeywords": [
+          "境外投资",
+          "海外市场拓展",
+          "技术征集",
+          "技术推荐"
+        ],
+        "cKeywords": [
+          "人工智能",
+          "生态农业",
+          "可再生能源",
+          "环境保护",
+          "水资源",
+          "绿色建筑",
+          "智慧医疗",
+          "低碳交通"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入，仅要求国家级专精特新'小巨人'资质"
+      },
+      "notes": "政策为技术征集推荐工作，非直接资金奖补；适用对象含事业单位与国家级专精特新'小巨人'企业",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "6cd174f1e6d0bc7716860fd258dc5172",
+      "_taggedAt": "2026-08-04T12:09:45"
+    },
+    {
+      "fusionPolicyId": "6590",
+      "title": "中日青少年科技交流计划申报",
+      "tags": {
+        "A": {
+          "primary": "A8",
+          "secondary": [],
+          "confidence": "medium",
+          "basis": "政策为中日科技交流项目组织申报，属国际科技合作与交流"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求国家级专精特新'小巨人'企业（成熟期），同时涵盖高校与科研院所"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "medium",
+          "basis": "需具备独立法人资格，经市科技局材料预审查与汇总推荐"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "资助来源为日本科技振兴机构，金额未在政策中明确"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "2025年度分三批次申报，每年组织"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可通过市科技局渠道申报中日科技交流项目并获得日方资助",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-04-07",
+        "endDate": "2026-10-06",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.04.07' applicationEndTime='2026.10.06'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "中日青少年科技交流",
+          "基层对口项目",
+          "申报"
+        ],
+        "aKeywords": [
+          "科技交流",
+          "国际合作",
+          "赴日资助"
+        ],
+        "cKeywords": [
+          "通用行业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入，仅要求具备独立法人资格"
+      },
+      "notes": "资助方为日本科技振兴机构，中方申报单位获日方资助；企业申报需为国家级专精特新'小巨人'企业",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "1e53c182be493a39353445a080e54568",
+      "_taggedAt": "2026-08-04T12:09:44"
+    },
+    {
+      "fusionPolicyId": "6593",
+      "title": "厦门市优培生选拔",
+      "tags": {
+        "A": {
+          "primary": "A4",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=人才支持-人才住房补贴、人才支持-人才生活专项补贴，面向博士及博士后人才引进"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2"
+          ],
+          "confidence": "medium",
+          "basis": "面向博士及博士后人才，刚从学术阶段进入职业发展，覆盖初创期与成长期早期"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件未限定特定产业方向"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "面向国内外知名高校特定学科博士/博士后选拔，竞争性择优，需评审"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "medium",
+          "basis": "安家补助来厦前3年每年10万元，第4-7年每年6-7万元，按7年服务期估算约62-69万元"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "一次性选拔引进，安家补助按服务年限分期兑现"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "面向博士及博士后个人选拔引进，入选后享受安家补贴、住房保障等待遇",
+        "audience": "个人"
+      },
+      "applicationWindow": {
+        "startDate": "2026-10-29",
+        "endDate": "2026-12-09",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026-10-29' applicationEndTime='2026-12-09'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "人才引进政策，不属企业梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "优培生",
+          "选拔",
+          "博士",
+          "博士后"
+        ],
+        "aKeywords": [
+          "人才住房补贴",
+          "人才生活专项补贴",
+          "安家补助",
+          "住房保障"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "面向个人人才选拔，无企业规模门槛"
+      },
+      "notes": "政策面向个人（博士及博士后），非企业申报；分中学教育类与高校科研类A类两类，申报条件各有侧重",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "9c9f6f23f1b70a17a434f6bf15b2a482",
+      "_taggedAt": "2026-08-04T12:10:18"
+    },
+    {
+      "fusionPolicyId": "6596",
+      "title": "厦门市院士专家工作站申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A1"
+          ],
+          "confidence": "high",
+          "basis": "supportType=资金补助-一次性奖励补助，运行经费支持为核心；认定授牌环节含A1资质认定性质"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求上年度销售收入不低于3000万元、税收不低于300万元，需具备研发机构和稳定研发投入，体现成长期至成熟期特征；高新技术企业可豁免收入税收限制"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件未限定具体产业方向"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需具备独立法人资格、高新技术企业资质、与院士合作协议、研发机构等特定条件，经申报、初审及考核评估认定"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "maxAmount=150万元（连续3年每年50万元运行经费+省级工作站一次性40万元补助）"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "运行经费按年拨付但总额固定（3年共150万元），省级补助为一次性，整体属阶段性奖补"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报院士专家工作站并获得认定授牌及运行经费支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-04-28",
+        "endDate": "2026-07-15",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.04.28' applicationEndTime='2026.07.15'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "院士工作站属人才引进与平台建设类政策，不属科小→高企→专精特新梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "院士专家工作站",
+          "申报",
+          "认定"
+        ],
+        "aKeywords": [
+          "院士工作站",
+          "资金补助",
+          "运行经费",
+          "省级工作站",
+          "一次性奖励补助"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": 3000,
+        "revenueMaxWan": null,
+        "confidence": "medium",
+        "basis": "申报条件要求上年度销售收入不低于3000万元、税收不低于300万元；高新技术企业不受年度销售收入和税收额度限制"
+      },
+      "notes": "政策区分A类（企业）和B类（非企业）申报条件；需与院士签订合作期限不少于3年的协议；高新技术企业可豁免收入税收门槛",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "93e6f7cb540125eaa1f9b5737f777dbc",
+      "_taggedAt": "2026-08-04T12:11:00"
+    },
+    {
+      "fusionPolicyId": "6597",
+      "title": "厦门市创新积分制企业信息填报",
+      "tags": {
+        "A": {
+          "primary": "A5",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "支持方式明确为通过创新积分制获取中国人民银行组织的商业银行低利率授信支持，属金融支持类"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件覆盖高新技术企业及具备独立法人资格的科技型企业，未限定具体年限、营收门槛"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D1",
+          "confidence": "high",
+          "basis": "企业自主填报经营与创新数据，无评审竞争环节，符合条件即可纳入积分计算"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "支持方式仅提及低利率授信，未明确具体金额上限或奖励额度"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "申报期为2025年5月20日至7月5日，属年度性组织申报工作"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业通过填报创新积分信息可获得低利率授信支持及后续科技金融扶持政策",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-05-20",
+        "endDate": "2025-07-05",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.05.20' applicationEndTime='2025.07.05'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "创新积分制是科技金融配套措施，不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "创新积分制",
+          "企业信息填报",
+          "低利率授信"
+        ],
+        "aKeywords": [
+          "科技信贷",
+          "创新积分",
+          "低利率授信",
+          "金融支持"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入规模"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "2ec5cf5a90e1c70bee8db161740dd002",
+      "_taggedAt": "2026-08-04T12:10:54"
+    },
+    {
+      "fusionPolicyId": "6598",
+      "title": "福建省自然科学研究系列专业技术职务任职资格申报",
+      "tags": {
+        "A": {
+          "primary": "A4",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=人才支持-专业技术职称评定，属人才类支持"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "职称评审面向不同职业阶段的科研人员，政策未限定企业规模或发展阶段"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报范围覆盖多学科研究领域"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需提交学历证书、任职资格、业绩材料等，经市科技局审核后委托省科技厅评审"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 无金额字段，政策为职称评审无直接资金支持"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "职称评审为一次性评定，通过后获得相应任职资格"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "申报主体为个人（科研人员），非企业申报政策，职称评审是个人专业技术资格认定；审核通过的政策视为可申报",
+        "audience": "个人"
+      },
+      "applicationWindow": {
+        "startDate": "2026-05-20",
+        "endDate": "2026-06-16",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.05.20' applicationEndTime='2026.06.16'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "职称评审属人才评价体系，不在科小→高企→专精特新企业梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "自然科学研究",
+          "专业技术职务",
+          "任职资格",
+          "职称评审"
+        ],
+        "aKeywords": [
+          "职称评定",
+          "职务任职资格"
+        ],
+        "cKeywords": [
+          "通用行业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件针对个人科研人员，未涉及企业职工数或营业收入门槛"
+      },
+      "notes": "政策面向个人申报职称，非企业政策；存在初职→中职→高职的职称晋升路径，但不属于企业成长链路",
+      "warnings": [
+        "判定为不可申报政策（个人）：申报主体为个人（科研人员），非企业申报政策，职称评审是个人专业技术资格认定"
+      ],
+      "_attempts": 1,
+      "_fingerprint": "c0389c595fbe75319e71e95c6a4011eb",
+      "_taggedAt": "2026-08-04T12:11:26"
+    },
+    {
+      "fusionPolicyId": "6601",
+      "title": "厦门市青年科技人员育成项目遴选",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A4"
+          ],
+          "confidence": "medium",
+          "basis": "supportTypePath=重点专项项目-科技发展计划项目扶持，属项目资助；政策面向青年科技人员育成，兼有人才专项性质"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "依托单位要求为国家高新技术企业、专精特新、瞪羚企业等且规模以上企业，对应成长期与成熟期企业"
+        },
+        "C": {
+          "values": [
+            "C1",
+            "C2",
+            "C4",
+            "C6",
+            "C8",
+            "C10"
+          ],
+          "subValues": [
+            "C1.2",
+            "C10.1"
+          ],
+          "confidence": "high",
+          "basis": "industryField明确新能源、新材料、半导体和集成电路、生物医药，摘要又提新一代信息技术、高端装备、人工智能，对应C1/C2/C4/C6/C8/C10，其中半导体对应C1.2、人工智能对应C10.1"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "项目采用分类评审与遴选，全省约400项限额，需通过平台申报推荐，属竞争立项"
+        },
+        "E": {
+          "value": "E1",
+          "confidence": "high",
+          "basis": "supportMethods中maxAmount=3万元，contentDesc明确每项资助经费3万元"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "按年度组织申报，申报期2025-06-10至2025-06-22"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "青年科技人员可依托所在单位申报，获得3万元项目资助；企业可作为依托单位支持员工参与",
+        "audience": "个人"
+      },
+      "applicationWindow": {
+        "startDate": "2025-06-10",
+        "endDate": "2025-06-22",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.06.10' applicationEndTime='2025.06.22'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "青年科技人员",
+          "育成项目",
+          "遴选"
+        ],
+        "aKeywords": [
+          "科技发展计划项目扶持",
+          "人才专项扶持项目支持",
+          "科技计划项目支持",
+          "研发经费补助"
+        ],
+        "cKeywords": [
+          "新能源",
+          "新材料",
+          "半导体和集成电路",
+          "生物医药",
+          "人工智能"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未给出企业职工总数或营业收入的绝对上下限，仅要求为规模以上企业等资质，无法统一量化"
+      },
+      "notes": "政策申报主体为个人，企业作为依托单位需符合高新企业、专精特新等资质要求",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "083a6ab0e14b2fb5fe94195c61f0b188",
+      "_taggedAt": "2026-08-05T18:03:45"
+    },
+    {
+      "fusionPolicyId": "6602",
+      "title": "厦门市引进高层次创业创新人才（创新人才项目）申报",
+      "tags": {
+        "A": {
+          "primary": "A4",
+          "secondary": [],
+          "confidence": "medium",
+          "basis": "场景用途为福建省'百人计划'认定，属人才引进类政策；无 supportMethods 数据，依据场景用途判断"
+        },
+        "B": {
+          "values": [],
+          "confidence": "low",
+          "basis": "政策面向高层次创业创新人才个人，非企业阶段政策，无法对应 B1/B2/B3"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "需提交申报书、附件、个人信息表、汇总表等完整材料，经审核推荐报送，属竞争性申报流程"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "无 supportMethods 数据，摘要与申报条件均未提及具体资助金额"
+        },
+        "F": {
+          "value": null,
+          "confidence": "low",
+          "basis": "无申报周期描述，无法判断是年度申报还是一次性"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "用人单位可组织人才申报，经审核推荐纳入省级引进计划后获得相应支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-06-16",
+        "endDate": "2025-07-07",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.06.16' applicationEndTime='2025.07.07'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "人才引进政策，不属企业梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "引进高层次创业创新人才",
+          "创新人才项目",
+          "申报"
+        ],
+        "aKeywords": [
+          "福建省百人计划认定",
+          "人才引进",
+          "高层次人才"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业职工人数或营业收入门槛"
+      },
+      "notes": "转发省级通知，属人才引进类政策；申报主体含个人与用人单位；无具体支持金额信息",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "2a06aa73a6337d99639ca3d4eb243356",
+      "_taggedAt": "2026-08-04T12:12:02"
+    },
+    {
+      "fusionPolicyId": "6605",
+      "title": "厦门市联合资助项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportType=资金补助-产业项目资助资金，单个项目资助额度不超过100万元"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求申报单位具备科研开发能力和条件，项目负责人有主持省科技计划项目的经验要求，倾向成长期与成熟期企业，但未明确营收或年限门槛"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件未限定具体产业方向"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "推荐部门需公开征集、逐级遴选、认真核实、择优推荐，属竞争立项程序"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=100万元，按十万元级标准对应E2"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "项目资金按立项当年60%、第二年30%、第三年10%分批拨付，需年度申报与执行情况年报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可通过福建省科技计划项目管理信息系统申报联合资助项目并获得资金支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-08-21",
+        "endDate": "2026-09-15",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026.08.21' applicationEndTime='2026.09.15'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "联合资助",
+          "项目申报",
+          "科技计划"
+        ],
+        "aKeywords": [
+          "资金补助",
+          "产业项目资助",
+          "项目资助"
+        ],
+        "cKeywords": [
+          "通用行业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入门槛，仅要求具有法人资格和科研开发能力"
+      },
+      "notes": "该政策为福建省科技厅与福建省烟草专卖局联合设立的产业项目资助，厦门市科技局负责组织申报，项目成果及知识产权归福建省烟草专卖局和项目承担单位共同所有",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "8d21b8b57e438b8ee9ff8175ee6fa942",
+      "_taggedAt": "2026-08-04T12:12:38"
+    },
+    {
+      "fusionPolicyId": "6607",
+      "title": "厦门市科技特派员专项创新服务载体项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-产业项目资助资金，最高支持30万元，属资金奖补类；鼓励产学研合作，含科技合作性质"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求企业负责人牵头、有省市级科技项目承担经历者优先，覆盖成长期与成熟期企业；未明确限定年限营收门槛"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "组织集中受理、材料审查、集中评审，属竞争立项、评审择优"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=30万元，十万元级"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "年度申报项目，按申报周期组织"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报并获得资金奖补，要求企业负责人牵头",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-10-22",
+        "endDate": "2025-11-05",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.10.22' applicationEndTime='2025.11.05'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "科技特派员",
+          "创新服务载体",
+          "项目申报"
+        ],
+        "aKeywords": [
+          "资金补助",
+          "产业项目资助",
+          "科技发展计划项目",
+          "产学研合作"
+        ],
+        "cKeywords": [
+          "通用行业"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入"
+      },
+      "notes": "政策要求项目须为我市企业牵头，鼓励产学研合作，自筹资金与资助资金比例不低于1:1",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "380ec38999b6d12053c20c17b9664340",
+      "_taggedAt": "2026-08-04T12:13:09"
+    },
+    {
+      "fusionPolicyId": "6610",
+      "title": "厦门市研发企业骨干员工批次保障性商品房配售申请",
+      "tags": {
+        "A": {
+          "primary": "A4",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportType=人才支持-人才住房补贴，面向研发企业骨干员工提供住房保障"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "政策面向研发企业骨干员工，未限定企业发展阶段，属普惠性人才住房政策"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需校验员工户籍、住房、学历/职称/技能、社保缴纳等多项条件，并提交企业纳税申报表等材料"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods无金额字段，政策仅明确保障性商品房配售意向征集，未公布具体价格或补贴金额"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "批次性配售工作，申报期2025-10-24至2025-11-03，为一次性申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可报送骨干员工意向材料参与配售，员工可获得保障性商品房购买资格",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-10-24",
+        "endDate": "2025-11-03",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.10.24' applicationEndTime='2025.11.03'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "研发企业",
+          "骨干员工",
+          "保障性商品房",
+          "配售"
+        ],
+        "aKeywords": [
+          "人才住房补贴",
+          "人才支持"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件针对员工个人，未限定企业整体职工数或营业收入"
+      },
+      "notes": "政策属性为指导政策，属批次性住房配售工作；需提交企业所得税年度纳税申报表验证企业资质",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "3aeadf6e0f8d7c36c39cd9b376f85f0f",
+      "_taggedAt": "2026-08-04T12:13:46"
+    },
+    {
+      "fusionPolicyId": "6613",
+      "title": "“类脑计算高性能芯片与基础软件”项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "medium",
+          "basis": "场景用途为研发创新项目申报，属国家级科技项目资助；组织申报含科技合作协同性质"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "国家级项目攻关通常需一定研发积累，倾向成长期与成熟期，但申报条件未明确年限营收门槛"
+        },
+        "C": {
+          "values": [
+            "C1"
+          ],
+          "subValues": [
+            "C1.2",
+            "C1.3"
+          ],
+          "confidence": "high",
+          "basis": "industryField=半导体和集成电路、软件与信息服务，分别对应C1.2集成电路与C1.3软件开发子类"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "国家级公开项目实行单一推荐单位申报制度，严禁多头和重复申报，属竞争立项"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods为空，未给资助金额；实际资助标准依国家指南"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "年度申报指南，按年度组织申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "单位可通过厦门市渠道申报国家级项目并获得资助",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-12-01",
+        "endDate": "2026-01-15",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.12.01' applicationEndTime='2026.01.15'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "类脑计算",
+          "高性能芯片",
+          "基础软件",
+          "项目申报"
+        ],
+        "aKeywords": [
+          "研发创新项目申报",
+          "项目资助"
+        ],
+        "cKeywords": [
+          "半导体",
+          "集成电路",
+          "软件与信息服务"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入"
+      },
+      "notes": "转发国家专项，实际资助标准依国家指南",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "4cab4df960ac7914bfb7152f03170454",
+      "_taggedAt": "2026-08-04T12:13:52"
+    },
+    {
+      "fusionPolicyId": "6617",
+      "title": "厦门市企业创新中心授牌申报",
+      "tags": {
+        "A": {
+          "primary": "A1",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "平台关键词分类路径=资质认定-平台资质认定-企业研发中心（创新中心）认定，属资质认定类"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件要求自主研发费用超过1000万元，通常需成长期或成熟期企业才具备，但未明确年限营收门槛"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件未限定产业方向"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "要求自主研发费用超过1000万元并符合加计扣除政策，需提交申报材料，无竞争评审"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 无金额字段，正文未提及资金支持"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "属年度授牌申报，申报期2025-12-26至2026-01-08，每年组织一次认定"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业主动申报可获得企业创新中心授牌资质",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-12-26",
+        "endDate": "2026-01-08",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.12.26' applicationEndTime='2026.01.08'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "企业创新中心",
+          "授牌申报"
+        ],
+        "aKeywords": [
+          "企业研发中心（创新中心）认定",
+          "资质认定"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件仅要求自主研发费用超过1000万元，未限定企业职工人数或营业/销售收入"
+      },
+      "notes": "",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "80792382b0e7274a66ccf2996f44cacf",
+      "_taggedAt": "2026-08-05T18:03:16"
+    },
+    {
+      "fusionPolicyId": "6639",
+      "title": "集美区科技和工信局关于支持台资工业企业增资扩产项目补助资金",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A1"
+          ],
+          "confidence": "medium",
+          "basis": "supportTypePath 含资金补助-一次性奖励补助、参展展会专项补贴，以及专精特新企业认定；标题及摘要均为财政补助资金，以资金奖补为主"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件未统一限定企业成立年限或单一营收区间，覆盖不同规模阶段"
+        },
+        "C": {
+          "values": [
+            "C1",
+            "C11"
+          ],
+          "subValues": [
+            "C1.3"
+          ],
+          "confidence": "low",
+          "basis": "industryField=软件与信息服务；创意设计；文旅创意；软件与信息服务对应 C1/C1.3，创意设计与文旅创意归入数字经济 C11（存在映射不确定性）"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "medium",
+          "basis": "申报条件包含多项营业收入、产值、资质等规模与资质的校验收门槛，未发现竞争择优表述"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "medium",
+          "basis": "supportMethods maxAmount=800万元，contentDesc 提及国家级300万元/省级100万元等单项奖励标准"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "medium",
+          "basis": "申报期 2025-01-24 至 2025-12-31，按年度组织申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报获得资金补助、资质认定等支持",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-01-24",
+        "endDate": "2025-12-31",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025-01-24' applicationEndTime='2025-12-31'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "政策同时覆盖专精特新中小企业认定与专精特新‘小巨人’企业认定，非单一梯度环节"
+      },
+      "keywordIndex": {
+        "title": [
+          "台资工业企业",
+          "增资扩产",
+          "补助资金"
+        ],
+        "aKeywords": [
+          "专精特新企业认定",
+          "一次性奖励补助",
+          "参展展会专项补贴"
+        ],
+        "cKeywords": [
+          "软件与信息服务",
+          "创意设计",
+          "文旅创意"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件包含多类子政策的差异化规模要求（如营收2000万、工业总产值1亿/3亿等），无法统一为企业整体规模门槛"
+      },
+      "notes": "集美区综合支持措施，含创新券、重点实验室奖励、展会补贴等多项子政策",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "b7d0f0cca894c6f36f4714df94ef8e38",
+      "_taggedAt": "2026-08-05T18:04:06"
+    },
+    {
+      "fusionPolicyId": "6648",
+      "title": "福建省省首台（套）技术装备推广应用指导目录申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A1"
+          ],
+          "confidence": "high",
+          "basis": "supportTypePath=资金补助-产业项目资助资金，属资金奖补类；首台（套）认定本身具有资质认定性质"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求已实现销售、具备装备研发设计生产能力，处于推广应用初期，未明确年限营收门槛但倾向成长期与成熟期企业"
+        },
+        "C": {
+          "values": [
+            "C2",
+            "C4",
+            "C6",
+            "C10"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=新材料、新能源、未来产业、生物医药，对应C4、C6、C10、C2"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "经省工信厅组织项目论证、实行《指导目录》动态调整更新，属竞争立项评审"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "maxAmount=200万元，最高补助不超过200万元，属百万元级"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "指导目录常态化受理、动态调整更新，单次评定后按销售单价获得补助，属一次性奖励"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可申报首台（套）技术装备评定，通过后获得最高200万元资金补助",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": false,
+        "confidence": "low",
+        "basis": "结构化字段与申报说明均无申报期",
+        "source": "not_found"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "首台（套）",
+          "技术装备",
+          "指导目录",
+          "推广应用"
+        ],
+        "aKeywords": [
+          "资金补助",
+          "产业项目资助",
+          "首台（套）认定"
+        ],
+        "cKeywords": [
+          "新材料",
+          "新能源",
+          "未来产业",
+          "生物医药",
+          "深海空天",
+          "高端医疗器械"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入门槛"
+      },
+      "notes": "政策为福建省首台（套）技术装备推广应用指导目录征集，属省内技术装备发展导向及首台（套）认定的依据文件",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "c50580a4d0e7aafe729521ccb13eba0d",
+      "_taggedAt": "2026-08-04T12:16:02"
+    },
+    {
+      "fusionPolicyId": "6649",
+      "title": "思明区新引进人才生活补贴",
+      "tags": {
+        "A": {
+          "primary": "A4",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=人才支持-人才生活专项补贴，属人才引进生活补贴"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "政策面向新引进的各学历层次人才，未限定企业发展阶段，各类企业均可引进人才并申报"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需满足学历、年龄、厦门户口、社保缴纳等特定条件，由用人单位审核后通过市人社局申请"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=8万，博士8万元、硕士5万元属十万元级"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "一次性发放补贴，引进之日起一年内由所在单位申请"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业作为用人单位可申报，为新引进人才申请生活补贴",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": null,
+        "endDate": null,
+        "yearScope": "",
+        "isRolling": true,
+        "confidence": "high",
+        "basis": "申报说明：长期受理",
+        "source": "rolling_text"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "新引进人才",
+          "生活补贴"
+        ],
+        "aKeywords": [
+          "人才生活专项补贴",
+          "人才支持"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入"
+      },
+      "notes": "台港澳籍和外籍人才可参照申请，不受户口和人事关系条件限制",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "34a090fc54772a264f2295de2ca607e9",
+      "_taggedAt": "2026-08-04T12:15:58"
+    },
+    {
+      "fusionPolicyId": "6652",
+      "title": "思明区创新型中小企业评价",
+      "tags": {
+        "A": {
+          "primary": "A1",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资质荣誉-专精特新企业认定，政策核心为创新型中小企业评价入库，属资质认定类"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件要求符合《中小企业划型标准规定》，覆盖各规模等级的中小企业；政策未限定成立年限或营收门槛"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件未限定具体产业方向"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "medium",
+          "basis": "需符合中小企业划型标准并满足评价得分60分以上或创新直通条件，涉及材料审核但非竞争择优"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods 无金额字段，contentDesc 描述服务体系而非具体奖补金额"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "创新型中小企业评价入库为一次性认定，有效期内专精特新企业无需重复参与"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业自主申报评价入库，获得创新型中小企业资质并享受培育服务，可作为申报专精特新的基础",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-03-31",
+        "endDate": "2025-11-30",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025-03-31' applicationEndTime='2025-11-30'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": "专精特新中小企业",
+        "basis": "政策明确入库企业可作为申报专精特新中小企业的基础，属梯度培育链路环节"
+      },
+      "keywordIndex": {
+        "title": [
+          "创新型中小企业",
+          "评价"
+        ],
+        "aKeywords": [
+          "创新型中小企业认定",
+          "专精特新企业认定",
+          "资质认定",
+          "入库"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "medium",
+        "basis": "申报条件要求符合《中小企业划型标准规定》（工信部联企业[2011]300号），但未在政策文本中明确具体人数或营收数值"
+      },
+      "notes": "思明区政策但适用全市，申报期分四批至2025年11月30日",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "8c4ed8c79ebe30d162af213b8699033d",
+      "_taggedAt": "2026-08-04T12:16:31"
+    },
+    {
+      "fusionPolicyId": "6675",
+      "title": "福建省2026年度自然科学基金项目申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportType=研发专项补助，supportTypePath=资金补助-研发专项补助，属资金奖补类"
+        },
+        "B": {
+          "values": [
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "confidence": "medium",
+          "basis": "申报条件未限定企业成立年限与营收规模，面向在闽企事业单位及高校科研人员，覆盖全阶段"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业，申报条件无产业限定"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "竞争立项制，需通过福建省科技计划项目管理信息系统申报，经推荐单位审核推荐，含评审择优环节"
+        },
+        "E": {
+          "value": "E3",
+          "confidence": "high",
+          "basis": "maxAmount=100万元；面上项目10万元、重点项目30万元，属百万元级"
+        },
+        "F": {
+          "value": "F3",
+          "confidence": "high",
+          "basis": "年度申报，标题明确为2026年度自然科学基金项目"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "企业可通过福建省科技计划项目管理信息系统申报省自然科学基金项目并获得资助经费",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2025-12-14",
+        "endDate": "2025-12-14",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025-12-14' applicationEndTime='2025-12-14'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "自然科学基金",
+          "项目申报",
+          "基础研究"
+        ],
+        "aKeywords": [
+          "研发专项补助",
+          "科技计划项目支持",
+          "基础研究专项支持"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工数或营业收入，仅要求具有法人资格并具备科研开发能力和条件"
+      },
+      "notes": "政策涵盖面上、重点、创青、优青、杰青及攻青六类项目；企业联合基金项目旨在引导企业加大研发投入；区域发展项目等采取事前立项、事后补助方式",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "dd8e5ea305b8c7931c95d2da0191cfe9",
+      "_taggedAt": "2026-08-04T12:17:10"
+    },
+    {
+      "fusionPolicyId": "6677",
+      "title": "厦门市科技计划项目（长周期种子种苗领域）申报",
+      "tags": {
+        "A": {
+          "primary": "A3",
+          "secondary": [
+            "A8"
+          ],
+          "confidence": "medium",
+          "basis": "supportTypePath=重点专项项目-科技发展计划项目扶持，属项目资助；鼓励两岸合作申报含科技合作性质"
+        },
+        "B": {
+          "values": [
+            "B2",
+            "B3"
+          ],
+          "confidence": "low",
+          "basis": "申报条件要求种业企业或育种研究事业单位，需具备科技研发能力，但未明确年限和营收门槛"
+        },
+        "C": {
+          "values": [
+            "C2"
+          ],
+          "subValues": [],
+          "confidence": "medium",
+          "basis": "长周期种子种苗领域，农作物育种、种质资源创制、蔬菜花卉新品种选育属生物与新医药（农业生物技术）范畴"
+        },
+        "D": {
+          "value": "D3",
+          "confidence": "high",
+          "basis": "需提交可行性研究报告、技术水平证明、财务报表等完整材料，采用一次评审方式择优立项"
+        },
+        "E": {
+          "value": "E2",
+          "confidence": "high",
+          "basis": "maxAmount=50万元，每期项目资助资金不超过50万元"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "medium",
+          "basis": "采用事前立项、事后补助方式，项目验收通过后兑现，属一次性奖励"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "种业企业或育种研究事业单位可申报，采用竞争评审获得项目资助",
+        "audience": "企业"
+      },
+      "applicationWindow": {
+        "startDate": "2026-08-14",
+        "endDate": "2026-08-24",
+        "yearScope": "2026",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2026-08-14' applicationEndTime='2026-08-24'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属梯度培育链路"
+      },
+      "keywordIndex": {
+        "title": [
+          "科技计划项目",
+          "长周期种子种苗",
+          "种业"
+        ],
+        "aKeywords": [
+          "科技发展计划项目扶持",
+          "核心技术攻关",
+          "事前立项事后补助"
+        ],
+        "cKeywords": [
+          "种子种苗",
+          "农作物育种",
+          "种质资源",
+          "新品种选育",
+          "种业振兴"
+        ]
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "申报条件未限定企业整体职工人数或营业收入"
+      },
+      "notes": "项目分两期执行，一期验收通过后二期免评审立项；鼓励两岸合作申报；自筹资金与资助资金比例不低于1:1",
+      "warnings": [],
+      "_attempts": 1,
+      "_fingerprint": "a9f6c9dec3db318e7afed5b6f878b6d0",
+      "_taggedAt": "2026-08-04T12:17:03"
+    },
+    {
+      "fusionPolicyId": "6678",
+      "title": "厦门市高新技术企业认定中介机构资格认定申报",
+      "tags": {
+        "A": {
+          "primary": "A1",
+          "secondary": [],
+          "confidence": "high",
+          "basis": "supportTypePath=资质荣誉-高新技术企业认定中介机构资格，属资质认定类"
+        },
+        "B": {
+          "values": [],
+          "confidence": "low",
+          "basis": "政策面向中介机构，不适用企业发展阶段划分"
+        },
+        "C": {
+          "values": [
+            "C9"
+          ],
+          "subValues": [],
+          "confidence": "high",
+          "basis": "industryField=通用行业"
+        },
+        "D": {
+          "value": "D2",
+          "confidence": "high",
+          "basis": "需审核中介机构执业资格、人员比例、从业记录等条件"
+        },
+        "E": {
+          "value": null,
+          "confidence": "low",
+          "basis": "supportMethods无金额字段，正文未提资助金额"
+        },
+        "F": {
+          "value": "F1",
+          "confidence": "high",
+          "basis": "申报期2025-03-05至2025-04-10，为一次性集中申报"
+        }
+      },
+      "applicability": {
+        "applicable": true,
+        "reason": "申报主体为中介机构（会计师事务所、税务师事务所等），非普通企业，不在企业政策匹配范围内；审核通过的政策视为可申报",
+        "audience": "机构"
+      },
+      "applicationWindow": {
+        "startDate": "2025-03-05",
+        "endDate": "2025-04-10",
+        "yearScope": "2025",
+        "isRolling": false,
+        "confidence": "high",
+        "basis": "结构化字段 applicationStartTime='2025.03.05' applicationEndTime='2025.04.10'",
+        "source": "structured_field"
+      },
+      "growthChain": {
+        "prerequisite": null,
+        "nextStage": null,
+        "basis": "不属企业梯度培育链路，为中介机构资格管理"
+      },
+      "keywordIndex": {
+        "title": [
+          "高新技术企业认定",
+          "中介机构",
+          "资格认定"
+        ],
+        "aKeywords": [
+          "高新技术企业认定中介机构资格",
+          "资质认定"
+        ],
+        "cKeywords": []
+      },
+      "scaleThresholds": {
+        "employeeMin": null,
+        "employeeMax": null,
+        "revenueMinWan": null,
+        "revenueMaxWan": null,
+        "confidence": "high",
+        "basis": "政策要求中介机构职工人数20人以上，但申报主体为机构而非企业，不适用企业规模门槛"
+      },
+      "notes": "政策面向中介机构资格认定，申报主体为会计师事务所、税务师事务所等，不适用于普通企业申报",
+      "warnings": [
+        "判定为不可申报政策（机构）：申报主体为中介机构（会计师事务所、税务师事务所等），非普通企业，不在企业政策匹配范围内"
+      ],
+      "_attempts": 1,
+      "_fingerprint": "c47f4778c0273e3ca29f4ab4b6428d9e",
+      "_taggedAt": "2026-08-04T12:17:26"
+    }
+  ]
+}

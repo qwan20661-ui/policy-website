@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页 - 政策解读系统</title>
+  <style>[v-cloak]{display:none!important}</style>
+  <link rel="stylesheet" href="/lib/cdn/element-plus.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/form.css">
+  <link rel="stylesheet" href="../css/policy.css">
+  <style>
+    @media(max-width:1080px){.panel-grid--sidebar{grid-template-columns:1fr}.welcome-stats{flex-wrap:wrap}}
+    @media(max-width:760px){.metric-grid--4{grid-template-columns:repeat(2,minmax(0,1fr))}.panel-grid--2{grid-template-columns:1fr}.quick-access{flex-wrap:wrap}.welcome-section h2{font-size:22px!important}}
+  </style>
+</head>
+<body data-page-tone="blue">
+  <div class="main-layout" id="app">
+    <!-- 侧边栏 -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo"></div>
+      <nav class="sidebar-menu" id="sidebar-menu"></nav>
+      <div class="sidebar-footer" id="sidebar-footer"></div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <header class="header">
+        <div class="header-left">
+          <div class="header-toggle" onclick="toggleSidebar()">
+            <i class="el-icon-s-unfold" style="font-size: 20px;"></i>
+          </div>
+          <nav class="header-breadcrumb"></nav>
+        </div>
+        <div class="header-right">
+          <div class="header-icon">
+            <i class="el-icon-bell" style="font-size: 20px;"></i>
+          </div>
+          <div class="header-icon">
+            <i class="el-icon-full-screen" style="font-size: 20px;"></i>
+          </div>
+          <div class="header-user">
+            <div class="avatar">管</div>
+            <div class="info">
+              <span class="name">管理员</span>
+              <span class="role">系统管理员</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-wrapper page-canvas" v-cloak>
+        <!-- 欢迎区域 -->
+        <div class="welcome-section mb-20">
+          <h2>上午好，管理员</h2>
+          <p>欢迎使用政策解读智能管理系统，当前系统运行正常</p>
+          <div class="welcome-stats">
+            <div class="welcome-stat">
+              <div class="welcome-stat-value" id="welcome-total">-</div>
+              <div class="welcome-stat-label">政策总数</div>
+            </div>
+            <div class="welcome-stat">
+              <div class="welcome-stat-value" id="welcome-today">-</div>
+              <div class="welcome-stat-label">今日新增</div>
+            </div>
+            <div class="welcome-stat">
+              <div class="welcome-stat-value" id="welcome-tagged">-</div>
+              <div class="welcome-stat-label">已标注</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 统计卡片 -->
+        <div class="metric-grid metric-grid--4">
+          <div class="stat-card fade-in">
+            <div class="stat-card-icon blue"><i class="el-icon-document"></i></div>
+            <div class="stat-card-content">
+              <div class="stat-card-value" id="stat-total">-</div>
+              <div class="stat-card-label">政策总数</div>
+              <div class="stat-card-trend up"><i class="el-icon-top"></i> 实时数据</div>
+            </div>
+          </div>
+          <div class="stat-card fade-in" style="animation-delay:0.1s">
+            <div class="stat-card-icon green"><i class="el-icon-download"></i></div>
+            <div class="stat-card-content">
+              <div class="stat-card-value" id="stat-today">-</div>
+              <div class="stat-card-label">今日新增</div>
+              <div class="stat-card-trend up"><i class="el-icon-top"></i> 实时数据</div>
+            </div>
+          </div>
+          <div class="stat-card fade-in" style="animation-delay:0.2s">
+            <div class="stat-card-icon orange"><i class="el-icon-collection-tag"></i></div>
+            <div class="stat-card-content">
+              <div class="stat-card-value" id="stat-tagged">-</div>
+              <div class="stat-card-label">政策总数</div>
+              <div class="stat-card-trend">来自达梦数据库</div>
+            </div>
+          </div>
+          <div class="stat-card fade-in" style="animation-delay:0.3s">
+            <div class="stat-card-icon red"><i class="el-icon-s-custom"></i></div>
+            <div class="stat-card-content">
+              <div class="stat-card-value" id="stat-untagged">-</div>
+              <div class="stat-card-label">未标注</div>
+              <div class="stat-card-trend up"><i class="el-icon-top"></i> 实时数据</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 快捷入口 -->
+        <div class="card mb-20">
+          <div class="card-header">
+            <div class="card-title"><i class="el-icon-menu"></i> 快捷入口</div>
+          </div>
+          <div id="quick-access" class="quick-access">
+            <a href="crawler.html" class="quick-access-item">
+              <i class="el-icon-download"></i>
+              <span>政策爬取</span>
+              <small>数据采集管理</small>
+            </a>
+            <a href="merge.html" class="quick-access-item">
+              <i class="el-icon-connection"></i>
+              <span>融合标注</span>
+              <small>关联关系管理</small>
+            </a>
+            <a href="match.html" class="quick-access-item">
+              <i class="el-icon-s-custom"></i>
+              <span>企业匹配</span>
+              <small>精准匹配服务</small>
+            </a>
+          </div>
+        </div>
+
+        <!-- 图表区域 -->
+        <div class="panel-grid panel-grid--2 mb-20">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="el-icon-data-line"></i> 政策采集趋势</div>
+              <el-button text><i class="el-icon-more"></i></el-button>
+            </div>
+            <div id="trend-chart" class="chart-container"></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="el-icon-pie-chart"></i> 政策分类分布</div>
+              <el-button text><i class="el-icon-more"></i></el-button>
+            </div>
+            <div id="category-chart" class="chart-container"></div>
+          </div>
+        </div>
+
+        <!-- 下方两栏 -->
+        <div class="panel-grid panel-grid--sidebar">
+          <!-- 最新政策 -->
+          <div class="table-container">
+            <div class="table-header">
+              <span class="table-title">最新政策</span>
+              <el-button type="primary" plain size="small" onclick="location.href='crawler.html'">
+                查看更多 <i class="el-icon-arrow-right"></i>
+              </el-button>
+            </div>
+            <el-table :data="latestPolicies" stripe style="width:100%" v-loading="loading">
+              <el-table-column prop="title" label="政策标题" min-width="200" show-overflow-tooltip>
+                <template #default="{ row }">
+                  <a href="javascript:void(0);" class="text-link">{{ row.title }}</a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="department" label="发布部门" width="150" />
+              <el-table-column prop="publishDate" label="发布日期" width="110" />
+              <el-table-column label="操作" width="100" fixed="right" align="center">
+                <template #default="{ row }">
+                  <el-dropdown trigger="click">
+                    <el-button type="primary" link size="small">
+                      更多 <i class="el-icon-arrow-down el-icon--right"></i>
+                    </el-button>
+                    <template #dropdown>
+                      <el-dropdown-menu>
+                        <el-dropdown-item @click="showDetail(row)"><i class="el-icon-view"></i> 查看详情</el-dropdown-item>
+                      </el-dropdown-menu>
+                    </template>
+                  </el-dropdown>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+
+          <!-- 右侧栏 -->
+          <div class="panel-stack">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><i class="el-icon-time"></i> 近期动态</div>
+              </div>
+              <div class="activity-list" id="activities"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><i class="el-icon-edit-outline"></i> 待办事项</div>
+                <el-button type="primary" size="small" circle icon="el-icon-plus"></el-button>
+              </div>
+              <div class="todo-list" id="todos"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 详情抽屉 -->
+  <el-drawer v-model="detailDrawer" :title="currentPolicy?.title || '政策详情'" size="520px" direction="rtl">
+    <div style="padding: 0 8px;">
+      <el-descriptions :column="1" border>
+        <el-descriptions-item label="政策编号">{{ currentPolicy?.uuid || '-' }}</el-descriptions-item>
+        <el-descriptions-item label="发布部门">{{ currentPolicy?.department || '-' }}</el-descriptions-item>
+        <el-descriptions-item label="发布日期">{{ currentPolicy?.publishDate || '-' }}</el-descriptions-item>
+        <el-descriptions-item label="文号">{{ currentPolicy?.documentNo || '-' }}</el-descriptions-item>
+        <el-descriptions-item label="文件类型">{{ currentPolicy?.fileType || '-' }}</el-descriptions-item>
+        <el-descriptions-item label="附件数量">{{ currentPolicy?.attachmentCount ?? 0 }} 个</el-descriptions-item>
+        <el-descriptions-item label="标注状态">
+          <el-tag :type="currentPolicy?.status === '已标注' ? 'success' : 'danger'" size="small">{{ currentPolicy?.status || '未标注' }}</el-tag>
+        </el-descriptions-item>
+      </el-descriptions>
+    </div>
+  </el-drawer>
+
+  <script src="/lib/cdn/vue.global.js"></script>
+  <script src="/lib/cdn/element-plus.umd.js"></script>
+  <script src="/lib/cdn/echarts.min.js"></script>
+  <script src="/lib/cdn/element-plus-icons.min.js"></script>
+  <script src="../js/menu.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/page-init.js"></script>
+  <script>
+    const { createApp, ref, reactive, onMounted } = Vue;
+    const app = createApp({
+      setup() {
+        const API_BASE = window.location.origin;
+        const loading = ref(true);
+        const latestPolicies = ref([]);
+        const detailDrawer = ref(false);
+        const currentPolicy = ref({});
+
+        // 获取最新政策
+        const fetchWithRetryLatestPolicies = async () => {
+          loading.value = true;
+          try {
+            const res = await fetchWithRetry(`${API_BASE}/api/policies?page=1&size=5`);
+            const result = await res.json();
+            if (result.success) {
+              latestPolicies.value = result.data;
+            }
+          } catch (err) {
+            console.error('获取政策数据失败:', err);
+          } finally {
+            loading.value = false;
+          }
+        };
+
+        // 获取统计数据
+        const fetchWithRetryStatistics = async () => {
+          try {
+            const res = await fetchWithRetry(`${API_BASE}/api/statistics`);
+            const result = await res.json();
+            if (result.success) {
+              const d = result.data;
+              const sets = [
+                ['welcome-total', 'stat-total', d.totalPolicies],
+                ['welcome-today', 'stat-today', d.todayNew],
+                ['welcome-tagged', 'stat-tagged', d.taggedCount],
+                ['', 'stat-untagged', d.untaggedCount]
+              ];
+              sets.forEach(([welcomeId, cardId, val]) => {
+                const el = document.getElementById(welcomeId) || document.getElementById(cardId);
+                if (el) el.textContent = (val || 0).toLocaleString();
+              });
+            }
+          } catch (err) {
+            console.error('获取统计数据失败:', err);
+          }
+        };
+
+        // 查看详情
+        const showDetail = (row) => {
+          currentPolicy.value = { ...row };
+          detailDrawer.value = true;
+        };
+
+        // 渲染快捷入口（纯UI，无数据依赖）
+        const renderQuickAccess = () => {
+          const container = document.querySelector('#quick-access');
+          if (!container) return;
+          container.innerHTML = `
+            <a href="crawler.html" class="quick-access-item">
+              <i class="el-icon-download"></i><span>政策爬取</span><small>数据采集管理</small>
+            </a>
+            <a href="merge.html" class="quick-access-item">
+              <i class="el-icon-connection"></i><span>融合标注</span><small>关联关系管理</small>
+            </a>
+            <a href="match.html" class="quick-access-item">
+              <i class="el-icon-s-custom"></i><span>企业匹配</span><small>精准匹配服务</small>
+            </a>
+          `;
+        };
+
+        // 渲染近期动态（静态示例）
+        const renderActivities = () => {
+          const container = document.getElementById('activities');
+          if (!container) return;
+          container.innerHTML = `
+            <div class="activity-item fade-in">
+              <div class="activity-icon crawl"><i class="el-icon-download"></i></div>
+              <div class="activity-content">
+                <div class="activity-title">系统已加载最新政策数据</div>
+                <div class="activity-time">实时更新</div>
+              </div>
+            </div>
+            <div class="activity-item fade-in" style="animation-delay:0.1s">
+              <div class="activity-icon classify"><i class="el-icon-collection-tag"></i></div>
+              <div class="activity-content">
+                <div class="activity-title">数据库连接正常</div>
+                <div class="activity-time">实时检测</div>
+              </div>
+            </div>
+          `;
+        };
+
+        // 渲染待办事项（静态示例）
+        const renderTodos = () => {
+          const container = document.getElementById('todos');
+          if (!container) return;
+          container.innerHTML = `
+            <div class="todo-item">
+              <div class="todo-checkbox"></div>
+              <div class="todo-content">
+                <div class="todo-title">浏览最新政策数据</div>
+                <div class="todo-meta">来自达梦数据库</div>
+              </div>
+            </div>
+            <div class="todo-item">
+              <div class="todo-checkbox"></div>
+              <div class="todo-content">
+                <div class="todo-title">查看政策详情</div>
+                <div class="todo-meta">点击"更多 > 查看详情"</div>
+              </div>
+            </div>
+          `;
+        };
+
+        onMounted(async () => {
+          PageInit.initStandalonePage();
+          renderQuickAccess();
+          renderActivities();
+          renderTodos();
+          await Promise.all([fetchWithRetryLatestPolicies(), fetchWithRetryStatistics()]);
+        });
+
+        return { latestPolicies, loading, detailDrawer, currentPolicy, showDetail };
+      }
+    });
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component);
+    }
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,1059 @@
+{
+  "success": true,
+  "data": {
+    "id": "6534",
+    "sourcePolicyId": "24076",
+    "directoryTitle": "厦门市高新技术企业认定",
+    "mainFileTitle": "国家级高新技术企业认定及重新认定",
+    "status": "ACTIVE",
+    "reviewStatus": "1",
+    "reviewedAt": "2026-08-06 18:22:02.360786",
+    "reviewedBy": "管理员",
+    "reviewRemark": "",
+    "structureReviewStatus": "1",
+    "structureReviewedAt": "2026-08-04 17:48:29.596136",
+    "structureReviewedBy": "管理员",
+    "structureReviewRemark": "",
+    "ruleTableJson": {
+      "hardRuleGroups": [],
+      "softRuleGroups": [],
+      "specialPassRuleGroups": [],
+      "definitionNotes": [],
+      "applicationChecklistGroups": [
+        {
+          "checklistNo": 1,
+          "checklistType": "流程",
+          "rawText": "2023年通过国家级高企认定、2026年国家级高企资格即将到期应重新认定的企业（注：若重新认定企业名称已发生变更的，需先完成更名程序，再申报认定）",
+          "items": [
+            "完成企业名称变更程序（如已变更）",
+            "确保企业符合重新认定条件"
+          ]
+        }
+      ],
+      "name": "国家级高新技术企业认定及重新认定_规则表",
+      "schemaVersion": "1.2",
+      "policyDisplayName": "国家级高新技术企业认定及重新认定",
+      "fusionPolicyId": "6534"
+    },
+    "parentPolicyId": "",
+    "parentPolicyTitle": "",
+    "parentPolicyReviewStatus": "",
+    "parentPolicyReviewedAt": "",
+    "parentPolicy": {},
+    "directParentPolicyCount": 0,
+    "directParentPolicies": [],
+    "ancestorPolicyCount": 0,
+    "ancestorPolicies": [],
+    "childPolicyCount": 3,
+    "childPolicies": [
+      {
+        "id": "6529",
+        "title": "国家级高新技术企业名称变更认定",
+        "mainFileTitle": "国家级高新技术企业名称变更认定",
+        "directoryTitle": "厦门市高新技术企业名称变更",
+        "reviewStatus": "1",
+        "reviewedAt": "2026-08-05 16:37:24.349446",
+        "documentCount": 21,
+        "depth": 1,
+        "relationType": "DIRECT_CHILD"
+      },
+      {
+        "id": "6531",
+        "title": "国家级高新技术企业发展情况填报",
+        "mainFileTitle": "国家级高新技术企业发展情况填报",
+        "directoryTitle": "厦门市高新技术企业发展情况填报",
+        "reviewStatus": "1",
+        "reviewedAt": "2026-08-04 16:10:38.702508",
+        "documentCount": 2,
+        "depth": 1,
+        "relationType": "DIRECT_CHILD"
+      },
+      {
+        "id": "6532",
+        "title": "厦门市重点企业骨干人才子女就读厦门高新学校需求申报",
+        "mainFileTitle": "厦门市重点企业骨干人才子女就读厦门高新学校需求申报",
+        "directoryTitle": "厦门市高新技术企业人才服务",
+        "reviewStatus": "1",
+        "reviewedAt": "2026-08-06 22:18:56.203285",
+        "documentCount": 6,
+        "depth": 1,
+        "relationType": "DIRECT_CHILD"
+      }
+    ],
+    "descendantPolicyCount": 3,
+    "descendantPolicies": [
+      {
+        "id": "6529",
+        "title": "国家级高新技术企业名称变更认定",
+        "mainFileTitle": "国家级高新技术企业名称变更认定",
+        "directoryTitle": "厦门市高新技术企业名称变更",
+        "reviewStatus": "1",
+        "reviewedAt": "2026-08-05 16:37:24.349446",
+        "documentCount": 21,
+        "depth": 1,
+        "relationType": "DIRECT_CHILD"
+      },
+      {
+        "id": "6532",
+        "title": "厦门市重点企业骨干人才子女就读厦门高新学校需求申报",
+        "mainFileTitle": "厦门市重点企业骨干人才子女就读厦门高新学校需求申报",
+        "directoryTitle": "厦门市高新技术企业人才服务",
+        "reviewStatus": "1",
+        "reviewedAt": "2026-08-06 22:18:56.203285",
+        "documentCount": 6,
+        "depth": 1,
+        "relationType": "DIRECT_CHILD"
+      },
+      {
+        "id": "6531",
+        "title": "国家级高新技术企业发展情况填报",
+        "mainFileTitle": "国家级高新技术企业发展情况填报",
+        "directoryTitle": "厦门市高新技术企业发展情况填报",
+        "reviewStatus": "1",
+        "reviewedAt": "2026-08-04 16:10:38.702508",
+        "documentCount": 2,
+        "depth": 1,
+        "relationType": "DIRECT_CHILD"
+      }
+    ],
+    "documents": [
+      {
+        "id": "14561",
+        "sourcePolicyId": "11742",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "申报通知",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局关于开展我市2025年第三批国家级高新技术企业认定申报工作有关事项的通知",
+        "fileName": "2025-10-10_厦门市科学技术局关于开展我市2025年第三批国家级高新技术企业认定申报工作有关.md",
+        "filePath": "docs1/市级/2025-10-10_厦门市科学技术局关于开展我市2025年第三批国家级高新技术企业认定申报工作有关/2025-10-10_厦门市科学技术局关于开展我市2025年第三批国家级高新技术企业认定申报工作有关.md",
+        "fileSuffix": "md",
+        "displayOrder": "301",
+        "publishDate": "2025-10-10",
+        "documentNo": "--",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "市级-厦门市",
+        "originalUrl": "https://www.xmsme.cn/policy/market/51011INGPRlO1qo",
+        "attachments": [
+          {
+            "id": "8277911c-8cac-4efc-9be8-f3324856d4fc",
+            "policyId": "11742",
+            "attachmentName": "附件1：厦门市国家级高企认定申报系统操作指南（2025年版）.doc",
+            "attachmentShowName": "附件1：厦门市国家级高企认定申报系统操作指南（2025年版）.doc",
+            "filePath": "docs1/市级/2025-10-10_厦门市科学技术局关于开展我市2025年第三批国家级高新技术企业认定申报工作有关/附件/附件1：厦门市国家级高企认定申报系统操作指南（2025年版）.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "实施细则类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "f11bf15f-f209-4a5c-a432-a2bfb017737e",
+            "policyId": "11742",
+            "attachmentName": "附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "attachmentShowName": "附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "filePath": "docs1/市级/2025-10-10_厦门市科学技术局关于开展我市2025年第三批国家级高新技术企业认定申报工作有关/附件/附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "fileSuffix": "pdf",
+            "attachmentType": "实施细则类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "7e3fd4bd-1760-431b-8396-40258b5bd087",
+            "policyId": "11742",
+            "attachmentName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+            "attachmentShowName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+            "filePath": "docs1/市级/2025-10-10_厦门市科学技术局关于开展我市2025年第三批国家级高新技术企业认定申报工作有关/附件/附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+            "fileSuffix": "zip",
+            "attachmentType": "申报材料类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "14562",
+        "sourcePolicyId": "10540",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2024年第二批高新技术企业（总第三十七批）的通知",
+        "fileName": "2025-01-03_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2024.md",
+        "filePath": "docs1/市级/2025-01-03_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2024/2025-01-03_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2024.md",
+        "fileSuffix": "md",
+        "displayOrder": "402",
+        "publishDate": "2025-01-03",
+        "documentNo": "--",
+        "issuingDepartment": "厦门市科学技术局、厦门市财政局、国家税务总局厦门市税务局",
+        "policyLevel": "市级-厦门市",
+        "originalUrl": "https://www.xmsme.cn/policy/market/50106h2Iny9xTqX",
+        "attachments": [
+          {
+            "id": "5c508235-4d15-4b68-aad7-9343361c0429",
+            "policyId": "10540",
+            "attachmentName": "附件：厦门市2024年第二批高新技术企业（总第三十七批）名单.doc",
+            "attachmentShowName": "附件：厦门市2024年第二批高新技术企业（总第三十七批）名单.doc",
+            "filePath": "docs1/市级/2025-01-03_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2024/附件/附件：厦门市2024年第二批高新技术企业（总第三十七批）名单.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "14563",
+        "sourcePolicyId": "10965",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2024年高新技术企业第二批补充认定的通知",
+        "fileName": "2025-05-13_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2024年高.md",
+        "filePath": "docs1/市级/2025-05-13_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2024年高/2025-05-13_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2024年高.md",
+        "fileSuffix": "md",
+        "displayOrder": "403",
+        "publishDate": "2025-05-13",
+        "documentNo": "--",
+        "issuingDepartment": "厦门市科学技术局、厦门市财政局、国家税务总局厦门市税务局",
+        "policyLevel": "市级-厦门市",
+        "originalUrl": "https://www.xmsme.cn/policy/market/50515ELCjslSkEY",
+        "attachments": [
+          {
+            "id": "cb7fa25c-7719-4784-924c-28702b975c4d",
+            "policyId": "10965",
+            "attachmentName": "附件1：厦门市2024年第一批高新技术企业(总第三十六批).doc",
+            "attachmentShowName": "附件1：厦门市2024年第一批高新技术企业(总第三十六批).doc",
+            "filePath": "docs1/市级/2025-05-13_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2024年高/附件/附件1：厦门市2024年第一批高新技术企业(总第三十六批).doc",
+            "fileSuffix": "doc",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "c4eb48a6-921d-415b-aaa0-6584b902f7cc",
+            "policyId": "10965",
+            "attachmentName": "附件2：厦门市2024年第二批高新技术企业(总第三十七批).doc",
+            "attachmentShowName": "附件2：厦门市2024年第二批高新技术企业(总第三十七批).doc",
+            "filePath": "docs1/市级/2025-05-13_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2024年高/附件/附件2：厦门市2024年第二批高新技术企业(总第三十七批).doc",
+            "fileSuffix": "doc",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "14564",
+        "sourcePolicyId": "12234",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2025年第一批高新技术企业（总第三十八批）的通知",
+        "fileName": "2026-01-15_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2025.md",
+        "filePath": "docs1/市级/2026-01-15_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2025/2026-01-15_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2025.md",
+        "fileSuffix": "md",
+        "displayOrder": "404",
+        "publishDate": "2026-01-15",
+        "documentNo": "厦科联〔2026〕1号",
+        "issuingDepartment": "厦门市科学技术局、厦门市财政局、国家税务总局厦门市税务局",
+        "policyLevel": "市级-厦门市",
+        "originalUrl": "https://www.xmsme.cn/policy/market/60116ZDEOBVsTwv",
+        "attachments": [
+          {
+            "id": "0eebc67c-3d9a-43ae-8d74-32568645a362",
+            "policyId": "12234",
+            "attachmentName": "附件：厦门市2025年第一批高新技术企业（总第三十八批）名单.doc",
+            "attachmentShowName": "附件：厦门市2025年第一批高新技术企业（总第三十八批）名单.doc",
+            "filePath": "docs1/市级/2026-01-15_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2025/附件/附件：厦门市2025年第一批高新技术企业（总第三十八批）名单.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "14565",
+        "sourcePolicyId": "12389",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2025年高新技术企业第一批补充认定的通知",
+        "fileName": "2026-02-28_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2025年高.md",
+        "filePath": "docs1/市级/2026-02-28_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2025年高/2026-02-28_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2025年高.md",
+        "fileSuffix": "md",
+        "displayOrder": "405",
+        "publishDate": "2026-02-28",
+        "documentNo": "厦科联〔2026〕3号",
+        "issuingDepartment": "厦门市科学技术局、厦门市财政局、国家税务总局厦门市税务局",
+        "policyLevel": "市级-厦门市",
+        "originalUrl": "https://www.xmsme.cn/policy/market/60302PC3eMhIZeV",
+        "attachments": [
+          {
+            "id": "9a78f729-8521-4a4f-b7cd-f1a383f1d5f5",
+            "policyId": "12389",
+            "attachmentName": "1.厦门市2025年第一批高新技术企业（总第三十八批）第一批补充认定名单.doc",
+            "attachmentShowName": "1.厦门市2025年第一批高新技术企业（总第三十八批）第一批补充认定名单.doc",
+            "filePath": "docs1/市级/2026-02-28_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2025年高/附件/1.厦门市2025年第一批高新技术企业（总第三十八批）第一批补充认定名单.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "370d218e-08bb-4224-adb1-3e76c7c10397",
+            "policyId": "12389",
+            "attachmentName": "2.厦门市2025年第二批高新技术企业（总第三十九批）第一批补充认定名单.doc",
+            "attachmentShowName": "2.厦门市2025年第二批高新技术企业（总第三十九批）第一批补充认定名单.doc",
+            "filePath": "docs1/市级/2026-02-28_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2025年高/附件/2.厦门市2025年第二批高新技术企业（总第三十九批）第一批补充认定名单.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "14573",
+        "sourcePolicyId": "12261",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2025年第二批高新技术企业（总第三十九批）的通知",
+        "fileName": "2026-01-21_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2025.md",
+        "filePath": "docs1/市级/2026-01-21_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2025/2026-01-21_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2025.md",
+        "fileSuffix": "doc",
+        "displayOrder": "913",
+        "publishDate": "2026-01-21",
+        "documentNo": "厦科联〔2026〕2号",
+        "issuingDepartment": "厦门市科学技术局、厦门市财政局、国家税务总局厦门市税务局",
+        "policyLevel": "市级-厦门市",
+        "originalUrl": "https://www.xmsme.cn/policy/market/601224rhtGcsOdi",
+        "attachments": [
+          {
+            "id": "1e3d2e0a-7bd8-433b-ac5a-085489f4b9ae",
+            "policyId": "12261",
+            "attachmentName": "附件：厦门市2025年第二批高新技术企业（总第三十九批）名单.doc",
+            "attachmentShowName": "附件：厦门市2025年第二批高新技术企业（总第三十九批）名单.doc",
+            "filePath": "docs1/市级/2026-01-21_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于认定厦门市2025/附件/附件：厦门市2025年第二批高新技术企业（总第三十九批）名单.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "15042",
+        "sourcePolicyId": "15558",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "实施细则",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "科技部 财政部 税务总局关于修订印发 《高新技术企业认定管理办法》的通知",
+        "fileName": "科技部 财政部 税务总局关于修订印发《高新技术企业认定管理办法》的通知.md",
+        "filePath": "importantplus/《高新技术企业认定管理办法》/科技部 财政部 税务总局关于修订印发《高新技术企业认定管理办法》的通知.md",
+        "fileSuffix": "md",
+        "displayOrder": "915",
+        "publishDate": "2016-01-29",
+        "documentNo": "国科发火〔2016〕32号",
+        "issuingDepartment": "科技部、财政部、税务总局",
+        "policyLevel": "",
+        "originalUrl": "",
+        "attachments": []
+      },
+      {
+        "id": "15044",
+        "sourcePolicyId": "148",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "实施细则",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "高新技术企业认定管理工作指引",
+        "fileName": "高新技术企业认定管理工作指引.md",
+        "filePath": "importantplus/高新技术企业认定管理工作指引/高新技术企业认定管理工作指引.md",
+        "fileSuffix": "md",
+        "displayOrder": "916",
+        "publishDate": "",
+        "documentNo": "国科发火〔2016〕195号",
+        "issuingDepartment": "科技部、财政部、国家税务总局",
+        "policyLevel": "",
+        "originalUrl": "",
+        "attachments": []
+      },
+      {
+        "id": "14492",
+        "sourcePolicyId": "72",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "申报通知",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市高新技术企业认定管理机构关于开展2025年国家级高新技术企业认定及重新认定工作的通知",
+        "fileName": "关于开展2025年国家级高新技术企业认定及重新认定工作的通知.md",
+        "filePath": "importantplus/关于开展2025年国家级高新技术企业认定及重新认定工作的通知/关于开展2025年国家级高新技术企业认定及重新认定工作的通知.md",
+        "fileSuffix": "md",
+        "displayOrder": "920",
+        "publishDate": "2025-06-09",
+        "documentNo": "",
+        "issuingDepartment": "厦门市高新技术企业认定管理机构",
+        "policyLevel": "市级-厦门市",
+        "originalUrl": "https://sti.xm.gov.cn/xxgk/tzgg/202506/t20250609_2937778.htm",
+        "attachments": [
+          {
+            "id": "5b047e2e-a8ee-4a9e-a65e-424a5afb6546",
+            "policyId": "72",
+            "attachmentName": "附件1：厦门市国家级高企认定申报系统操作指南（2025年版）.doc",
+            "attachmentShowName": "附件1：厦门市国家级高企认定申报系统操作指南（2025年版）.doc",
+            "filePath": "importantplus/关于开展2025年国家级高新技术企业认定及重新认定工作的通知/attachments/附件1：厦门市国家级高企认定申报系统操作指南（2025年版）.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "实施细则类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "74bc49c1-8ef8-4aa7-8ef1-f59afa8ce526",
+            "policyId": "72",
+            "attachmentName": "附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "attachmentShowName": "附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "filePath": "importantplus/关于开展2025年国家级高新技术企业认定及重新认定工作的通知/attachments/附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "fileSuffix": "pdf",
+            "attachmentType": "实施细则类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "a62773f0-1bdb-41c6-96a0-66806e33f4c9",
+            "policyId": "72",
+            "attachmentName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+            "attachmentShowName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+            "filePath": "importantplus/关于开展2025年国家级高新技术企业认定及重新认定工作的通知/attachments/附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+            "fileSuffix": "zip",
+            "attachmentType": "申报材料类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "15171",
+        "sourcePolicyId": "11119",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "申报通知",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市高新技术企业认定管理机构关于开展2025年国家级高新技术企业认定及重新认定工作的通知",
+        "fileName": "2025-06-09_厦门市高新技术企业认定管理机构关于开展2025年国家级高新技术企业认定及重新认.md",
+        "filePath": "docs1/市级/2025-06-09_厦门市高新技术企业认定管理机构关于开展2025年国家级高新技术企业认定及重新认/2025-06-09_厦门市高新技术企业认定管理机构关于开展2025年国家级高新技术企业认定及重新认.md",
+        "fileSuffix": "md",
+        "displayOrder": "921",
+        "publishDate": "2025-06-09",
+        "documentNo": "--",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "",
+        "originalUrl": "",
+        "attachments": [
+          {
+            "id": "594d327b-4769-408e-a3ce-412ae68c2f23",
+            "policyId": "11119",
+            "attachmentName": "附件1：厦门市国家级高企认定申报系统操作指南（2025年版）.doc",
+            "attachmentShowName": "附件1：厦门市国家级高企认定申报系统操作指南（2025年版）.doc",
+            "filePath": "docs1/市级/2025-06-09_厦门市高新技术企业认定管理机构关于开展2025年国家级高新技术企业认定及重新认/附件/附件1：厦门市国家级高企认定申报系统操作指南（2025年版）.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "实施细则类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "39a75cdc-5151-4d07-a35b-c5b34d76ff13",
+            "policyId": "11119",
+            "attachmentName": "附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "attachmentShowName": "附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "filePath": "docs1/市级/2025-06-09_厦门市高新技术企业认定管理机构关于开展2025年国家级高新技术企业认定及重新认/附件/附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "fileSuffix": "pdf",
+            "attachmentType": "实施细则类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "0d45b2d8-b600-4866-a0d3-7dc3e0ce276a",
+            "policyId": "11119",
+            "attachmentName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+            "attachmentShowName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+            "filePath": "docs1/市级/2025-06-09_厦门市高新技术企业认定管理机构关于开展2025年国家级高新技术企业认定及重新认/附件/附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+            "fileSuffix": "zip",
+            "attachmentType": "申报材料类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "15172",
+        "sourcePolicyId": "16084",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "申报通知",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市高新技术企业认定专项工作组关于开展2026年国家级高新技术企业认定及重新认定工作的通知",
+        "fileName": "厦门市高新技术企业认定专项工作组关于开展2026年国家级高新技术企业认定及重新认定工作的通知_60618WLiep0E43O.md",
+        "filePath": "docs1/新添/厦门市高新技术企业认定专项工作组关于开展2026年国家级高新技术企业认定及重新认定工作的通知_60618WLiep0E43O/厦门市高新技术企业认定专项工作组关于开展2026年国家级高新技术企业认定及重新认定工作的通知_60618WLiep0E43O.md",
+        "fileSuffix": "md",
+        "displayOrder": "922",
+        "publishDate": "2026-06-18",
+        "documentNo": "",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "",
+        "originalUrl": "",
+        "attachments": [
+          {
+            "id": "efdaa169-0374-4628-9818-4bfd8ff8555f",
+            "policyId": "16084",
+            "attachmentName": "附件1：厦门市国家级高企认定申报系统操作指南（2026年版）.doc",
+            "attachmentShowName": "附件1：厦门市国家级高企认定申报系统操作指南（2026年版）.doc",
+            "filePath": "docs1/新添/厦门市高新技术企业认定专项工作组关于开展2026年国家级高新技术企业认定及重新认定工作的通知_60618WLiep0E43O/attachments/附件1：厦门市国家级高企认定申报系统操作指南（2026年版）.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "实施细则类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "298522f0-0f12-4bca-9752-24c16a48d854",
+            "policyId": "16084",
+            "attachmentName": "附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "attachmentShowName": "附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "filePath": "docs1/新添/厦门市高新技术企业认定专项工作组关于开展2026年国家级高新技术企业认定及重新认定工作的通知_60618WLiep0E43O/attachments/附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "fileSuffix": "pdf",
+            "attachmentType": "实施细则类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "0c8ca6ac-fab8-4425-b2e6-a65978d8e93e",
+            "policyId": "16084",
+            "attachmentName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+            "attachmentShowName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+            "filePath": "docs1/新添/厦门市高新技术企业认定专项工作组关于开展2026年国家级高新技术企业认定及重新认定工作的通知_60618WLiep0E43O/attachments/附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+            "fileSuffix": "zip",
+            "attachmentType": "申报材料类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "15216",
+        "sourcePolicyId": "10939",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "指导政策",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局 厦门市财政局关于印发加快高新技术企业发展若干措施的通知",
+        "fileName": "2025-05-07_厦门市科学技术局 厦门市财政局关于印发加快高新技术企业发展若干措施的通知.md",
+        "filePath": "docs1/市级/2025-05-07_厦门市科学技术局 厦门市财政局关于印发加快高新技术企业发展若干措施的通知/2025-05-07_厦门市科学技术局 厦门市财政局关于印发加快高新技术企业发展若干措施的通知.md",
+        "fileSuffix": "md",
+        "displayOrder": "923",
+        "publishDate": "2025-05-07",
+        "documentNo": "厦科规〔2025〕2号",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "",
+        "originalUrl": "",
+        "attachments": []
+      },
+      {
+        "id": "15289",
+        "sourcePolicyId": "16089",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "指导政策",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门火炬高技术产业开发区管理委员会关于组织2026年国家级高新技术企业认定及重新认定工作的通知",
+        "fileName": "厦门火炬高技术产业开发区管理委员会关于组织2026年国家级高新技术企业认定及重新认定工作的通知_60623wOKKcbWEs0.md",
+        "filePath": "docs1/新添/厦门火炬高技术产业开发区管理委员会关于组织2026年国家级高新技术企业认定及重新认定工作的通知_60623wOKKcbWEs0/厦门火炬高技术产业开发区管理委员会关于组织2026年国家级高新技术企业认定及重新认定工作的通知_60623wOKKcbWEs0.md",
+        "fileSuffix": "md",
+        "displayOrder": "924",
+        "publishDate": "2026-06-22",
+        "documentNo": "",
+        "issuingDepartment": "厦门火炬高技术产业开发区管理委员会",
+        "policyLevel": "",
+        "originalUrl": "",
+        "attachments": [
+          {
+            "id": "9be2d960-916e-4918-98b9-dfdd1d054c1d",
+            "policyId": "16089",
+            "attachmentName": "附件1：厦门市国家级高企认定申报系统操作指南（2026年版）.doc",
+            "attachmentShowName": "附件1：厦门市国家级高企认定申报系统操作指南（2026年版）.doc",
+            "filePath": "docs1/新添/厦门火炬高技术产业开发区管理委员会关于组织2026年国家级高新技术企业认定及重新认定工作的通知_60623wOKKcbWEs0/attachments/附件1：厦门市国家级高企认定申报系统操作指南（2026年版）.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "实施细则类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "2f7c47c0-fe4f-4ce4-b20a-dbdccb920a19",
+            "policyId": "16089",
+            "attachmentName": "附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "attachmentShowName": "附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "filePath": "docs1/新添/厦门火炬高技术产业开发区管理委员会关于组织2026年国家级高新技术企业认定及重新认定工作的通知_60623wOKKcbWEs0/attachments/附件2：高新技术企业认定有关证明事项实行告知承诺办理指南.pdf",
+            "fileSuffix": "pdf",
+            "attachmentType": "实施细则类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "9ed714c6-0a17-41dd-bbe4-96afdd0df501",
+            "policyId": "16089",
+            "attachmentName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+            "attachmentShowName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+            "filePath": "docs1/新添/厦门火炬高技术产业开发区管理委员会关于组织2026年国家级高新技术企业认定及重新认定工作的通知_60623wOKKcbWEs0/attachments/附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+            "fileSuffix": "zip",
+            "attachmentType": "申报材料类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "15290",
+        "sourcePolicyId": "16039",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2025年高新技术企业第二批补充认定的通知",
+        "fileName": "厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2025年高新技术企业第二批补充认定的通知_60519URvhfqAkzh.md",
+        "filePath": "docs1/新添/厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2025年高新技术企业第二批补充认定的通知_60519URvhfqAkzh/厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2025年高新技术企业第二批补充认定的通知_60519URvhfqAkzh.md",
+        "fileSuffix": "md",
+        "displayOrder": "925",
+        "publishDate": "2026-05-19",
+        "documentNo": "",
+        "issuingDepartment": "厦门市财政局、国家税务总局厦门市税务局、厦门市科学技术局",
+        "policyLevel": "",
+        "originalUrl": "",
+        "attachments": [
+          {
+            "id": "d77813a5-5ea9-4f18-a9a6-4841bb024b59",
+            "policyId": "16039",
+            "attachmentName": "1．厦门市2025年第一批高新技术企业（总第三十八批）第二批补充认定名单.doc",
+            "attachmentShowName": "1．厦门市2025年第一批高新技术企业（总第三十八批）第二批补充认定名单.doc",
+            "filePath": "docs1/新添/厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2025年高新技术企业第二批补充认定的通知_60519URvhfqAkzh/attachments/1．厦门市2025年第一批高新技术企业（总第三十八批）第二批补充认定名单.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "86a7f8d8-c90b-4567-9aad-53dc7dcb72a4",
+            "policyId": "16039",
+            "attachmentName": "2．厦门市2025年第二批高新技术企业（总第三十九批）第二批补充认定名单.doc",
+            "attachmentShowName": "2．厦门市2025年第二批高新技术企业（总第三十九批）第二批补充认定名单.doc",
+            "filePath": "docs1/新添/厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2025年高新技术企业第二批补充认定的通知_60519URvhfqAkzh/attachments/2．厦门市2025年第二批高新技术企业（总第三十九批）第二批补充认定名单.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "15291",
+        "sourcePolicyId": "13354",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "全国高新技术企业认定管理工作领导小组办公室对厦门市认定机构2025年认定报备的第二批高新技术企业进行备案的公告",
+        "fileName": "2026-01-14_全国高新技术企业认定管理工作领导小组办公室对厦门市认定机构2025年认定报备的.md",
+        "filePath": "docs1/国家级/2026-01-14_全国高新技术企业认定管理工作领导小组办公室对厦门市认定机构2025年认定报备的/2026-01-14_全国高新技术企业认定管理工作领导小组办公室对厦门市认定机构2025年认定报备的.md",
+        "fileSuffix": "md",
+        "displayOrder": "926",
+        "publishDate": "2026-01-14",
+        "documentNo": "--",
+        "issuingDepartment": "工业和信息化部",
+        "policyLevel": "",
+        "originalUrl": "",
+        "attachments": [
+          {
+            "id": "8ad0b84f-17a0-4a55-ad23-30819ceda732",
+            "policyId": "13354",
+            "attachmentName": "附件：厦门市认定机构2025年认定报备的第二批高新技术企业备案名单.pdf",
+            "attachmentShowName": "附件：厦门市认定机构2025年认定报备的第二批高新技术企业备案名单.pdf",
+            "filePath": "docs1/国家级/2026-01-14_全国高新技术企业认定管理工作领导小组办公室对厦门市认定机构2025年认定报备的/附件/附件：厦门市认定机构2025年认定报备的第二批高新技术企业备案名单.pdf",
+            "fileSuffix": "pdf",
+            "attachmentType": "其它",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "15333",
+        "sourcePolicyId": "10771",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "指导政策",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2024年高新技术企业第一批补充认定的通知",
+        "fileName": "2025-03-19_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2024年高.md",
+        "filePath": "docs1/市级/2025-03-19_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2024年高/2025-03-19_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2024年高.md",
+        "fileSuffix": "md",
+        "displayOrder": "927",
+        "publishDate": "2025-03-19",
+        "documentNo": "--",
+        "issuingDepartment": "厦门市科学技术局、厦门市财政局、国家税务总局厦门市税务局",
+        "policyLevel": "",
+        "originalUrl": "",
+        "attachments": [
+          {
+            "id": "7da87bbb-8ee2-4642-8c86-c704a80f4c70",
+            "policyId": "10771",
+            "attachmentName": "附件1：厦门市2024年第一批高新技术企业（总第三十六批）第一批补充认定名单.doc",
+            "attachmentShowName": "附件1：厦门市2024年第一批高新技术企业（总第三十六批）第一批补充认定名单.doc",
+            "filePath": "docs1/市级/2025-03-19_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2024年高/附件/附件1：厦门市2024年第一批高新技术企业（总第三十六批）第一批补充认定名单.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "55ea49d6-c615-4bbf-a3e6-94183d7c7487",
+            "policyId": "10771",
+            "attachmentName": "附件2：厦门市2024年第二批高新技术企业（总第三十七批）第一批补充认定名单.doc",
+            "attachmentShowName": "附件2：厦门市2024年第二批高新技术企业（总第三十七批）第一批补充认定名单.doc",
+            "filePath": "docs1/市级/2025-03-19_厦门市科学技术局 厦门市财政局 国家税务总局厦门市税务局关于厦门市2024年高/附件/附件2：厦门市2024年第二批高新技术企业（总第三十七批）第一批补充认定名单.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "15334",
+        "sourcePolicyId": "10721",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "申报通知",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机构资格确认工作的通知",
+        "fileName": "2025-03-05_厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机.md",
+        "filePath": "docs1/市级/2025-03-05_厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机/2025-03-05_厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机.md",
+        "fileSuffix": "md",
+        "displayOrder": "928",
+        "publishDate": "2025-03-05",
+        "documentNo": "--",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "",
+        "originalUrl": "",
+        "attachments": [
+          {
+            "id": "8b93c87b-f08b-4852-909a-906b0414acd1",
+            "policyId": "10721",
+            "attachmentName": "附件1：厦门市高新技术企业认定中介机构申请表.doc",
+            "attachmentShowName": "附件1：厦门市高新技术企业认定中介机构申请表.doc",
+            "filePath": "docs1/市级/2025-03-05_厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机/附件/附件1：厦门市高新技术企业认定中介机构申请表.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "申报材料类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "b841ffee-6de6-4aa7-87c4-11ce3f9a5214",
+            "policyId": "10721",
+            "attachmentName": "附件2：注册会计师（税务师）花名册.xls",
+            "attachmentShowName": "附件2：注册会计师（税务师）花名册.xls",
+            "filePath": "docs1/市级/2025-03-05_厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机/附件/附件2：注册会计师（税务师）花名册.xls",
+            "fileSuffix": "xls",
+            "attachmentType": "申报材料类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "10ec9ca6-241e-4843-b087-76f9a89d2931",
+            "policyId": "10721",
+            "attachmentName": "附件3：2024年度人员证明材料打印样表.doc",
+            "attachmentShowName": "附件3：2024年度人员证明材料打印样表.doc",
+            "filePath": "docs1/市级/2025-03-05_厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机/附件/附件3：2024年度人员证明材料打印样表.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "申报材料类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "6c56dd0e-bfdf-4f6c-94ca-9dd446d5b147",
+            "policyId": "10721",
+            "attachmentName": "附件4：高企认定中介机构资格申请承诺书.docx",
+            "attachmentShowName": "附件4：高企认定中介机构资格申请承诺书.docx",
+            "filePath": "docs1/市级/2025-03-05_厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机/附件/附件4：高企认定中介机构资格申请承诺书.docx",
+            "fileSuffix": "docx",
+            "attachmentType": "申报材料类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "15335",
+        "sourcePolicyId": "10856",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "指导政策",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市高新技术企业认定管理机构关于继续征集厦门市高新技术企业认定评审专家的通知",
+        "fileName": "2025-04-14_厦门市高新技术企业认定管理机构关于继续征集厦门市高新技术企业认定评审专家的通知.md",
+        "filePath": "docs1/市级/2025-04-14_厦门市高新技术企业认定管理机构关于继续征集厦门市高新技术企业认定评审专家的通知/2025-04-14_厦门市高新技术企业认定管理机构关于继续征集厦门市高新技术企业认定评审专家的通知.md",
+        "fileSuffix": "md",
+        "displayOrder": "929",
+        "publishDate": "2025-04-14",
+        "documentNo": "--",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "",
+        "originalUrl": "",
+        "attachments": [
+          {
+            "id": "2c619a79-dad5-4532-aa86-03c79c25a1f6",
+            "policyId": "10856",
+            "attachmentName": "附件：1.高新技术企业认定专家备案表.doc",
+            "attachmentShowName": "附件：1.高新技术企业认定专家备案表.doc",
+            "filePath": "docs1/市级/2025-04-14_厦门市高新技术企业认定管理机构关于继续征集厦门市高新技术企业认定评审专家的通知/附件/附件：1.高新技术企业认定专家备案表.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "申报材料类",
+            "reviewStatus": "已通过"
+          },
+          {
+            "id": "6c31d8c3-b15e-40c4-9460-b70dc99f5ebd",
+            "policyId": "10856",
+            "attachmentName": "附件：2.国家重点支持的高新技术领域-2016版.doc",
+            "attachmentShowName": "附件：2.国家重点支持的高新技术领域-2016版.doc",
+            "filePath": "docs1/市级/2025-04-14_厦门市高新技术企业认定管理机构关于继续征集厦门市高新技术企业认定评审专家的通知/附件/附件：2.国家重点支持的高新技术领域-2016版.doc",
+            "fileSuffix": "doc",
+            "attachmentType": "申报材料类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      },
+      {
+        "id": "15336",
+        "sourcePolicyId": "12158",
+        "delFlag": "0",
+        "deleted": false,
+        "policyAttribute": "结果公告",
+        "policyAttributePersisted": true,
+        "reviewStatus": "已通过",
+        "policyTitle": "厦门市高新技术企业认定专项工作组关于取消厦门车优加信息科技有限公司等100家企业高新技术企业资格的公告",
+        "fileName": "2025-12-31_厦门市高新技术企业认定专项工作组关于取消厦门车优加信息科技有限公司等100家企.md",
+        "filePath": "docs1/市级/2025-12-31_厦门市高新技术企业认定专项工作组关于取消厦门车优加信息科技有限公司等100家企/2025-12-31_厦门市高新技术企业认定专项工作组关于取消厦门车优加信息科技有限公司等100家企.md",
+        "fileSuffix": "md",
+        "displayOrder": "930",
+        "publishDate": "2025-12-31",
+        "documentNo": "厦高专〔2025〕7号",
+        "issuingDepartment": "厦门市科学技术局",
+        "policyLevel": "",
+        "originalUrl": "",
+        "attachments": [
+          {
+            "id": "8bb61638-83c6-427d-83e7-1b5dd79781a0",
+            "policyId": "12158",
+            "attachmentName": "厦门市2025年第二批取消高新技术企业资格名单.pdf",
+            "attachmentShowName": "厦门市2025年第二批取消高新技术企业资格名单.pdf",
+            "filePath": "docs1/市级/2025-12-31_厦门市高新技术企业认定专项工作组关于取消厦门车优加信息科技有限公司等100家企/附件/厦门市2025年第二批取消高新技术企业资格名单.pdf",
+            "fileSuffix": "pdf",
+            "attachmentType": "结果公告类",
+            "reviewStatus": "已通过"
+          }
+        ]
+      }
+    ],
+    "hasFusionStructuredData": true,
+    "policyInfo": {
+      "policyTitle": "国家级高新技术企业认定及重新认定",
+      "summary": "厦门市高新技术企业认定是指对在《国家重点支持的高新技术领域》内持续研发并拥有核心自主知识产权，符合法定条件的境内居民企业进行的资格认定工作。经认定后可享受减按15%税率征收企业所得税、原经济特区内新认定企业“2免3减半”、亏损结转年限延长至10年及先进制造业增值税加计抵减等税收优惠，并可优先申报市科技项目、政府采购招投标，享受科技保险补贴及定制化科技金融产品支持。",
+      "contactInfo": "咨询电话：2025913、2032126、2053362、2052826、2108271、2052621、2025871、2053981\n政策咨询及中介机构资质证明材料提交地址：思明区虎园路2号科技大院5号楼610、612、616\n责任处室：市高企认定专项工作组 (市科技局前沿技术与产业科技处)\n电话：2661606",
+      "applicationVolume": "",
+      "policyAttribute": "指导政策",
+      "policyOriginalTitle": "厦门市高新技术企业认定专项工作组关于开展2026年国家级高新技术企业认定及重新认定工作的通知",
+      "sceneUsage": "国家高新技术企业定",
+      "sceneUsagePath": "资质认定-国家高新技术企业定",
+      "applicableScope": "厦门市",
+      "applicableScopePath": "市级-厦门市",
+      "industryField": "通用行业",
+      "industryFieldPath": "通用行业",
+      "effectiveStartDate": "2016-01-01",
+      "effectiveEndDate": "长期",
+      "issuingDepartment": "厦门市科学技术局",
+      "policyCode": "国科发火〔2016〕32号"
+    },
+    "keywords": [
+      {
+        "id": "2611",
+        "text": "国家高新技术企业定",
+        "pathText": "国家高新技术企业定"
+      }
+    ],
+    "conditions": [
+      {
+        "id": "1152",
+        "applicableTarget": "企业类",
+        "applicableTargetPath": "企业类-国家级专精特新“小巨人”企业-      ",
+        "applicationInstruction": "（一）第一批申报对象为本年度国家级高企资格到期应重新认定的企业和符合国家级高企认定条件的其他企业，网上系统申报提交截止时间为8月20日，逾期提交将自动转为第二批申报企业。\n（二）第二批申报对象为符合国家级高企认定条件且未参与第一批申报的企业，网上系统申报提交截止时间为9月30日，逾期不予受理。",
+        "applicationRequirement": "1、符合《认定办法》的第十一条规定，尚未取得国家级高企资格或国家级高企资格已失效的企业。\n第十一条 认定为高新技术企业须同时满足以下条件： \n（一）企业申请认定时须注册成立1年以上。 \n（二）企业通过自主研发、受让、受赠、并购等方式，获得对其主要产品（服务）在技术上发挥核心支持作用的知识产权的所有权。 \n（三）对企业主要产品（服务）发挥核心支持作用的技术属于《国家重点支持的高新技术领域》规定的范围。 \n（四）企业从事研发和相关技术创新活动的科技人员占企业当年职工总数的比例不低于10%。 \n（五）企业近3个会计年度（实际经营期不满3年的按实际经营时间计算，下同）的研究开发费用总额占同期销售收入总额的比例符合如下要求： 1.最近1年销售收入小于5,000万元（含）的企业，比例不低于5%。 2.最近1年销售收入在5,000万元至2亿元（含）的企业，比例不低于4%。 3.最近1年销售收入在2亿元以上的企业，比例不低于3%。 其中，企业在中国境内发生的研究开发费用总额占全部研究开发费用总额的比例不低于60%。 \n（六）近1年高新技术产品（服务）收入占企业同期总收入的比例不低于60%。 （七）企业创新能力评价应达到相应要求。 企业创新能力主要从知识产权、科技成果转化能力、研究开发组织管理水平、企业成长性等四项指标进行评价。各级指标均按整数打分，满分为100分，综合得分达到70分以上（不含70分）为符合认定要求。\n（八）企业申请认定前1年内未发生重大安全、重大质量事故或严重环境违法行为。\n2、2023年通过国家级高企认定、2026年国家级高企资格即将到期应重新认定的企业（注：若重新认定企业名称已发生变更的，需先完成更名程序，再申报认定）。",
+        "applicationStartTime": "2026-06-17",
+        "applicationEndTime": "2026-09-30",
+        "announcementDate": ""
+      }
+    ],
+    "supportMethods": [
+      {
+        "id": "1154",
+        "supportType": "高新技术企业认定、一次性奖励补助、行业适用税率优惠、企业税收减免政策、科技保险保费补贴",
+        "supportTypePath": "高新技术企业认定；资金补助-一次性奖励补助；行业适用税率优惠；企业税收减免政策；科技金融-科技保险保费补贴",
+        "contentDesc": "1、对于通过国家级高新技术企业认定的企业，给予10万元奖励。对于资格有效期内的市级高新技术企业，首次通过国家级高新技术企业认定的企业，再给予2万元奖励。\n2、对于申报上年度研究开发费用总额大于200万元（含）的企业，通过国家级高新技术企业认定的企业，在第一项政策基础上，再给予10万元奖励。\n3、经认定的国家级高企，减按15%的优惠税率征收企业所得税（《中华人民共和国企业所得税法》）。\n4、原经济特区内（思明区、湖里区）在2008年1月1日（含）之后完成登记注册且新认定的国家级高企，自取得第一笔生产经营收入的纳税年度起，享受企业所得税“2免3减半”（国发〔2007〕40号）。\n5、自2018年1月1日起，当年具备国家级高企资格的企业，其具备资格年度之前5个年度发生的尚未弥补完的亏损，准予结转以后年度弥补，最长结转年限由5年延长至10年（财税〔2018〕76号）。\n6、经认定的国家级高企中的先进制造业企业，自2023年1月1日至2027年12月31日，允许按照当期可抵扣进项税额加计5%抵减应纳增值税税额（《财政部、税务总局关于先进制造业企业增值税加计抵减政策的公告》）。\n7、国家级高企申报市科技项目、政府采购招投标、承担重大科技项目补助等方面给予优先扶持。\n8、享受科技保险补贴及市科技局联合商业银行开发的纯信用“国高贷”等定制化科技金融产品。\n9、其他符合条件的优惠政策。",
+        "amount": "",
+        "maxAmount": "22万元"
+      }
+    ],
+    "attachments": [
+      {
+        "id": "7e3fd4bd-1760-431b-8396-40258b5bd087",
+        "policyId": "11742",
+        "attachmentName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+        "attachmentShowName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+        "filePath": "docs1/市级/2025-10-10_厦门市科学技术局关于开展我市2025年第三批国家级高新技术企业认定申报工作有关/附件/附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+        "fileSuffix": "zip",
+        "attachmentType": "申报材料类",
+        "reviewStatus": "已通过",
+        "name": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+        "sourcePolicyId": "11742",
+        "policyTitle": "厦门市科学技术局关于开展我市2025年第三批国家级高新技术企业认定申报工作有关事项的通知"
+      },
+      {
+        "id": "a62773f0-1bdb-41c6-96a0-66806e33f4c9",
+        "policyId": "72",
+        "attachmentName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+        "attachmentShowName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+        "filePath": "importantplus/关于开展2025年国家级高新技术企业认定及重新认定工作的通知/attachments/附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+        "fileSuffix": "zip",
+        "attachmentType": "申报材料类",
+        "reviewStatus": "已通过",
+        "name": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+        "sourcePolicyId": "72",
+        "policyTitle": "厦门市高新技术企业认定管理机构关于开展2025年国家级高新技术企业认定及重新认定工作的通知"
+      },
+      {
+        "id": "0d45b2d8-b600-4866-a0d3-7dc3e0ce276a",
+        "policyId": "11119",
+        "attachmentName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+        "attachmentShowName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+        "filePath": "docs1/市级/2025-06-09_厦门市高新技术企业认定管理机构关于开展2025年国家级高新技术企业认定及重新认/附件/附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+        "fileSuffix": "zip",
+        "attachmentType": "申报材料类",
+        "reviewStatus": "已通过",
+        "name": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2025年版）.zip",
+        "sourcePolicyId": "11119",
+        "policyTitle": "厦门市高新技术企业认定管理机构关于开展2025年国家级高新技术企业认定及重新认定工作的通知"
+      },
+      {
+        "id": "0c8ca6ac-fab8-4425-b2e6-a65978d8e93e",
+        "policyId": "16084",
+        "attachmentName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+        "attachmentShowName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+        "filePath": "docs1/新添/厦门市高新技术企业认定专项工作组关于开展2026年国家级高新技术企业认定及重新认定工作的通知_60618WLiep0E43O/attachments/附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+        "fileSuffix": "zip",
+        "attachmentType": "申报材料类",
+        "reviewStatus": "已通过",
+        "name": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+        "sourcePolicyId": "16084",
+        "policyTitle": "厦门市高新技术企业认定专项工作组关于开展2026年国家级高新技术企业认定及重新认定工作的通知"
+      },
+      {
+        "id": "9ed714c6-0a17-41dd-bbe4-96afdd0df501",
+        "policyId": "16089",
+        "attachmentName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+        "attachmentShowName": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+        "filePath": "docs1/新添/厦门火炬高技术产业开发区管理委员会关于组织2026年国家级高新技术企业认定及重新认定工作的通知_60623wOKKcbWEs0/attachments/附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+        "fileSuffix": "zip",
+        "attachmentType": "申报材料类",
+        "reviewStatus": "已通过",
+        "name": "附件3：厦门市国家级高企认定系统申报材料相关表格范本（2026年版）.zip",
+        "sourcePolicyId": "16089",
+        "policyTitle": "厦门火炬高技术产业开发区管理委员会关于组织2026年国家级高新技术企业认定及重新认定工作的通知"
+      },
+      {
+        "id": "8b93c87b-f08b-4852-909a-906b0414acd1",
+        "policyId": "10721",
+        "attachmentName": "附件1：厦门市高新技术企业认定中介机构申请表.doc",
+        "attachmentShowName": "附件1：厦门市高新技术企业认定中介机构申请表.doc",
+        "filePath": "docs1/市级/2025-03-05_厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机/附件/附件1：厦门市高新技术企业认定中介机构申请表.doc",
+        "fileSuffix": "doc",
+        "attachmentType": "申报材料类",
+        "reviewStatus": "已通过",
+        "name": "附件1：厦门市高新技术企业认定中介机构申请表.doc",
+        "sourcePolicyId": "10721",
+        "policyTitle": "厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机构资格确认工作的通知"
+      },
+      {
+        "id": "b841ffee-6de6-4aa7-87c4-11ce3f9a5214",
+        "policyId": "10721",
+        "attachmentName": "附件2：注册会计师（税务师）花名册.xls",
+        "attachmentShowName": "附件2：注册会计师（税务师）花名册.xls",
+        "filePath": "docs1/市级/2025-03-05_厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机/附件/附件2：注册会计师（税务师）花名册.xls",
+        "fileSuffix": "xls",
+        "attachmentType": "申报材料类",
+        "reviewStatus": "已通过",
+        "name": "附件2：注册会计师（税务师）花名册.xls",
+        "sourcePolicyId": "10721",
+        "policyTitle": "厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机构资格确认工作的通知"
+      },
+      {
+        "id": "10ec9ca6-241e-4843-b087-76f9a89d2931",
+        "policyId": "10721",
+        "attachmentName": "附件3：2024年度人员证明材料打印样表.doc",
+        "attachmentShowName": "附件3：2024年度人员证明材料打印样表.doc",
+        "filePath": "docs1/市级/2025-03-05_厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机/附件/附件3：2024年度人员证明材料打印样表.doc",
+        "fileSuffix": "doc",
+        "attachmentType": "申报材料类",
+        "reviewStatus": "已通过",
+        "name": "附件3：2024年度人员证明材料打印样表.doc",
+        "sourcePolicyId": "10721",
+        "policyTitle": "厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机构资格确认工作的通知"
+      },
+      {
+        "id": "6c56dd0e-bfdf-4f6c-94ca-9dd446d5b147",
+        "policyId": "10721",
+        "attachmentName": "附件4：高企认定中介机构资格申请承诺书.docx",
+        "attachmentShowName": "附件4：高企认定中介机构资格申请承诺书.docx",
+        "filePath": "docs1/市级/2025-03-05_厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机/附件/附件4：高企认定中介机构资格申请承诺书.docx",
+        "fileSuffix": "docx",
+        "attachmentType": "申报材料类",
+        "reviewStatus": "已通过",
+        "name": "附件4：高企认定中介机构资格申请承诺书.docx",
+        "sourcePolicyId": "10721",
+        "policyTitle": "厦门市高新技术企业认定管理机构关于开展2025年度厦门市高新技术企业认定中介机构资格确认工作的通知"
+      },
+      {
+        "id": "2c619a79-dad5-4532-aa86-03c79c25a1f6",
+        "policyId": "10856",
+        "attachmentName": "附件：1.高新技术企业认定专家备案表.doc",
+        "attachmentShowName": "附件：1.高新技术企业认定专家备案表.doc",
+        "filePath": "docs1/市级/2025-04-14_厦门市高新技术企业认定管理机构关于继续征集厦门市高新技术企业认定评审专家的通知/附件/附件：1.高新技术企业认定专家备案表.doc",
+        "fileSuffix": "doc",
+        "attachmentType": "申报材料类",
+        "reviewStatus": "已通过",
+        "name": "附件：1.高新技术企业认定专家备案表.doc",
+        "sourcePolicyId": "10856",
+        "policyTitle": "厦门市高新技术企业认定管理机构关于继续征集厦门市高新技术企业认定评审专家的通知"
+      },
+      {
+        "id": "6c31d8c3-b15e-40c4-9460-b70dc99f5ebd",
+        "policyId": "10856",
+        "attachmentName": "附件：2.国家重点支持的高新技术领域-2016版.doc",
+        "attachmentShowName": "附件：2.国家重点支持的高新技术领域-2016版.doc",
+        "filePath": "docs1/市级/2025-04-14_厦门市高新技术企业认定管理机构关于继续征集厦门市高新技术企业认定评审专家的通知/附件/附件：2.国家重点支持的高新技术领域-2016版.doc",
+        "fileSuffix": "doc",
+        "attachmentType": "申报材料类",
+        "reviewStatus": "已通过",
+        "name": "附件：2.国家重点支持的高新技术领域-2016版.doc",
+        "sourcePolicyId": "10856",
+        "policyTitle": "厦门市高新技术企业认定管理机构关于继续征集厦门市高新技术企业认定评审专家的通知"
+      }
+    ],
+    "materials": [
+      {
+        "id": "1152",
+        "materials": "根据系统要求提交《高新技术企业认定申请书》等相关材料。",
+        "method": "1、线上系统申报：企业登录国家“高新技术企业认定管理工作网”（网址：www.innocom.gov.cn）→“企业申报”进入“统一身份认证与单点登录平台”，进行注册登记；登录成功后点击菜单栏中“服务事项”→搜索“高新技术企业认定”，进入国家级高企认定系统后按要求填报《高新技术企业认定申请书》，并上传相关证明材料。\n2、全程无纸化：我市国家级高企认定申报全程无纸化，企业无需提交纸质材料，仅需完成系统申报材料提交。\n3、流程步骤：自我评价→系统申报（注册登记、填报申请书、上传证明材料）→提交至认定机构。",
+        "url": "www.innocom.gov.cn"
+      }
+    ]
+  }
+}
