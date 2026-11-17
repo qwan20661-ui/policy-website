@@ -86,3 +86,24 @@ script/
 # 本机未审核的数据库快照和企业画像
 /docs/imp_exp_20260717154816.dmp
 /docs/E2.json
+
+# 本地保留的离线开发、训练和历史资料
+/.claude/
+/skill训练文件md/
+/7.15POLICY_METADATA_机器标注.xlsx
+/8.4含有实施细则或申报通知的分类.md
+/backend/PEMatching/add_sidebar.js
+/backend/PEMatching/embed_data.js
+/backend/PEMatching/llm_matching_results.html
+/backend/PEMatching/regenerate_html.js
+/backend/PEMatching/revert_html.js
+/backend/PEMatching_v2/config/eligibility/manifest.json.bak.20260805
+/backend/PEMatching_v2/config/eligibility/policy_profiles.jsonl.bak.20260805
+/backend/PEMatching_v2/config/policy_snapshot.json.bak.20260805
+/backend/PEMatching_v2/config/policy_tags.json.bak.20260805
+/json/demo.json
+/json/fusion_trace.json
+/mainpolicy/all_policy_data.json
+/全量归类含实施细则或申报通知的主政策报告.md
+/政策解读智能管理系统实习项目.docx
+/附件人工未标注_机器标注.xlsx
